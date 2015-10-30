@@ -42,7 +42,6 @@ import org.eclipse.xtext.xbase.file.WorkspaceConfig;
 import org.eclipse.xtext.xbase.formatting.NodeModelAccess;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelInferrer;
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder;
-import org.eclipse.xtext.xbase.resource.BatchLinkableResourceStorageFacade;
 import org.eclipse.xtext.xbase.scoping.batch.ImplicitlyImportedFeatures;
 import org.eclipse.xtext.xbase.typesystem.computation.ITypeComputer;
 import org.eclipse.xtext.xbase.typesystem.internal.ScopeProviderAccess;
@@ -78,6 +77,7 @@ import org.jnario.jvmmodel.JnarioNameProvider;
 import org.jnario.jvmmodel.JnarioSignatureHashBuilder;
 import org.jnario.report.Executable2ResultMapping;
 import org.jnario.report.HashBasedSpec2ResultMapping;
+import org.jnario.resource.NonStoringBatchLinkableResourceStorageFacade;
 import org.jnario.scoping.JnarioImplicitlyImportedFeatures;
 import org.jnario.scoping.JnarioResourceDescriptionStrategy;
 import org.jnario.typing.JnarioTypeComputer;
@@ -88,34 +88,23 @@ import com.google.inject.name.Names;
 /**
  * @author Birgit Engelmann - Initial contribution and API
  */
-public class FeatureRuntimeModule extends
-		org.jnario.feature.AbstractFeatureRuntimeModule {
+public class FeatureRuntimeModule extends org.jnario.feature.AbstractFeatureRuntimeModule {
 
 	@Override
 	public void configure(Binder binder) {
 		super.configure(binder);
-//		binder.bind(FlexerFactory.class).in(Scopes.SINGLETON);
+		// binder.bind(FlexerFactory.class).in(Scopes.SINGLETON);
 		binder.bind(AbstractDocGenerator.class).to(FeatureDocGenerator.class);
-		binder.bind(SignatureHashBuilder.class).to(
-				JnarioSignatureHashBuilder.class);
-		binder.bind(JnarioNameProvider.class)
-				.to(FeatureClassNameProvider.class);
-		binder.bind(ExecutableProvider.class).to(
-				FeatureExecutableProvider.class);
-		binder.bind(Executable2ResultMapping.class).to(
-				HashBasedSpec2ResultMapping.class);
-		binder.bind(ImplicitlyImportedFeatures.class).to(
-				JnarioImplicitlyImportedFeatures.class);
-		binder.bind(ScopeProviderAccess.class).to(
-				FeatureScopeProviderAccess.class);
-		binder.bind(NamesAreUniqueValidationHelper.class).to(
-				FeatureNamesAreUniqueValidationHelper.class);
-		binder.bind(boolean.class)
-				.annotatedWith(
-						Names.named(CompositeEValidator.USE_EOBJECT_VALIDATOR))
-				.toInstance(false);
+		binder.bind(SignatureHashBuilder.class).to(JnarioSignatureHashBuilder.class);
+		binder.bind(JnarioNameProvider.class).to(FeatureClassNameProvider.class);
+		binder.bind(ExecutableProvider.class).to(FeatureExecutableProvider.class);
+		binder.bind(Executable2ResultMapping.class).to(HashBasedSpec2ResultMapping.class);
+		binder.bind(ImplicitlyImportedFeatures.class).to(JnarioImplicitlyImportedFeatures.class);
+		binder.bind(ScopeProviderAccess.class).to(FeatureScopeProviderAccess.class);
+		binder.bind(NamesAreUniqueValidationHelper.class).to(FeatureNamesAreUniqueValidationHelper.class);
+		binder.bind(boolean.class).annotatedWith(Names.named(CompositeEValidator.USE_EOBJECT_VALIDATOR)).toInstance(false);
 		binder.bind(JnarioBatchCompiler.class).to(FeatureBatchCompiler.class);
-//		binder.bind(AnnotationProcessor.class).to(JnarioAnnotationProcessor.class);
+		// binder.bind(AnnotationProcessor.class).to(JnarioAnnotationProcessor.class);
 	}
 
 	public Class<? extends JvmTypesBuilder> bindJvmTypesBuilder() {
@@ -145,51 +134,51 @@ public class FeatureRuntimeModule extends
 	}
 
 	// TODO NO_XTEND
-//	public Class<? extends JnarioBatchCompiler> bindJnarioBatchCompiler() {
-//		return FeatureBatchCompiler.class;
-//	}
+	// public Class<? extends JnarioBatchCompiler> bindJnarioBatchCompiler() {
+	// return FeatureBatchCompiler.class;
+	// }
 
 	/**********************************************************************************/
-	
+
 	public Class<? extends XExpressionHelper> bindXExpressionHelper() {
 		return JnarioExpressionHelper.class;
 	}
-	
+
 	@Override
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
 		return FeatureValueConverterService.class;
 	}
-	
+
 	@Override
 	public void configureIScopeProviderDelegate(Binder binder) {
 		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
-			.to(FeatureImportedNamespaceScopeProvider.class);
+				.to(FeatureImportedNamespaceScopeProvider.class);
 	}
 
 	@Override
 	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return FeatureQualifiedNameProvider.class;
 	}
-	
+
 	@Override
-	public Class <? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
+	public Class<? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
 		return JnarioResourceDescriptionStrategy.class;
 	}
 
-// TODO NO_XTEND
-//	public Class<? extends JvmModelAssociator> bindJvmModelAssociator() {
-//		return IXtendJvmAssociations.Impl.class;
-//	}
+	// TODO NO_XTEND
+	// public Class<? extends JvmModelAssociator> bindJvmModelAssociator() {
+	// return IXtendJvmAssociations.Impl.class;
+	// }
 
 	// TODO NO_XTEND
-//	public Class<? extends EarlyExitValidator> bindEarlyExitValidator() {
-//		return XtendEarlyExitValidator.class;
-//	}
-//	
-//	public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
-//		return XtendOutputConfigurationProvider.class;
-//	}
-	
+	// public Class<? extends EarlyExitValidator> bindEarlyExitValidator() {
+	// return XtendEarlyExitValidator.class;
+	// }
+	//
+	// public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
+	// return XtendOutputConfigurationProvider.class;
+	// }
+
 	@Override
 	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
 		return FeatureLocationInFileProvider.class;
@@ -199,37 +188,37 @@ public class FeatureRuntimeModule extends
 	public Class<? extends ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
 		return FeatureLinkingDiagnosticMessageProvider.class;
 	}
-	
+
 	// TODO NO_XTEND
-//	public Class<? extends IImportsConfiguration> bindIImportsConfiguration() {
-//		return XtendImportsConfiguration.class;
-//	}
-//
-//	@Override
-//	public Class<? extends ConfigurableIssueCodesProvider> bindConfigurableIssueCodesProvider() {
-//		return XtendConfigurableIssueCodes.class;
-//	}
-//	
-//	public XtendFactory bindXtendFactory() {
-//		return XtendFactory.eINSTANCE;
-//	}
-//
-//	@Override
-//	public Class<? extends DefaultBatchTypeResolver> bindDefaultBatchTypeResolver() {
-//		return TypeDeclarationAwareBatchTypeResolver.class;
-//	}
-//
-//	public Class<? extends DefaultReentrantTypeResolver> bindDefaultReentrantTypeResolver() {
-//		return XtendReentrantTypeResolver.class;
-//	}
-//	
+	// public Class<? extends IImportsConfiguration> bindIImportsConfiguration() {
+	// return XtendImportsConfiguration.class;
+	// }
+	//
+	// @Override
+	// public Class<? extends ConfigurableIssueCodesProvider> bindConfigurableIssueCodesProvider() {
+	// return XtendConfigurableIssueCodes.class;
+	// }
+	//
+	// public XtendFactory bindXtendFactory() {
+	// return XtendFactory.eINSTANCE;
+	// }
+	//
+	// @Override
+	// public Class<? extends DefaultBatchTypeResolver> bindDefaultBatchTypeResolver() {
+	// return TypeDeclarationAwareBatchTypeResolver.class;
+	// }
+	//
+	// public Class<? extends DefaultReentrantTypeResolver> bindDefaultReentrantTypeResolver() {
+	// return XtendReentrantTypeResolver.class;
+	// }
+	//
 	public Class<? extends XbaseCompiler> bindXbaseCompiler() {
 		return FeatureCompiler.class;
 	}
-//	
-//	public Class<? extends TraceAwarePostProcessor> bindTraceAwarePostProcessor() {
-//		return UnicodeAwarePostProcessor.class;
-//	}
+	//
+	// public Class<? extends TraceAwarePostProcessor> bindTraceAwarePostProcessor() {
+	// return UnicodeAwarePostProcessor.class;
+	// }
 
 	@Override
 	public Class<? extends ITypeComputer> bindITypeComputer() {
@@ -239,23 +228,23 @@ public class FeatureRuntimeModule extends
 	public Class<? extends IJvmModelInferrer> bindIJvmModelInferrer() {
 		return FeatureJvmModelInferrer.class;
 	}
-	
+
 	// TODO NO_XTEND
-//	@Override
-//	public Class<? extends Manager> bindIResourceDescription$Manager() {
-//		return XtendResourceDescriptionManager.class;
-//	}
-//	
-//	@Override
-//	public Class<? extends IResourceValidator> bindIResourceValidator() {
-//		return org.eclipse.xtend.core.validation.CachingResourceValidatorImpl.class;
-//	}
-	
+	// @Override
+	// public Class<? extends Manager> bindIResourceDescription$Manager() {
+	// return XtendResourceDescriptionManager.class;
+	// }
+	//
+	// @Override
+	// public Class<? extends IResourceValidator> bindIResourceValidator() {
+	// return org.eclipse.xtend.core.validation.CachingResourceValidatorImpl.class;
+	// }
+
 	@Override
 	public Class<? extends ILinker> bindILinker() {
 		return FeatureLazyLinker.class;
 	}
-	
+
 	/**
 	 * @since 2.4.2
 	 */
@@ -263,40 +252,39 @@ public class FeatureRuntimeModule extends
 	public void configureIResourceDescriptions(com.google.inject.Binder binder) {
 		binder.bind(IResourceDescriptions.class).to(EagerResourceSetBasedResourceDescriptions.class);
 	}
-	
+
 	public Class<? extends IResourceStorageFacade> bindResourceStorageFacade() {
-		return BatchLinkableResourceStorageFacade.class;
+		return NonStoringBatchLinkableResourceStorageFacade.class;
 	}
 
 	public Class<? extends AbstractFileSystemSupport> bindAbstractFileSystemSupport() {
 		return JavaIOFileSystemSupport.class;
 	}
-	
+
 	// TODO NO_XTEND
-//	@Override
-//	public Class<? extends IGenerator> bindIGenerator() {
-//		return XtendGenerator.class;
-//	}
-	
+	// @Override
+	// public Class<? extends IGenerator> bindIGenerator() {
+	// return XtendGenerator.class;
+	// }
+
 	public void configureWorkspaceConfigContribution(Binder binder) {
 		binder.bind(WorkspaceConfig.class).toProvider(RuntimeWorkspaceConfigProvider.class);
 	}
 
-// TODO NO_XTEND	
-//	public Class<? extends FileLocations> bindFileLocations() {
-//		return FileLocationsImpl.class;
-//	}
-	
-	
+	// TODO NO_XTEND
+	// public Class<? extends FileLocations> bindFileLocations() {
+	// return FileLocationsImpl.class;
+	// }
+
 	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
 		return XtendDocumentationProvider.class;
 	}
-	
+
 	@Override
 	public Class<? extends IParser> bindIParser() {
 		return CustomFeatureParser.class;
 	}
-	
+
 	public Class<? extends TokenRegionProvider> bindTokenRegionProvider() {
 		return TokenRegionProvider.class;
 	}
@@ -304,32 +292,32 @@ public class FeatureRuntimeModule extends
 	public Class<? extends IDValueConverter> bindIDValueConverter() {
 		return JnarioJavaIDValueConverter.class;
 	}
-	
-	public Class<? extends NodeModelAccess> bindNodeModelAccess(){
+
+	public Class<? extends NodeModelAccess> bindNodeModelAccess() {
 		return JnarioNodeModelAccess.class;
 	}
-	
+
 	// TODO NO_XTEND
-//	@Override
-//	public Class<? extends EObjectAtOffsetHelper> bindEObjectAtOffsetHelper() {
-//		return XtendEObjectAtOffsetHelper.class;
-//	}
-//	
-//	public Class<? extends ImplicitReturnFinder> bindImplicitReturnFinder() {
-//		return XtendImplicitReturnFinder.class;
-//	}
-//	
-//	public Class<? extends HumanReadableTypeNames> bindHumanReadableTypeNames() {
-//		return LocalClassAwareTypeNames.class;
-//	}
-//	
-//	public Class<? extends ConstructorScopes> bindConstructorScopes() {
-//		return AnonymousClassConstructorScopes.class;
-//	}
-//	
-//	
-//	public Class<? extends ResourceChangeRegistry> bindResourceChangeRegistry() {
-//		return NopResourceChangeRegistry.class;
-//	}
-	
+	// @Override
+	// public Class<? extends EObjectAtOffsetHelper> bindEObjectAtOffsetHelper() {
+	// return XtendEObjectAtOffsetHelper.class;
+	// }
+	//
+	// public Class<? extends ImplicitReturnFinder> bindImplicitReturnFinder() {
+	// return XtendImplicitReturnFinder.class;
+	// }
+	//
+	// public Class<? extends HumanReadableTypeNames> bindHumanReadableTypeNames() {
+	// return LocalClassAwareTypeNames.class;
+	// }
+	//
+	// public Class<? extends ConstructorScopes> bindConstructorScopes() {
+	// return AnonymousClassConstructorScopes.class;
+	// }
+	//
+	//
+	// public Class<? extends ResourceChangeRegistry> bindResourceChangeRegistry() {
+	// return NopResourceChangeRegistry.class;
+	// }
+
 }

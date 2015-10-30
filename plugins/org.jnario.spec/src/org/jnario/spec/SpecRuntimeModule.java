@@ -10,7 +10,6 @@
  */
 package org.jnario.spec;
 
-
 import org.eclipse.xtend.lib.macro.file.FileLocations;
 import org.eclipse.xtext.common.types.descriptions.JvmDeclaredTypeSignatureHashProvider.SignatureHashBuilder;
 import org.eclipse.xtext.conversion.IValueConverterService;
@@ -41,7 +40,6 @@ import org.eclipse.xtext.xbase.file.WorkspaceConfig;
 import org.eclipse.xtext.xbase.formatting.NodeModelAccess;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelInferrer;
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder;
-import org.eclipse.xtext.xbase.resource.BatchLinkableResourceStorageFacade;
 import org.eclipse.xtext.xbase.scoping.batch.ImplicitlyImportedFeatures;
 import org.eclipse.xtext.xbase.scoping.batch.XbaseBatchScopeProvider;
 import org.eclipse.xtext.xbase.typesystem.computation.ITypeComputer;
@@ -65,6 +63,7 @@ import org.jnario.linking.JnarioLinkingDiagnosticMessageProvider;
 import org.jnario.linking.JnarioLinkingService;
 import org.jnario.report.Executable2ResultMapping;
 import org.jnario.report.HashBasedSpec2ResultMapping;
+import org.jnario.resource.NonStoringBatchLinkableResourceStorageFacade;
 import org.jnario.scoping.JnarioImplicitlyImportedFeatures;
 import org.jnario.spec.compiler.SpecBatchCompiler;
 import org.jnario.spec.conversion.SpecValueConverterService;
@@ -91,7 +90,7 @@ public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule
 	@Override
 	public void configure(Binder binder) {
 		super.configure(binder);
-//		binder.bind(FlexerFactory.class).in(Scopes.SINGLETON);
+		// binder.bind(FlexerFactory.class).in(Scopes.SINGLETON);
 		binder.bind(AbstractDocGenerator.class).to(SpecDocGenerator.class);
 		binder.bind(SignatureHashBuilder.class).to(JnarioSignatureHashBuilder.class);
 		binder.bind(JnarioSyntheticNameClashResolver.class).to(SpecSyntheticNameClashResolver.class);
@@ -99,124 +98,123 @@ public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule
 		binder.bind(ExecutableProvider.class).to(SpecExecutableProvider.class);
 		binder.bind(Executable2ResultMapping.class).to(HashBasedSpec2ResultMapping.class);
 		binder.bind(ImplicitlyImportedFeatures.class).to(JnarioImplicitlyImportedFeatures.class);
-		binder.bind(boolean.class).annotatedWith(
-				Names.named(CompositeEValidator.USE_EOBJECT_VALIDATOR)).toInstance(false);
+		binder.bind(boolean.class).annotatedWith(Names.named(CompositeEValidator.USE_EOBJECT_VALIDATOR)).toInstance(false);
 		binder.bind(JnarioBatchCompiler.class).to(SpecBatchCompiler.class);
 	}
-	
-	public Class<? extends JvmTypesBuilder> bindJvmTypesBuilder(){
+
+	public Class<? extends JvmTypesBuilder> bindJvmTypesBuilder() {
 		return ExtendedJvmTypesBuilder.class;
 	}
-	
-//	public Class<? extends JvmModelGenerator> bindJvmModelGenerator(){
-//		return SpecJvmModelGenerator.class;
-//	}
+
+	// public Class<? extends JvmModelGenerator> bindJvmModelGenerator(){
+	// return SpecJvmModelGenerator.class;
+	// }
 
 	public Class<? extends OutputConfigurationProvider> bindOutputConfigurationProvider() {
 		return DocOutputConfigurationProvider.class;
 	}
-	
+
 	public Class<? extends IFilePostProcessor> bindPostProcessor() {
 		return TraceAwarePostProcessor.class;
 	}
-	
+
 	@Override
 	public Class<? extends ILinkingService> bindILinkingService() {
 		return JnarioLinkingService.class;
 	}
-	
+
 	public Class<? extends JavaIoFileSystemAccess> bindJavaIoFileSystemAccess() {
 		return JnarioJavaIoFileSystemAccess.class;
 	}
-	
+
 	public XbaseFactory bindXbaseFactory() {
 		return XbaseFactory.eINSTANCE;
 	}
-	
+
 	@Override
 	public Class<? extends XbaseBatchScopeProvider> bindXbaseBatchScopeProvider() {
 		return SpecBatchScopeProvider.class;
 	}
-	
+
 	/**********************************************************************/
-	
+
 	public Class<? extends XExpressionHelper> bindXExpressionHelper() {
 		return JnarioExpressionHelper.class;
 	}
-	
+
 	@Override
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
 		return SpecValueConverterService.class;
 	}
-	
+
 	@Override
 	public void configureIScopeProviderDelegate(Binder binder) {
 		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
-			.to(SpecImportedNamespaceScopeProvider.class);
+				.to(SpecImportedNamespaceScopeProvider.class);
 	}
 
 	@Override
 	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return SpecQualifiedNameProvider.class;
 	}
-	
+
 	@Override
-	public Class <? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
+	public Class<? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
 		return SpecResourceDescriptionStrategy.class;
 	}
 
-//	public Class<? extends JvmModelAssociator> bindJvmModelAssociator() {
-//		return IXtendJvmAssociations.Impl.class;
-//	}
-//
-//	public Class<? extends EarlyExitValidator> bindEarlyExitValidator() {
-//		return XtendEarlyExitValidator.class;
-//	}
-//	
-//	public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
-//		return XtendOutputConfigurationProvider.class;
-//	}
-	
-//	@Override
-//	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
-//		return XtendLocationInFileProvider.class;
-//	}
+	// public Class<? extends JvmModelAssociator> bindJvmModelAssociator() {
+	// return IXtendJvmAssociations.Impl.class;
+	// }
+	//
+	// public Class<? extends EarlyExitValidator> bindEarlyExitValidator() {
+	// return XtendEarlyExitValidator.class;
+	// }
+	//
+	// public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
+	// return XtendOutputConfigurationProvider.class;
+	// }
+
+	// @Override
+	// public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
+	// return XtendLocationInFileProvider.class;
+	// }
 
 	@Override
 	public Class<? extends ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
 		return JnarioLinkingDiagnosticMessageProvider.class;
 	}
-	
-//	public Class<? extends IImportsConfiguration> bindIImportsConfiguration() {
-//		return XtendImportsConfiguration.class;
-//	}
-//
-//	@Override
-//	public Class<? extends ConfigurableIssueCodesProvider> bindConfigurableIssueCodesProvider() {
-//		return XtendConfigurableIssueCodes.class;
-//	}
-//	
-//	public XtendFactory bindXtendFactory() {
-//		return XtendFactory.eINSTANCE;
-//	}
-//
-//	@Override
-//	public Class<? extends DefaultBatchTypeResolver> bindDefaultBatchTypeResolver() {
-//		return TypeDeclarationAwareBatchTypeResolver.class;
-//	}
+
+	// public Class<? extends IImportsConfiguration> bindIImportsConfiguration() {
+	// return XtendImportsConfiguration.class;
+	// }
+	//
+	// @Override
+	// public Class<? extends ConfigurableIssueCodesProvider> bindConfigurableIssueCodesProvider() {
+	// return XtendConfigurableIssueCodes.class;
+	// }
+	//
+	// public XtendFactory bindXtendFactory() {
+	// return XtendFactory.eINSTANCE;
+	// }
+	//
+	// @Override
+	// public Class<? extends DefaultBatchTypeResolver> bindDefaultBatchTypeResolver() {
+	// return TypeDeclarationAwareBatchTypeResolver.class;
+	// }
 
 	@Override
 	public Class<? extends DefaultReentrantTypeResolver> bindDefaultReentrantTypeResolver() {
 		return JnarioTypeResolver.class;
 	}
-	
+
 	public Class<? extends XbaseCompiler> bindXbaseCompiler() {
 		return JnarioCompiler.class;
 	}
 
-//	public Class<? extends TraceAwarePostProcessor> bindTraceAwarePostProcessor() {
-//		return UnicodeAwarePostProcessor.class;
-//	}
+	// public Class<? extends TraceAwarePostProcessor> bindTraceAwarePostProcessor() {
+	// return UnicodeAwarePostProcessor.class;
+	// }
 
 	@Override
 	public Class<? extends ITypeComputer> bindITypeComputer() {
@@ -226,22 +224,22 @@ public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule
 	public Class<? extends IJvmModelInferrer> bindIJvmModelInferrer() {
 		return SpecJvmModelInferrer.class;
 	}
-	
-//	@Override
-//	public Class<? extends Manager> bindIResourceDescription$Manager() {
-//		return XtendResourceDescriptionManager.class;
-//	}
-//	
-//	@Override
-//	public Class<? extends IResourceValidator> bindIResourceValidator() {
-//		return org.eclipse.xtend.core.validation.CachingResourceValidatorImpl.class;
-//	}
-	
-//	@Override
-//	public Class<? extends ILinker> bindILinker() {
-//		return SpecLazyLinker.class;
-//	}
-	
+
+	// @Override
+	// public Class<? extends Manager> bindIResourceDescription$Manager() {
+	// return XtendResourceDescriptionManager.class;
+	// }
+	//
+	// @Override
+	// public Class<? extends IResourceValidator> bindIResourceValidator() {
+	// return org.eclipse.xtend.core.validation.CachingResourceValidatorImpl.class;
+	// }
+
+	// @Override
+	// public Class<? extends ILinker> bindILinker() {
+	// return SpecLazyLinker.class;
+	// }
+
 	/**
 	 * @since 2.4.2
 	 */
@@ -249,66 +247,66 @@ public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule
 	public void configureIResourceDescriptions(com.google.inject.Binder binder) {
 		binder.bind(IResourceDescriptions.class).to(EagerResourceSetBasedResourceDescriptions.class);
 	}
-	
+
 	public Class<? extends IResourceStorageFacade> bindResourceStorageFacade() {
-		return BatchLinkableResourceStorageFacade.class;
+		return NonStoringBatchLinkableResourceStorageFacade.class;
 	}
 
 	public Class<? extends AbstractFileSystemSupport> bindAbstractFileSystemSupport() {
 		return JavaIOFileSystemSupport.class;
 	}
-	
-//	@Override
-//	public Class<? extends IGenerator> bindIGenerator() {
-//		return XtendGenerator.class;
-//	}
-	
+
+	// @Override
+	// public Class<? extends IGenerator> bindIGenerator() {
+	// return XtendGenerator.class;
+	// }
+
 	public void configureWorkspaceConfigContribution(Binder binder) {
 		binder.bind(WorkspaceConfig.class).toProvider(RuntimeWorkspaceConfigProvider.class);
 	}
-	
+
+	@Override
 	public Class<? extends FileLocations> bindFileLocations() {
 		return FileLocationsImpl.class;
 	}
-	
+
 	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
 		return XtendDocumentationProvider.class;
 	}
-	
+
 	@Override
 	public Class<? extends IParser> bindIParser() {
 		return SpecParserWithoutPartialParsing.class;
 	}
-	
+
 	public Class<? extends IDValueConverter> bindIDValueConverter() {
 		return JnarioJavaIDValueConverter.class;
 	}
-	
-	public Class<? extends NodeModelAccess> bindNodeModelAccess(){
+
+	public Class<? extends NodeModelAccess> bindNodeModelAccess() {
 		return JnarioNodeModelAccess.class;
 	}
-	
 
-//	@Override
-//	public Class<? extends EObjectAtOffsetHelper> bindEObjectAtOffsetHelper() {
-//		return XtendEObjectAtOffsetHelper.class;
-//	}
-//	
-//	public Class<? extends ImplicitReturnFinder> bindImplicitRetrnFinder() {
-//		return XtendImplicitReturnFinder.class;
-//	}
-//	
-//	public Class<? extends HumanReadableTypeNames> bindHumanReadableTypeNames() {
-//		return LocalClassAwareTypeNames.class;
-//	}
-//	
-//	public Class<? extends ConstructorScopes> bindConstructorScopes() {
-//		return AnonymousClassConstructorScopes.class;
-//	}
-//	
-//	
-//	public Class<? extends ResourceChangeRegistry> bindResourceChangeRegistry() {
-//		return NopResourceChangeRegistry.class;
-//	}
-	
+	// @Override
+	// public Class<? extends EObjectAtOffsetHelper> bindEObjectAtOffsetHelper() {
+	// return XtendEObjectAtOffsetHelper.class;
+	// }
+	//
+	// public Class<? extends ImplicitReturnFinder> bindImplicitRetrnFinder() {
+	// return XtendImplicitReturnFinder.class;
+	// }
+	//
+	// public Class<? extends HumanReadableTypeNames> bindHumanReadableTypeNames() {
+	// return LocalClassAwareTypeNames.class;
+	// }
+	//
+	// public Class<? extends ConstructorScopes> bindConstructorScopes() {
+	// return AnonymousClassConstructorScopes.class;
+	// }
+	//
+	//
+	// public Class<? extends ResourceChangeRegistry> bindResourceChangeRegistry() {
+	// return NopResourceChangeRegistry.class;
+	// }
+
 }
