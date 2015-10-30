@@ -23,8 +23,7 @@ public abstract class JnarioAbstractCommentRichTextValueConverter extends Abstra
 	
 	@Override
 	protected String toEscapedString(String value) {
-		// TODO: Is this the correct line separator? 
-		return super.toEscapedString("\n" + value);
+		return super.toEscapedString(System.lineSeparator() + value);
 	}
 	
 	// TODO NO_XTEND
