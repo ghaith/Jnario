@@ -8,12 +8,11 @@
 package org.jnario.jnario.tests.unit.doc;
 
 import java.util.Arrays;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import java.util.function.Consumer;
 import org.jnario.doc.Filter;
 import org.jnario.doc.RegexFilter;
 import org.jnario.jnario.tests.unit.doc.RegexFilterSpecFilteringExamples;
 import org.jnario.lib.Assert;
-import org.jnario.lib.Each;
 import org.jnario.lib.ExampleTable;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
@@ -103,9 +102,9 @@ public class RegexFilterSpec {
   @Named("removes all matched elements")
   @Order(1)
   public void _removesAllMatchedElements() throws Exception {
-    final Procedure1<RegexFilterSpecFilteringExamples> _function = new Procedure1<RegexFilterSpecFilteringExamples>() {
+    final Consumer<RegexFilterSpecFilteringExamples> _function = new Consumer<RegexFilterSpecFilteringExamples>() {
       @Override
-      public void apply(final RegexFilterSpecFilteringExamples it) {
+      public void accept(final RegexFilterSpecFilteringExamples it) {
         String _regex = it.getRegex();
         final Filter filter = RegexFilter.create(_regex);
         String _string = it.getString();
@@ -119,6 +118,6 @@ public class RegexFilterSpec {
         
       }
     };
-    Each.<RegexFilterSpecFilteringExamples>forEach(this.filteringExamples, _function);
+    this.filteringExamples.forEach(_function);
   }
 }

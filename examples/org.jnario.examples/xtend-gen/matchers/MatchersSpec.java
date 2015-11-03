@@ -1,6 +1,7 @@
 package matchers;
 
 import matchers.Person;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.jnario.lib.Assert;
 import org.jnario.runner.ExampleGroupRunner;
@@ -31,8 +32,9 @@ public class MatchersSpec {
     
   }
   
-  public Function1<Person, Boolean> olderThan(final Person p) {
+  public Function1<Person, Boolean> olderThan(@Extension final Person p) {
     final Function1<Person, Boolean> _function = new Function1<Person, Boolean>() {
+      @Override
       public Boolean apply(final Person other) {
         int _age = other.getAge();
         int _age_1 = p.getAge();
@@ -44,6 +46,7 @@ public class MatchersSpec {
   
   public Function1<Person, Boolean> underAge() {
     final Function1<Person, Boolean> _function = new Function1<Person, Boolean>() {
+      @Override
       public Boolean apply(final Person p) {
         int _age = p.getAge();
         return Boolean.valueOf((_age < 18));
@@ -52,7 +55,7 @@ public class MatchersSpec {
     return _function;
   }
   
-  public <T extends Object> Boolean should_be(final T obj, final Function1<T, Boolean> func) {
+  public <T extends Object> Boolean should_be(@Extension final T obj, @Extension final Function1<T, Boolean> func) {
     return func.apply(obj);
   }
 }

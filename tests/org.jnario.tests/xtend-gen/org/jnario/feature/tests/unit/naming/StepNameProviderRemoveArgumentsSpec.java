@@ -8,12 +8,11 @@
 package org.jnario.feature.tests.unit.naming;
 
 import java.util.Arrays;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import java.util.function.Consumer;
 import org.jnario.feature.tests.unit.naming.StepNameProviderRemoveArgumentsSpecExamples;
 import org.jnario.feature.tests.unit.naming.StepNameProviderSpec;
 import org.jnario.lib.Assert;
 import org.jnario.lib.ExampleTable;
-import org.jnario.lib.ExampleTableIterators;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
 import org.jnario.runner.Named;
@@ -55,9 +54,9 @@ public class StepNameProviderRemoveArgumentsSpec extends StepNameProviderSpec {
   @Named("examples do pass")
   @Order(1)
   public void _examplesDoPass() throws Exception {
-    final Procedure1<StepNameProviderRemoveArgumentsSpecExamples> _function = new Procedure1<StepNameProviderRemoveArgumentsSpecExamples>() {
+    final Consumer<StepNameProviderRemoveArgumentsSpecExamples> _function = new Consumer<StepNameProviderRemoveArgumentsSpecExamples>() {
       @Override
-      public void apply(final StepNameProviderRemoveArgumentsSpecExamples it) {
+      public void accept(final StepNameProviderRemoveArgumentsSpecExamples it) {
         String _step = it.getStep();
         String _plus = ("Scenario: scenario\n" + _step);
         String _plus_1 = (_plus + "\n");
@@ -73,6 +72,6 @@ public class StepNameProviderRemoveArgumentsSpec extends StepNameProviderSpec {
         
       }
     };
-    ExampleTableIterators.<StepNameProviderRemoveArgumentsSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
 }

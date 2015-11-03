@@ -8,12 +8,11 @@
 package org.jnario.jnario.tests.unit.doc;
 
 import java.util.Arrays;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import java.util.function.Consumer;
 import org.jnario.doc.WhiteSpaceNormalizer;
 import org.jnario.jnario.tests.unit.doc.WhiteSpaceNormalizerSpecExamples;
 import org.jnario.lib.Assert;
 import org.jnario.lib.ExampleTable;
-import org.jnario.lib.ExampleTableIterators;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
 import org.jnario.runner.Named;
@@ -140,9 +139,9 @@ public class WhiteSpaceNormalizerSpec {
   @Named("should remove trailing whitespace")
   @Order(1)
   public void _shouldRemoveTrailingWhitespace() throws Exception {
-    final Procedure1<WhiteSpaceNormalizerSpecExamples> _function = new Procedure1<WhiteSpaceNormalizerSpecExamples>() {
+    final Consumer<WhiteSpaceNormalizerSpecExamples> _function = new Consumer<WhiteSpaceNormalizerSpecExamples>() {
       @Override
-      public void apply(final WhiteSpaceNormalizerSpecExamples it) {
+      public void accept(final WhiteSpaceNormalizerSpecExamples it) {
         String _input = it.getInput();
         String _normalize = WhiteSpaceNormalizerSpec.this.subject.normalize(_input);
         String _result = it.getResult();
@@ -154,7 +153,7 @@ public class WhiteSpaceNormalizerSpec {
         
       }
     };
-    ExampleTableIterators.<WhiteSpaceNormalizerSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
   
   @Test

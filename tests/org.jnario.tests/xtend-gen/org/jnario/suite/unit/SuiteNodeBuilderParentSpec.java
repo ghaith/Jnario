@@ -10,11 +10,10 @@ package org.jnario.suite.unit;
 import com.google.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.lib.Assert;
 import org.jnario.lib.ExampleTable;
-import org.jnario.lib.ExampleTableIterators;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
 import org.jnario.runner.Named;
@@ -103,9 +102,9 @@ public class SuiteNodeBuilderParentSpec extends SuiteNodeBuilderSpec {
   @Named("parent is suite with less hashes")
   @Order(1)
   public void _parentIsSuiteWithLessHashes() throws Exception {
-    final Procedure1<SuiteNodeBuilderParentSpecExamples> _function = new Procedure1<SuiteNodeBuilderParentSpecExamples>() {
+    final Consumer<SuiteNodeBuilderParentSpecExamples> _function = new Consumer<SuiteNodeBuilderParentSpecExamples>() {
       @Override
-      public void apply(final SuiteNodeBuilderParentSpecExamples it) {
+      public void accept(final SuiteNodeBuilderParentSpecExamples it) {
         List<Suite> _suites = it.getSuites();
         int _position = it.getPosition();
         Suite _parent = SuiteNodeBuilderParentSpec.this._suiteNodeBuilder.parent(_suites, _position);
@@ -123,6 +122,6 @@ public class SuiteNodeBuilderParentSpec extends SuiteNodeBuilderSpec {
         
       }
     };
-    ExampleTableIterators.<SuiteNodeBuilderParentSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
 }

@@ -9,10 +9,10 @@ package org.jnario.jnario.tests.unit.jnario;
 
 import com.google.inject.Inject;
 import java.util.Arrays;
+import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.ExampleCell;
 import org.jnario.ExampleColumn;
 import org.jnario.jnario.test.util.ModelStore;
@@ -21,7 +21,6 @@ import org.jnario.jnario.test.util.SpecTestCreator;
 import org.jnario.jnario.tests.unit.jnario.ExampleColumnSpecExamples;
 import org.jnario.lib.Assert;
 import org.jnario.lib.ExampleTable;
-import org.jnario.lib.ExampleTableIterators;
 import org.jnario.lib.Should;
 import org.jnario.runner.CreateWith;
 import org.jnario.runner.ExampleGroupRunner;
@@ -110,9 +109,9 @@ public class ExampleColumnSpec {
   @Order(1)
   public void _calculatesCellsBasedOnTable() throws Exception {
     this._modelStore.parseSpec("package bootstrap\r\ndescribe \"ExampleTable\"{\r\n\tdef{\r\n\t\t| a | b |\r\n\t\t| 1 | 2 |\r\n\t\t| 3 | 4 |\r\n\t}\r\n}\r\n");
-    final Procedure1<ExampleColumnSpecExamples> _function = new Procedure1<ExampleColumnSpecExamples>() {
+    final Consumer<ExampleColumnSpecExamples> _function = new Consumer<ExampleColumnSpecExamples>() {
       @Override
-      public void apply(final ExampleColumnSpecExamples it) {
+      public void accept(final ExampleColumnSpecExamples it) {
         Query _query = ExampleColumnSpec.this._modelStore.query();
         org.jnario.ExampleTable _first = _query.<org.jnario.ExampleTable>first(org.jnario.ExampleTable.class);
         final EList<ExampleColumn> columns = _first.getColumns();
@@ -132,6 +131,6 @@ public class ExampleColumnSpec {
         
       }
     };
-    ExampleTableIterators.<ExampleColumnSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
 }

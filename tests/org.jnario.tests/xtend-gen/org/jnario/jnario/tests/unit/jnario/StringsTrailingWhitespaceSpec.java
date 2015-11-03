@@ -8,11 +8,10 @@
 package org.jnario.jnario.tests.unit.jnario;
 
 import java.util.Arrays;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import java.util.function.Consumer;
 import org.jnario.jnario.tests.unit.jnario.StringsSpec;
 import org.jnario.jnario.tests.unit.jnario.StringsTrailingWhitespaceSpecExamples;
 import org.jnario.lib.Assert;
-import org.jnario.lib.Each;
 import org.jnario.lib.ExampleTable;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
@@ -119,9 +118,9 @@ public class StringsTrailingWhitespaceSpec extends StringsSpec {
   @Named("returns whitespaces at the end")
   @Order(1)
   public void _returnsWhitespacesAtTheEnd() throws Exception {
-    final Procedure1<StringsTrailingWhitespaceSpecExamples> _function = new Procedure1<StringsTrailingWhitespaceSpecExamples>() {
+    final Consumer<StringsTrailingWhitespaceSpecExamples> _function = new Consumer<StringsTrailingWhitespaceSpecExamples>() {
       @Override
-      public void apply(final StringsTrailingWhitespaceSpecExamples it) {
+      public void accept(final StringsTrailingWhitespaceSpecExamples it) {
         String _string = it.getString();
         String _trailingWhitespace = Strings.trailingWhitespace(_string);
         String _result = it.getResult();
@@ -132,6 +131,6 @@ public class StringsTrailingWhitespaceSpec extends StringsSpec {
         
       }
     };
-    Each.<StringsTrailingWhitespaceSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
 }

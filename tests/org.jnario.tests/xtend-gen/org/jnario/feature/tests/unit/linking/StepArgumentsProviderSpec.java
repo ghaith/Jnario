@@ -12,6 +12,7 @@ import com.google.inject.Inject;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
@@ -20,7 +21,6 @@ import org.eclipse.xtext.parser.IParser;
 import org.eclipse.xtext.util.StringInputStream;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.feature.feature.Given;
 import org.jnario.feature.feature.Step;
 import org.jnario.feature.jvmmodel.StepArgumentsProvider;
@@ -29,7 +29,6 @@ import org.jnario.jnario.test.util.FeatureTestCreator;
 import org.jnario.jnario.test.util.Features;
 import org.jnario.jnario.test.util.Query;
 import org.jnario.lib.Assert;
-import org.jnario.lib.Each;
 import org.jnario.lib.ExampleTable;
 import org.jnario.lib.JnarioCollectionLiterals;
 import org.jnario.lib.Should;
@@ -174,9 +173,9 @@ public class StepArgumentsProviderSpec {
   @Named("extracts arguments from step descriptions")
   @Order(1)
   public void _extractsArgumentsFromStepDescriptions() throws Exception {
-    final Procedure1<StepArgumentsProviderSpecExamples> _function = new Procedure1<StepArgumentsProviderSpecExamples>() {
+    final Consumer<StepArgumentsProviderSpecExamples> _function = new Consumer<StepArgumentsProviderSpecExamples>() {
       @Override
-      public void apply(final StepArgumentsProviderSpecExamples it) {
+      public void accept(final StepArgumentsProviderSpecExamples it) {
         String _step = it.getStep();
         Step _create = StepArgumentsProviderSpec.this.create(_step);
         final List<String> foundArgs = StepArgumentsProviderSpec.this.subject.findStepArguments(_create);
@@ -187,7 +186,7 @@ public class StepArgumentsProviderSpec {
         
       }
     };
-    Each.<StepArgumentsProviderSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
   
   @Test

@@ -1,9 +1,9 @@
 package org.jnario.jnario.tests.unit.report;
 
+import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import org.jnario.jnario.tests.unit.report.HashBasedSpec2ResultMappingSpec;
@@ -160,7 +160,7 @@ public class HashBasedSpec2ResultMappingExampleGroupSpec extends HashBasedSpec2R
   @Named("supports nested specs")
   @Order(9)
   public void _supportsNestedSpecs() throws Exception {
-    this.m.parseSpec("describe \"Root\"{\r\n\tdescribe \"Child\"{\r\n\t\tfact \"Example 1\"{1 + 1 => 2}\r\n\t}\t\r\n}\r\n");
+    this.m.parseSpec("describe \"Root\"{\n\tdescribe \"Child\"{\n\t\tfact \"Example 1\"{1 + 1 => 2}\n\t}\t\n}\n");
     HashBasedSpec2ResultMappingExampleGroupSpec.CLASSNAME = "RootChildSpec";
     this.passes("Example 1");
     ExampleGroup _exampleGroup = this.m.exampleGroup("Root");
@@ -177,7 +177,7 @@ public class HashBasedSpec2ResultMappingExampleGroupSpec extends HashBasedSpec2R
   @Named("supports nested specs referencing methods [PENDING]")
   @Order(10)
   public void _supportsNestedSpecsReferencingMethods() throws Exception {
-    this.m.parseSpec("describe String{\r\n\tdescribe charAt{\r\n\t\tfact \"Example 1\"{1 + 1 => 2}\r\n\t}\t\r\n}\r\n");
+    this.m.parseSpec("describe String{\n\tdescribe charAt{\n\t\tfact \"Example 1\"{1 + 1 => 2}\n\t}\t\n}\n");
     HashBasedSpec2ResultMappingExampleGroupSpec.CLASSNAME = "RootCharAtSpec";
     this.passes("Example 1");
     ExampleGroup _exampleGroup = this.m.exampleGroup("String");
@@ -200,13 +200,13 @@ public class HashBasedSpec2ResultMappingExampleGroupSpec extends HashBasedSpec2R
   }
   
   public void passes(@Extension final String... names) {
-    final Procedure1<String> _function = new Procedure1<String>() {
+    final Consumer<String> _function = new Consumer<String>() {
       @Override
-      public void apply(final String it) {
+      public void accept(final String it) {
         Passed _passingSpec = Passed.passingSpec(HashBasedSpec2ResultMappingExampleGroupSpec.CLASSNAME, it, HashBasedSpec2ResultMappingSpec.anyExecutionTime);
         HashBasedSpec2ResultMappingExampleGroupSpec.this.subject.accept(_passingSpec);
       }
     };
-    IterableExtensions.<String>forEach(((Iterable<String>)Conversions.doWrapArray(names)), _function);
+    ((List<String>)Conversions.doWrapArray(names)).forEach(_function);
   }
 }
