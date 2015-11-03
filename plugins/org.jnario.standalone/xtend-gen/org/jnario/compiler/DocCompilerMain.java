@@ -22,6 +22,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtend.lib.Property;
 import org.eclipse.xtext.ISetup;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.InputOutput;
@@ -32,8 +33,11 @@ import org.jnario.compiler.CompilerMain;
 import org.jnario.compiler.HtmlAssetsCompiler;
 import org.jnario.compiler.JnarioDocCompiler;
 import org.jnario.compiler.StandaloneResourceProvider;
+import org.jnario.feature.FeatureStandaloneSetup;
 import org.jnario.report.HashBasedSpec2ResultMapping;
 import org.jnario.report.SpecResultParser;
+import org.jnario.spec.SpecStandaloneSetup;
+import org.jnario.suite.SuiteStandaloneSetup;
 
 @SuppressWarnings("all")
 public class DocCompilerMain {
@@ -227,7 +231,7 @@ public class DocCompilerMain {
     }
   }
   
-  public final static List<ISetup> SETUPS /* Skipped initializer because of errors */;
+  public final static List<ISetup> SETUPS = CollectionLiterals.<ISetup>newArrayList(new SpecStandaloneSetup(), new FeatureStandaloneSetup(), new SuiteStandaloneSetup());
   
   @Pure
   public String getOutputPath() {
