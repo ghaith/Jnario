@@ -4,136 +4,6 @@
  */
 lexer grammar InternalSpecLexer;
 
-options {
-	backtrack=true;
-	memoize=true;
-}
-
-tokens {
-	ExclamationMark;
-	NumberSign;
-	PercentSign;
-	Ampersand;
-	LeftParenthesis;
-	RightParenthesis;
-	Asterisk;
-	PlusSign;
-	Comma;
-	HyphenMinus;
-	FullStop;
-	Solidus;
-	Colon;
-	Semicolon;
-	LessThanSign;
-	EqualsSign;
-	GreaterThanSign;
-	QuestionMark;
-	CommercialAt;
-	LeftSquareBracket;
-	RightSquareBracket;
-	LeftCurlyBracket;
-	VerticalLine;
-	RightCurlyBracket;
-	ExclamationMarkEqualsSign;
-	PercentSignEqualsSign;
-	AmpersandAmpersand;
-	AsteriskAsterisk;
-	AsteriskEqualsSign;
-	PlusSignPlusSign;
-	PlusSignEqualsSign;
-	HyphenMinusHyphenMinus;
-	HyphenMinusEqualsSign;
-	HyphenMinusGreaterThanSign;
-	FullStopFullStop;
-	SolidusEqualsSign;
-	ColonColon;
-	LessThanSignGreaterThanSign;
-	EqualsSignEqualsSign;
-	EqualsSignGreaterThanSign;
-	GreaterThanSignEqualsSign;
-	QuestionMarkFullStop;
-	QuestionMarkColon;
-	As;
-	Do;
-	If;
-	VerticalLineVerticalLine;
-	ExclamationMarkEqualsSignEqualsSign;
-	FullStopFullStopFullStop;
-	FullStopFullStopLessThanSign;
-	EqualsSignEqualsSignEqualsSign;
-	All;
-	Def;
-	For;
-	New;
-	Not;
-	Try;
-	Val;
-	Var;
-	Case;
-	Each;
-	Else;
-	Fact;
-	Null;
-	True;
-	After;
-	Catch;
-	Facts;
-	False;
-	Final;
-	Super;
-	Throw;
-	While;
-	Assert;
-	Before;
-	Import;
-	Native;
-	Public;
-	Return;
-	Should;
-	Static;
-	Switch;
-	Throws;
-	Typeof;
-	Context;
-	Default;
-	Extends;
-	Finally;
-	Package;
-	Pending;
-	Private;
-	Abstract;
-	Describe;
-	Dispatch;
-	Override;
-	Strictfp;
-	Volatile;
-	Extension;
-	Protected;
-	Transient;
-	Instanceof;
-	Synchronized;
-	RULE_ML_COMMENT;
-	RULE_ID;
-	RULE_HEX_DIGIT;
-	RULE_UNICODE_ESCAPE;
-	RULE_RICH_TEXT;
-	RULE_RICH_TEXT_START;
-	RULE_RICH_TEXT_END;
-	RULE_RICH_TEXT_INBETWEEN;
-	RULE_COMMENT_RICH_TEXT_INBETWEEN;
-	RULE_COMMENT_RICH_TEXT_END;
-	RULE_IN_RICH_STRING;
-	RULE_IDENTIFIER_START;
-	RULE_IDENTIFIER_PART;
-	RULE_IDENTIFIER_PART_IMPL;
-	RULE_HEX;
-	RULE_INT;
-	RULE_DECIMAL;
-	RULE_STRING;
-	RULE_SL_COMMENT;
-	RULE_WS;
-	RULE_ANY_OTHER;
-}
 
 @header {
 package org.jnario.spec.parser.antlr.lexer;
@@ -145,359 +15,232 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 
 
-SYNTHETIC_ALL_KEYWORDS :
-	(FRAGMENT_ExclamationMark)=> FRAGMENT_ExclamationMark {$type = ExclamationMark; } |
-	(FRAGMENT_NumberSign)=> FRAGMENT_NumberSign {$type = NumberSign; } |
-	(FRAGMENT_PercentSign)=> FRAGMENT_PercentSign {$type = PercentSign; } |
-	(FRAGMENT_Ampersand)=> FRAGMENT_Ampersand {$type = Ampersand; } |
-	(FRAGMENT_LeftParenthesis)=> FRAGMENT_LeftParenthesis {$type = LeftParenthesis; } |
-	(FRAGMENT_RightParenthesis)=> FRAGMENT_RightParenthesis {$type = RightParenthesis; } |
-	(FRAGMENT_Asterisk)=> FRAGMENT_Asterisk {$type = Asterisk; } |
-	(FRAGMENT_PlusSign)=> FRAGMENT_PlusSign {$type = PlusSign; } |
-	(FRAGMENT_Comma)=> FRAGMENT_Comma {$type = Comma; } |
-	(FRAGMENT_HyphenMinus)=> FRAGMENT_HyphenMinus {$type = HyphenMinus; } |
-	(FRAGMENT_FullStop)=> FRAGMENT_FullStop {$type = FullStop; } |
-	(FRAGMENT_Solidus)=> FRAGMENT_Solidus {$type = Solidus; } |
-	(FRAGMENT_Colon)=> FRAGMENT_Colon {$type = Colon; } |
-	(FRAGMENT_Semicolon)=> FRAGMENT_Semicolon {$type = Semicolon; } |
-	(FRAGMENT_LessThanSign)=> FRAGMENT_LessThanSign {$type = LessThanSign; } |
-	(FRAGMENT_EqualsSign)=> FRAGMENT_EqualsSign {$type = EqualsSign; } |
-	(FRAGMENT_GreaterThanSign)=> FRAGMENT_GreaterThanSign {$type = GreaterThanSign; } |
-	(FRAGMENT_QuestionMark)=> FRAGMENT_QuestionMark {$type = QuestionMark; } |
-	(FRAGMENT_CommercialAt)=> FRAGMENT_CommercialAt {$type = CommercialAt; } |
-	(FRAGMENT_LeftSquareBracket)=> FRAGMENT_LeftSquareBracket {$type = LeftSquareBracket; } |
-	(FRAGMENT_RightSquareBracket)=> FRAGMENT_RightSquareBracket {$type = RightSquareBracket; } |
-	(FRAGMENT_LeftCurlyBracket)=> FRAGMENT_LeftCurlyBracket {$type = LeftCurlyBracket; } |
-	(FRAGMENT_VerticalLine)=> FRAGMENT_VerticalLine {$type = VerticalLine; } |
-	(FRAGMENT_RightCurlyBracket)=> FRAGMENT_RightCurlyBracket {$type = RightCurlyBracket; } |
-	(FRAGMENT_ExclamationMarkEqualsSign)=> FRAGMENT_ExclamationMarkEqualsSign {$type = ExclamationMarkEqualsSign; } |
-	(FRAGMENT_PercentSignEqualsSign)=> FRAGMENT_PercentSignEqualsSign {$type = PercentSignEqualsSign; } |
-	(FRAGMENT_AmpersandAmpersand)=> FRAGMENT_AmpersandAmpersand {$type = AmpersandAmpersand; } |
-	(FRAGMENT_AsteriskAsterisk)=> FRAGMENT_AsteriskAsterisk {$type = AsteriskAsterisk; } |
-	(FRAGMENT_AsteriskEqualsSign)=> FRAGMENT_AsteriskEqualsSign {$type = AsteriskEqualsSign; } |
-	(FRAGMENT_PlusSignPlusSign)=> FRAGMENT_PlusSignPlusSign {$type = PlusSignPlusSign; } |
-	(FRAGMENT_PlusSignEqualsSign)=> FRAGMENT_PlusSignEqualsSign {$type = PlusSignEqualsSign; } |
-	(FRAGMENT_HyphenMinusHyphenMinus)=> FRAGMENT_HyphenMinusHyphenMinus {$type = HyphenMinusHyphenMinus; } |
-	(FRAGMENT_HyphenMinusEqualsSign)=> FRAGMENT_HyphenMinusEqualsSign {$type = HyphenMinusEqualsSign; } |
-	(FRAGMENT_HyphenMinusGreaterThanSign)=> FRAGMENT_HyphenMinusGreaterThanSign {$type = HyphenMinusGreaterThanSign; } |
-	(FRAGMENT_FullStopFullStop)=> FRAGMENT_FullStopFullStop {$type = FullStopFullStop; } |
-	(FRAGMENT_SolidusEqualsSign)=> FRAGMENT_SolidusEqualsSign {$type = SolidusEqualsSign; } |
-	(FRAGMENT_ColonColon)=> FRAGMENT_ColonColon {$type = ColonColon; } |
-	(FRAGMENT_LessThanSignGreaterThanSign)=> FRAGMENT_LessThanSignGreaterThanSign {$type = LessThanSignGreaterThanSign; } |
-	(FRAGMENT_EqualsSignEqualsSign)=> FRAGMENT_EqualsSignEqualsSign {$type = EqualsSignEqualsSign; } |
-	(FRAGMENT_EqualsSignGreaterThanSign)=> FRAGMENT_EqualsSignGreaterThanSign {$type = EqualsSignGreaterThanSign; } |
-	(FRAGMENT_GreaterThanSignEqualsSign)=> FRAGMENT_GreaterThanSignEqualsSign {$type = GreaterThanSignEqualsSign; } |
-	(FRAGMENT_QuestionMarkFullStop)=> FRAGMENT_QuestionMarkFullStop {$type = QuestionMarkFullStop; } |
-	(FRAGMENT_QuestionMarkColon)=> FRAGMENT_QuestionMarkColon {$type = QuestionMarkColon; } |
-	(FRAGMENT_As)=> FRAGMENT_As {$type = As; } |
-	(FRAGMENT_Do)=> FRAGMENT_Do {$type = Do; } |
-	(FRAGMENT_If)=> FRAGMENT_If {$type = If; } |
-	(FRAGMENT_VerticalLineVerticalLine)=> FRAGMENT_VerticalLineVerticalLine {$type = VerticalLineVerticalLine; } |
-	(FRAGMENT_ExclamationMarkEqualsSignEqualsSign)=> FRAGMENT_ExclamationMarkEqualsSignEqualsSign {$type = ExclamationMarkEqualsSignEqualsSign; } |
-	(FRAGMENT_FullStopFullStopFullStop)=> FRAGMENT_FullStopFullStopFullStop {$type = FullStopFullStopFullStop; } |
-	(FRAGMENT_FullStopFullStopLessThanSign)=> FRAGMENT_FullStopFullStopLessThanSign {$type = FullStopFullStopLessThanSign; } |
-	(FRAGMENT_EqualsSignEqualsSignEqualsSign)=> FRAGMENT_EqualsSignEqualsSignEqualsSign {$type = EqualsSignEqualsSignEqualsSign; } |
-	(FRAGMENT_All)=> FRAGMENT_All {$type = All; } |
-	(FRAGMENT_Def)=> FRAGMENT_Def {$type = Def; } |
-	(FRAGMENT_For)=> FRAGMENT_For {$type = For; } |
-	(FRAGMENT_New)=> FRAGMENT_New {$type = New; } |
-	(FRAGMENT_Not)=> FRAGMENT_Not {$type = Not; } |
-	(FRAGMENT_Try)=> FRAGMENT_Try {$type = Try; } |
-	(FRAGMENT_Val)=> FRAGMENT_Val {$type = Val; } |
-	(FRAGMENT_Var)=> FRAGMENT_Var {$type = Var; } |
-	(FRAGMENT_Case)=> FRAGMENT_Case {$type = Case; } |
-	(FRAGMENT_Each)=> FRAGMENT_Each {$type = Each; } |
-	(FRAGMENT_Else)=> FRAGMENT_Else {$type = Else; } |
-	(FRAGMENT_Fact)=> FRAGMENT_Fact {$type = Fact; } |
-	(FRAGMENT_Null)=> FRAGMENT_Null {$type = Null; } |
-	(FRAGMENT_True)=> FRAGMENT_True {$type = True; } |
-	(FRAGMENT_After)=> FRAGMENT_After {$type = After; } |
-	(FRAGMENT_Catch)=> FRAGMENT_Catch {$type = Catch; } |
-	(FRAGMENT_Facts)=> FRAGMENT_Facts {$type = Facts; } |
-	(FRAGMENT_False)=> FRAGMENT_False {$type = False; } |
-	(FRAGMENT_Final)=> FRAGMENT_Final {$type = Final; } |
-	(FRAGMENT_Super)=> FRAGMENT_Super {$type = Super; } |
-	(FRAGMENT_Throw)=> FRAGMENT_Throw {$type = Throw; } |
-	(FRAGMENT_While)=> FRAGMENT_While {$type = While; } |
-	(FRAGMENT_Assert)=> FRAGMENT_Assert {$type = Assert; } |
-	(FRAGMENT_Before)=> FRAGMENT_Before {$type = Before; } |
-	(FRAGMENT_Import)=> FRAGMENT_Import {$type = Import; } |
-	(FRAGMENT_Native)=> FRAGMENT_Native {$type = Native; } |
-	(FRAGMENT_Public)=> FRAGMENT_Public {$type = Public; } |
-	(FRAGMENT_Return)=> FRAGMENT_Return {$type = Return; } |
-	(FRAGMENT_Should)=> FRAGMENT_Should {$type = Should; } |
-	(FRAGMENT_Static)=> FRAGMENT_Static {$type = Static; } |
-	(FRAGMENT_Switch)=> FRAGMENT_Switch {$type = Switch; } |
-	(FRAGMENT_Throws)=> FRAGMENT_Throws {$type = Throws; } |
-	(FRAGMENT_Typeof)=> FRAGMENT_Typeof {$type = Typeof; } |
-	(FRAGMENT_Context)=> FRAGMENT_Context {$type = Context; } |
-	(FRAGMENT_Default)=> FRAGMENT_Default {$type = Default; } |
-	(FRAGMENT_Extends)=> FRAGMENT_Extends {$type = Extends; } |
-	(FRAGMENT_Finally)=> FRAGMENT_Finally {$type = Finally; } |
-	(FRAGMENT_Package)=> FRAGMENT_Package {$type = Package; } |
-	(FRAGMENT_Pending)=> FRAGMENT_Pending {$type = Pending; } |
-	(FRAGMENT_Private)=> FRAGMENT_Private {$type = Private; } |
-	(FRAGMENT_Abstract)=> FRAGMENT_Abstract {$type = Abstract; } |
-	(FRAGMENT_Describe)=> FRAGMENT_Describe {$type = Describe; } |
-	(FRAGMENT_Dispatch)=> FRAGMENT_Dispatch {$type = Dispatch; } |
-	(FRAGMENT_Override)=> FRAGMENT_Override {$type = Override; } |
-	(FRAGMENT_Strictfp)=> FRAGMENT_Strictfp {$type = Strictfp; } |
-	(FRAGMENT_Volatile)=> FRAGMENT_Volatile {$type = Volatile; } |
-	(FRAGMENT_Extension)=> FRAGMENT_Extension {$type = Extension; } |
-	(FRAGMENT_Protected)=> FRAGMENT_Protected {$type = Protected; } |
-	(FRAGMENT_Transient)=> FRAGMENT_Transient {$type = Transient; } |
-	(FRAGMENT_Instanceof)=> FRAGMENT_Instanceof {$type = Instanceof; } |
-	(FRAGMENT_Synchronized)=> FRAGMENT_Synchronized {$type = Synchronized; } |
-	(FRAGMENT_RULE_ML_COMMENT)=> FRAGMENT_RULE_ML_COMMENT {$type = RULE_ML_COMMENT; } |
-	(FRAGMENT_RULE_ID)=> FRAGMENT_RULE_ID {$type = RULE_ID; } |
-	(FRAGMENT_RULE_RICH_TEXT)=> FRAGMENT_RULE_RICH_TEXT {$type = RULE_RICH_TEXT; } |
-	(FRAGMENT_RULE_RICH_TEXT_START)=> FRAGMENT_RULE_RICH_TEXT_START {$type = RULE_RICH_TEXT_START; } |
-	(FRAGMENT_RULE_RICH_TEXT_END)=> FRAGMENT_RULE_RICH_TEXT_END {$type = RULE_RICH_TEXT_END; } |
-	(FRAGMENT_RULE_RICH_TEXT_INBETWEEN)=> FRAGMENT_RULE_RICH_TEXT_INBETWEEN {$type = RULE_RICH_TEXT_INBETWEEN; } |
-	(FRAGMENT_RULE_COMMENT_RICH_TEXT_INBETWEEN)=> FRAGMENT_RULE_COMMENT_RICH_TEXT_INBETWEEN {$type = RULE_COMMENT_RICH_TEXT_INBETWEEN; } |
-	(FRAGMENT_RULE_COMMENT_RICH_TEXT_END)=> FRAGMENT_RULE_COMMENT_RICH_TEXT_END {$type = RULE_COMMENT_RICH_TEXT_END; } |
-	(FRAGMENT_RULE_HEX)=> FRAGMENT_RULE_HEX {$type = RULE_HEX; } |
-	(FRAGMENT_RULE_INT)=> FRAGMENT_RULE_INT {$type = RULE_INT; } |
-	(FRAGMENT_RULE_DECIMAL)=> FRAGMENT_RULE_DECIMAL {$type = RULE_DECIMAL; } |
-	(FRAGMENT_RULE_STRING)=> FRAGMENT_RULE_STRING {$type = RULE_STRING; } |
-	(FRAGMENT_RULE_SL_COMMENT)=> FRAGMENT_RULE_SL_COMMENT {$type = RULE_SL_COMMENT; } |
-	(FRAGMENT_RULE_WS)=> FRAGMENT_RULE_WS {$type = RULE_WS; } |
-	(FRAGMENT_RULE_ANY_OTHER)=> FRAGMENT_RULE_ANY_OTHER {$type = RULE_ANY_OTHER; } ;
 
-fragment FRAGMENT_ExclamationMark : '!';
+Synchronized : 'synchronized';
 
-fragment FRAGMENT_NumberSign : '#';
+Instanceof : 'instanceof';
 
-fragment FRAGMENT_PercentSign : '%';
+Extension : 'extension';
 
-fragment FRAGMENT_Ampersand : '&';
+Protected : 'protected';
 
-fragment FRAGMENT_LeftParenthesis : '(';
+Transient : 'transient';
 
-fragment FRAGMENT_RightParenthesis : ')';
+Abstract : 'abstract';
 
-fragment FRAGMENT_Asterisk : '*';
+Describe : 'describe';
 
-fragment FRAGMENT_PlusSign : '+';
+Dispatch : 'dispatch';
 
-fragment FRAGMENT_Comma : ',';
+Override : 'override';
 
-fragment FRAGMENT_HyphenMinus : '-';
+Strictfp : 'strictfp';
 
-fragment FRAGMENT_FullStop : '.';
+Volatile : 'volatile';
 
-fragment FRAGMENT_Solidus : '/';
+Context : 'context';
 
-fragment FRAGMENT_Colon : ':';
+Default : 'default';
 
-fragment FRAGMENT_Semicolon : ';';
+Extends : 'extends';
 
-fragment FRAGMENT_LessThanSign : '<';
+Finally : 'finally';
 
-fragment FRAGMENT_EqualsSign : '=';
+Package : 'package';
 
-fragment FRAGMENT_GreaterThanSign : '>';
+Pending : 'pending';
 
-fragment FRAGMENT_QuestionMark : '?';
+Private : 'private';
 
-fragment FRAGMENT_CommercialAt : '@';
+Assert : 'assert';
 
-fragment FRAGMENT_LeftSquareBracket : '[';
+Before : 'before';
 
-fragment FRAGMENT_RightSquareBracket : ']';
+Import : 'import';
 
-fragment FRAGMENT_LeftCurlyBracket : '{';
+Native : 'native';
 
-fragment FRAGMENT_VerticalLine : '|';
+Public : 'public';
 
-fragment FRAGMENT_RightCurlyBracket : '}';
+Return : 'return';
 
-fragment FRAGMENT_ExclamationMarkEqualsSign : '!=';
+Should : 'should';
 
-fragment FRAGMENT_PercentSignEqualsSign : '%=';
+Static : 'static';
 
-fragment FRAGMENT_AmpersandAmpersand : '&&';
+Switch : 'switch';
 
-fragment FRAGMENT_AsteriskAsterisk : '**';
+Throws : 'throws';
 
-fragment FRAGMENT_AsteriskEqualsSign : '*=';
+Typeof : 'typeof';
 
-fragment FRAGMENT_PlusSignPlusSign : '++';
+After : 'after';
 
-fragment FRAGMENT_PlusSignEqualsSign : '+=';
+Catch : 'catch';
 
-fragment FRAGMENT_HyphenMinusHyphenMinus : '--';
+Facts : 'facts';
 
-fragment FRAGMENT_HyphenMinusEqualsSign : '-=';
+False : 'false';
 
-fragment FRAGMENT_HyphenMinusGreaterThanSign : '->';
+Final : 'final';
 
-fragment FRAGMENT_FullStopFullStop : '..';
+Super : 'super';
 
-fragment FRAGMENT_SolidusEqualsSign : '/=';
+Throw : 'throw';
 
-fragment FRAGMENT_ColonColon : '::';
+While : 'while';
 
-fragment FRAGMENT_LessThanSignGreaterThanSign : '<>';
+Case : 'case';
 
-fragment FRAGMENT_EqualsSignEqualsSign : '==';
+Each : 'each';
 
-fragment FRAGMENT_EqualsSignGreaterThanSign : '=>';
+Else : 'else';
 
-fragment FRAGMENT_GreaterThanSignEqualsSign : '>=';
+Fact : 'fact';
 
-fragment FRAGMENT_QuestionMarkFullStop : '?.';
+Null : 'null';
 
-fragment FRAGMENT_QuestionMarkColon : '?:';
+True : 'true';
 
-fragment FRAGMENT_As : 'as';
+ExclamationMarkEqualsSignEqualsSign : '!==';
 
-fragment FRAGMENT_Do : 'do';
+FullStopFullStopFullStop : '...';
 
-fragment FRAGMENT_If : 'if';
+FullStopFullStopLessThanSign : '..<';
 
-fragment FRAGMENT_VerticalLineVerticalLine : '||';
+EqualsSignEqualsSignEqualsSign : '===';
 
-fragment FRAGMENT_ExclamationMarkEqualsSignEqualsSign : '!==';
+All : 'all';
 
-fragment FRAGMENT_FullStopFullStopFullStop : '...';
+Def : 'def';
 
-fragment FRAGMENT_FullStopFullStopLessThanSign : '..<';
+For : 'for';
 
-fragment FRAGMENT_EqualsSignEqualsSignEqualsSign : '===';
+New : 'new';
 
-fragment FRAGMENT_All : 'all';
+Not : 'not';
 
-fragment FRAGMENT_Def : 'def';
+Try : 'try';
 
-fragment FRAGMENT_For : 'for';
+Val : 'val';
 
-fragment FRAGMENT_New : 'new';
+Var : 'var';
 
-fragment FRAGMENT_Not : 'not';
+ExclamationMarkEqualsSign : '!=';
 
-fragment FRAGMENT_Try : 'try';
+PercentSignEqualsSign : '%=';
 
-fragment FRAGMENT_Val : 'val';
+AmpersandAmpersand : '&&';
 
-fragment FRAGMENT_Var : 'var';
+AsteriskAsterisk : '**';
 
-fragment FRAGMENT_Case : 'case';
+AsteriskEqualsSign : '*=';
 
-fragment FRAGMENT_Each : 'each';
+PlusSignPlusSign : '++';
 
-fragment FRAGMENT_Else : 'else';
+PlusSignEqualsSign : '+=';
 
-fragment FRAGMENT_Fact : 'fact';
+HyphenMinusHyphenMinus : '--';
 
-fragment FRAGMENT_Null : 'null';
+HyphenMinusEqualsSign : '-=';
 
-fragment FRAGMENT_True : 'true';
+HyphenMinusGreaterThanSign : '->';
 
-fragment FRAGMENT_After : 'after';
+FullStopFullStop : '..';
 
-fragment FRAGMENT_Catch : 'catch';
+SolidusEqualsSign : '/=';
 
-fragment FRAGMENT_Facts : 'facts';
+ColonColon : '::';
 
-fragment FRAGMENT_False : 'false';
+LessThanSignGreaterThanSign : '<>';
 
-fragment FRAGMENT_Final : 'final';
+EqualsSignEqualsSign : '==';
 
-fragment FRAGMENT_Super : 'super';
+EqualsSignGreaterThanSign : '=>';
 
-fragment FRAGMENT_Throw : 'throw';
+GreaterThanSignEqualsSign : '>=';
 
-fragment FRAGMENT_While : 'while';
+QuestionMarkFullStop : '?.';
 
-fragment FRAGMENT_Assert : 'assert';
+QuestionMarkColon : '?:';
 
-fragment FRAGMENT_Before : 'before';
+As : 'as';
 
-fragment FRAGMENT_Import : 'import';
+Do : 'do';
 
-fragment FRAGMENT_Native : 'native';
+If : 'if';
 
-fragment FRAGMENT_Public : 'public';
+VerticalLineVerticalLine : '||';
 
-fragment FRAGMENT_Return : 'return';
+ExclamationMark : '!';
 
-fragment FRAGMENT_Should : 'should';
+NumberSign : '#';
 
-fragment FRAGMENT_Static : 'static';
+PercentSign : '%';
 
-fragment FRAGMENT_Switch : 'switch';
+Ampersand : '&';
 
-fragment FRAGMENT_Throws : 'throws';
+LeftParenthesis : '(';
 
-fragment FRAGMENT_Typeof : 'typeof';
+RightParenthesis : ')';
 
-fragment FRAGMENT_Context : 'context';
+Asterisk : '*';
 
-fragment FRAGMENT_Default : 'default';
+PlusSign : '+';
 
-fragment FRAGMENT_Extends : 'extends';
+Comma : ',';
 
-fragment FRAGMENT_Finally : 'finally';
+HyphenMinus : '-';
 
-fragment FRAGMENT_Package : 'package';
+FullStop : '.';
 
-fragment FRAGMENT_Pending : 'pending';
+Solidus : '/';
 
-fragment FRAGMENT_Private : 'private';
+Colon : ':';
 
-fragment FRAGMENT_Abstract : 'abstract';
+Semicolon : ';';
 
-fragment FRAGMENT_Describe : 'describe';
+LessThanSign : '<';
 
-fragment FRAGMENT_Dispatch : 'dispatch';
+EqualsSign : '=';
 
-fragment FRAGMENT_Override : 'override';
+GreaterThanSign : '>';
 
-fragment FRAGMENT_Strictfp : 'strictfp';
+QuestionMark : '?';
 
-fragment FRAGMENT_Volatile : 'volatile';
+CommercialAt : '@';
 
-fragment FRAGMENT_Extension : 'extension';
+LeftSquareBracket : '[';
 
-fragment FRAGMENT_Protected : 'protected';
+RightSquareBracket : ']';
 
-fragment FRAGMENT_Transient : 'transient';
+LeftCurlyBracket : '{';
 
-fragment FRAGMENT_Instanceof : 'instanceof';
+VerticalLine : '|';
 
-fragment FRAGMENT_Synchronized : 'synchronized';
+RightCurlyBracket : '}';
 
 
-// Rules duplicated to allow inter-rule references
 
-fragment RULE_ML_COMMENT : FRAGMENT_RULE_ML_COMMENT;
-fragment FRAGMENT_RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*~('\\') '*/';
+RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*~('\\') '*/';
 
-fragment RULE_ID : FRAGMENT_RULE_ID;
-fragment FRAGMENT_RULE_ID : '^'? (RULE_IDENTIFIER_START|RULE_UNICODE_ESCAPE) (RULE_IDENTIFIER_PART|RULE_UNICODE_ESCAPE)*;
+RULE_ID : '^'? (RULE_IDENTIFIER_START|RULE_UNICODE_ESCAPE) (RULE_IDENTIFIER_PART|RULE_UNICODE_ESCAPE)*;
 
 fragment RULE_HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F');
 
 fragment RULE_UNICODE_ESCAPE : '\\' 'u' (RULE_HEX_DIGIT (RULE_HEX_DIGIT (RULE_HEX_DIGIT RULE_HEX_DIGIT?)?)?)?;
 
-fragment RULE_RICH_TEXT : FRAGMENT_RULE_RICH_TEXT;
-fragment FRAGMENT_RULE_RICH_TEXT : '\'\'\'' RULE_IN_RICH_STRING* ('\'\'\''|('\'' '\''?)? EOF);
+RULE_RICH_TEXT : '\'\'\'' RULE_IN_RICH_STRING* ('\'\'\''|('\'' '\''?)? EOF);
 
-fragment RULE_RICH_TEXT_START : FRAGMENT_RULE_RICH_TEXT_START;
-fragment FRAGMENT_RULE_RICH_TEXT_START : '\'\'\'' RULE_IN_RICH_STRING* ('\'' '\''?)? '\u00AB';
+RULE_RICH_TEXT_START : '\'\'\'' RULE_IN_RICH_STRING* ('\'' '\''?)? '\u00AB';
 
-fragment RULE_RICH_TEXT_END : FRAGMENT_RULE_RICH_TEXT_END;
-fragment FRAGMENT_RULE_RICH_TEXT_END : '\u00BB' RULE_IN_RICH_STRING* ('\'\'\''|('\'' '\''?)? EOF);
+RULE_RICH_TEXT_END : '\u00BB' RULE_IN_RICH_STRING* ('\'\'\''|('\'' '\''?)? EOF);
 
-fragment RULE_RICH_TEXT_INBETWEEN : FRAGMENT_RULE_RICH_TEXT_INBETWEEN;
-fragment FRAGMENT_RULE_RICH_TEXT_INBETWEEN : '\u00BB' RULE_IN_RICH_STRING* ('\'' '\''?)? '\u00AB';
+RULE_RICH_TEXT_INBETWEEN : '\u00BB' RULE_IN_RICH_STRING* ('\'' '\''?)? '\u00AB';
 
-fragment RULE_COMMENT_RICH_TEXT_INBETWEEN : FRAGMENT_RULE_COMMENT_RICH_TEXT_INBETWEEN;
-fragment FRAGMENT_RULE_COMMENT_RICH_TEXT_INBETWEEN : '\u00AB\u00AB' ~(('\n'|'\r'))* ('\r'? '\n' RULE_IN_RICH_STRING* ('\'' '\''?)? '\u00AB')?;
+RULE_COMMENT_RICH_TEXT_INBETWEEN : '\u00AB\u00AB' ~(('\n'|'\r'))* ('\r'? '\n' RULE_IN_RICH_STRING* ('\'' '\''?)? '\u00AB')?;
 
-fragment RULE_COMMENT_RICH_TEXT_END : FRAGMENT_RULE_COMMENT_RICH_TEXT_END;
-fragment FRAGMENT_RULE_COMMENT_RICH_TEXT_END : '\u00AB\u00AB' ~(('\n'|'\r'))* ('\r'? '\n' RULE_IN_RICH_STRING* ('\'\'\''|('\'' '\''?)? EOF)|EOF);
+RULE_COMMENT_RICH_TEXT_END : '\u00AB\u00AB' ~(('\n'|'\r'))* ('\r'? '\n' RULE_IN_RICH_STRING* ('\'\'\''|('\'' '\''?)? EOF)|EOF);
 
 fragment RULE_IN_RICH_STRING : ('\'\'' ~(('\u00AB'|'\''))|'\'' ~(('\u00AB'|'\''))|~(('\u00AB'|'\'')));
 
@@ -507,26 +250,19 @@ fragment RULE_IDENTIFIER_PART : (RULE_IDENTIFIER_START|RULE_IDENTIFIER_PART_IMPL
 
 fragment RULE_IDENTIFIER_PART_IMPL : ('\u0000'..'\b'|'\u000E'..'\u001B'|'0'..'9'|'\u007F'..'\u009F'|'\u00AD'|'\u0300'..'\u0357'|'\u035D'..'\u036F'|'\u0483'..'\u0486'|'\u0591'..'\u05A1'|'\u05A3'..'\u05B9'|'\u05BB'..'\u05BD'|'\u05BF'|'\u05C1'..'\u05C2'|'\u05C4'|'\u0600'..'\u0603'|'\u0610'..'\u0615'|'\u064B'..'\u0658'|'\u0660'..'\u0669'|'\u0670'|'\u06D6'..'\u06DD'|'\u06DF'..'\u06E4'|'\u06E7'..'\u06E8'|'\u06EA'..'\u06ED'|'\u06F0'..'\u06F9'|'\u070F'|'\u0711'|'\u0730'..'\u074A'|'\u07A6'..'\u07B0'|'\u0901'..'\u0903'|'\u093C'|'\u093E'..'\u094D'|'\u0951'..'\u0954'|'\u0962'..'\u0963'|'\u0966'..'\u096F'|'\u0981'..'\u0983'|'\u09BC'|'\u09BE'..'\u09C4'|'\u09C7'..'\u09C8'|'\u09CB'..'\u09CD'|'\u09D7'|'\u09E2'..'\u09E3'|'\u09E6'..'\u09EF'|'\u0A01'..'\u0A03'|'\u0A3C'|'\u0A3E'..'\u0A42'|'\u0A47'..'\u0A48'|'\u0A4B'..'\u0A4D'|'\u0A66'..'\u0A71'|'\u0A81'..'\u0A83'|'\u0ABC'|'\u0ABE'..'\u0AC5'|'\u0AC7'..'\u0AC9'|'\u0ACB'..'\u0ACD'|'\u0AE2'..'\u0AE3'|'\u0AE6'..'\u0AEF'|'\u0B01'..'\u0B03'|'\u0B3C'|'\u0B3E'..'\u0B43'|'\u0B47'..'\u0B48'|'\u0B4B'..'\u0B4D'|'\u0B56'..'\u0B57'|'\u0B66'..'\u0B6F'|'\u0B82'|'\u0BBE'..'\u0BC2'|'\u0BC6'..'\u0BC8'|'\u0BCA'..'\u0BCD'|'\u0BD7'|'\u0BE7'..'\u0BEF'|'\u0C01'..'\u0C03'|'\u0C3E'..'\u0C44'|'\u0C46'..'\u0C48'|'\u0C4A'..'\u0C4D'|'\u0C55'..'\u0C56'|'\u0C66'..'\u0C6F'|'\u0C82'..'\u0C83'|'\u0CBC'|'\u0CBE'..'\u0CC4'|'\u0CC6'..'\u0CC8'|'\u0CCA'..'\u0CCD'|'\u0CD5'..'\u0CD6'|'\u0CE6'..'\u0CEF'|'\u0D02'..'\u0D03'|'\u0D3E'..'\u0D43'|'\u0D46'..'\u0D48'|'\u0D4A'..'\u0D4D'|'\u0D57'|'\u0D66'..'\u0D6F'|'\u0D82'..'\u0D83'|'\u0DCA'|'\u0DCF'..'\u0DD4'|'\u0DD6'|'\u0DD8'..'\u0DDF'|'\u0DF2'..'\u0DF3'|'\u0E31'|'\u0E34'..'\u0E3A'|'\u0E47'..'\u0E4E'|'\u0E50'..'\u0E59'|'\u0EB1'|'\u0EB4'..'\u0EB9'|'\u0EBB'..'\u0EBC'|'\u0EC8'..'\u0ECD'|'\u0ED0'..'\u0ED9'|'\u0F18'..'\u0F19'|'\u0F20'..'\u0F29'|'\u0F35'|'\u0F37'|'\u0F39'|'\u0F3E'..'\u0F3F'|'\u0F71'..'\u0F84'|'\u0F86'..'\u0F87'|'\u0F90'..'\u0F97'|'\u0F99'..'\u0FBC'|'\u0FC6'|'\u102C'..'\u1032'|'\u1036'..'\u1039'|'\u1040'..'\u1049'|'\u1056'..'\u1059'|'\u1369'..'\u1371'|'\u1712'..'\u1714'|'\u1732'..'\u1734'|'\u1752'..'\u1753'|'\u1772'..'\u1773'|'\u17B4'..'\u17D3'|'\u17DD'|'\u17E0'..'\u17E9'|'\u180B'..'\u180D'|'\u1810'..'\u1819'|'\u18A9'|'\u1920'..'\u192B'|'\u1930'..'\u193B'|'\u1946'..'\u194F'|'\u200C'..'\u200F'|'\u202A'..'\u202E'|'\u2060'..'\u2063'|'\u206A'..'\u206F'|'\u20D0'..'\u20DC'|'\u20E1'|'\u20E5'..'\u20EA'|'\u302A'..'\u302F'|'\u3099'..'\u309A'|'\uFB1E'|'\uFE00'..'\uFE0F'|'\uFE20'..'\uFE23'|'\uFEFF'|'\uFF10'..'\uFF19'|'\uFFF9'..'\uFFFB');
 
-fragment RULE_HEX : FRAGMENT_RULE_HEX;
-fragment FRAGMENT_RULE_HEX : ('0x'|'0X') ('0'..'9'|'a'..'f'|'A'..'F'|'_')+ ('#' (('b'|'B') ('i'|'I')|('l'|'L')))?;
+RULE_HEX : ('0x'|'0X') ('0'..'9'|'a'..'f'|'A'..'F'|'_')+ ('#' (('b'|'B') ('i'|'I')|('l'|'L')))?;
 
-fragment RULE_INT : FRAGMENT_RULE_INT;
-fragment FRAGMENT_RULE_INT : '0'..'9' ('0'..'9'|'_')*;
+RULE_INT : '0'..'9' ('0'..'9'|'_')*;
 
-fragment RULE_DECIMAL : FRAGMENT_RULE_DECIMAL;
-fragment FRAGMENT_RULE_DECIMAL : RULE_INT (('e'|'E') ('+'|'-')? RULE_INT)? (('b'|'B') ('i'|'I'|'d'|'D')|('l'|'L'|'d'|'D'|'f'|'F'))?;
+RULE_DECIMAL : RULE_INT (('e'|'E') ('+'|'-')? RULE_INT)? (('b'|'B') ('i'|'I'|'d'|'D')|('l'|'L'|'d'|'D'|'f'|'F'))?;
 
-fragment RULE_STRING : FRAGMENT_RULE_STRING;
-fragment FRAGMENT_RULE_STRING : ('"' ('\\' .|~(('\\'|'"')))* '"'?|'\'' ('\\' .|~(('\\'|'\'')))* '\''?);
+RULE_STRING : ('"' ('\\' .|~(('\\'|'"')))* '"'?|'\'' ('\\' .|~(('\\'|'\'')))* '\''?);
 
-fragment RULE_SL_COMMENT : FRAGMENT_RULE_SL_COMMENT;
-fragment FRAGMENT_RULE_SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')?;
+RULE_SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
-fragment RULE_WS : FRAGMENT_RULE_WS;
-fragment FRAGMENT_RULE_WS : (' '|'\t'|'\r'|'\n')+;
+RULE_WS : (' '|'\t'|'\r'|'\n')+;
 
-fragment RULE_ANY_OTHER : FRAGMENT_RULE_ANY_OTHER;
-fragment FRAGMENT_RULE_ANY_OTHER : .;
+RULE_ANY_OTHER : .;
 
 
 
