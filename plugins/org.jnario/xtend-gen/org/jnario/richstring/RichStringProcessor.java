@@ -213,9 +213,9 @@ public class RichStringProcessor {
     }
   }
   
-  private final static String PLACEHOLDER_OPEN = "Â«";
+  private final static String PLACEHOLDER_OPEN = "«";
   
-  private final static String PLACEHOLDER_CLOSE = "Â»";
+  private final static String PLACEHOLDER_CLOSE = "»";
   
   private final static String RICHSTRING_TAG = "\'\'\'";
   

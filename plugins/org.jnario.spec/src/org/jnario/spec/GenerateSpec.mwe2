@@ -86,13 +86,12 @@ Workflow {
 			fragment = parser.antlr.ex.rt.AntlrGeneratorFragment {
 				options = auto-inject {
 					backtrack=true
-					backtrackLexer = true
 					classSplitting = true
 				}
 				antlrParam = "-Xconversiontimeout"
 				antlrParam = "10000"
 			}
-
+			
 			// java-based API for validation
 			fragment = validation.JavaValidatorFragment {
 			//    composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
@@ -132,7 +131,6 @@ Workflow {
 				antlrParam = "10000"
 				options = {
 					backtrack = true
-					backtrackLexer = true
 					classSplitting = true
 				}
 			}

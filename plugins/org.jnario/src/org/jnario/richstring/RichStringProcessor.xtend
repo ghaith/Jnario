@@ -13,8 +13,8 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure2
 
 class RichStringProcessor {
 
-	static val PLACEHOLDER_OPEN = 'Â«'
-	static val PLACEHOLDER_CLOSE = 'Â»'
+	static val PLACEHOLDER_OPEN = '«'
+	static val PLACEHOLDER_CLOSE = '»'
 	static val RICHSTRING_TAG = "'''"
 
 	static class RichStringAcceptor {
@@ -60,7 +60,7 @@ class RichStringProcessor {
 				appendable.newLine
 			])
 		}
-
+		
 		def dispatch accept(RichStringLiteral literal) {
 			var value = literal.value
 			if (value.startsWith(RICHSTRING_TAG)) {

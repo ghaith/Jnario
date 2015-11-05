@@ -94,6 +94,8 @@ public class JnarioCompiler extends XbaseCompiler {
 			_toJavaStatement((ShouldThrow) obj, appendable, isReferenced);
 		} else if (obj instanceof MockLiteral) {
 			_toJavaStatement((MockLiteral) obj, appendable, isReferenced);
+		} else if (obj instanceof RichString) {
+			_toJavaStatement((RichString) obj, appendable, isReferenced);
 		} else
 			super.doInternalToJavaStatement(obj, appendable, isReferenced);
 	}
