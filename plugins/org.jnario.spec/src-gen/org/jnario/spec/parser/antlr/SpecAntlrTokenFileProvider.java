@@ -11,6 +11,6 @@ public class SpecAntlrTokenFileProvider implements IAntlrTokenFileProvider {
 	@Override
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("org/jnario/spec/parser/antlr/internal/InternalSpec.tokens");
+    	return classLoader.getResourceAsStream("org/jnario/spec/parser/antlr/internal/InternalSpecParser.tokens");
 	}
 }
