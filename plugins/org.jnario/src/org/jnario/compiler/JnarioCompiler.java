@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmIdentifiableElement;
 import org.eclipse.xtext.common.types.JvmOperation;
@@ -33,9 +34,11 @@ import org.eclipse.xtext.xbase.compiler.XbaseCompiler;
 import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable;
 import org.jnario.Assertion;
 import org.jnario.MockLiteral;
+import org.jnario.RichString;
 import org.jnario.Should;
 import org.jnario.ShouldThrow;
 import org.jnario.lib.Assert;
+import org.jnario.richstring.RichStringProcessor;
 import org.jnario.util.MockingSupport;
 import org.jnario.util.SourceAdapter;
 
@@ -56,7 +59,11 @@ public class JnarioCompiler extends XbaseCompiler {
 	@Inject
 	private JnarioExpressionHelper expressionHelper;
 	
-	@Inject ISerializer serializer;
+	@Inject 
+	private RichStringProcessor richStringProcessor;
+
+	@Inject
+	ISerializer serializer;
 
 	@Override
 	public void internalToConvertedExpression(XExpression obj,
@@ -69,6 +76,8 @@ public class JnarioCompiler extends XbaseCompiler {
 			_toJavaExpression((ShouldThrow) obj, appendable);
 		} else if (obj instanceof MockLiteral) {
 			_toJavaExpression((MockLiteral) obj, appendable);
+		} else if (obj instanceof RichString) {
+			_toJavaExpression((RichString) obj, appendable);
 		} else {
 			super.internalToConvertedExpression(obj, appendable);
 		}
@@ -87,6 +96,28 @@ public class JnarioCompiler extends XbaseCompiler {
 			_toJavaStatement((MockLiteral) obj, appendable, isReferenced);
 		} else
 			super.doInternalToJavaStatement(obj, appendable, isReferenced);
+	}
+	
+	protected void _toJavaExpression(RichString richString, ITreeAppendable b) {
+		b.append(getVarName(richString, b));
+		if(getLightweightType(richString).isType(String.class))
+			b.append(".toString()");
+	}
+
+	protected void _toJavaStatement(RichString richString, ITreeAppendable b, boolean isReferenced) {
+		b = b.trace(richString);
+		// declare variable
+		String variableName = b.declareSyntheticVariable(richString, "_builder");
+		b.newLine();
+		b.append(StringConcatenation.class);
+		b.append(" ");
+		b.append(variableName);
+		b.append(" = new ");
+		b.append(StringConcatenation.class);
+		b.append("();");
+		//Print each expression
+		b.newLine();
+		richStringProcessor.process(richString, b, variableName, this);
 	}
 
 	public void _toJavaStatement(ShouldThrow should, ITreeAppendable b,	boolean isReferenced) {
