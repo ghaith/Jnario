@@ -2,6 +2,8 @@ package org.jnario.richstring;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
+import com.google.common.escape.Escaper;
+import com.google.common.escape.Escapers;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -157,7 +159,8 @@ public class RichStringProcessor {
               _builder.append(variableName, "");
               _builder.append(".append(\"");
               String _correctIndentation = RichStringAcceptor.this.correctIndentation(it);
-              _builder.append(_correctIndentation, "");
+              String _escape = RichStringAcceptor.this.escape(_correctIndentation);
+              _builder.append(_escape, "");
               _builder.append("\");");
               appendable.append(_builder);
               appendable.newLine();
@@ -178,6 +181,10 @@ public class RichStringProcessor {
       };
       IterableExtensions.<String>forEach(lines, _function);
       return null;
+    }
+    
+    public String escape(final String string) {
+      return RichStringProcessor.escaper.escape(string);
     }
     
     public void appendTo(final ITreeAppendable appendable, final String variableName) {
@@ -218,6 +225,8 @@ public class RichStringProcessor {
   private final static String PLACEHOLDER_CLOSE = "»";
   
   private final static String RICHSTRING_TAG = "\'\'\'";
+  
+  private final static Escaper escaper = Escapers.builder().addEscape('\\', "\\\\").build();
   
   public void process(final RichString richString, final ITreeAppendable appendable, final String variableName, final JnarioCompiler compiler) {
     final RichStringProcessor.RichStringAcceptor acceptor = new RichStringProcessor.RichStringAcceptor(compiler);

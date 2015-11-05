@@ -10,12 +10,14 @@ import org.eclipse.xtext.xbase.XExpression
 import org.jnario.compiler.JnarioCompiler
 import org.eclipse.xtext.xbase.XBlockExpression
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2
+import com.google.common.escape.Escapers
 
 class RichStringProcessor {
 
 	static val PLACEHOLDER_OPEN = '«'
 	static val PLACEHOLDER_CLOSE = '»'
 	static val RICHSTRING_TAG = "'''"
+	static val escaper = Escapers.builder.addEscape("\\",'\\\\').build
 
 	static class RichStringAcceptor {
 
@@ -90,7 +92,7 @@ class RichStringProcessor {
 				}
 
 				toBeAppended.add([ appendable, variableName |
-					appendable.append('''«variableName».append("«it.correctIndentation»");''')
+					appendable.append('''«variableName».append("«it.correctIndentation.escape»");''')
 					appendable.newLine
 					if (index < lines.size - 1) {
 						appendable.append('''«variableName».newLine();''')
@@ -101,6 +103,10 @@ class RichStringProcessor {
 			]
 
 		}
+	
+	def escape(String string) {
+		return escaper.escape(string)
+	}
 
 		def appendTo(ITreeAppendable appendable, String variableName) {
 			toBeAppended.forEach [
