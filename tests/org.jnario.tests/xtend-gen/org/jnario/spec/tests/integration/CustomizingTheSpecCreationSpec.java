@@ -8,6 +8,7 @@
 package org.jnario.spec.tests.integration;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.BehaviorExecutor;
 import org.jnario.jnario.test.util.SpecTestCreator;
@@ -59,6 +60,37 @@ public class CustomizingTheSpecCreationSpec {
   @Named("Example")
   @Order(1)
   public void _example() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package bootstrap\r\n\r\nimport org.jnario.runner.CreateWith\r\nimport org.jnario.jnario.test.util.GuiceSpecCreator\r\nimport com.google.inject.Inject\r\n\r\n@CreateWith(typeof(GuiceSpecCreator))\r\ndescribe \"Something\" {\r\n  \r\n  @Inject String toInject\r\n  \r\n  fact toInject should not be null\r\n      \r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package bootstrap");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("import org.jnario.runner.CreateWith");
+    _builder.newLine();
+    _builder.append("import org.jnario.jnario.test.util.GuiceSpecCreator");
+    _builder.newLine();
+    _builder.append("import com.google.inject.Inject");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("@CreateWith(typeof(GuiceSpecCreator))");
+    _builder.newLine();
+    _builder.append("describe \"Something\" {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  @Inject String toInject");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  fact toInject should not be null");
+    _builder.newLine();
+    _builder.append("      ");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

@@ -2,6 +2,7 @@ package org.jnario.feature.tests.unit.feature;
 
 import com.google.inject.Inject;
 import java.util.List;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.Executable;
 import org.jnario.feature.feature.Feature;
@@ -59,7 +60,16 @@ public class FeatureExecutableProviderSpec {
   @Named("returns steps")
   @Order(2)
   public void _returnsSteps() throws Exception {
-    this._modelStore.parseScenario("Feature: My feature\r\nScenario: My first Scenario\r\n\tGiven something\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Feature: My feature");
+    _builder.newLine();
+    _builder.append("Scenario: My first Scenario");
+    _builder.newLine();
+    _builder.append("	Given something");
+    _builder.newLine();
+    
+    this._modelStore.parseScenario(
+      _builder.toString());
     Scenario _scenario = this._modelStore.scenario("Scenario: My first Scenario");
     List<? extends Executable> _executables = this.executables(_scenario);
     Step _step = this._modelStore.step("Given something");
@@ -76,7 +86,18 @@ public class FeatureExecutableProviderSpec {
   @Named("returns sub steps")
   @Order(3)
   public void _returnsSubSteps() throws Exception {
-    this._modelStore.parseScenario("Feature: My feature\r\nScenario: My first Scenario\r\n\tGiven something\r\n\t And something else\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Feature: My feature");
+    _builder.newLine();
+    _builder.append("Scenario: My first Scenario");
+    _builder.newLine();
+    _builder.append("	Given something");
+    _builder.newLine();
+    _builder.append("	 And something else");
+    _builder.newLine();
+    
+    this._modelStore.parseScenario(
+      _builder.toString());
     Scenario _scenario = this._modelStore.scenario("Scenario: My first Scenario");
     List<? extends Executable> _executables = this.executables(_scenario);
     Step _step = this._modelStore.step("Given something");

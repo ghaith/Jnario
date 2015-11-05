@@ -9,6 +9,7 @@ package org.jnario.suite.unit;
 
 import java.util.List;
 import java.util.Set;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.jnario.lib.Assert;
 import org.jnario.lib.JnarioCollectionLiterals;
@@ -30,7 +31,19 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
   @Named("example 1")
   @Order(1)
   public void _example1() throws Exception {
-    this.m.parseSuite("package demo\r\nimport demo.*\r\n#The Suite\r\n\r\n- \\demo\\.My.*\\\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("import demo.*");
+    _builder.newLine();
+    _builder.append("#The Suite");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("- \\demo\\.My.*\\");
+    _builder.newLine();
+    
+    this.m.parseSuite(_builder.toString());
     Suite _firstSuite = this.m.firstSuite();
     List<String> _resolvedSpecs = this.resolvedSpecs(_firstSuite);
     Set<String> _set = IterableExtensions.<String>toSet(_resolvedSpecs);
@@ -48,7 +61,19 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
   @Named("example 2")
   @Order(2)
   public void _example2() throws Exception {
-    this.m.parseSuite("package demo\r\nimport demo.*\r\n#My Suite\r\n\r\n- \\.*Spec\\\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("import demo.*");
+    _builder.newLine();
+    _builder.append("#My Suite");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("- \\.*Spec\\");
+    _builder.newLine();
+    
+    this.m.parseSuite(_builder.toString());
     Suite _firstSuite = this.m.firstSuite();
     List<String> _resolvedSpecs = this.resolvedSpecs(_firstSuite);
     List<String> _list = JnarioCollectionLiterals.<String>list("MySpecSpec");
@@ -71,14 +96,38 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
   @Named("ignores unresolved elements")
   @Order(4)
   public void _ignoresUnresolvedElements() throws Exception {
-    this.m.parseSuite("package demo\r\nimport demo.*\r\n#My Suite\r\n\r\n- \\NonExistent\\\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("import demo.*");
+    _builder.newLine();
+    _builder.append("#My Suite");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("- \\NonExistent\\");
+    _builder.newLine();
+    
+    this.m.parseSuite(_builder.toString());
   }
   
   @Test
   @Named("ignores containing suite")
   @Order(5)
   public void _ignoresContainingSuite() throws Exception {
-    this.m.parseSuite("package demo\r\nimport demo.*\r\n#My Suite\r\n\r\n- \\.*\\\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("import demo.*");
+    _builder.newLine();
+    _builder.append("#My Suite");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("- \\.*\\");
+    _builder.newLine();
+    
+    this.m.parseSuite(_builder.toString());
     Suite _firstSuite = this.m.firstSuite();
     List<String> _resolvedSpecs = this.resolvedSpecs(_firstSuite);
     Set<String> _set = IterableExtensions.<String>toSet(_resolvedSpecs);
@@ -96,7 +145,19 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
   @Named("orders specs alphabetically")
   @Order(6)
   public void _ordersSpecsAlphabetically() throws Exception {
-    this.m.parseSuite("package demo\r\nimport demo.*\r\n#My Suite\r\n\r\n- \\.*\\\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("import demo.*");
+    _builder.newLine();
+    _builder.append("#My Suite");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("- \\.*\\");
+    _builder.newLine();
+    
+    this.m.parseSuite(_builder.toString());
     Suite _firstSuite = this.m.firstSuite();
     List<String> _resolvedSpecs = this.resolvedSpecs(_firstSuite);
     List<String> _list = JnarioCollectionLiterals.<String>list("MyFeatureFeature", "MySpecSpec", "StringSpec");

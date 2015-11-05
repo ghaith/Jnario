@@ -10,6 +10,7 @@ package org.jnario.jnario.tests.unit.jnario;
 import com.google.inject.Inject;
 import java.util.Arrays;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -109,7 +110,25 @@ public class ExampleColumnSpec {
   @Named("calculates cells based on table")
   @Order(1)
   public void _calculatesCellsBasedOnTable() throws Exception {
-    this._modelStore.parseSpec("package bootstrap\r\ndescribe \"ExampleTable\"{\r\n\tdef{\r\n\t\t| a | b |\r\n\t\t| 1 | 2 |\r\n\t\t| 3 | 4 |\r\n\t}\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package bootstrap");
+    _builder.newLine();
+    _builder.append("describe \"ExampleTable\"{");
+    _builder.newLine();
+    _builder.append("	def{");
+    _builder.newLine();
+    _builder.append("		| a | b |");
+    _builder.newLine();
+    _builder.append("		| 1 | 2 |");
+    _builder.newLine();
+    _builder.append("		| 3 | 4 |");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._modelStore.parseSpec(_builder.toString());
     final Procedure1<ExampleColumnSpecExamples> _function = new Procedure1<ExampleColumnSpecExamples>() {
       @Override
       public void apply(final ExampleColumnSpecExamples it) {

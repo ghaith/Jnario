@@ -1,6 +1,7 @@
 package org.jnario.spec.tests.unit.compiler;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.BehaviorExecutor;
 import org.jnario.jnario.test.util.SpecTestCreator;
@@ -25,49 +26,164 @@ public class CompilerSpec {
   @Named("long boolean expressions compile correctly")
   @Order(1)
   public void _longBooleanExpressionsCompileCorrectly() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("describe \"Something with an expression\"{\r\n\tfact \"a fact with an if\"{\r\n\t\tval x = 4\r\n\t\tif(x > 4 && x > 5){\r\n\t\t\t\r\n\t\t}\r\n\t}\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Something with an expression\"{");
+    _builder.newLine();
+    _builder.append("	fact \"a fact with an if\"{");
+    _builder.newLine();
+    _builder.append("		val x = 4");
+    _builder.newLine();
+    _builder.append("		if(x > 4 && x > 5){");
+    _builder.newLine();
+    _builder.append("			");
+    _builder.newLine();
+    _builder.append("		}");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
   @Named("assert with multiple bool expressions")
   @Order(2)
   public void _assertWithMultipleBoolExpressions() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("describe \"Something with an expression\"{\r\n\tfact \"a fact with an if\"{\r\n\t\tval x = 6\r\n\t\tassert x > 4 && x > 5\r\n\t}\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Something with an expression\"{");
+    _builder.newLine();
+    _builder.append("	fact \"a fact with an if\"{");
+    _builder.newLine();
+    _builder.append("		val x = 6");
+    _builder.newLine();
+    _builder.append("		assert x > 4 && x > 5");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
   @Named("=> with multiple bool expressions")
   @Order(3)
   public void _withMultipleBoolExpressions() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("describe \"Something with an expression\"{\r\n\tfact \"a fact with =>\"{\r\n\t\tval x = 6\r\n\t\t(x > 4 && x > 5) => true\r\n\t}\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Something with an expression\"{");
+    _builder.newLine();
+    _builder.append("	fact \"a fact with =>\"{");
+    _builder.newLine();
+    _builder.append("		val x = 6");
+    _builder.newLine();
+    _builder.append("		(x > 4 && x > 5) => true");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
   @Named("should with multiple bool expressions")
   @Order(4)
   public void _shouldWithMultipleBoolExpressions() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("describe \"Something with an expression\"{\r\n\tfact \"a fact with should\"{\r\n\t\tval x = 6\r\n\t\tx > 4 && x > 5 should be true\r\n\t}\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Something with an expression\"{");
+    _builder.newLine();
+    _builder.append("	fact \"a fact with should\"{");
+    _builder.newLine();
+    _builder.append("		val x = 6");
+    _builder.newLine();
+    _builder.append("		x > 4 && x > 5 should be true");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
   @Named("automatically converts lists to arrays")
   @Order(5)
   public void _automaticallyConvertsListsToArrays() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("describe \"Something with an expression\"{\r\n\tfact \"any fact\"{\r\n\t}\r\n\t\r\n\tdef String[] x(){\r\n\tlist(\"some string\")\r\n\t}\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Something with an expression\"{");
+    _builder.newLine();
+    _builder.append("	fact \"any fact\"{");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("	");
+    _builder.newLine();
+    _builder.append("	def String[] x(){");
+    _builder.newLine();
+    _builder.append("	list(\"some string\")");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
   @Named("resolve fact method name clashes")
   @Order(6)
   public void _resolveFactMethodNameClashes() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("describe \"Using Should\"{\r\n  \r\n \t  fact \"a***\"  \r\n      fact \"a???\" \r\n   \t\t\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Using Should\"{");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append(" 	  fact \"a***\"  ");
+    _builder.newLine();
+    _builder.append("      fact \"a???\" ");
+    _builder.newLine();
+    _builder.append("   		");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
   @Named("supports should in closures")
   @Order(7)
   public void _supportsShouldInClosures() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("describe \"Should in closures\"{\r\n\tfact \"should-be in closure\" {\r\n        [|1 should be 1].apply;  \r\n        [|var int i; 1 should be 1].apply;\r\n        [|].apply ;\r\n    }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Should in closures\"{");
+    _builder.newLine();
+    _builder.append("	fact \"should-be in closure\" {");
+    _builder.newLine();
+    _builder.append("        [|1 should be 1].apply;  ");
+    _builder.newLine();
+    _builder.append("        [|var int i; 1 should be 1].apply;");
+    _builder.newLine();
+    _builder.append("        [|].apply ;");
+    _builder.newLine();
+    _builder.append("    }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -81,6 +197,43 @@ public class CompilerSpec {
   @Named("supports enums in tables")
   @Order(9)
   public void _supportsEnumsInTables() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("import static org.jnario.spec.tests.unit.compiler.MyEnum.*\r\n\r\ndescribe \"Tests type inference of the table columns\"{\r\n\t\r\n\t\r\n\tdef myTable {\r\n\t\t| value  |\r\n\t\t| VALUE1 |\r\n\t\t| VALUE2 |\r\n    }\t\t\r\n\t\r\n\tfact \"Table column type get inferred by the stand-alone compile correctly\" {\r\n\t\tmyTable.forEach [\r\n\t\t\tvalue should not be null\r\n\t\t]\r\n\t}\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("import static org.jnario.spec.tests.unit.compiler.MyEnum.*");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"Tests type inference of the table columns\"{");
+    _builder.newLine();
+    _builder.append("	");
+    _builder.newLine();
+    _builder.append("	");
+    _builder.newLine();
+    _builder.append("	def myTable {");
+    _builder.newLine();
+    _builder.append("		| value  |");
+    _builder.newLine();
+    _builder.append("		| VALUE1 |");
+    _builder.newLine();
+    _builder.append("		| VALUE2 |");
+    _builder.newLine();
+    _builder.append("    }		");
+    _builder.newLine();
+    _builder.append("	");
+    _builder.newLine();
+    _builder.append("	fact \"Table column type get inferred by the stand-alone compile correctly\" {");
+    _builder.newLine();
+    _builder.append("		myTable.forEach [");
+    _builder.newLine();
+    _builder.append("			value should not be null");
+    _builder.newLine();
+    _builder.append("		]");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

@@ -8,6 +8,7 @@
 package org.jnario.spec.tests.integration;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.BehaviorExecutor;
 import org.jnario.jnario.test.util.ConsoleRecorder;
@@ -67,7 +68,58 @@ public class SpecExtensionsSpec {
   @Named("Example:")
   @Order(1)
   public void _example() throws Exception {
-    this.prints("import org.jnario.spec.tests.integration.ExtensionExample\r\n\r\ndescribe \"Extension\"{\r\n\textension static ExtensionExample = new ExtensionExample()\r\n\r\n\tcontext \"Nested Spec\"{\r\n\t\tfact println(\"test 3\")\r\n\t}\r\n\tfact println(\"test 1\")\r\n\tfact println(\"test 2\")\r\n\t\r\n}\r\n", "before Class\r\nbefore\r\ntest 3\r\nafter\r\nbefore\r\ntest 1\r\nafter\r\nbefore\r\ntest 2\r\nafter\r\nafter Class\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("import org.jnario.spec.tests.integration.ExtensionExample");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"Extension\"{");
+    _builder.newLine();
+    _builder.append("	extension static ExtensionExample = new ExtensionExample()");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("	context \"Nested Spec\"{");
+    _builder.newLine();
+    _builder.append("		fact println(\"test 3\")");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("	fact println(\"test 1\")");
+    _builder.newLine();
+    _builder.append("	fact println(\"test 2\")");
+    _builder.newLine();
+    _builder.append("	");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("before Class");
+    _builder_1.newLine();
+    _builder_1.append("before");
+    _builder_1.newLine();
+    _builder_1.append("test 3");
+    _builder_1.newLine();
+    _builder_1.append("after");
+    _builder_1.newLine();
+    _builder_1.append("before");
+    _builder_1.newLine();
+    _builder_1.append("test 1");
+    _builder_1.newLine();
+    _builder_1.append("after");
+    _builder_1.newLine();
+    _builder_1.append("before");
+    _builder_1.newLine();
+    _builder_1.append("test 2");
+    _builder_1.newLine();
+    _builder_1.append("after");
+    _builder_1.newLine();
+    _builder_1.append("after Class");
+    _builder_1.newLine();
+    
+    this.prints(
+      _builder.toString(), _builder_1.toString());
   }
   
   public void prints(@Extension final CharSequence spec, @Extension final String expected) {

@@ -11,6 +11,7 @@ import com.google.common.base.Objects;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
@@ -253,7 +254,12 @@ public class UsingShouldSpec {
       }
     };
     String _errorMessage = Helpers.errorMessage(_function);
-    Helpers.is(_errorMessage, "Expected 1 + 1 => 1 but\r\n     1 + 1 is <2>");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Expected 1 + 1 => 1 but");
+    _builder.newLine();
+    _builder.append("     1 + 1 is <2>");
+    
+    Helpers.is(_errorMessage, _builder.toString());
     final String x = "hello";
     final Procedure1<Boolean> _function_1 = new Procedure1<Boolean>() {
       @Override
@@ -266,7 +272,14 @@ public class UsingShouldSpec {
       }
     };
     String _errorMessage_1 = Helpers.errorMessage(_function_1);
-    Helpers.is(_errorMessage_1, "Expected x.toUpperCase should not be \"HELLO\" but\r\n     x.toUpperCase is \"HELLO\"\r\n     x is \"hello\"");
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("Expected x.toUpperCase should not be \"HELLO\" but");
+    _builder_1.newLine();
+    _builder_1.append("     x.toUpperCase is \"HELLO\"");
+    _builder_1.newLine();
+    _builder_1.append("     x is \"hello\"");
+    
+    Helpers.is(_errorMessage_1, _builder_1.toString());
     final String y = "world";
     final Procedure1<Boolean> _function_2 = new Procedure1<Boolean>() {
       @Override
@@ -278,7 +291,14 @@ public class UsingShouldSpec {
       }
     };
     String _errorMessage_2 = Helpers.errorMessage(_function_2);
-    Helpers.is(_errorMessage_2, "Expected x => y but\r\n     x is \"hello\"\r\n     y is \"world\"");
+    StringConcatenation _builder_2 = new StringConcatenation();
+    _builder_2.append("Expected x => y but");
+    _builder_2.newLine();
+    _builder_2.append("     x is \"hello\"");
+    _builder_2.newLine();
+    _builder_2.append("     y is \"world\"");
+    
+    Helpers.is(_errorMessage_2, _builder_2.toString());
   }
   
   /**

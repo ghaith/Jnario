@@ -7,6 +7,7 @@
  */
 package org.jnario.spec.tests.unit.naming;
 
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.Query;
 import org.jnario.lib.Assert;
@@ -97,7 +98,14 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   @Named("should escape quotes")
   @Order(7)
   public void _shouldEscapeQuotes() throws Exception {
-    final String text = "describe \'Example\'{\r\n                    describe \'and \"more\"\'{}\r\n                 }".toString();
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe 'Example'{");
+    _builder.newLine();
+    _builder.append("                    describe 'and \"more\"'{}");
+    _builder.newLine();
+    _builder.append("                 }");
+    
+    final String text = _builder.toString().toString();
     String _describeSecond = this.describeSecond(text);
     Assert.assertTrue("\nExpected describeSecond(text) => \'and \\\\\"more\\\\\"\' but"
      + "\n     describeSecond(text) is " + new org.hamcrest.StringDescription().appendValue(_describeSecond).toString()
@@ -109,7 +117,10 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   @Named("should replace line breaks and leading whitespace with a single space")
   @Order(8)
   public void _shouldReplaceLineBreaksAndLeadingWhitespaceWithASingleSpace() throws Exception {
-    final String text = "describe \"Example\\n\\t 2\"".toString();
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Example\\n\\t 2\"");
+    
+    final String text = _builder.toString().toString();
     String _describeFirst = this.describeFirst(text);
     Assert.assertTrue("\nExpected describeFirst(text) => \'Example 2\' but"
      + "\n     describeFirst(text) is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString()

@@ -1,5 +1,6 @@
 package org.jnario.jnario.tests.unit.report;
 
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.jnario.feature.feature.Scenario;
 import org.jnario.jnario.test.util.FeatureTestCreator;
 import org.jnario.jnario.tests.unit.report.HashBasedSpec2ResultMappingSpec;
@@ -23,7 +24,23 @@ import org.junit.runner.RunWith;
 public class HashBasedSpec2ResultMappingScenarioSpec extends HashBasedSpec2ResultMappingSpec {
   @Before
   public void before() throws Exception {
-    this.m.parseScenario("package test \r\nFeature: My Feature\r\nScenario: My Scenario\r\nGiven my Step\r\n\t\"with implementation\"\r\nAnd other Step\r\n\t\"with implementation\"\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package test ");
+    _builder.newLine();
+    _builder.append("Feature: My Feature");
+    _builder.newLine();
+    _builder.append("Scenario: My Scenario");
+    _builder.newLine();
+    _builder.append("Given my Step");
+    _builder.newLine();
+    _builder.append("	\"with implementation\"");
+    _builder.newLine();
+    _builder.append("And other Step");
+    _builder.newLine();
+    _builder.append("	\"with implementation\"");
+    _builder.newLine();
+    
+    this.m.parseScenario(_builder.toString());
   }
   
   @Test

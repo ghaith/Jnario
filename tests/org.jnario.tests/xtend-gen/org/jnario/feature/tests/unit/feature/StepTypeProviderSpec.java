@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import java.util.Set;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.jnario.feature.feature.FeatureFactory;
@@ -138,10 +139,23 @@ public class StepTypeProviderSpec {
   @Named("\\\'\\\'\\\' Feature: something Scenario: scenario Given something And something else And something else \\\'\\\'\\\'.expectedTypes =>  GIVEN")
   @Order(7)
   public void _featureSomethingScenarioScenarioGivenSomethingAndSomethingElseAndSomethingElseExpectedTypesGIVEN() throws Exception {
-    Set<EClass> _expectedTypes = this.expectedTypes("Feature: something\r\nScenario: scenario\r\n\tGiven something\r\n\tAnd something else\r\n\tAnd something else\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Feature: something");
+    _builder.newLine();
+    _builder.append("Scenario: scenario");
+    _builder.newLine();
+    _builder.append("	Given something");
+    _builder.newLine();
+    _builder.append("	And something else");
+    _builder.newLine();
+    _builder.append("	And something else");
+    _builder.newLine();
+    
+    Set<EClass> _expectedTypes = this.expectedTypes(_builder.toString());
     boolean _doubleArrow = Should.<Set<EClass>>operator_doubleArrow(_expectedTypes, StepTypeProvider.GIVEN);
     Assert.assertTrue("\nExpected \'\'\'\r\n\t\tFeature: something\r\n\t\tScenario: scenario\r\n\t\t\tGiven something\r\n\t\t\tAnd something else\r\n\t\t\tAnd something else\r\n\t\'\'\'.expectedTypes =>  GIVEN but"
      + "\n     \'\'\'\r\n\t\tFeature: something\r\n\t\tScenario: scenario\r\n\t\t\tGiven something\r\n\t\t\tAnd something else\r\n\t\t\tAnd something else\r\n\t\'\'\'.expectedTypes is " + new org.hamcrest.StringDescription().appendValue(_expectedTypes).toString()
+     + "\n     \'\'\'\r\n\t\tFeature: something\r\n\t\tScenario: scenario\r\n\t\t\tGiven something\r\n\t\t\tAnd something else\r\n\t\t\tAnd something else\r\n\t\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString()
      + "\n     GIVEN is " + new org.hamcrest.StringDescription().appendValue(StepTypeProvider.GIVEN).toString() + "\n", _doubleArrow);
     
   }
@@ -150,10 +164,24 @@ public class StepTypeProviderSpec {
   @Named("calculates actual type")
   @Order(8)
   public void _calculatesActualType() throws Exception {
-    EClass _actualType = this.actualType("Feature: something\r\nScenario: scenario\r\n\tGiven something\r\n\tBut something else\r\n\tAnd something else\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Feature: something");
+    _builder.newLine();
+    _builder.append("Scenario: scenario");
+    _builder.newLine();
+    _builder.append("	Given something");
+    _builder.newLine();
+    _builder.append("	But something else");
+    _builder.newLine();
+    _builder.append("	And something else");
+    _builder.newLine();
+    
+    EClass _actualType = this.actualType(
+      _builder.toString());
     EClass _givenReference = this.pack.getGivenReference();
     Assert.assertTrue("\nExpected \'\'\'\r\n\t\tFeature: something\r\n\t\tScenario: scenario\r\n\t\t\tGiven something\r\n\t\t\tBut something else\r\n\t\t\tAnd something else\r\n\t\'\'\'.actualType =>  givenReference but"
      + "\n     \'\'\'\r\n\t\tFeature: something\r\n\t\tScenario: scenario\r\n\t\t\tGiven something\r\n\t\t\tBut something else\r\n\t\t\tAnd something else\r\n\t\'\'\'.actualType is " + new org.hamcrest.StringDescription().appendValue(_actualType).toString()
+     + "\n     \'\'\'\r\n\t\tFeature: something\r\n\t\tScenario: scenario\r\n\t\t\tGiven something\r\n\t\t\tBut something else\r\n\t\t\tAnd something else\r\n\t\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString()
      + "\n     givenReference is " + new org.hamcrest.StringDescription().appendValue(_givenReference).toString() + "\n", Should.<EClass>operator_doubleArrow(_actualType, _givenReference));
     
   }

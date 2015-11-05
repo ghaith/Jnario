@@ -10,6 +10,7 @@ import org.eclipse.xtext.xbase.XExpression
 import org.jnario.compiler.JnarioCompiler
 import org.eclipse.xtext.xbase.XBlockExpression
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2
+import java.util.Arrays
 
 class RichStringProcessor {
 
@@ -20,6 +21,9 @@ class RichStringProcessor {
 	static class RichStringAcceptor {
 
 		List<Procedure2<ITreeAppendable, String>> toBeAppended = newArrayList;
+
+		val lineInformation = <Pair<String, Boolean>>newArrayList()
+
 		String indentation = null
 
 		JnarioCompiler compiler
@@ -53,6 +57,7 @@ class RichStringProcessor {
 		}
 
 		def dispatch accept(XExpression literal) {
+
 			toBeAppended.add([ appendable, name |
 				appendable.append('''«name».append(''')
 				compiler.toJavaExpression(literal, appendable)
@@ -60,14 +65,16 @@ class RichStringProcessor {
 				appendable.newLine
 			])
 		}
-		
+
 		def dispatch accept(RichStringLiteral literal) {
+			var fixIndentation = true;
 			var value = literal.value
 			if (value.startsWith(RICHSTRING_TAG)) {
 				value = value.substring(3)
 			}
 			if (value.startsWith(PLACEHOLDER_CLOSE)) {
 				value = value.substring(1)
+				fixIndentation = false
 			}
 			if (value.endsWith(PLACEHOLDER_OPEN)) {
 				value = value.substring(0, value.length - 1)
@@ -77,35 +84,78 @@ class RichStringProcessor {
 			}
 
 			val lines = Splitter.on(Pattern.compile("\r?\n")).split(value)
-
+			val shouldFixIndentation = fixIndentation
 			lines.forEach [ it, index |
-				if (indentation == null && it.empty) {
-					// the very first empty line
-					return
-				}
-
-				val currentIndentation = it.indentation
-				if (indentation == null || currentIndentation.length < indentation.length) {
-					indentation = currentIndentation
+				if (shouldFixIndentation || index != 0) {
+					val currentIndentation = it.indentation
+					lineInformation.add(currentIndentation -> (it.trim.length > 0))
 				}
 
 				toBeAppended.add([ appendable, variableName |
-					appendable.append('''«variableName».append("«it.correctIndentation»");''')
+					appendable.append('''«variableName».append("« 
+						if (shouldFixIndentation || index != 0) {
+							it.correctIndentation.escape
+						} else {
+							it.escape
+						}
+					»");'''
+					)
 					appendable.newLine
 					if (index < lines.size - 1) {
 						appendable.append('''«variableName».newLine();''')
 						appendable.newLine
 					}
 				])
-
 			]
 
 		}
 
+		def escape(String string) {
+			return string.replace("\\","\\\\").replace("\"","\\\"").replace("\\\\u","\\u")
+		}
+
 		def appendTo(ITreeAppendable appendable, String variableName) {
+			//Don't destroy the originals incase clearEmptyFirst.. fails
+			//Mostly for debug reasons
+			val lineInformation = this.lineInformation.toList
+			val toBeAppended = this.toBeAppended.toList
+			clearEmptyFirstAndLastLines(lineInformation, toBeAppended);
+			indentation = calculateIndentation(lineInformation)
+
 			toBeAppended.forEach [
 				it.apply(appendable, variableName)
 			]
+		}
+
+		def clearEmptyFirstAndLastLines(List<Pair<String, Boolean>> lineInformation,
+			List<Procedure2<ITreeAppendable, String>> toBeAppended) {
+			val first = lineInformation.head
+			if (!(lineInformation.nullOrEmpty || first.value)) { // its empty
+				lineInformation.remove(0)
+				toBeAppended.remove(0)
+			} else {
+				lineInformation.remove(0)
+				lineInformation.add(0,''->true)
+			}
+
+			val last = lineInformation.last
+			if (!(lineInformation.nullOrEmpty || last.value)) { // its empty
+				lineInformation.remove(lineInformation.size - 1)
+				toBeAppended.remove(toBeAppended.length - 1)
+			}
+
+		}
+
+		def calculateIndentation(List<Pair<String, Boolean>> lineInformation) {
+			if (!lineInformation.nullOrEmpty) {
+				return lineInformation.minBy [
+					if (it.value) {
+						return it.key.length
+					}
+					return Integer.MAX_VALUE //for empty lines we assume maximum indentation
+				].key
+			}
+			return ''
 		}
 
 		def correctIndentation(String string) {

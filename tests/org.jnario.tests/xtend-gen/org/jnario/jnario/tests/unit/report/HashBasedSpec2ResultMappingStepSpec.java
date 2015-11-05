@@ -1,5 +1,7 @@
 package org.jnario.jnario.tests.unit.report;
 
+import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.jnario.feature.feature.Step;
 import org.jnario.jnario.test.util.FeatureTestCreator;
 import org.jnario.jnario.tests.unit.report.HashBasedSpec2ResultMappingSpec;
@@ -25,16 +27,44 @@ public class HashBasedSpec2ResultMappingStepSpec extends HashBasedSpec2ResultMap
   
   final Passed pendingResult = Passed.passingSpec("example.SomethingFeatureMyScenario", "Given a pending step [PENDING]", HashBasedSpec2ResultMappingSpec.anyExecutionTime);
   
-  final Passed resultWithUnicodeChars = Passed.passingSpec("example.SomethingFeatureMyScenario", "Given step with uml\u00E4uts", HashBasedSpec2ResultMappingSpec.anyExecutionTime);
+  final Passed resultWithUnicodeChars = new Function0<Passed>() {
+    public Passed apply() {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("Given step with umläuts");
+      
+      Passed _passingSpec = Passed.passingSpec("example.SomethingFeatureMyScenario", _builder.toString(), HashBasedSpec2ResultMappingSpec.anyExecutionTime);
+      return _passingSpec;
+    }
+  }.apply();
   
-  final Passed resultWithArgs = Passed.passingSpec("example.SomethingFeatureMyScenario", "Given step with \"args\"", HashBasedSpec2ResultMappingSpec.anyExecutionTime);
+  final Passed resultWithArgs = new Function0<Passed>() {
+    public Passed apply() {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("Given step with \"args\"");
+      
+      Passed _passingSpec = Passed.passingSpec("example.SomethingFeatureMyScenario", _builder.toString(), HashBasedSpec2ResultMappingSpec.anyExecutionTime);
+      return _passingSpec;
+    }
+  }.apply();
   
   @Test
   @Named("matches if classname and name are equal")
   @Order(1)
   public void _matchesIfClassnameAndNameAreEqual() throws Exception {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package example");
+    _builder.newLine();
+    _builder.append("Feature: Something");
+    _builder.newLine();
+    _builder.append("	Scenario: MyScenario");
+    _builder.newLine();
+    _builder.append("		Given a step");
+    _builder.newLine();
+    _builder.append("			1 + 1 => 2");
+    _builder.newLine();
+    
     this.m.parseScenario(
-      "package example\r\nFeature: Something\r\n\tScenario: MyScenario\r\n\t\tGiven a step\r\n\t\t\t1 + 1 => 2\r\n");
+      _builder.toString());
     this.subject.accept(this.aResult);
     Step _step = this.step();
     boolean _should_match = this.should_match(_step, this.aResult);
@@ -59,8 +89,18 @@ public class HashBasedSpec2ResultMappingStepSpec extends HashBasedSpec2ResultMap
   @Named("includes pending state when matching")
   @Order(2)
   public void _includesPendingStateWhenMatching() throws Exception {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package example");
+    _builder.newLine();
+    _builder.append("Feature: Something");
+    _builder.newLine();
+    _builder.append("	Scenario: MyScenario");
+    _builder.newLine();
+    _builder.append("		Given a pending step");
+    _builder.newLine();
+    
     this.m.parseScenario(
-      "package example\r\nFeature: Something\r\n\tScenario: MyScenario\r\n\t\tGiven a pending step\r\n");
+      _builder.toString());
     this.subject.accept(this.pendingResult);
     Step _step = this.step();
     Assert.assertTrue("\nExpected step should match pendingResult but"
@@ -73,8 +113,20 @@ public class HashBasedSpec2ResultMappingStepSpec extends HashBasedSpec2ResultMap
   @Named("handles escaped characters")
   @Order(3)
   public void _handlesEscapedCharacters() throws Exception {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package example");
+    _builder.newLine();
+    _builder.append("Feature: Something");
+    _builder.newLine();
+    _builder.append("	Scenario: MyScenario");
+    _builder.newLine();
+    _builder.append("	Given step with umläuts");
+    _builder.newLine();
+    _builder.append("		1 =>1");
+    _builder.newLine();
+    
     this.m.parseScenario(
-      "package example\r\nFeature: Something\r\n\tScenario: MyScenario\r\n\tGiven step with uml\u00E4uts\r\n\t\t1 =>1\r\n");
+      _builder.toString());
     this.subject.accept(this.resultWithUnicodeChars);
     Step _step = this.step();
     Assert.assertTrue("\nExpected step should match resultWithUnicodeChars but"
@@ -87,8 +139,20 @@ public class HashBasedSpec2ResultMappingStepSpec extends HashBasedSpec2ResultMap
   @Named("handles step arguments")
   @Order(4)
   public void _handlesStepArguments() throws Exception {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package example");
+    _builder.newLine();
+    _builder.append("Feature: Something");
+    _builder.newLine();
+    _builder.append("	Scenario: MyScenario");
+    _builder.newLine();
+    _builder.append("	Given step with \"args\"");
+    _builder.newLine();
+    _builder.append("		1 =>1");
+    _builder.newLine();
+    
     this.m.parseScenario(
-      "package example\r\nFeature: Something\r\n\tScenario: MyScenario\r\n\tGiven step with \"args\"\r\n\t\t1 =>1\r\n");
+      _builder.toString());
     this.subject.accept(this.resultWithArgs);
     Step _step = this.step();
     Assert.assertTrue("\nExpected step should match resultWithArgs but"

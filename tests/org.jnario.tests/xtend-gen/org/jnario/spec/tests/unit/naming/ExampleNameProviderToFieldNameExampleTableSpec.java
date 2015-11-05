@@ -7,6 +7,7 @@
  */
 package org.jnario.spec.tests.unit.naming;
 
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.jnario.ExampleTable;
 import org.jnario.jnario.test.util.Query;
 import org.jnario.lib.Assert;
@@ -31,7 +32,17 @@ public class ExampleNameProviderToFieldNameExampleTableSpec extends ExampleNameP
   @Named("should use the example name")
   @Order(1)
   public void _shouldUseTheExampleName() throws Exception {
-    Query _parse = this.parse("describe \'My Context\'{\r\n  def myExample{\r\n  }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe 'My Context'{");
+    _builder.newLine();
+    _builder.append("  def myExample{");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    Query _parse = this.parse(_builder.toString());
     final ExampleTable exampleTable = _parse.<ExampleTable>first(ExampleTable.class);
     String _fieldName = this.subject.toFieldName(exampleTable);
     Assert.assertTrue("\nExpected subject.toFieldName(exampleTable) => \"myExample\" but"
@@ -45,7 +56,17 @@ public class ExampleNameProviderToFieldNameExampleTableSpec extends ExampleNameP
   @Named("should use \\\'examples\\\' if no name is given")
   @Order(2)
   public void _shouldUseExamplesIfNoNameIsGiven() throws Exception {
-    Query _parse = this.parse("describe \'My Context\'{\r\n  def{\r\n  }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe 'My Context'{");
+    _builder.newLine();
+    _builder.append("  def{");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    Query _parse = this.parse(_builder.toString());
     final ExampleTable exampleTable = _parse.<ExampleTable>first(ExampleTable.class);
     String _fieldName = this.subject.toFieldName(exampleTable);
     Assert.assertTrue("\nExpected subject.toFieldName(exampleTable) => \"examples\" but"

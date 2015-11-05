@@ -1,6 +1,7 @@
 package org.jnario.spec.tests.integration;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.BehaviorExecutor;
 import org.jnario.jnario.test.util.SpecTestCreator;
@@ -25,6 +26,23 @@ public class DefiningSpecBaseClassesSpec {
   @Named("Extend annotation defines the super class")
   @Order(1)
   public void _extendAnnotationDefinesTheSuperClass() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("import org.jnario.runner.Extends\r\nimport junit.framework.TestCase\r\n\r\n@Extends(typeof(TestCase)) \r\ndescribe \"A spec\"{\r\n\tfact typeof(ASpecSpec).superclass => typeof(TestCase)\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("import org.jnario.runner.Extends");
+    _builder.newLine();
+    _builder.append("import junit.framework.TestCase");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("@Extends(typeof(TestCase)) ");
+    _builder.newLine();
+    _builder.append("describe \"A spec\"{");
+    _builder.newLine();
+    _builder.append("	fact typeof(ASpecSpec).superclass => typeof(TestCase)");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

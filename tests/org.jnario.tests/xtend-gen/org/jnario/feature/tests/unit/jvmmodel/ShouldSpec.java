@@ -1,6 +1,7 @@
 package org.jnario.feature.tests.unit.jvmmodel;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.BehaviorExecutor;
 import org.jnario.jnario.test.util.FeatureTestCreator;
@@ -25,6 +26,41 @@ public class ShouldSpec {
   @Named("Shows correct failure message in reused steps")
   @Order(1)
   public void _showsCorrectFailureMessageInReusedSteps() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package demo\r\n\r\nFeature: Failure messages when reusing steps\r\n\r\n\tScenario: name\r\n\t\r\n\t\tGiven a step\r\n\t\t\ttry{\r\n\t\t\t\t1 + 1 => 3\r\n\t\t\t}catch(AssertionError e){\r\n\t\t\t\te.message should contain \"1 + 1 => 3\"\r\n\t\t\t}\r\n\t\t\t\r\n\tScenario: name 2\t\t\r\n\t\tGiven a step\r\n\t\t\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("Feature: Failure messages when reusing steps");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("	Scenario: name");
+    _builder.newLine();
+    _builder.append("	");
+    _builder.newLine();
+    _builder.append("		Given a step");
+    _builder.newLine();
+    _builder.append("			try{");
+    _builder.newLine();
+    _builder.append("				1 + 1 => 3");
+    _builder.newLine();
+    _builder.append("			}catch(AssertionError e){");
+    _builder.newLine();
+    _builder.append("				e.message should contain \"1 + 1 => 3\"");
+    _builder.newLine();
+    _builder.append("			}");
+    _builder.newLine();
+    _builder.append("			");
+    _builder.newLine();
+    _builder.append("	Scenario: name 2		");
+    _builder.newLine();
+    _builder.append("		Given a step");
+    _builder.newLine();
+    _builder.append("		");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

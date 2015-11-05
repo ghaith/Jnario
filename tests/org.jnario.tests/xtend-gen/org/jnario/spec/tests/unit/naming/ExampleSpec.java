@@ -11,6 +11,7 @@ import com.google.inject.Inject;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.ModelStore;
 import org.jnario.jnario.test.util.Query;
@@ -37,7 +38,17 @@ public class ExampleSpec {
   public ModelStore modelStore;
   
   public Example parse(@Extension final String content) {
-    final Resource spec = this.modelStore.parseSpec((("describe \"test\"{\r\n" + content) + "}\r\n"));
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"test\"{");
+    _builder.newLine();
+    
+    String _plus = (_builder.toString() + content);
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("}");
+    _builder_1.newLine();
+    
+    String _plus_1 = (_plus + _builder_1.toString());
+    final Resource spec = this.modelStore.parseSpec(_plus_1);
     TreeIterator<EObject> _allContents = spec.getAllContents();
     Query _query = Query.query(_allContents);
     return _query.<Example>first(Example.class);

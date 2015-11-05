@@ -3,6 +3,7 @@ package org.jnario.suite.unit;
 import com.google.inject.Inject;
 import java.util.List;
 import java.util.Set;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.jnario.Executable;
@@ -40,15 +41,65 @@ public class SuiteExecutableProviderSpec {
   
   @Before
   public void before() throws Exception {
-    this.m.parseSpec("package demo\r\ndescribe \"My Spec\"{\r\n\t// this should be filtered\r\n\tdescribe \"My Internal Spec\"{\r\n\t\t\r\n\t}\r\n}\r\ndescribe String{\r\n\t\r\n}\r\n");
-    this.m.parseScenario("package demo\r\nFeature: My Feature\r\nScenario My Scenario\r\n\tGiven nothing\r\n\tThen nothing\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("describe \"My Spec\"{");
+    _builder.newLine();
+    _builder.append("	// this should be filtered");
+    _builder.newLine();
+    _builder.append("	describe \"My Internal Spec\"{");
+    _builder.newLine();
+    _builder.append("		");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("describe String{");
+    _builder.newLine();
+    _builder.append("	");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this.m.parseSpec(_builder.toString());
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("package demo");
+    _builder_1.newLine();
+    _builder_1.append("Feature: My Feature");
+    _builder_1.newLine();
+    _builder_1.append("Scenario My Scenario");
+    _builder_1.newLine();
+    _builder_1.append("	Given nothing");
+    _builder_1.newLine();
+    _builder_1.append("	Then nothing");
+    _builder_1.newLine();
+    
+    this.m.parseScenario(_builder_1.toString());
   }
   
   @Test
   @Named("returns contained suites")
   @Order(1)
   public void _returnsContainedSuites() throws Exception {
-    this.m.parseSuite("package demo\r\nimport demo.*\r\n#My Suite\r\n\r\n##Child 1\r\n##Child 2\r\n###Grandchild\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("import demo.*");
+    _builder.newLine();
+    _builder.append("#My Suite");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("##Child 1");
+    _builder.newLine();
+    _builder.append("##Child 2");
+    _builder.newLine();
+    _builder.append("###Grandchild");
+    _builder.newLine();
+    
+    this.m.parseSuite(_builder.toString());
     Suite _suite = this.m.suite("My Suite");
     List<Executable> _executables = this.subject.getExecutables(_suite);
     Suite _suite_1 = this.m.suite("Child 1");
@@ -68,7 +119,21 @@ public class SuiteExecutableProviderSpec {
   @Named("returns resolved specs via link")
   @Order(2)
   public void _returnsResolvedSpecsViaLink() throws Exception {
-    this.m.parseSuite("package demo\r\nimport demo.*\r\n#My Suite\r\n\r\n- \"My Spec\"\r\n- \"My Feature\"\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("import demo.*");
+    _builder.newLine();
+    _builder.append("#My Suite");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("- \"My Spec\"");
+    _builder.newLine();
+    _builder.append("- \"My Feature\"");
+    _builder.newLine();
+    
+    this.m.parseSuite(_builder.toString());
     Suite _suite = this.m.suite("My Suite");
     List<Executable> _executables = this.subject.getExecutables(_suite);
     Set<Executable> _set = IterableExtensions.<Executable>toSet(_executables);
@@ -90,7 +155,21 @@ public class SuiteExecutableProviderSpec {
   @Named("returns resolved specs via regex")
   @Order(3)
   public void _returnsResolvedSpecsViaRegex() throws Exception {
-    this.m.parseSuite("package demo\r\nimport demo.*\r\n#My Suite\r\n\r\n- \\demo.*\\\r\n\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("import demo.*");
+    _builder.newLine();
+    _builder.append("#My Suite");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("- \\demo.*\\");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    
+    this.m.parseSuite(_builder.toString());
     Suite _suite = this.m.suite("My Suite");
     List<Executable> _executables = this.subject.getExecutables(_suite);
     Set<Executable> _set = IterableExtensions.<Executable>toSet(_executables);

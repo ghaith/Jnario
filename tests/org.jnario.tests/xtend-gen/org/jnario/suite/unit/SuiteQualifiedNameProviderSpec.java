@@ -8,6 +8,7 @@
 package org.jnario.suite.unit;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.ModelStore;
@@ -41,7 +42,10 @@ public class SuiteQualifiedNameProviderSpec {
   @Named("removes suite prefix")
   @Order(1)
   public void _removesSuitePrefix() throws Exception {
-    this._modelStore.parseSuite("#My Suite");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("#My Suite");
+    
+    this._modelStore.parseSuite(_builder.toString());
     String _qualifiedName = this.qualifiedName();
     Assert.assertTrue("\nExpected qualifiedName => \"My Suite\" but"
      + "\n     qualifiedName is " + new org.hamcrest.StringDescription().appendValue(_qualifiedName).toString() + "\n", Should.<String>operator_doubleArrow(_qualifiedName, "My Suite"));
@@ -52,7 +56,12 @@ public class SuiteQualifiedNameProviderSpec {
   @Named("removes suite trailing text")
   @Order(2)
   public void _removesSuiteTrailingText() throws Exception {
-    this._modelStore.parseSuite("#My Suite\r\nwith description");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("#My Suite");
+    _builder.newLine();
+    _builder.append("with description");
+    
+    this._modelStore.parseSuite(_builder.toString());
     String _qualifiedName = this.qualifiedName();
     Assert.assertTrue("\nExpected qualifiedName => \"My Suite\" but"
      + "\n     qualifiedName is " + new org.hamcrest.StringDescription().appendValue(_qualifiedName).toString() + "\n", Should.<String>operator_doubleArrow(_qualifiedName, "My Suite"));
@@ -63,7 +72,12 @@ public class SuiteQualifiedNameProviderSpec {
   @Named("add suite package")
   @Order(3)
   public void _addSuitePackage() throws Exception {
-    this._modelStore.parseSuite("package test\r\n#My Suite");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package test");
+    _builder.newLine();
+    _builder.append("#My Suite");
+    
+    this._modelStore.parseSuite(_builder.toString());
     String _qualifiedName = this.qualifiedName();
     Assert.assertTrue("\nExpected qualifiedName => \"test.My Suite\" but"
      + "\n     qualifiedName is " + new org.hamcrest.StringDescription().appendValue(_qualifiedName).toString() + "\n", Should.<String>operator_doubleArrow(_qualifiedName, "test.My Suite"));
@@ -74,7 +88,10 @@ public class SuiteQualifiedNameProviderSpec {
   @Named("handles empty packages")
   @Order(4)
   public void _handlesEmptyPackages() throws Exception {
-    this._modelStore.parseSuite("#My Suite");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("#My Suite");
+    
+    this._modelStore.parseSuite(_builder.toString());
     String _qualifiedName = this.qualifiedName();
     Assert.assertTrue("\nExpected qualifiedName => \"My Suite\" but"
      + "\n     qualifiedName is " + new org.hamcrest.StringDescription().appendValue(_qualifiedName).toString() + "\n", Should.<String>operator_doubleArrow(_qualifiedName, "My Suite"));
@@ -85,7 +102,11 @@ public class SuiteQualifiedNameProviderSpec {
   @Named("handles empty suites")
   @Order(5)
   public void _handlesEmptySuites() throws Exception {
-    this._modelStore.parseSuite("#\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("#");
+    _builder.newLine();
+    
+    this._modelStore.parseSuite(_builder.toString());
     String _qualifiedName = this.qualifiedName();
     Assert.assertNull("\nExpected qualifiedName should be null\n     but is " + new org.hamcrest.StringDescription().appendValue(_qualifiedName).toString() + "\n", _qualifiedName);
     

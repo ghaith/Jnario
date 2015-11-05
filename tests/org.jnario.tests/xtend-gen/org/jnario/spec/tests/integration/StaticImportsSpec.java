@@ -8,6 +8,7 @@
 package org.jnario.spec.tests.integration;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.BehaviorExecutor;
 import org.jnario.jnario.test.util.SpecTestCreator;
@@ -32,6 +33,29 @@ public class StaticImportsSpec {
   @Named("should resolve static imports")
   @Order(1)
   public void _shouldResolveStaticImports() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package bootstrap\r\n\r\nimport static org.junit.Assert.*\r\ndescribe \"Example\" {\r\n\r\n\tfact \"should resolve static imports\"{\r\n\t\tassertTrue(true) \r\n\t} \r\n\t\t\t\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package bootstrap");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("import static org.junit.Assert.*");
+    _builder.newLine();
+    _builder.append("describe \"Example\" {");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("	fact \"should resolve static imports\"{");
+    _builder.newLine();
+    _builder.append("		assertTrue(true) ");
+    _builder.newLine();
+    _builder.append("	} ");
+    _builder.newLine();
+    _builder.append("			");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

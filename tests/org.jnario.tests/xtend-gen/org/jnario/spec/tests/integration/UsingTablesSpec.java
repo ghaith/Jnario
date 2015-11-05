@@ -9,6 +9,7 @@ package org.jnario.spec.tests.integration;
 
 import com.google.inject.Inject;
 import java.util.Arrays;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.jnario.test.util.BehaviorExecutor;
@@ -51,7 +52,42 @@ public class UsingTablesSpec {
   @Named("accessing values")
   @Order(1)
   public void _accessingValues() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package bootstrap\r\n\r\ndescribe \"Example Tables\"{\r\n  \r\n  def myExamples{\r\n    |    String input      |  String result       |  \r\n    | \"Hello World\" | \"HELLO WORLD\" | \r\n    | \"Hallo Welt\"  | \"HALLO WELT\"  |\r\n  } \r\n  \r\n  fact \"can be accessed via the table name\"{\r\n    myExamples.forEach[   \r\n      input.toUpperCase should be result\r\n    ] \r\n  }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package bootstrap");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"Example Tables\"{");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  def myExamples{");
+    _builder.newLine();
+    _builder.append("    |    String input      |  String result       |  ");
+    _builder.newLine();
+    _builder.append("    | \"Hello World\" | \"HELLO WORLD\" | ");
+    _builder.newLine();
+    _builder.append("    | \"Hallo Welt\"  | \"HALLO WELT\"  |");
+    _builder.newLine();
+    _builder.append("  } ");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  fact \"can be accessed via the table name\"{");
+    _builder.newLine();
+    _builder.append("    myExamples.forEach[   ");
+    _builder.newLine();
+    _builder.append("      input.toUpperCase should be result");
+    _builder.newLine();
+    _builder.append("    ] ");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -62,7 +98,36 @@ public class UsingTablesSpec {
   @Named("Naming examples")
   @Order(2)
   public void _namingExamples() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package bootstrap\r\n\r\ndescribe \"Example Tables\"{\r\n  \r\n  def{\r\n    | a | b | \r\n    | 0 | 1 |\r\n  }\r\n\r\n  fact \"name is optional\"{    \r\n    examples should not be null\r\n  }     \r\n} \r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package bootstrap");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"Example Tables\"{");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  def{");
+    _builder.newLine();
+    _builder.append("    | a | b | ");
+    _builder.newLine();
+    _builder.append("    | 0 | 1 |");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("  fact \"name is optional\"{    ");
+    _builder.newLine();
+    _builder.append("    examples should not be null");
+    _builder.newLine();
+    _builder.append("  }     ");
+    _builder.newLine();
+    _builder.append("} ");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -73,7 +138,42 @@ public class UsingTablesSpec {
   @Named("Expressions in tables")
   @Order(3)
   public void _expressionsInTables() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package bootstrap\r\n\r\ndescribe \"Example Tables\"{\r\n  \r\n  def myExampleWithClosures{\r\n    | input |       operation            | result |\r\n    |   \"a\" | [String s | s.toUpperCase] |   \"A\"  |\r\n    |   \"B\" | [String s | s.toLowerCase] |   \"b\"  | \r\n  }  \r\n\r\n  fact \"supports closures as values\"{   \r\n    myExampleWithClosures.forEach[\r\n      operation.apply(input) should be result\r\n    ]\r\n  }       \r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package bootstrap");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"Example Tables\"{");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  def myExampleWithClosures{");
+    _builder.newLine();
+    _builder.append("    | input |       operation            | result |");
+    _builder.newLine();
+    _builder.append("    |   \"a\" | [String s | s.toUpperCase] |   \"A\"  |");
+    _builder.newLine();
+    _builder.append("    |   \"B\" | [String s | s.toLowerCase] |   \"b\"  | ");
+    _builder.newLine();
+    _builder.append("  }  ");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("  fact \"supports closures as values\"{   ");
+    _builder.newLine();
+    _builder.append("    myExampleWithClosures.forEach[");
+    _builder.newLine();
+    _builder.append("      operation.apply(input) should be result");
+    _builder.newLine();
+    _builder.append("    ]");
+    _builder.newLine();
+    _builder.append("  }       ");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -84,7 +184,54 @@ public class UsingTablesSpec {
   @Named("Referencing members")
   @Order(4)
   public void _referencingMembers() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package bootstrap\r\n\r\ndescribe \"Example Tables\"{\r\n  \r\n  String field = \"Hello\"\r\n\r\n  def method(){\r\n    \"World\"\r\n  }  \r\n\r\n  def myExampleWithMemberCalls{\r\n    | input    | result  |\r\n    | field    | \"Hello\" |\r\n    | method() | \"World\" | \r\n  }       \r\n   \r\n  fact \"supports closures as values\"{   \r\n    myExampleWithMemberCalls.forEach[\r\n      input should be result\r\n    ] \r\n  }   \r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package bootstrap");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"Example Tables\"{");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  String field = \"Hello\"");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("  def method(){");
+    _builder.newLine();
+    _builder.append("    \"World\"");
+    _builder.newLine();
+    _builder.append("  }  ");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("  def myExampleWithMemberCalls{");
+    _builder.newLine();
+    _builder.append("    | input    | result  |");
+    _builder.newLine();
+    _builder.append("    | field    | \"Hello\" |");
+    _builder.newLine();
+    _builder.append("    | method() | \"World\" | ");
+    _builder.newLine();
+    _builder.append("  }       ");
+    _builder.newLine();
+    _builder.append("   ");
+    _builder.newLine();
+    _builder.append("  fact \"supports closures as values\"{   ");
+    _builder.newLine();
+    _builder.append("    myExampleWithMemberCalls.forEach[");
+    _builder.newLine();
+    _builder.append("      input should be result");
+    _builder.newLine();
+    _builder.append("    ] ");
+    _builder.newLine();
+    _builder.append("  }   ");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -96,7 +243,50 @@ public class UsingTablesSpec {
   @Named("Column type inference")
   @Order(5)
   public void _columnTypeInference() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package bootstrap\r\n\r\nimport java.util.*\r\n\r\ndescribe \"Example Tables\"{\r\n  def examplesWithTypeInference{\r\n    |          list            |\r\n    | null                     |\r\n    | new ArrayList<String>()  |\r\n    | new LinkedList<String>() |\r\n  }     \r\n\r\n  fact \"computes the common super type\"{\r\n    examplesWithTypeInference.forEach[\r\n    \tif(list != null){\r\n        assert list.empty // works only if the type of list has been inferred as List<String>\r\n    \t}\r\n    ]\r\n  }\r\n}  \r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package bootstrap");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("import java.util.*");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"Example Tables\"{");
+    _builder.newLine();
+    _builder.append("  def examplesWithTypeInference{");
+    _builder.newLine();
+    _builder.append("    |          list            |");
+    _builder.newLine();
+    _builder.append("    | null                     |");
+    _builder.newLine();
+    _builder.append("    | new ArrayList<String>()  |");
+    _builder.newLine();
+    _builder.append("    | new LinkedList<String>() |");
+    _builder.newLine();
+    _builder.append("  }     ");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("  fact \"computes the common super type\"{");
+    _builder.newLine();
+    _builder.append("    examplesWithTypeInference.forEach[");
+    _builder.newLine();
+    _builder.append("    	if(list != null){");
+    _builder.newLine();
+    _builder.append("        assert list.empty // works only if the type of list has been inferred as List<String>");
+    _builder.newLine();
+    _builder.append("    	}");
+    _builder.newLine();
+    _builder.append("    ]");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}  ");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -107,7 +297,42 @@ public class UsingTablesSpec {
   @Named("Specifying column types")
   @Order(6)
   public void _specifyingColumnTypes() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("import java.util.ArrayList\r\nimport java.util.LinkedList\r\n\r\ndescribe \"Example Tables\"{\r\n  def examplesWithType{\r\n    | Iterable<String> list    |\r\n    | new ArrayList<String>()  |\r\n    | new LinkedList<String>() |\r\n  }\r\n    \r\n  fact \"computes the common super type\"{\r\n    examplesWithType.forEach[\r\n      assert list.empty\r\n    ]\r\n  }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("import java.util.ArrayList");
+    _builder.newLine();
+    _builder.append("import java.util.LinkedList");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"Example Tables\"{");
+    _builder.newLine();
+    _builder.append("  def examplesWithType{");
+    _builder.newLine();
+    _builder.append("    | Iterable<String> list    |");
+    _builder.newLine();
+    _builder.append("    | new ArrayList<String>()  |");
+    _builder.newLine();
+    _builder.append("    | new LinkedList<String>() |");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.newLine();
+    _builder.append("  fact \"computes the common super type\"{");
+    _builder.newLine();
+    _builder.append("    examplesWithType.forEach[");
+    _builder.newLine();
+    _builder.append("      assert list.empty");
+    _builder.newLine();
+    _builder.append("    ]");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   public ExampleTable<UsingTablesSpecExample> _initUsingTablesSpecExample() {
@@ -187,7 +412,52 @@ public class UsingTablesSpec {
       }
     };
     String _errorMessage = Helpers.errorMessage(_function);
-    Helpers.is(_errorMessage, "example failed\r\n\r\n        | value1     | value2     | sum     |\r\n        | 1          | 2          | 3       | \u2713\r\n        | 4          | 5          | 7       | \u2718     (1)\r\n        | 7          | 8          | 14      | \u2718     (2)\r\n\r\n(1) | 4          | 5          | 7       | \u2718\r\njava.lang.AssertionError: \r\nExpected value1 + value2 => sum but\r\n     value1 + value2 is <9>\r\n     value1 is <4>\r\n     value2 is <5>\r\n     sum is <7>\r\n\r\n(2) | 7          | 8          | 14      | \u2718\r\njava.lang.AssertionError: \r\nExpected value1 + value2 => sum but\r\n     value1 + value2 is <15>\r\n     value1 is <7>\r\n     value2 is <8>\r\n     sum is <14>");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("example failed");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("        | value1     | value2     | sum     |");
+    _builder.newLine();
+    _builder.append("        | 1          | 2          | 3       | ✓");
+    _builder.newLine();
+    _builder.append("        | 4          | 5          | 7       | ✘     (1)");
+    _builder.newLine();
+    _builder.append("        | 7          | 8          | 14      | ✘     (2)");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("(1) | 4          | 5          | 7       | ✘");
+    _builder.newLine();
+    _builder.append("java.lang.AssertionError: ");
+    _builder.newLine();
+    _builder.append("Expected value1 + value2 => sum but");
+    _builder.newLine();
+    _builder.append("     value1 + value2 is <9>");
+    _builder.newLine();
+    _builder.append("     value1 is <4>");
+    _builder.newLine();
+    _builder.append("     value2 is <5>");
+    _builder.newLine();
+    _builder.append("     sum is <7>");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("(2) | 7          | 8          | 14      | ✘");
+    _builder.newLine();
+    _builder.append("java.lang.AssertionError: ");
+    _builder.newLine();
+    _builder.append("Expected value1 + value2 => sum but");
+    _builder.newLine();
+    _builder.append("     value1 + value2 is <15>");
+    _builder.newLine();
+    _builder.append("     value1 is <7>");
+    _builder.newLine();
+    _builder.append("     value2 is <8>");
+    _builder.newLine();
+    _builder.append("     sum is <14>");
+    
+    Helpers.is(_errorMessage, _builder.toString());
   }
   
   /**
@@ -197,7 +467,22 @@ public class UsingTablesSpec {
   @Named("type inference uses null for one column with null value")
   @Order(8)
   public void _typeInferenceUsesNullForOneColumnWithNullValue() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("describe \"TableBug\" {\r\n    def gkzData {\r\n        | value |\r\n        | null  |\r\n    }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"TableBug\" {");
+    _builder.newLine();
+    _builder.append("    def gkzData {");
+    _builder.newLine();
+    _builder.append("        | value |");
+    _builder.newLine();
+    _builder.append("        | null  |");
+    _builder.newLine();
+    _builder.append("    }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -207,6 +492,23 @@ public class UsingTablesSpec {
   @Named("Primitives & null")
   @Order(9)
   public void _primitivesNull() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("describe \"TableBug\" {\r\n    def gkzData {\r\n        | value |\r\n        | null  |\r\n        | 1     |\r\n    }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"TableBug\" {");
+    _builder.newLine();
+    _builder.append("    def gkzData {");
+    _builder.newLine();
+    _builder.append("        | value |");
+    _builder.newLine();
+    _builder.append("        | null  |");
+    _builder.newLine();
+    _builder.append("        | 1     |");
+    _builder.newLine();
+    _builder.append("    }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

@@ -7,6 +7,7 @@
  */
 package org.jnario.feature.documentation;
 
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.jnario.feature.documentation.IntroducingJnarioFeaturesSpec;
 import org.jnario.jnario.test.util.FeatureExecutor;
 import org.jnario.runner.ExampleGroupRunner;
@@ -111,7 +112,40 @@ public class IntroducingJnarioFeaturesHowToWriteAFeatureSpec extends Introducing
   @Named("Implementing Steps")
   @Order(1)
   public void _implementingSteps() throws Exception {
-    FeatureExecutor.isSuccessful("package demo\r\n\r\nimport org.jnario.feature.documentation.Calculator\r\n\r\nFeature: Calculator\r\n\r\nScenario: Adding two numbers\r\n  Calculator calculator\r\n  int result\r\n  Given a calculator\r\n    calculator = new Calculator\r\n  When I add two numbers \"20\" and \"70\"\r\n    result = calculator.add(args.first.toInt, args.second.toInt)\r\n  Then it prints \"90\"\r\n    result => args.first.toInt\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("import org.jnario.feature.documentation.Calculator");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("Feature: Calculator");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("Scenario: Adding two numbers");
+    _builder.newLine();
+    _builder.append("  Calculator calculator");
+    _builder.newLine();
+    _builder.append("  int result");
+    _builder.newLine();
+    _builder.append("  Given a calculator");
+    _builder.newLine();
+    _builder.append("    calculator = new Calculator");
+    _builder.newLine();
+    _builder.append("  When I add two numbers \"20\" and \"70\"");
+    _builder.newLine();
+    _builder.append("    result = calculator.add(args.first.toInt, args.second.toInt)");
+    _builder.newLine();
+    _builder.append("  Then it prints \"90\"");
+    _builder.newLine();
+    _builder.append("    result => args.first.toInt");
+    _builder.newLine();
+    
+    FeatureExecutor.isSuccessful(
+      _builder.toString());
   }
   
   /**
@@ -127,7 +161,54 @@ public class IntroducingJnarioFeaturesHowToWriteAFeatureSpec extends Introducing
   @Named("Background")
   @Order(2)
   public void _background() throws Exception {
-    FeatureExecutor.isSuccessful("package demo\r\n\r\nimport org.jnario.feature.documentation.Calculator\r\n\r\nFeature: Calculator\r\n\r\nBackground:\r\n  Calculator calculator\r\n  int result\r\n  Given a calculator\r\n  \tcalculator = new Calculator\r\n\r\nScenario: Adding two numbers\r\n  When I add two numbers \"20\" and \"70\"\r\n    result = calculator.add(args.first.toInt, args.second.toInt)\r\n  Then it prints \"90\"\r\n    result => args.first.toInt\r\n  \r\nScenario: Dividing two numbers\r\n When I divide \"70\" by \"10\"\r\n \t result = calculator.divide(args.first.toInt, args.second.toInt)\r\n Then it prints \"7\"\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("import org.jnario.feature.documentation.Calculator");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("Feature: Calculator");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("Background:");
+    _builder.newLine();
+    _builder.append("  Calculator calculator");
+    _builder.newLine();
+    _builder.append("  int result");
+    _builder.newLine();
+    _builder.append("  Given a calculator");
+    _builder.newLine();
+    _builder.append("  	calculator = new Calculator");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("Scenario: Adding two numbers");
+    _builder.newLine();
+    _builder.append("  When I add two numbers \"20\" and \"70\"");
+    _builder.newLine();
+    _builder.append("    result = calculator.add(args.first.toInt, args.second.toInt)");
+    _builder.newLine();
+    _builder.append("  Then it prints \"90\"");
+    _builder.newLine();
+    _builder.append("    result => args.first.toInt");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("Scenario: Dividing two numbers");
+    _builder.newLine();
+    _builder.append(" When I divide \"70\" by \"10\"");
+    _builder.newLine();
+    _builder.append(" 	 result = calculator.divide(args.first.toInt, args.second.toInt)");
+    _builder.newLine();
+    _builder.append(" Then it prints \"7\"");
+    _builder.newLine();
+    
+    FeatureExecutor.isSuccessful(
+      _builder.toString());
   }
   
   /**
@@ -147,6 +228,51 @@ public class IntroducingJnarioFeaturesHowToWriteAFeatureSpec extends Introducing
   @Named("Step references")
   @Order(3)
   public void _stepReferences() throws Exception {
-    FeatureExecutor.isSuccessful("package demo\r\nimport org.jnario.feature.documentation.Calculator\r\n\r\nFeature: Calculator\r\n\r\nBackground:\r\n  Calculator calculator\r\n  int result\r\n  Given a calculator\r\n    calculator = new Calculator\r\n\r\nScenario: Adding two numbers\r\n  When adding two numbers \"5\" and \"6\". \r\n    result = calculator.add(args.first.toInt, args.second.toInt)\r\n  Then it prints \"11\"\r\n    result => args.first.toInt\r\n    \r\nScenario: Dividing two numbers\r\n When entering two numbers \"10\" and \"5\" and pressing enter. \r\n   result = calculator.divide(args.first.toInt, args.second.toInt)\r\n Then it prints \"2\"\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("import org.jnario.feature.documentation.Calculator");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("Feature: Calculator");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("Background:");
+    _builder.newLine();
+    _builder.append("  Calculator calculator");
+    _builder.newLine();
+    _builder.append("  int result");
+    _builder.newLine();
+    _builder.append("  Given a calculator");
+    _builder.newLine();
+    _builder.append("    calculator = new Calculator");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("Scenario: Adding two numbers");
+    _builder.newLine();
+    _builder.append("  When adding two numbers \"5\" and \"6\". ");
+    _builder.newLine();
+    _builder.append("    result = calculator.add(args.first.toInt, args.second.toInt)");
+    _builder.newLine();
+    _builder.append("  Then it prints \"11\"");
+    _builder.newLine();
+    _builder.append("    result => args.first.toInt");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.newLine();
+    _builder.append("Scenario: Dividing two numbers");
+    _builder.newLine();
+    _builder.append(" When entering two numbers \"10\" and \"5\" and pressing enter. ");
+    _builder.newLine();
+    _builder.append("   result = calculator.divide(args.first.toInt, args.second.toInt)");
+    _builder.newLine();
+    _builder.append(" Then it prints \"2\"");
+    _builder.newLine();
+    
+    FeatureExecutor.isSuccessful(
+      _builder.toString());
   }
 }

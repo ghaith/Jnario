@@ -7,6 +7,7 @@
  */
 package org.jnario.feature.tests.unit.validation;
 
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.feature.feature.Step;
@@ -25,12 +26,26 @@ public class FeatureJavaValidatorStepsMustHaveDescriptionsSpec extends FeatureJa
   @Named("\\\'\\\'\\\' Feature: A feature Scenario: A scenario Given When Then \\\'\\\'\\\'.allOf[typeof[Step]][assertErrorContains[\\\"description\\\"]]")
   @Order(1)
   public void _featureAFeatureScenarioAScenarioGivenWhenThenAllOfTypeofStepAssertErrorContainsDescription() throws Exception {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Feature: A feature");
+    _builder.newLine();
+    _builder.append("	Scenario: A scenario");
+    _builder.newLine();
+    _builder.append("	 	Given ");
+    _builder.newLine();
+    _builder.append("	 	When ");
+    _builder.newLine();
+    _builder.append("	 	Then ");
+    _builder.newLine();
+    _builder.append("	 	");
+    _builder.newLine();
+    
     final Procedure1<AssertableDiagnostics> _function = new Procedure1<AssertableDiagnostics>() {
       @Override
       public void apply(final AssertableDiagnostics it) {
         it.assertErrorContains("description");
       }
     };
-    this.allOf("Feature: A feature\r\n\tScenario: A scenario\r\n\t \tGiven \r\n\t \tWhen \r\n\t \tThen \r\n\t \t\r\n", Step.class, _function);
+    this.allOf(_builder.toString(), Step.class, _function);
   }
 }

@@ -10,6 +10,7 @@ package org.jnario.suite.unit;
 import com.google.inject.Inject;
 import java.util.List;
 import java.util.Set;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -59,15 +60,63 @@ public class SpecResolverSpec {
   
   @Before
   public void before() throws Exception {
-    this.m.parseSpec("package demo\r\ndescribe \"My Spec\"{\r\n\t// this should be filtered\r\n\tdescribe \"My Internal Spec\"{\r\n\t\t\r\n\t}\r\n}\r\ndescribe String{\r\n\t\r\n}\r\n");
-    this.m.parseScenario("package demo\r\nFeature: My Feature\r\nScenario My Scenario\r\n\tGiven nothing\r\n\tThen nothing\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("describe \"My Spec\"{");
+    _builder.newLine();
+    _builder.append("	// this should be filtered");
+    _builder.newLine();
+    _builder.append("	describe \"My Internal Spec\"{");
+    _builder.newLine();
+    _builder.append("		");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("describe String{");
+    _builder.newLine();
+    _builder.append("	");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this.m.parseSpec(_builder.toString());
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("package demo");
+    _builder_1.newLine();
+    _builder_1.append("Feature: My Feature");
+    _builder_1.newLine();
+    _builder_1.append("Scenario My Scenario");
+    _builder_1.newLine();
+    _builder_1.append("	Given nothing");
+    _builder_1.newLine();
+    _builder_1.append("	Then nothing");
+    _builder_1.newLine();
+    
+    this.m.parseScenario(_builder_1.toString());
   }
   
   @Test
   @Named("resolves referenced specs")
   @Order(1)
   public void _resolvesReferencedSpecs() throws Exception {
-    this.m.parseSuite("package demo\r\nimport demo.*\r\n#My Suite\r\n\r\n- \"My Spec\"\r\n- \"My Feature\"\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("import demo.*");
+    _builder.newLine();
+    _builder.append("#My Suite");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("- \"My Spec\"");
+    _builder.newLine();
+    _builder.append("- \"My Feature\"");
+    _builder.newLine();
+    
+    this.m.parseSuite(_builder.toString());
     Suite _firstSuite = this.m.firstSuite();
     List<String> _resolvedSpecs = this.resolvedSpecs(_firstSuite);
     Set<String> _set = IterableExtensions.<String>toSet(_resolvedSpecs);

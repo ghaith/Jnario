@@ -11,6 +11,7 @@ import com.google.inject.Inject;
 import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.ScopeTestExtension;
 import org.jnario.jnario.test.util.SuiteTestCreator;
@@ -42,12 +43,52 @@ public class SuiteScopeProviderSpec {
   
   @Before
   public void before() throws Exception {
-    this._scopeTestExtension.parseSuite("package test\r\n\r\n#MySuite\r\n\r\n- \"My Spec Reference\"\t\r\n\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package test");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("#MySuite");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("- \"My Spec Reference\"	");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    
+    this._scopeTestExtension.parseSuite(
+      _builder.toString());
   }
   
   @Before
   public void before2() throws Exception {
-    this._scopeTestExtension.parseSpec("package test\r\n\r\ndescribe \"RootSpec\"{\r\n\t\r\n\tdescribe \"SubSpec 1\"{\r\n\t}\r\n\t\r\n\tdescribe \"SubSpec 2\"{\r\n\t}\r\n\t\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package test");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"RootSpec\"{");
+    _builder.newLine();
+    _builder.append("	");
+    _builder.newLine();
+    _builder.append("	describe \"SubSpec 1\"{");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("	");
+    _builder.newLine();
+    _builder.append("	describe \"SubSpec 2\"{");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("	");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._scopeTestExtension.parseSpec(
+      _builder.toString());
   }
   
   @Test

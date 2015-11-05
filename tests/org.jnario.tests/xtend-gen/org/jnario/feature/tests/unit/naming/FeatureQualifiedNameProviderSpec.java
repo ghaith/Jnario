@@ -2,6 +2,7 @@ package org.jnario.feature.tests.unit.naming;
 
 import com.google.common.base.Objects;
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.xbase.lib.Extension;
@@ -36,7 +37,13 @@ public class FeatureQualifiedNameProviderSpec {
   IQualifiedNameConverter converter;
   
   public String implementedStepName(@Extension final CharSequence s) {
-    String _plus = (s + "\r\nval x = \"\"\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("val x = \"\"");
+    _builder.newLine();
+    
+    String _plus = (s + _builder.toString());
     return this.stepName(_plus);
   }
   
@@ -54,9 +61,21 @@ public class FeatureQualifiedNameProviderSpec {
       } else {
         _xifexpression = "";
       }
-      String _plus = (_xifexpression + "\r\nFeature: MyFeature\r\nScenario: The Scenario\r\n");
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("");
+      _builder.newLine();
+      _builder.append("Feature: MyFeature");
+      _builder.newLine();
+      _builder.append("Scenario: The Scenario");
+      _builder.newLine();
+      
+      String _plus = (_xifexpression + _builder.toString());
       String _plus_1 = (_plus + s);
-      final String input = (_plus_1 + "\r\n\r\n");
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("");
+      _builder_1.newLine();
+      
+      final String input = (_plus_1 + _builder_1.toString());
       this._modelStore.parseScenario(input);
       Step _first = this._modelStore.<Step>first(Step.class);
       QualifiedName _fullyQualifiedName = this.subject.getFullyQualifiedName(_first);

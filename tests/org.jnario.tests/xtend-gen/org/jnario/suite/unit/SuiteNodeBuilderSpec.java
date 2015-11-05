@@ -10,6 +10,7 @@ package org.jnario.suite.unit;
 import com.google.inject.Inject;
 import java.util.List;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -40,7 +41,16 @@ public class SuiteNodeBuilderSpec {
   public Resource parseSuite(@Extension final CharSequence s) {
     Resource _xblockexpression = null;
     {
-      final String input = (("package test\r\n\r\n" + s) + "\r\n");
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("package test");
+      _builder.newLine();
+      _builder.append("");
+      _builder.newLine();
+      
+      String _plus = (_builder.toString() + s);
+      StringConcatenation _builder_1 = new StringConcatenation();
+      
+      final String input = (_plus + _builder_1.toString());
       _xblockexpression = this.m.parseSuite(input);
     }
     return _xblockexpression;

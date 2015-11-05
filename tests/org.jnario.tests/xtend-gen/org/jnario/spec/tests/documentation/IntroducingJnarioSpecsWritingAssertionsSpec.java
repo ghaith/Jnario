@@ -8,6 +8,7 @@
 package org.jnario.spec.tests.documentation;
 
 import java.util.Stack;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.jnario.test.util.Helpers;
 import org.jnario.lib.Assert;
@@ -104,7 +105,18 @@ public class IntroducingJnarioSpecsWritingAssertionsSpec extends IntroducingJnar
       }
     };
     String _errorMessage = Helpers.errorMessage(_function);
-    Helpers.is(_errorMessage, "Expected x == 1 && y == 0 but\r\n     x == 1 is <false>\r\n     x is <0>\r\n     y == 0 is <false>\r\n     y is <1>");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Expected x == 1 && y == 0 but");
+    _builder.newLine();
+    _builder.append("     x == 1 is <false>");
+    _builder.newLine();
+    _builder.append("     x is <0>");
+    _builder.newLine();
+    _builder.append("     y == 0 is <false>");
+    _builder.newLine();
+    _builder.append("     y is <1>");
+    
+    Helpers.is(_errorMessage, _builder.toString());
     final String greeting = "hello";
     final Procedure1<Boolean> _function_1 = new Procedure1<Boolean>() {
       @Override
@@ -117,6 +129,13 @@ public class IntroducingJnarioSpecsWritingAssertionsSpec extends IntroducingJnar
       }
     };
     String _errorMessage_1 = Helpers.errorMessage(_function_1);
-    Helpers.is(_errorMessage_1, "Expected greeting.toUpperCase should not be \"HELLO\" but\r\n     greeting.toUpperCase is \"HELLO\"\r\n     greeting is \"hello\"");
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("Expected greeting.toUpperCase should not be \"HELLO\" but");
+    _builder_1.newLine();
+    _builder_1.append("     greeting.toUpperCase is \"HELLO\"");
+    _builder_1.newLine();
+    _builder_1.append("     greeting is \"hello\"");
+    
+    Helpers.is(_errorMessage_1, _builder_1.toString());
   }
 }

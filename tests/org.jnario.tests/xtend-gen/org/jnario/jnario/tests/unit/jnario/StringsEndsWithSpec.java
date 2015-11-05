@@ -7,6 +7,7 @@
  */
 package org.jnario.jnario.tests.unit.jnario;
 
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.jnario.jnario.tests.unit.jnario.StringsSpec;
 import org.jnario.lib.Assert;
 import org.jnario.runner.ExampleGroupRunner;
@@ -23,9 +24,16 @@ public class StringsEndsWithSpec extends StringsSpec {
   @Named("assert \\\'\\\'\\\'hello\\\'\\\'\\\'.endsWith[\\\'\\\'\\\'lo\\\'\\\'\\\']")
   @Order(1)
   public void _assertHelloEndsWithLo() throws Exception {
-    boolean _endsWith = "hello".endsWith("lo");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("hello");
+    
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("lo");
+    
+    boolean _endsWith = _builder.toString().endsWith(_builder_1.toString());
     Assert.assertTrue("\nExpected \'\'\'hello\'\'\'.endsWith(\'\'\'lo\'\'\') but"
-     + "\n     \'\'\'hello\'\'\'.endsWith(\'\'\'lo\'\'\') is " + new org.hamcrest.StringDescription().appendValue(_endsWith).toString() + "\n", _endsWith);
+     + "\n     \'\'\'hello\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString()
+     + "\n     \'\'\'lo\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1.toString()).toString() + "\n", _endsWith);
     
   }
   
@@ -33,10 +41,18 @@ public class StringsEndsWithSpec extends StringsSpec {
   @Named("assert !\\\'\\\'\\\'hello\\\'\\\'\\\'.endsWith[\\\'\\\'\\\'he\\\'\\\'\\\']")
   @Order(2)
   public void _assertHelloEndsWithHe() throws Exception {
-    boolean _endsWith = "hello".endsWith("he");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("hello");
+    
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("he");
+    
+    boolean _endsWith = _builder.toString().endsWith(_builder_1.toString());
     boolean _not = (!_endsWith);
     Assert.assertTrue("\nExpected !\'\'\'hello\'\'\'.endsWith(\'\'\'he\'\'\') but"
-     + "\n     \'\'\'hello\'\'\'.endsWith(\'\'\'he\'\'\') is " + new org.hamcrest.StringDescription().appendValue(_endsWith).toString() + "\n", _not);
+     + "\n     \'\'\'hello\'\'\'.endsWith(\'\'\'he\'\'\') is " + new org.hamcrest.StringDescription().appendValue(_endsWith).toString()
+     + "\n     \'\'\'hello\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString()
+     + "\n     \'\'\'he\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1.toString()).toString() + "\n", _not);
     
   }
   
@@ -44,10 +60,18 @@ public class StringsEndsWithSpec extends StringsSpec {
   @Named("assert !\\\'\\\'\\\'short\\\'\\\'\\\'.endsWith[\\\'\\\'\\\'longer\\\'\\\'\\\']")
   @Order(3)
   public void _assertShortEndsWithLonger() throws Exception {
-    boolean _endsWith = "short".endsWith("longer");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("short");
+    
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("longer");
+    
+    boolean _endsWith = _builder.toString().endsWith(_builder_1.toString());
     boolean _not = (!_endsWith);
     Assert.assertTrue("\nExpected !\'\'\'short\'\'\'.endsWith(\'\'\'longer\'\'\') but"
-     + "\n     \'\'\'short\'\'\'.endsWith(\'\'\'longer\'\'\') is " + new org.hamcrest.StringDescription().appendValue(_endsWith).toString() + "\n", _not);
+     + "\n     \'\'\'short\'\'\'.endsWith(\'\'\'longer\'\'\') is " + new org.hamcrest.StringDescription().appendValue(_endsWith).toString()
+     + "\n     \'\'\'short\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString()
+     + "\n     \'\'\'longer\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1.toString()).toString() + "\n", _not);
     
   }
 }

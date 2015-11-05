@@ -7,6 +7,7 @@
  */
 package org.jnario.spec.tests.integration;
 
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.jnario.runner.ExampleGroupRunner;
 import org.jnario.runner.Named;
 import org.jnario.runner.Order;
@@ -22,7 +23,32 @@ public class SetupTeardownAfterAllSpec extends SetupTeardownSpec {
   @Named("Execute once after all tests")
   @Order(1)
   public void _executeOnceAfterAllTests() throws Exception {
-    this.prints("describe \"After All\"{\r\n\tafter all{\r\n\t\tprintln(\"after all\")\r\n\t}\r\n\tfact println(\"fact 1\")\r\n\tfact println(\"fact 2\")\r\n}\r\n", 
-      "fact 1\r\nfact 2\r\nafter all\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"After All\"{");
+    _builder.newLine();
+    _builder.append("	after all{");
+    _builder.newLine();
+    _builder.append("		println(\"after all\")");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("	fact println(\"fact 1\")");
+    _builder.newLine();
+    _builder.append("	fact println(\"fact 2\")");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("fact 1");
+    _builder_1.newLine();
+    _builder_1.append("fact 2");
+    _builder_1.newLine();
+    _builder_1.append("after all");
+    _builder_1.newLine();
+    
+    this.prints(
+      _builder.toString(), 
+      _builder_1.toString());
   }
 }

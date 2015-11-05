@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.parser.IParser;
@@ -212,7 +213,20 @@ public class StepArgumentsProviderSpec {
       if (_equals) {
         return null;
       }
-      final String scenario = (("Feature: dummy\r\n\tScenario: dummy \r\n" + step) + "\'\r\n\t\t\t\t\t\r\n");
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("Feature: dummy");
+      _builder.newLine();
+      _builder.append("	Scenario: dummy ");
+      _builder.newLine();
+      
+      String _plus = (_builder.toString() + step);
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("'");
+      _builder_1.newLine();
+      _builder_1.append("					");
+      _builder_1.newLine();
+      
+      final String scenario = (_plus + _builder_1.toString());
       IParser _parser = this.resource.getParser();
       String _string = scenario.toString();
       StringInputStream _stringInputStream = new StringInputStream(_string);

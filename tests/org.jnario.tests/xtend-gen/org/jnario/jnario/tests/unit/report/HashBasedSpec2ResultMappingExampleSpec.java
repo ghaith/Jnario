@@ -1,5 +1,6 @@
 package org.jnario.jnario.tests.unit.report;
 
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.jnario.jnario.tests.unit.report.HashBasedSpec2ResultMappingSpec;
 import org.jnario.lib.Assert;
 import org.jnario.report.Passed;
@@ -24,8 +25,18 @@ public class HashBasedSpec2ResultMappingExampleSpec extends HashBasedSpec2Result
   @Named("matches if classname and name are equal")
   @Order(1)
   public void _matchesIfClassnameAndNameAreEqual() throws Exception {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package example");
+    _builder.newLine();
+    _builder.append("describe \"Something\"{");
+    _builder.newLine();
+    _builder.append("	fact \"a fact\"{\"\"}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
     this.m.parseSpec(
-      "package example\r\ndescribe \"Something\"{\r\n\tfact \"a fact\"{\"\"}\r\n}\r\n");
+      _builder.toString());
     this.subject.accept(this.aResult);
     Example _example = this.example();
     boolean _should_match = this.should_match(_example, this.aResult);
@@ -50,8 +61,18 @@ public class HashBasedSpec2ResultMappingExampleSpec extends HashBasedSpec2Result
   @Named("includes pending state when matching")
   @Order(2)
   public void _includesPendingStateWhenMatching() throws Exception {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package example");
+    _builder.newLine();
+    _builder.append("describe \"Something\"{");
+    _builder.newLine();
+    _builder.append("	fact \"a fact\"");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
     this.m.parseSpec(
-      "package example\r\ndescribe \"Something\"{\r\n\tfact \"a fact\"\r\n}\r\n");
+      _builder.toString());
     final Passed pendingResult = Passed.passingSpec("example.SomethingSpec", "a fact [PENDING]", HashBasedSpec2ResultMappingSpec.anyExecutionTime);
     this.subject.accept(pendingResult);
     Example _example = this.example();

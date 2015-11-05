@@ -7,6 +7,7 @@
  */
 package org.jnario.spec.tests.integration;
 
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.jnario.runner.ExampleGroupRunner;
 import org.jnario.runner.Named;
 import org.jnario.runner.Order;
@@ -22,7 +23,34 @@ public class SetupTeardownBeforeSpec extends SetupTeardownSpec {
   @Named("Executes before each test")
   @Order(1)
   public void _executesBeforeEachTest() throws Exception {
-    this.prints("describe \"Before\"{\r\n\tbefore{\r\n\t\tprintln(\"before\")\r\n\t}\r\n\tfact println(\"fact 1\")\r\n\tfact println(\"fact 2\")\r\n}\r\n", 
-      "before\r\nfact 1\r\nbefore\r\nfact 2\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Before\"{");
+    _builder.newLine();
+    _builder.append("	before{");
+    _builder.newLine();
+    _builder.append("		println(\"before\")");
+    _builder.newLine();
+    _builder.append("	}");
+    _builder.newLine();
+    _builder.append("	fact println(\"fact 1\")");
+    _builder.newLine();
+    _builder.append("	fact println(\"fact 2\")");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("before");
+    _builder_1.newLine();
+    _builder_1.append("fact 1");
+    _builder_1.newLine();
+    _builder_1.append("before");
+    _builder_1.newLine();
+    _builder_1.append("fact 2");
+    _builder_1.newLine();
+    
+    this.prints(
+      _builder.toString(), 
+      _builder_1.toString());
   }
 }

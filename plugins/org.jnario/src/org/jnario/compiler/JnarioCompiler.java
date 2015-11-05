@@ -35,6 +35,7 @@ import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable;
 import org.jnario.Assertion;
 import org.jnario.MockLiteral;
 import org.jnario.RichString;
+import org.jnario.RichStringLiteral;
 import org.jnario.Should;
 import org.jnario.ShouldThrow;
 import org.jnario.lib.Assert;
@@ -78,6 +79,8 @@ public class JnarioCompiler extends XbaseCompiler {
 			_toJavaExpression((MockLiteral) obj, appendable);
 		} else if (obj instanceof RichString) {
 			_toJavaExpression((RichString) obj, appendable);
+		} else if (obj instanceof RichStringLiteral) {
+			_toJavaExpression((RichStringLiteral)obj, appendable);
 		} else {
 			super.internalToConvertedExpression(obj, appendable);
 		}
@@ -96,11 +99,23 @@ public class JnarioCompiler extends XbaseCompiler {
 			_toJavaStatement((MockLiteral) obj, appendable, isReferenced);
 		} else if (obj instanceof RichString) {
 			_toJavaStatement((RichString) obj, appendable, isReferenced);
+		} else if (obj instanceof RichStringLiteral) {
+
+			_toJavaStatement((RichStringLiteral) obj, appendable, isReferenced);
 		} else
 			super.doInternalToJavaStatement(obj, appendable, isReferenced);
 	}
 	
+	protected void _toJavaExpression(RichStringLiteral literal, ITreeAppendable b){
+		_toJavaExpression((RichString)literal.eContainer(), b);
+	}
+	
+	protected void _toJavaStatement(RichStringLiteral literal,  ITreeAppendable b, boolean isReferenced) {
+		_toJavaStatement((RichString)literal.eContainer(), b, isReferenced);
+	}
+	
 	protected void _toJavaExpression(RichString richString, ITreeAppendable b) {
+		
 		b.append(getVarName(richString, b));
 		if(getLightweightType(richString).isType(String.class))
 			b.append(".toString()");

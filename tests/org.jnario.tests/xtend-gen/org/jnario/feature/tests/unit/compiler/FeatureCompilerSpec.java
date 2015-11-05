@@ -1,6 +1,7 @@
 package org.jnario.feature.tests.unit.compiler;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.BehaviorExecutor;
 import org.jnario.jnario.test.util.FeatureTestCreator;
@@ -25,7 +26,20 @@ public class FeatureCompilerSpec {
   @Named("Handles empty closures correctly")
   @Order(1)
   public void _handlesEmptyClosuresCorrectly() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("Feature: Empty Closures\r\n\tScenario: Defining Empty Closures\r\n\tWhen I define an empty closure\r\n\t\t[|].apply \r\n\tAnd  I define an empty closure\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Feature: Empty Closures");
+    _builder.newLine();
+    _builder.append("	Scenario: Defining Empty Closures");
+    _builder.newLine();
+    _builder.append("	When I define an empty closure");
+    _builder.newLine();
+    _builder.append("		[|].apply ");
+    _builder.newLine();
+    _builder.append("	And  I define an empty closure");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test

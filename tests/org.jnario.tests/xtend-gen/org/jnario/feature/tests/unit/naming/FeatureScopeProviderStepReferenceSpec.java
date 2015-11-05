@@ -1,6 +1,7 @@
 package org.jnario.feature.tests.unit.naming;
 
 import java.util.Set;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.jnario.feature.tests.unit.naming.FeatureScopeProviderSpec;
 import org.jnario.lib.Assert;
 import org.jnario.lib.Should;
@@ -18,7 +19,23 @@ public class FeatureScopeProviderStepReferenceSpec extends FeatureScopeProviderS
   @Named("contains all implemented steps")
   @Order(1)
   public void _containsAllImplementedSteps() throws Exception {
-    this.e.parseFeature("package myPackage\r\nFeature: MyFeature\r\nScenario: MyScenario\r\n\tGiven a step\r\n\t\tval x = \"\"\r\n\tAnd a step\r\n\tAnd another step\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package myPackage");
+    _builder.newLine();
+    _builder.append("Feature: MyFeature");
+    _builder.newLine();
+    _builder.append("Scenario: MyScenario");
+    _builder.newLine();
+    _builder.append("	Given a step");
+    _builder.newLine();
+    _builder.append("		val x = \"\"");
+    _builder.newLine();
+    _builder.append("	And a step");
+    _builder.newLine();
+    _builder.append("	And another step");
+    _builder.newLine();
+    
+    this.e.parseFeature(_builder.toString());
     Set<String> _targetOperationScope = this.targetOperationScope();
     boolean _should_contain = Should.<String>should_contain(_targetOperationScope, "myPackage.a step");
     Assert.assertTrue("\nExpected targetOperationScope should contain \"myPackage.a step\" but"

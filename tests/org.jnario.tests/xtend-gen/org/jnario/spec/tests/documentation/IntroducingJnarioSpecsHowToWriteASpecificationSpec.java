@@ -8,6 +8,7 @@
 package org.jnario.spec.tests.documentation;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.BehaviorExecutor;
 import org.jnario.runner.ExampleGroupRunner;
@@ -83,7 +84,38 @@ public class IntroducingJnarioSpecsHowToWriteASpecificationSpec extends Introduc
   @Named("Checking your facts")
   @Order(1)
   public void _checkingYourFacts() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package demo\r\n\r\nimport java.util.Stack\r\n\r\ndescribe \"A Stack\"{\r\n  fact \"initial size is 0\" {\r\n    new Stack().size => 0\r\n  }\r\n  fact \"increases its size when pushing an element\"{\r\n    val subject = new Stack<String>\r\n    subject.push(\"A String\")\r\n    subject.size => 1\r\n  }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("import java.util.Stack");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"A Stack\"{");
+    _builder.newLine();
+    _builder.append("  fact \"initial size is 0\" {");
+    _builder.newLine();
+    _builder.append("    new Stack().size => 0");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("  fact \"increases its size when pushing an element\"{");
+    _builder.newLine();
+    _builder.append("    val subject = new Stack<String>");
+    _builder.newLine();
+    _builder.append("    subject.push(\"A String\")");
+    _builder.newLine();
+    _builder.append("    subject.size => 1");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -121,7 +153,34 @@ public class IntroducingJnarioSpecsHowToWriteASpecificationSpec extends Introduc
   @Named("Less boilerplate")
   @Order(2)
   public void _lessBoilerplate() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package demo\r\n\r\nimport java.util.Stack\r\n\r\ndescribe \"A Stack\"{\r\n  fact new Stack().size should be 0\r\n  fact \"increases its size when pushing an element\"{\r\n    val subject = new Stack<String>\r\n    subject.push(\"A String\")\r\n    subject.size => 1\r\n  }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("import java.util.Stack");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"A Stack\"{");
+    _builder.newLine();
+    _builder.append("  fact new Stack().size should be 0");
+    _builder.newLine();
+    _builder.append("  fact \"increases its size when pushing an element\"{");
+    _builder.newLine();
+    _builder.append("    val subject = new Stack<String>");
+    _builder.newLine();
+    _builder.append("    subject.push(\"A String\")");
+    _builder.newLine();
+    _builder.append("    subject.size => 1");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -136,7 +195,38 @@ public class IntroducingJnarioSpecsHowToWriteASpecificationSpec extends Introduc
   @Named("Using Fields")
   @Order(3)
   public void _usingFields() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package demo\r\n\r\nimport java.util.Stack\r\n\r\ndescribe \"A Stack\"{\r\n  Stack<String> subject = new Stack<String>\r\n  fact \"initially empty\" {\r\n    subject.size => 0\r\n  }\r\n  fact \"increases its size when pushing an element\"{\r\n    subject.push(\"A String\")\r\n    subject.size => 1\r\n  }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("import java.util.Stack");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"A Stack\"{");
+    _builder.newLine();
+    _builder.append("  Stack<String> subject = new Stack<String>");
+    _builder.newLine();
+    _builder.append("  fact \"initially empty\" {");
+    _builder.newLine();
+    _builder.append("    subject.size => 0");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("  fact \"increases its size when pushing an element\"{");
+    _builder.newLine();
+    _builder.append("    subject.push(\"A String\")");
+    _builder.newLine();
+    _builder.append("    subject.size => 1");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -171,7 +261,32 @@ public class IntroducingJnarioSpecsHowToWriteASpecificationSpec extends Introduc
   @Named("Implicit Subjects")
   @Order(4)
   public void _implicitSubjects() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package demo\r\n\r\nimport java.util.Stack\r\n\r\ndescribe Stack{\r\n  fact subject.size should be 0\r\n  fact \"increases its size when pushing an element\"{\r\n    subject.push(\"A String\")\r\n    subject.size => 1\r\n  }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("import java.util.Stack");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe Stack{");
+    _builder.newLine();
+    _builder.append("  fact subject.size should be 0");
+    _builder.newLine();
+    _builder.append("  fact \"increases its size when pushing an element\"{");
+    _builder.newLine();
+    _builder.append("    subject.push(\"A String\")");
+    _builder.newLine();
+    _builder.append("    subject.size => 1");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -201,7 +316,52 @@ public class IntroducingJnarioSpecsHowToWriteASpecificationSpec extends Introduc
   @Named("Defining Contexts")
   @Order(5)
   public void _definingContexts() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package demo\r\n\t      \r\nimport java.util.Stack\r\nimport java.util.EmptyStackException\r\n\r\ndescribe Stack{\r\n  context \"when empty\"{\r\n    fact subject.size => 0\r\n    fact subject.pop throws EmptyStackException\r\n  }\r\n  context \"with elements\"{\r\n    before subject.add(\"an element\")\r\n    fact \"pop decreases size\"{\r\n      subject.pop\r\n      subject.size => 0\r\n    }\t\r\n    fact \"pop removes last element\"{\r\n      subject.pop => \"an element\"\r\n    }\t\t\r\n  }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("	      ");
+    _builder.newLine();
+    _builder.append("import java.util.Stack");
+    _builder.newLine();
+    _builder.append("import java.util.EmptyStackException");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe Stack{");
+    _builder.newLine();
+    _builder.append("  context \"when empty\"{");
+    _builder.newLine();
+    _builder.append("    fact subject.size => 0");
+    _builder.newLine();
+    _builder.append("    fact subject.pop throws EmptyStackException");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("  context \"with elements\"{");
+    _builder.newLine();
+    _builder.append("    before subject.add(\"an element\")");
+    _builder.newLine();
+    _builder.append("    fact \"pop decreases size\"{");
+    _builder.newLine();
+    _builder.append("      subject.pop");
+    _builder.newLine();
+    _builder.append("      subject.size => 0");
+    _builder.newLine();
+    _builder.append("    }	");
+    _builder.newLine();
+    _builder.append("    fact \"pop removes last element\"{");
+    _builder.newLine();
+    _builder.append("      subject.pop => \"an element\"");
+    _builder.newLine();
+    _builder.append("    }		");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -250,7 +410,32 @@ public class IntroducingJnarioSpecsHowToWriteASpecificationSpec extends Introduc
   @Named("Example Tables")
   @Order(6)
   public void _exampleTables() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package demo \r\n\r\ndescribe \"Addition\" {\r\n  def additions{\r\n    | a | b | sum |\r\n    | 0 | 0 |  0  |\r\n    | 1 | 2 |  3  |\r\n    | 4 | 5 |  9  |\r\n  }\r\n  fact additions.forEach[a + b should be sum]\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo ");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("describe \"Addition\" {");
+    _builder.newLine();
+    _builder.append("  def additions{");
+    _builder.newLine();
+    _builder.append("    | a | b | sum |");
+    _builder.newLine();
+    _builder.append("    | 0 | 0 |  0  |");
+    _builder.newLine();
+    _builder.append("    | 1 | 2 |  3  |");
+    _builder.newLine();
+    _builder.append("    | 4 | 5 |  9  |");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("  fact additions.forEach[a + b should be sum]");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -270,7 +455,74 @@ public class IntroducingJnarioSpecsHowToWriteASpecificationSpec extends Introduc
   @Named("Generating Documentation")
   @Order(7)
   public void _generatingDocumentation() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("package demo\r\n\t\t\t\t      \r\nimport java.util.Stack\r\nimport java.util.EmptyStackException\r\n\r\n/*\r\n * In computer science, a **stack** is a last in, first out \r\n * (LIFO) abstract data type and linear data structure. A \r\n * stack can have any abstract data type as an element, \r\n * but is characterized by two fundamental operations, \r\n * called push and pop. \r\n * (source [Wikipedia](http://en.wikipedia.org/wiki/Stack)).\r\n */\r\ndescribe Stack{\r\n  context \"when empty\"{\r\n    fact subject.size => 0\r\n    fact subject.pop throws EmptyStackException\r\n  }\r\n  /*\r\n   * A stack with a single element: \"an element\".\r\n   */\r\n  context \"with elements\"{\r\n    before subject.add(\"an element\")\r\n    fact \"pop decreases size\"{\r\n      subject.pop\r\n      subject.size => 0\r\n    }\t\r\n    fact \"pop removes last element\"{\r\n      subject.pop => \"an element\"\r\n    }\t\t\r\n  }\r\n} \r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package demo");
+    _builder.newLine();
+    _builder.append("				      ");
+    _builder.newLine();
+    _builder.append("import java.util.Stack");
+    _builder.newLine();
+    _builder.append("import java.util.EmptyStackException");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
+    _builder.append("/*");
+    _builder.newLine();
+    _builder.append(" * In computer science, a **stack** is a last in, first out ");
+    _builder.newLine();
+    _builder.append(" * (LIFO) abstract data type and linear data structure. A ");
+    _builder.newLine();
+    _builder.append(" * stack can have any abstract data type as an element, ");
+    _builder.newLine();
+    _builder.append(" * but is characterized by two fundamental operations, ");
+    _builder.newLine();
+    _builder.append(" * called push and pop. ");
+    _builder.newLine();
+    _builder.append(" * (source [Wikipedia](http://en.wikipedia.org/wiki/Stack)).");
+    _builder.newLine();
+    _builder.append(" */");
+    _builder.newLine();
+    _builder.append("describe Stack{");
+    _builder.newLine();
+    _builder.append("  context \"when empty\"{");
+    _builder.newLine();
+    _builder.append("    fact subject.size => 0");
+    _builder.newLine();
+    _builder.append("    fact subject.pop throws EmptyStackException");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("  /*");
+    _builder.newLine();
+    _builder.append("   * A stack with a single element: \"an element\".");
+    _builder.newLine();
+    _builder.append("   */");
+    _builder.newLine();
+    _builder.append("  context \"with elements\"{");
+    _builder.newLine();
+    _builder.append("    before subject.add(\"an element\")");
+    _builder.newLine();
+    _builder.append("    fact \"pop decreases size\"{");
+    _builder.newLine();
+    _builder.append("      subject.pop");
+    _builder.newLine();
+    _builder.append("      subject.size => 0");
+    _builder.newLine();
+    _builder.append("    }	");
+    _builder.newLine();
+    _builder.append("    fact \"pop removes last element\"{");
+    _builder.newLine();
+    _builder.append("      subject.pop => \"an element\"");
+    _builder.newLine();
+    _builder.append("    }		");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("} ");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -294,7 +546,50 @@ public class IntroducingJnarioSpecsHowToWriteASpecificationSpec extends Introduc
   @Named("Setup & Teardown")
   @Order(8)
   public void _setupTeardown() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("describe \"Setup & Teardown\" {\r\n  before all{\r\n    println(\"before all\")\r\n  }  \r\n  before{\r\n    println(\"before\")\r\n  }\r\n  fact \"should do stuff\" {\r\n    println(\"do stuff\")\r\n  }\r\n  fact \"should do more stuff\" {\r\n    println(\"do more stuff\")\r\n  }\r\n  after{\r\n    println(\"after\")\r\n  }\r\n  after all{\r\n    println(\"after all\")\r\n  }\r\n}  \r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Setup & Teardown\" {");
+    _builder.newLine();
+    _builder.append("  before all{");
+    _builder.newLine();
+    _builder.append("    println(\"before all\")");
+    _builder.newLine();
+    _builder.append("  }  ");
+    _builder.newLine();
+    _builder.append("  before{");
+    _builder.newLine();
+    _builder.append("    println(\"before\")");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("  fact \"should do stuff\" {");
+    _builder.newLine();
+    _builder.append("    println(\"do stuff\")");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("  fact \"should do more stuff\" {");
+    _builder.newLine();
+    _builder.append("    println(\"do more stuff\")");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("  after{");
+    _builder.newLine();
+    _builder.append("    println(\"after\")");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("  after all{");
+    _builder.newLine();
+    _builder.append("    println(\"after all\")");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}  ");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -345,7 +640,17 @@ public class IntroducingJnarioSpecsHowToWriteASpecificationSpec extends Introduc
   @Named("Spec extensions")
   @Order(9)
   public void _specExtensions() throws Exception {
-    "describe \"Spec Extensions\"{\r\n  extension DatabaseExtension db = new DatabaseExtension\r\n  fact query(\"SELECT * FROM content\")\t      \r\n}\r\n".toString();
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Spec Extensions\"{");
+    _builder.newLine();
+    _builder.append("  extension DatabaseExtension db = new DatabaseExtension");
+    _builder.newLine();
+    _builder.append("  fact query(\"SELECT * FROM content\")	      ");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    _builder.toString().toString();
   }
   
   /**
@@ -359,6 +664,45 @@ public class IntroducingJnarioSpecsHowToWriteASpecificationSpec extends Introduc
   @Named("Helper methods")
   @Order(10)
   public void _helperMethods() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("describe \"Helper Methods & Fields\"{\r\n  String subject = \"World\" \r\n  fact \"can access fields and methods\"{\r\n    subject.greeting => \"Hello World\"\r\n  }\r\n  def greeting(String s){\r\n    return \"Hello \" + s\r\n  }\r\n  context \"shouting\"{\r\n    String emphasize = \"!\" \r\n    fact \"can access fields and methods from parent\"{\r\n       subject.greeting.shout => \"HELLO WORLD!\"\r\n    }\r\n    def shout(String s){\r\n      return s.toUpperCase + emphasize\r\n    }\r\n  }\r\n}\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("describe \"Helper Methods & Fields\"{");
+    _builder.newLine();
+    _builder.append("  String subject = \"World\" ");
+    _builder.newLine();
+    _builder.append("  fact \"can access fields and methods\"{");
+    _builder.newLine();
+    _builder.append("    subject.greeting => \"Hello World\"");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("  def greeting(String s){");
+    _builder.newLine();
+    _builder.append("    return \"Hello \" + s");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("  context \"shouting\"{");
+    _builder.newLine();
+    _builder.append("    String emphasize = \"!\" ");
+    _builder.newLine();
+    _builder.append("    fact \"can access fields and methods from parent\"{");
+    _builder.newLine();
+    _builder.append("       subject.greeting.shout => \"HELLO WORLD!\"");
+    _builder.newLine();
+    _builder.append("    }");
+    _builder.newLine();
+    _builder.append("    def shout(String s){");
+    _builder.newLine();
+    _builder.append("      return s.toUpperCase + emphasize");
+    _builder.newLine();
+    _builder.append("    }");
+    _builder.newLine();
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

@@ -8,6 +8,7 @@
 package org.jnario.spec.tests.integration;
 
 import com.google.common.base.Objects;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.jnario.test.util.Helpers;
@@ -46,8 +47,13 @@ public class AssertionNoMoreDebuggingSpec extends AssertionSpec {
       }
     };
     String _errorMessage = Helpers.errorMessage(_function);
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Expected y but");
+    _builder.newLine();
+    _builder.append("     y is <false>");
+    
     Helpers.is(_errorMessage, 
-      "Expected y but\r\n     y is <false>");
+      _builder.toString());
   }
   
   /**
@@ -67,7 +73,12 @@ public class AssertionNoMoreDebuggingSpec extends AssertionSpec {
       }
     };
     String _errorMessage = Helpers.errorMessage(_function);
-    Helpers.is(_errorMessage, "Expected x == 42 but\r\n     x is <0>");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Expected x == 42 but");
+    _builder.newLine();
+    _builder.append("     x is <0>");
+    
+    Helpers.is(_errorMessage, _builder.toString());
   }
   
   /**
@@ -88,7 +99,14 @@ public class AssertionNoMoreDebuggingSpec extends AssertionSpec {
       }
     };
     String _errorMessage = Helpers.errorMessage(_function);
-    Helpers.is(_errorMessage, "Expected !(x == 42) but\r\n     x == 42 is <true>\r\n     x is <42>");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Expected !(x == 42) but");
+    _builder.newLine();
+    _builder.append("     x == 42 is <true>");
+    _builder.newLine();
+    _builder.append("     x is <42>");
+    
+    Helpers.is(_errorMessage, _builder.toString());
   }
   
   /**
@@ -109,7 +127,12 @@ public class AssertionNoMoreDebuggingSpec extends AssertionSpec {
       }
     };
     String _errorMessage = Helpers.errorMessage(_function);
-    Helpers.is(_errorMessage, "Expected greet(\"World\") == \"Hello World!\" but\r\n     greet(\"World\") is \"Hello World\"");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Expected greet(\"World\") == \"Hello World!\" but");
+    _builder.newLine();
+    _builder.append("     greet(\"World\") is \"Hello World\"");
+    
+    Helpers.is(_errorMessage, _builder.toString());
   }
   
   /**
@@ -132,7 +155,14 @@ public class AssertionNoMoreDebuggingSpec extends AssertionSpec {
       }
     };
     String _errorMessage = Helpers.errorMessage(_function);
-    Helpers.is(_errorMessage, "Expected \"Hello\".toUpperCase.toLowerCase == \"HELLO\" but\r\n     \"Hello\".toUpperCase.toLowerCase is \"hello\"\r\n     \"Hello\".toUpperCase is \"HELLO\"");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Expected \"Hello\".toUpperCase.toLowerCase == \"HELLO\" but");
+    _builder.newLine();
+    _builder.append("     \"Hello\".toUpperCase.toLowerCase is \"hello\"");
+    _builder.newLine();
+    _builder.append("     \"Hello\".toUpperCase is \"HELLO\"");
+    
+    Helpers.is(_errorMessage, _builder.toString());
   }
   
   /**
@@ -156,7 +186,18 @@ public class AssertionNoMoreDebuggingSpec extends AssertionSpec {
       }
     };
     String _errorMessage = Helpers.errorMessage(_function);
-    Helpers.is(_errorMessage, "Expected x == 1 && y == 0 but\r\n     x == 1 is <false>\r\n     x is <0>\r\n     y == 0 is <false>\r\n     y is <1>");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Expected x == 1 && y == 0 but");
+    _builder.newLine();
+    _builder.append("     x == 1 is <false>");
+    _builder.newLine();
+    _builder.append("     x is <0>");
+    _builder.newLine();
+    _builder.append("     y == 0 is <false>");
+    _builder.newLine();
+    _builder.append("     y is <1>");
+    
+    Helpers.is(_errorMessage, _builder.toString());
   }
   
   /**
@@ -178,7 +219,16 @@ public class AssertionNoMoreDebuggingSpec extends AssertionSpec {
       }
     };
     String _errorMessage = Helpers.errorMessage(_function);
-    Helpers.is(_errorMessage, "Expected x > 0 && x < 10 but\r\n     x > 0 is <false>\r\n     x is <0>\r\n     x < 10 is <true>");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Expected x > 0 && x < 10 but");
+    _builder.newLine();
+    _builder.append("     x > 0 is <false>");
+    _builder.newLine();
+    _builder.append("     x is <0>");
+    _builder.newLine();
+    _builder.append("     x < 10 is <true>");
+    
+    Helpers.is(_errorMessage, _builder.toString());
   }
   
   /**

@@ -7,6 +7,7 @@
  */
 package org.jnario.feature.documentation;
 
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.jnario.jnario.test.util.FeatureExecutor;
 import org.jnario.runner.ExampleGroupRunner;
 import org.jnario.runner.Named;
@@ -28,6 +29,25 @@ public class GivenWhenThenSpec {
   @Named("And, But")
   @Order(1)
   public void _andBut() throws Exception {
-    FeatureExecutor.isSuccessful("Feature: And & But\r\nScenario: Multiple Givens\r\n  Given one thing\r\n    And another thing\r\n    And yet another thing\r\n  When I trigger something\r\n  Then happens something\r\n    But not more\r\n");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Feature: And & But");
+    _builder.newLine();
+    _builder.append("Scenario: Multiple Givens");
+    _builder.newLine();
+    _builder.append("  Given one thing");
+    _builder.newLine();
+    _builder.append("    And another thing");
+    _builder.newLine();
+    _builder.append("    And yet another thing");
+    _builder.newLine();
+    _builder.append("  When I trigger something");
+    _builder.newLine();
+    _builder.append("  Then happens something");
+    _builder.newLine();
+    _builder.append("    But not more");
+    _builder.newLine();
+    
+    FeatureExecutor.isSuccessful(
+      _builder.toString());
   }
 }
