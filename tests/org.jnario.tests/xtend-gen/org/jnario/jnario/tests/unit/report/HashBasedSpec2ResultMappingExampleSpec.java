@@ -30,12 +30,13 @@ public class HashBasedSpec2ResultMappingExampleSpec extends HashBasedSpec2Result
     _builder.newLine();
     _builder.append("describe \"Something\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"a fact\"{\"\"}");
+    _builder.append("	fact \"a fact\"{\"\"}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this.m.parseSpec(_builder);
+    
+    this.m.parseSpec(
+      _builder.toString());
     this.subject.accept(this.aResult);
     Example _example = this.example();
     boolean _should_match = this.should_match(_example, this.aResult);
@@ -65,12 +66,13 @@ public class HashBasedSpec2ResultMappingExampleSpec extends HashBasedSpec2Result
     _builder.newLine();
     _builder.append("describe \"Something\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"a fact\"");
+    _builder.append("	fact \"a fact\"");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this.m.parseSpec(_builder);
+    
+    this.m.parseSpec(
+      _builder.toString());
     final Passed pendingResult = Passed.passingSpec("example.SomethingSpec", "a fact [PENDING]", HashBasedSpec2ResultMappingSpec.anyExecutionTime);
     this.subject.accept(pendingResult);
     Example _example = this.example();

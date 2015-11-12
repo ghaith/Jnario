@@ -8,6 +8,7 @@
 package org.jnario.spec.tests.unit.naming;
 
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.Query;
 import org.jnario.lib.Assert;
 import org.jnario.lib.Should;
@@ -98,14 +99,13 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   @Order(7)
   public void _shouldEscapeQuotes() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("describe \'Example\'{");
+    _builder.append("describe 'Example'{");
     _builder.newLine();
-    _builder.append("                    ");
-    _builder.append("describe \'and \"more\"\'{}");
+    _builder.append("                    describe 'and \"more\"'{}");
     _builder.newLine();
-    _builder.append("                 ");
-    _builder.append("}");
-    final String text = _builder.toString();
+    _builder.append("                 }");
+    
+    final String text = _builder.toString().toString();
     String _describeSecond = this.describeSecond(text);
     Assert.assertTrue("\nExpected describeSecond(text) => \'and \\\\\"more\\\\\"\' but"
      + "\n     describeSecond(text) is " + new org.hamcrest.StringDescription().appendValue(_describeSecond).toString()
@@ -119,7 +119,8 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   public void _shouldReplaceLineBreaksAndLeadingWhitespaceWithASingleSpace() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Example\\n\\t 2\"");
-    final String text = _builder.toString();
+    
+    final String text = _builder.toString().toString();
     String _describeFirst = this.describeFirst(text);
     Assert.assertTrue("\nExpected describeFirst(text) => \'Example 2\' but"
      + "\n     describeFirst(text) is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString()
@@ -127,13 +128,13 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
     
   }
   
-  public String describeFirst(final String content) {
+  public String describeFirst(@Extension final String content) {
     Query _parse = this.parse((content + "{}"));
     ExampleGroup _first = _parse.<ExampleGroup>first(ExampleGroup.class);
     return this.subject.describe(_first);
   }
   
-  public String describeSecond(final String content) {
+  public String describeSecond(@Extension final String content) {
     Query _parse = this.parse(content);
     ExampleGroup _second = _parse.<ExampleGroup>second(ExampleGroup.class);
     return this.subject.describe(_second);

@@ -12,9 +12,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.xtend.core.xtend.XtendPackage;
 import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.xbase.XbasePackage;
+import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotationsPackage;
 import org.eclipse.xtext.xtype.XtypePackage;
 import org.jnario.Assertion;
 import org.jnario.ExampleCell;
@@ -22,9 +22,19 @@ import org.jnario.ExampleColumn;
 import org.jnario.ExampleRow;
 import org.jnario.ExampleTable;
 import org.jnario.Executable;
+import org.jnario.JnarioAnnotationTarget;
+import org.jnario.JnarioClass;
 import org.jnario.JnarioFactory;
+import org.jnario.JnarioField;
+import org.jnario.JnarioFile;
+import org.jnario.JnarioFunction;
+import org.jnario.JnarioMember;
 import org.jnario.JnarioPackage;
+import org.jnario.JnarioParameter;
+import org.jnario.JnarioTypeDeclaration;
 import org.jnario.MockLiteral;
+import org.jnario.RichString;
+import org.jnario.RichStringLiteral;
 import org.jnario.Should;
 import org.jnario.ShouldThrow;
 import org.jnario.Specification;
@@ -107,6 +117,76 @@ public class JnarioPackageImpl extends EPackageImpl implements JnarioPackage {
 	private EClass exampleCellEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jnarioFileEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jnarioClassEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jnarioMemberEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jnarioFunctionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jnarioFieldEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jnarioTypeDeclarationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jnarioAnnotationTargetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jnarioParameterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass richStringEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass richStringLiteralEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -153,8 +233,9 @@ public class JnarioPackageImpl extends EPackageImpl implements JnarioPackage {
 		isInited = true;
 
 		// Initialize simple dependencies
-		XtendPackage.eINSTANCE.eClass();
+		XAnnotationsPackage.eINSTANCE.eClass();
 		XtypePackage.eINSTANCE.eClass();
+		XbasePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theJnarioPackage.createPackageContents();
@@ -383,6 +464,294 @@ public class JnarioPackageImpl extends EPackageImpl implements JnarioPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getJnarioFile() {
+		return jnarioFileEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioFile_ImportSection() {
+		return (EReference)jnarioFileEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioFile_XtendTypes() {
+		return (EReference)jnarioFileEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJnarioFile_Package() {
+		return (EAttribute)jnarioFileEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJnarioClass() {
+		return jnarioClassEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioClass_Extends() {
+		return (EReference)jnarioClassEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJnarioMember() {
+		return jnarioMemberEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJnarioMember_Modifiers() {
+		return (EAttribute)jnarioMemberEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioMember_AnnotationInfo() {
+		return (EReference)jnarioMemberEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJnarioFunction() {
+		return jnarioFunctionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJnarioFunction_Name() {
+		return (EAttribute)jnarioFunctionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioFunction_Expression() {
+		return (EReference)jnarioFunctionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioFunction_TypeParameters() {
+		return (EReference)jnarioFunctionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioFunction_ReturnType() {
+		return (EReference)jnarioFunctionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioFunction_Exceptions() {
+		return (EReference)jnarioFunctionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioFunction_Parameters() {
+		return (EReference)jnarioFunctionEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJnarioField() {
+		return jnarioFieldEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioField_Type() {
+		return (EReference)jnarioFieldEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJnarioField_Name() {
+		return (EAttribute)jnarioFieldEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioField_InitialValue() {
+		return (EReference)jnarioFieldEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJnarioTypeDeclaration() {
+		return jnarioTypeDeclarationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJnarioTypeDeclaration_Name() {
+		return (EAttribute)jnarioTypeDeclarationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioTypeDeclaration_Members() {
+		return (EReference)jnarioTypeDeclarationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJnarioAnnotationTarget() {
+		return jnarioAnnotationTargetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioAnnotationTarget_Annotations() {
+		return (EReference)jnarioAnnotationTargetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJnarioParameter() {
+		return jnarioParameterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJnarioParameter_Name() {
+		return (EAttribute)jnarioParameterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJnarioParameter_ParameterType() {
+		return (EReference)jnarioParameterEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJnarioParameter_VarArg() {
+		return (EAttribute)jnarioParameterEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJnarioParameter_Extension() {
+		return (EAttribute)jnarioParameterEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRichString() {
+		return richStringEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRichStringLiteral() {
+		return richStringLiteralEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public JnarioFactory getJnarioFactory() {
 		return (JnarioFactory)getEFactoryInstance();
 	}
@@ -438,6 +807,48 @@ public class JnarioPackageImpl extends EPackageImpl implements JnarioPackage {
 		mockLiteralEClass = createEClass(MOCK_LITERAL);
 
 		exampleCellEClass = createEClass(EXAMPLE_CELL);
+
+		jnarioFileEClass = createEClass(JNARIO_FILE);
+		createEReference(jnarioFileEClass, JNARIO_FILE__IMPORT_SECTION);
+		createEReference(jnarioFileEClass, JNARIO_FILE__XTEND_TYPES);
+		createEAttribute(jnarioFileEClass, JNARIO_FILE__PACKAGE);
+
+		jnarioClassEClass = createEClass(JNARIO_CLASS);
+		createEReference(jnarioClassEClass, JNARIO_CLASS__EXTENDS);
+
+		jnarioMemberEClass = createEClass(JNARIO_MEMBER);
+		createEAttribute(jnarioMemberEClass, JNARIO_MEMBER__MODIFIERS);
+		createEReference(jnarioMemberEClass, JNARIO_MEMBER__ANNOTATION_INFO);
+
+		jnarioFunctionEClass = createEClass(JNARIO_FUNCTION);
+		createEAttribute(jnarioFunctionEClass, JNARIO_FUNCTION__NAME);
+		createEReference(jnarioFunctionEClass, JNARIO_FUNCTION__EXPRESSION);
+		createEReference(jnarioFunctionEClass, JNARIO_FUNCTION__TYPE_PARAMETERS);
+		createEReference(jnarioFunctionEClass, JNARIO_FUNCTION__RETURN_TYPE);
+		createEReference(jnarioFunctionEClass, JNARIO_FUNCTION__EXCEPTIONS);
+		createEReference(jnarioFunctionEClass, JNARIO_FUNCTION__PARAMETERS);
+
+		jnarioFieldEClass = createEClass(JNARIO_FIELD);
+		createEReference(jnarioFieldEClass, JNARIO_FIELD__TYPE);
+		createEAttribute(jnarioFieldEClass, JNARIO_FIELD__NAME);
+		createEReference(jnarioFieldEClass, JNARIO_FIELD__INITIAL_VALUE);
+
+		jnarioTypeDeclarationEClass = createEClass(JNARIO_TYPE_DECLARATION);
+		createEAttribute(jnarioTypeDeclarationEClass, JNARIO_TYPE_DECLARATION__NAME);
+		createEReference(jnarioTypeDeclarationEClass, JNARIO_TYPE_DECLARATION__MEMBERS);
+
+		jnarioAnnotationTargetEClass = createEClass(JNARIO_ANNOTATION_TARGET);
+		createEReference(jnarioAnnotationTargetEClass, JNARIO_ANNOTATION_TARGET__ANNOTATIONS);
+
+		jnarioParameterEClass = createEClass(JNARIO_PARAMETER);
+		createEAttribute(jnarioParameterEClass, JNARIO_PARAMETER__NAME);
+		createEReference(jnarioParameterEClass, JNARIO_PARAMETER__PARAMETER_TYPE);
+		createEAttribute(jnarioParameterEClass, JNARIO_PARAMETER__VAR_ARG);
+		createEAttribute(jnarioParameterEClass, JNARIO_PARAMETER__EXTENSION);
+
+		richStringEClass = createEClass(RICH_STRING);
+
+		richStringLiteralEClass = createEClass(RICH_STRING_LITERAL);
 	}
 
 	/**
@@ -464,24 +875,33 @@ public class JnarioPackageImpl extends EPackageImpl implements JnarioPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		XtendPackage theXtendPackage = (XtendPackage)EPackage.Registry.INSTANCE.getEPackage(XtendPackage.eNS_URI);
 		XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
 		TypesPackage theTypesPackage = (TypesPackage)EPackage.Registry.INSTANCE.getEPackage(TypesPackage.eNS_URI);
+		XtypePackage theXtypePackage = (XtypePackage)EPackage.Registry.INSTANCE.getEPackage(XtypePackage.eNS_URI);
+		XAnnotationsPackage theXAnnotationsPackage = (XAnnotationsPackage)EPackage.Registry.INSTANCE.getEPackage(XAnnotationsPackage.eNS_URI);
 
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		exampleTableEClass.getESuperTypes().add(theXtendPackage.getXtendMember());
+		exampleTableEClass.getESuperTypes().add(this.getJnarioMember());
 		exampleTableEClass.getESuperTypes().add(theXbasePackage.getXExpression());
 		assertionEClass.getESuperTypes().add(theXbasePackage.getXExpression());
 		shouldEClass.getESuperTypes().add(theXbasePackage.getXBinaryOperation());
 		shouldThrowEClass.getESuperTypes().add(theXbasePackage.getXExpression());
-		specificationEClass.getESuperTypes().add(theXtendPackage.getXtendClass());
 		specificationEClass.getESuperTypes().add(this.getExecutable());
+		specificationEClass.getESuperTypes().add(this.getJnarioClass());
 		mockLiteralEClass.getESuperTypes().add(theXbasePackage.getXTypeLiteral());
-		exampleCellEClass.getESuperTypes().add(theXtendPackage.getXtendFunction());
+		exampleCellEClass.getESuperTypes().add(this.getJnarioFunction());
+		jnarioClassEClass.getESuperTypes().add(this.getJnarioTypeDeclaration());
+		jnarioMemberEClass.getESuperTypes().add(this.getJnarioAnnotationTarget());
+		jnarioFunctionEClass.getESuperTypes().add(this.getJnarioMember());
+		jnarioFieldEClass.getESuperTypes().add(this.getJnarioMember());
+		jnarioTypeDeclarationEClass.getESuperTypes().add(this.getJnarioMember());
+		jnarioParameterEClass.getESuperTypes().add(this.getJnarioAnnotationTarget());
+		richStringEClass.getESuperTypes().add(theXbasePackage.getXBlockExpression());
+		richStringLiteralEClass.getESuperTypes().add(theXbasePackage.getXStringLiteral());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(exampleTableEClass, ExampleTable.class, "ExampleTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -520,6 +940,64 @@ public class JnarioPackageImpl extends EPackageImpl implements JnarioPackage {
 		initEClass(mockLiteralEClass, MockLiteral.class, "MockLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(exampleCellEClass, ExampleCell.class, "ExampleCell", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(jnarioFileEClass, JnarioFile.class, "JnarioFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getJnarioFile_ImportSection(), theXtypePackage.getXImportSection(), null, "importSection", null, 0, 1, JnarioFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJnarioFile_XtendTypes(), this.getJnarioTypeDeclaration(), null, "xtendTypes", null, 0, -1, JnarioFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJnarioFile_Package(), ecorePackage.getEString(), "package", null, 0, 1, JnarioFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(jnarioClassEClass, JnarioClass.class, "JnarioClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getJnarioClass_Extends(), theTypesPackage.getJvmTypeReference(), null, "extends", null, 0, 1, JnarioClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(jnarioMemberEClass, JnarioMember.class, "JnarioMember", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJnarioMember_Modifiers(), ecorePackage.getEString(), "modifiers", null, 0, -1, JnarioMember.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJnarioMember_AnnotationInfo(), this.getJnarioAnnotationTarget(), null, "annotationInfo", null, 0, 1, JnarioMember.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(jnarioMemberEClass, ecorePackage.getEBoolean(), "isStatic", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jnarioMemberEClass, theTypesPackage.getJvmVisibility(), "getVisibility", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jnarioMemberEClass, theTypesPackage.getJvmVisibility(), "getDeclaredVisibility", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jnarioMemberEClass, theTypesPackage.getJvmVisibility(), "getDefaultVisibility", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jnarioMemberEClass, ecorePackage.getEBoolean(), "isFinal", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(jnarioFunctionEClass, JnarioFunction.class, "JnarioFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJnarioFunction_Name(), ecorePackage.getEString(), "name", null, 0, 1, JnarioFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJnarioFunction_Expression(), theXbasePackage.getXExpression(), null, "expression", null, 0, 1, JnarioFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJnarioFunction_TypeParameters(), theTypesPackage.getJvmTypeParameter(), null, "typeParameters", null, 0, -1, JnarioFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJnarioFunction_ReturnType(), theTypesPackage.getJvmTypeReference(), null, "returnType", null, 0, 1, JnarioFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJnarioFunction_Exceptions(), theTypesPackage.getJvmTypeReference(), null, "exceptions", null, 0, -1, JnarioFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJnarioFunction_Parameters(), this.getJnarioParameter(), null, "parameters", null, 0, -1, JnarioFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(jnarioFieldEClass, JnarioField.class, "JnarioField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getJnarioField_Type(), theTypesPackage.getJvmTypeReference(), null, "type", null, 0, 1, JnarioField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJnarioField_Name(), ecorePackage.getEString(), "name", null, 0, 1, JnarioField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJnarioField_InitialValue(), theXbasePackage.getXExpression(), null, "initialValue", null, 0, 1, JnarioField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(jnarioFieldEClass, ecorePackage.getEBoolean(), "isTransient", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jnarioFieldEClass, ecorePackage.getEBoolean(), "isVolatile", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jnarioFieldEClass, ecorePackage.getEBoolean(), "isExtension", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(jnarioTypeDeclarationEClass, JnarioTypeDeclaration.class, "JnarioTypeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJnarioTypeDeclaration_Name(), ecorePackage.getEString(), "name", null, 0, 1, JnarioTypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJnarioTypeDeclaration_Members(), this.getJnarioMember(), null, "members", null, 0, -1, JnarioTypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(jnarioAnnotationTargetEClass, JnarioAnnotationTarget.class, "JnarioAnnotationTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getJnarioAnnotationTarget_Annotations(), theXAnnotationsPackage.getXAnnotation(), null, "annotations", null, 0, -1, JnarioAnnotationTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(jnarioParameterEClass, JnarioParameter.class, "JnarioParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJnarioParameter_Name(), ecorePackage.getEString(), "name", null, 0, 1, JnarioParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJnarioParameter_ParameterType(), theTypesPackage.getJvmTypeReference(), null, "parameterType", null, 0, 1, JnarioParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJnarioParameter_VarArg(), ecorePackage.getEBoolean(), "varArg", null, 0, 1, JnarioParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJnarioParameter_Extension(), ecorePackage.getEBoolean(), "extension", null, 0, 1, JnarioParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(richStringEClass, RichString.class, "RichString", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(richStringLiteralEClass, RichStringLiteral.class, "RichStringLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

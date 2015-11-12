@@ -17,9 +17,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class FeatureCompilerSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor _behaviorExecutor;
   
   @Test
@@ -29,25 +29,23 @@ public class FeatureCompilerSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Feature: Empty Closures");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: Defining Empty Closures");
+    _builder.append("	Scenario: Defining Empty Closures");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("When I define an empty closure");
+    _builder.append("	When I define an empty closure");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("[|].apply ");
+    _builder.append("		[|].apply ");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("And  I define an empty closure");
+    _builder.append("	And  I define an empty closure");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
   @Named("compiles rich strings")
   @Order(2)
   public void _compilesRichStrings() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("\r\n\t\tFeature: Rich Strings\r\n\t\t\tScenario: A\r\n\t\t\tWhen I a rich strings\r\n\t\t\t\tval x = \'world\'\r\n\t\t\t\t\'\'\'hello «x»\'\'\'.toString => \'hello world\'\r\n\t\t");
+    this._behaviorExecutor.executesSuccessfully("\r\n\t\tFeature: Rich Strings\r\n\t\t\tScenario: A\r\n\t\t\tWhen I a rich strings\r\n\t\t\t\tval x = \'world\'\r\n\t\t\t\t(\'\'\'hello \'\'\' + x + \'\'\'\'\'\').toString => \'hello world\'\r\n\t\t");
   }
 }

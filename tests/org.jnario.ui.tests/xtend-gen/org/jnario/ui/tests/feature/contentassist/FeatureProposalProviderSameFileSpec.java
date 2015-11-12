@@ -21,17 +21,15 @@ public class FeatureProposalProviderSameFileSpec extends FeatureProposalProvider
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Feature: My Feature");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: My Scenario");
+    _builder.append("	Scenario: My Scenario");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given an implemented step");
+    _builder.append("	Given an implemented step");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("1 + 1 => 2");
+    _builder.append("		1 + 1 => 2");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
+    
     final AbstractContentAssistProcessorTest2.ContentAssistProcessorTestBuilder2 builder = _newBuilder.append(_builder.toString());
     builder.assertProposal("features.And an implemented step");
     builder.assertProposal("features.But an implemented step");
@@ -45,14 +43,13 @@ public class FeatureProposalProviderSameFileSpec extends FeatureProposalProvider
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Feature: My Feature");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: My Scenario");
+    _builder.append("	Scenario: My Scenario");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given a pending step");
+    _builder.append("	Given a pending step");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
+    
     final AbstractContentAssistProcessorTest2.ContentAssistProcessorTestBuilder2 builder = _newBuilder.append(_builder.toString());
     builder.assertProposal("features.And a pending step");
     builder.assertProposal("features.But a pending step");
@@ -66,17 +63,15 @@ public class FeatureProposalProviderSameFileSpec extends FeatureProposalProvider
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Feature: My Feature");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: My Scenario");
+    _builder.append("	Scenario: My Scenario");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given a step");
+    _builder.append("	Given a step");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Then another step");
+    _builder.append("	Then another step");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
+    
     final AbstractContentAssistProcessorTest2.ContentAssistProcessorTestBuilder2 builder = _newBuilder.append(_builder.toString());
     builder.assertProposalsContainNot("And a step");
     builder.assertProposal("features.And another step");

@@ -35,9 +35,9 @@ public class SpecDocGeneratorSpec {
   @Subject
   public SpecDocGenerator subject;
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore _modelStore;
   
   @Inject
@@ -67,29 +67,26 @@ public class SpecDocGeneratorSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/*");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("* Irrelevant documentation.");
+    _builder.append(" * Irrelevant documentation.");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("*/");
+    _builder.append(" */");
     _builder.newLine();
     _builder.append(" ");
     _builder.newLine();
     _builder.append("/*");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("* This is an example.");
+    _builder.append(" * This is an example.");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("*/");
+    _builder.append(" */");
     _builder.newLine();
-    _builder.append("describe \'Example\'{");
+    _builder.append("describe 'Example'{");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
     _builder.append("} ");
     _builder.newLine();
-    this.generateDoc(_builder);
+    
+    this.generateDoc(_builder.toString());
     final String scenarioDoc = this.generatedFile("ExampleSpec.html");
     boolean _contains = scenarioDoc.contains("<p>This is an example.</p>");
     Assert.assertTrue("\nExpected scenarioDoc.contains(\"<p>This is an example.</p>\") but"
@@ -108,31 +105,25 @@ public class SpecDocGeneratorSpec {
   @Order(3)
   public void _generatesExampleDocumentation() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("describe \'Example\'{");
+    _builder.append("describe 'Example'{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("/*");
+    _builder.append("	/*");
     _builder.newLine();
-    _builder.append("\t ");
-    _builder.append("* Example documentation");
+    _builder.append("	 * Example documentation");
     _builder.newLine();
-    _builder.append("\t ");
-    _builder.append("*/");
+    _builder.append("	 */");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"should do stuff\"{");
+    _builder.append("	fact \"should do stuff\"{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("var x = 0");
+    _builder.append("		var x = 0");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("x = x + 1");
+    _builder.append("		x = x + 1");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
-    this.generateDoc(_builder);
+    
+    this.generateDoc(_builder.toString());
     final String scenarioDoc = this.generatedFile("ExampleSpec.html");
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("<p id=\"should_do_stuff\" class=\"example notrun\"><strong>should do stuff</strong></p>");
@@ -144,12 +135,13 @@ public class SpecDocGeneratorSpec {
     _builder_1.append("var x = 0");
     _builder_1.newLine();
     _builder_1.append("x = x + 1</pre>");
-    String _string = _builder_1.toString();
+    
+    String _string = _builder_1.toString().toString();
     boolean _contains = scenarioDoc.contains(_string);
     Assert.assertTrue("\nExpected scenarioDoc.contains(\'\'\'\r\n\t\t<p id=\"should_do_stuff\" class=\"example notrun\"><strong>should do stuff</strong></p>\r\n\t\t<p>Example documentation</p>\r\n\t\t<pre class=\"prettyprint lang-spec linenums\">\r\n\t\tvar x = 0\r\n\t\tx = x + 1</pre>\'\'\'.toString()) but"
      + "\n     scenarioDoc is " + new org.hamcrest.StringDescription().appendValue(scenarioDoc).toString()
      + "\n     \'\'\'\r\n\t\t<p id=\"should_do_stuff\" class=\"example notrun\"><strong>should do stuff</strong></p>\r\n\t\t<p>Example documentation</p>\r\n\t\t<pre class=\"prettyprint lang-spec linenums\">\r\n\t\tvar x = 0\r\n\t\tx = x + 1</pre>\'\'\'.toString() is " + new org.hamcrest.StringDescription().appendValue(_string).toString()
-     + "\n     \'\'\'\r\n\t\t<p id=\"should_do_stuff\" class=\"example notrun\"><strong>should do stuff</strong></p>\r\n\t\t<p>Example documentation</p>\r\n\t\t<pre class=\"prettyprint lang-spec linenums\">\r\n\t\tvar x = 0\r\n\t\tx = x + 1</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1).toString() + "\n", _contains);
+     + "\n     \'\'\'\r\n\t\t<p id=\"should_do_stuff\" class=\"example notrun\"><strong>should do stuff</strong></p>\r\n\t\t<p>Example documentation</p>\r\n\t\t<pre class=\"prettyprint lang-spec linenums\">\r\n\t\tvar x = 0\r\n\t\tx = x + 1</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1.toString()).toString() + "\n", _contains);
     
   }
   
@@ -160,19 +152,18 @@ public class SpecDocGeneratorSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/*");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("* #Example Heading");
+    _builder.append(" * #Example Heading");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("*/");
+    _builder.append(" */");
     _builder.newLine();
-    _builder.append("describe \'Example\'{");
+    _builder.append("describe 'Example'{");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
     _builder.append("} ");
     _builder.newLine();
-    this.generateDoc(_builder);
+    
+    this.generateDoc(_builder.toString());
     final String scenarioDoc = this.generatedFile("ExampleSpec.html");
     boolean _contains = scenarioDoc.contains("<h1>Example Heading</h1>");
     Assert.assertTrue("\nExpected scenarioDoc.contains(\"<h1>Example Heading</h1>\") but"
@@ -185,23 +176,20 @@ public class SpecDocGeneratorSpec {
   @Order(5)
   public void _generatesTableForExampleTables() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("describe \'Example\'{");
+    _builder.append("describe 'Example'{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("def myExample{");
+    _builder.append("	def myExample{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| a | b |");
+    _builder.append("		| a | b |");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| 1 | 2 |");
+    _builder.append("		| 1 | 2 |");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("} ");
     _builder.newLine();
-    this.generateDoc(_builder);
+    
+    this.generateDoc(_builder.toString());
     final String scenarioDoc = this.generatedFile("ExampleSpec.html");
     boolean _contains = scenarioDoc.contains("<p id=\"myExample\"><strong>MyExample</strong></p>");
     Assert.assertTrue("\nExpected scenarioDoc.contains(\'<p id=\"myExample\"><strong>MyExample</strong></p>\') but"
@@ -230,22 +218,23 @@ public class SpecDocGeneratorSpec {
   @Order(6)
   public void _noCodeBlockForExamplesWithoutDescription() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("describe \'Example\'{");
+    _builder.append("describe 'Example'{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact 1 + 1 => 2");
+    _builder.append("	fact 1 + 1 => 2");
     _builder.newLine();
     _builder.append("} ");
     _builder.newLine();
-    this.generateDoc(_builder);
+    
+    this.generateDoc(_builder.toString());
     final String scenarioDoc = this.generatedFile("ExampleSpec.html");
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("<pre class=\"prettyprint lang-spec linenums\">");
     _builder_1.newLine();
     _builder_1.append("1 + 1 =&gt; 2</pre>");
+    
     Assert.assertFalse("\nExpected scenarioDoc should not contain \'\'\'<pre class=\"prettyprint lang-spec linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\' but"
      + "\n     scenarioDoc is " + new org.hamcrest.StringDescription().appendValue(scenarioDoc).toString()
-     + "\n     \'\'\'<pre class=\"prettyprint lang-spec linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1).toString() + "\n", Should.<Object>should_contain(scenarioDoc, _builder_1));
+     + "\n     \'\'\'<pre class=\"prettyprint lang-spec linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1.toString()).toString() + "\n", Should.<Object>should_contain(scenarioDoc, _builder_1.toString()));
     
   }
   
@@ -254,29 +243,24 @@ public class SpecDocGeneratorSpec {
   @Order(7)
   public void _filtersCodeBasedOnRegexInFilterAnnotation() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("describe \'Example\'{");
+    _builder.append("describe 'Example'{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("/*");
+    _builder.append("	/*");
     _builder.newLine();
-    _builder.append("\t ");
-    _builder.append("* @filter(bbb)");
+    _builder.append("	 * @filter(bbb)");
     _builder.newLine();
-    _builder.append("\t ");
-    _builder.append("*/");
+    _builder.append("	 */");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"should do stuff\"{");
+    _builder.append("	fact \"should do stuff\"{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("\"aaabbbaaa\"");
+    _builder.append("		\"aaabbbaaa\"");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("} ");
     _builder.newLine();
-    this.generateDoc(_builder);
+    
+    this.generateDoc(_builder.toString());
     final String scenarioDoc = this.generatedFile("ExampleSpec.html");
     boolean _contains = scenarioDoc.contains("aaaaaa");
     Assert.assertTrue("\nExpected scenarioDoc.contains(\'aaaaaa\') but"
@@ -289,20 +273,18 @@ public class SpecDocGeneratorSpec {
   @Order(8)
   public void _includesFailingStateForExamples() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("describe \'Example\'{");
+    _builder.append("describe 'Example'{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"should do stuff\"{");
+    _builder.append("	fact \"should do stuff\"{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("\"aaabbbaaa\"");
+    _builder.append("		\"aaabbbaaa\"");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("} ");
     _builder.newLine();
-    this.generateDoc(_builder);
+    
+    this.generateDoc(_builder.toString());
   }
   
   @Test
@@ -310,57 +292,54 @@ public class SpecDocGeneratorSpec {
   @Order(9)
   public void _supportsLangAnnotation() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("describe \'Example\'{");
+    _builder.append("describe 'Example'{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("/*");
+    _builder.append("	/*");
     _builder.newLine();
-    _builder.append("\t ");
-    _builder.append("* @lang(ruby)");
+    _builder.append("	 * @lang(ruby)");
     _builder.newLine();
-    _builder.append("\t ");
-    _builder.append("*/");
+    _builder.append("	 */");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"test\" {");
+    _builder.append("	fact \"test\" {");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("1 + 1 => 2");
+    _builder.append("		1 + 1 => 2");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("} ");
     _builder.newLine();
-    this.generateDoc(_builder);
+    
+    this.generateDoc(_builder.toString());
     final String scenarioDoc = this.generatedFile("ExampleSpec.html");
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("<pre class=\"prettyprint lang-ruby linenums\">");
     _builder_1.newLine();
     _builder_1.append("1 + 1 =&gt; 2</pre>");
+    
     Assert.assertTrue("\nExpected scenarioDoc should contain \'\'\'<pre class=\"prettyprint lang-ruby linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\' but"
      + "\n     scenarioDoc is " + new org.hamcrest.StringDescription().appendValue(scenarioDoc).toString()
-     + "\n     \'\'\'<pre class=\"prettyprint lang-ruby linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1).toString() + "\n", Should.<Object>should_contain(scenarioDoc, _builder_1));
+     + "\n     \'\'\'<pre class=\"prettyprint lang-ruby linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1.toString()).toString() + "\n", Should.<Object>should_contain(scenarioDoc, _builder_1.toString()));
     
   }
   
   public void generateEmptyExampleDoc() {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("describe \'Example\'{");
+    _builder.append("describe 'Example'{");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
     _builder.append("} ");
     _builder.newLine();
-    this.generateDoc(_builder);
+    
+    this.generateDoc(_builder.toString());
   }
   
-  public void generateDoc(final CharSequence input) {
+  public void generateDoc(@Extension final CharSequence input) {
     final Resource resource = this._modelStore.parseSpec(input);
     this.subject.doGenerate(resource, this.fsa);
   }
   
-  public String generatedFile(final String name) {
+  public String generatedFile(@Extension final String name) {
     Map<String, CharSequence> _files = this.fsa.getFiles();
     CharSequence _get = _files.get(("DOC_OUTPUT/" + name));
     String _string = null;

@@ -8,7 +8,7 @@
 		<project.build.sourceEncoding>${sourceEncoding}</project.build.sourceEncoding>
 		<project.build.resourceEncoding>${sourceEncoding}</project.build.resourceEncoding>
 		<maven.compiler.encoding>${sourceEncoding}</maven.compiler.encoding>
-		<xtend.version>2.7.0</xtend.version>
+		<xtend.version>2.8.4</xtend.version>
 		<jnario.version>1.1.0-SNAPSHOT</jnario.version>
 	</properties>
 	<dependencies>
@@ -51,19 +51,6 @@
 	</dependencyManagement>
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.eclipse.xtend</groupId>
-				<artifactId>xtend-maven-plugin</artifactId>
-				<version>${xtend.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-							<goal>xtend-install-debug-info</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.jnario</groupId>
 				<artifactId>jnario-maven-plugin</artifactId>

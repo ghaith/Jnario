@@ -7,6 +7,7 @@ import org.jnario.ui.handler.AbstractJnarioRunnerUIHandler;
 
 @SuppressWarnings("all")
 public class TestUIHandler extends AbstractJnarioRunnerUIHandler {
+  @Override
   public Action getAction(final ViewPart part, final ITestElement element) {
     return null;
   }

@@ -12,16 +12,30 @@ import static org.eclipse.xtext.xbase.ui.highlighting.XbaseHighlightingConfigura
 
 import java.util.List;
 
-import org.eclipse.xtend.ide.highlighting.XtendHighlightingCalculator;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.TerminalRule;
+import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
+import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XbasePackage;
+import org.eclipse.xtext.xbase.ui.highlighting.XbaseHighlightingCalculator;
 import org.jnario.Should;
+import org.jnario.richstring.JnarioRichStringProcessor;
 
-@SuppressWarnings("restriction")
-public class JnarioHighlightingCalculator extends XtendHighlightingCalculator {
+import com.google.inject.Inject;
 
+public abstract class JnarioHighlightingCalculator extends XbaseHighlightingCalculator {
+//	@Inject
+//	private JnarioRichStringProcessor processor;
+
+	@Inject
+	JnarioRichStringProcessor jnarioRichStringProcessor;
+	
+	protected abstract TerminalRule getRichStringTerminalRule();
+	
 	@Override
 	protected void computeFeatureCallHighlighting(
 			XAbstractFeatureCall featureCall,
@@ -39,4 +53,25 @@ public class JnarioHighlightingCalculator extends XtendHighlightingCalculator {
 			super.computeFeatureCallHighlighting(featureCall, acceptor);
 		}
 	}
+
+	@Override
+	protected void highlightSpecialIdentifiers(ILeafNode node,
+			IHighlightedPositionAcceptor acceptor, TerminalRule idRule) {
+		super.highlightSpecialIdentifiers(node, acceptor, idRule);
+		
+		EObject element = node.getGrammarElement();
+		EObject rule = getRichStringTerminalRule();
+		if (element == rule || (element instanceof RuleCall && ((RuleCall) element).getRule() == rule)) {
+			if (!node.getText().startsWith("'''")) {
+				return;
+			}
+			List<TextRegion> regionList = jnarioRichStringProcessor.process(node.getText());
+			if (regionList != null) {
+				for (TextRegion textRegion : regionList) {
+					acceptor.addPosition(node.getOffset() + textRegion.getOffset(), textRegion.getLength(), JnarioHighlightingConfiguration.RICH_TEXT_ID);
+				}
+			}
+		}
+	}
+	
 }

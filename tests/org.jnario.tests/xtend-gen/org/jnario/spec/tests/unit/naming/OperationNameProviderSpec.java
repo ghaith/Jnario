@@ -17,6 +17,7 @@ import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.access.ClasspathTypeProviderFactory;
 import org.eclipse.xtext.common.types.access.impl.ClasspathTypeProvider;
+import org.eclipse.xtext.common.types.access.impl.TypeResourceServices;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -43,13 +44,16 @@ public class OperationNameProviderSpec {
   OperationNameProvider subject;
   
   @Inject
-  ClasspathTypeProviderFactory typeProviderFactory = new ClasspathTypeProviderFactory(this.getClass().getClassLoader());
+  TypeResourceServices services;
+  
+  @Inject
+  ClasspathTypeProviderFactory typeProviderFactory = new ClasspathTypeProviderFactory(this.getClass().getClassLoader(), this.services);
   
   Map<String, JvmOperation> operations;
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore _modelStore;
   
   @Before
@@ -61,6 +65,7 @@ public class OperationNameProviderSpec {
     EList<JvmMember> _members = type.getMembers();
     final Iterable<JvmOperation> jvmOperations = Iterables.<JvmOperation>filter(_members, JvmOperation.class);
     final Function1<JvmOperation, String> _function = new Function1<JvmOperation, String>() {
+      @Override
       public String apply(final JvmOperation it) {
         return it.getSimpleName();
       }
@@ -69,7 +74,7 @@ public class OperationNameProviderSpec {
     this.operations = _map;
   }
   
-  public String nameOf(final String operationName) {
+  public String nameOf(@Extension final String operationName) {
     String _xblockexpression = null;
     {
       final JvmOperation op = this.operations.get(operationName);

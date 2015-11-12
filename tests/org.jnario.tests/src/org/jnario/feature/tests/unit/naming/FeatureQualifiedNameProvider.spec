@@ -8,7 +8,6 @@ import org.jnario.jnario.test.util.FeatureTestCreator
 import com.google.inject.Inject
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.jnario.feature.feature.Step
-import static org.eclipse.xtext.xbase.lib.IterableExtensions.*
 
 @CreateWith(typeof(FeatureTestCreator))
 describe FeatureQualifiedNameProvider {
@@ -38,7 +37,7 @@ describe FeatureQualifiedNameProvider {
 			| "strips dot at end" 			| "Given a step with implementation."	| "myPackage.a step with implementation"	|
 			| "strips argument values" 		| "Given a step with \"arg\"."			| 'myPackage.a step with ""'				|
 			| "removes double spaces" 		| "Given  two spaces"					| "myPackage.two spaces"					|
-			| "removes double tabs" 		| "Given a		two tabs"				| "myPackage.a two tabs"						|
+			| "removes double tabs" 		| "Given a		two tabs"				| "myPackage.a two tabs"					|
 			| "removes space after tab"		| "Given a	 space after tab"			| "myPackage.a space after tab"				|
 			| "removes space at end"		| "Given space at end "					| "myPackage.space at end"					|
 		}
@@ -52,10 +51,10 @@ describe FeatureQualifiedNameProvider {
 	}
 	
 	def implementedStepName(CharSequence s){
-		'''
-		«s»
+		(s + '''
+
 		val x = ""
-		'''.stepName
+		''').stepName
 	}
 	
 	def stepName(CharSequence s){
@@ -63,14 +62,14 @@ describe FeatureQualifiedNameProvider {
 	}
 	
 	def stepName(CharSequence s, String packageName){
-		val input = '''
-			«IF packageName != null»
-			package «packageName»
-			«ENDIF»
+		val input = (if (packageName != null) { "package " + packageName } else {""})
+			+ ''' 
+
 			Feature: MyFeature
 			Scenario: The Scenario
-			«s»
-		'''
+			''' + s + '''
+
+			'''
 		parseScenario(input)
 		converter.toString(subject.getFullyQualifiedName(first(typeof(Step))))
 	}

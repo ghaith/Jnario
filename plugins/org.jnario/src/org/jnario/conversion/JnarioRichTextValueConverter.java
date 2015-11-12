@@ -7,21 +7,30 @@
  *******************************************************************************/
 package org.jnario.conversion;
 
-import org.eclipse.xtend.core.conversion.AbstractRichTextValueConverter;
+import org.eclipse.xtext.conversion.ValueConverterException;
+import org.eclipse.xtext.conversion.impl.AbstractLexerBasedConverter;
+import org.eclipse.xtext.nodemodel.INode;
 
 /**
  * @author Sebastian Zarnekow - Initial contribution and API
  */
-public class JnarioRichTextValueConverter extends AbstractRichTextValueConverter {
+public class JnarioRichTextValueConverter extends AbstractLexerBasedConverter<String> {
 
-	@Override
-	protected String getLeadingTerminal() {
-		return "'''";
+	public String toValue(String string, INode node)
+			throws ValueConverterException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	@Override
-	protected String getTrailingTerminal() {
-		return "'''";
-	}
+	// TODO NO_XTEND
+//	@Override
+//	protected String getLeadingTerminal() {
+//		return "'''";
+//	}
+//
+//	@Override
+//	protected String getTrailingTerminal() {
+//		return "'''";
+//	}
 
 }

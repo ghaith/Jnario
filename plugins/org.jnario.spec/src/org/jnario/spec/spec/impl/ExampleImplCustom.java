@@ -18,7 +18,6 @@ import org.eclipse.xtext.xbase.XStringLiteral;
 /**
  * @author Sebastian Benz - Initial contribution and API
  */
-@SuppressWarnings("restriction")
 public class ExampleImplCustom extends org.jnario.spec.spec.impl.ExampleImpl {
 
 	private static final Pattern NAME_PATTERN = Pattern.compile("\\s*\r?\n\\s*");

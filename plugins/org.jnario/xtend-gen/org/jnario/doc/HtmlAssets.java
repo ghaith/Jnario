@@ -34,6 +34,7 @@ public class HtmlAssets {
     "bootstrap-responsive.min.css", 
     "custom.css", 
     "prettify.css"), new Function1<String, String>() {
+    @Override
     public String apply(final String it) {
       return ("css/" + it);
     }
@@ -44,6 +45,7 @@ public class HtmlAssets {
     "lang-jnario.js", 
     "jquery.js", 
     "bootstrap-tab.js"), new Function1<String, String>() {
+    @Override
     public String apply(final String it) {
       return ("js/" + it);
     }
@@ -58,6 +60,7 @@ public class HtmlAssets {
   
   private void copy(final IFileSystemAccess fsa, final Iterable<String> files) {
     final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
+      @Override
       public Boolean apply(final String it) {
         boolean _exists = HtmlAssets.this.exists(fsa, it);
         return Boolean.valueOf((!_exists));

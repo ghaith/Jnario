@@ -12,8 +12,8 @@ import java.util.Set;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.eclipse.emf.common.util.WrappedException;
-import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.jnario.compiler.AbstractBatchCompiler;
 import org.jnario.compiler.JnarioStandaloneCompiler;
 import org.jnario.maven.FeatureMavenStandaloneSetup;
 import org.jnario.maven.SpecMavenStandaloneSetup;
@@ -63,7 +63,7 @@ public class XtendTestCompile extends AbstractXtendCompilerMojo {
 		compileTestSources(createXtendBatchCompiler());
 	}
 
-	protected void compileTestSources(XtendBatchCompiler xtend2BatchCompiler) throws MojoExecutionException {
+	protected void compileTestSources(AbstractBatchCompiler xtend2BatchCompiler) throws MojoExecutionException {
 		List<String> testCompileSourceRoots = Lists.newArrayList(project.getTestCompileSourceRoots());
 		String testClassPath = concat(File.pathSeparator, getTestClassPath());
 		project.addTestCompileSourceRoot(testOutputDirectory);
@@ -90,7 +90,7 @@ public class XtendTestCompile extends AbstractXtendCompilerMojo {
 	}
 	
 	@Override
-	protected XtendBatchCompiler createXtendBatchCompiler() {
+	protected AbstractBatchCompiler createXtendBatchCompiler() {
 		return new JnarioStandaloneCompiler(asList(new FeatureMavenStandaloneSetup(), new SpecMavenStandaloneSetup(), new SuiteMavenStandaloneSetup()));
 	}
 

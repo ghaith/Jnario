@@ -7,13 +7,12 @@
  *******************************************************************************/
 package org.jnario.spec.scoping
 
-import com.google.common.collect.ImmutableMap$Builder
+import com.google.common.collect.ImmutableMap
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtend.core.resource.XtendResourceDescriptionStrategy
+import org.jnario.scoping.JnarioResourceDescriptionStrategy
 import org.jnario.spec.spec.ExampleGroup
 
 import static java.lang.String.*
-import static org.jnario.spec.scoping.SpecResourceDescriptionStrategy.*import org.jnario.scoping.JnarioResourceDescriptionStrategy
 
 class SpecResourceDescriptionStrategy extends JnarioResourceDescriptionStrategy {
 	
@@ -21,7 +20,7 @@ class SpecResourceDescriptionStrategy extends JnarioResourceDescriptionStrategy 
 	public static val TRUE = "1"
 	public static val FALSE = "0"
 	
-	override createUserData(EObject eObject, ImmutableMap$Builder<String, String> userData) {
+	override createUserData(EObject eObject, ImmutableMap.Builder<String, String> userData) {
 		super.createUserData(eObject, userData);
 		if (eObject instanceof ExampleGroup){
 			val exampleGroup = eObject as ExampleGroup			

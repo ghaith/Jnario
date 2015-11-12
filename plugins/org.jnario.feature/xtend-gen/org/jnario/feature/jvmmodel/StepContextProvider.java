@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.xtend.core.xtend.XtendField;
-import org.eclipse.xtend.core.xtend.XtendMember;
 import org.eclipse.xtext.common.types.JvmField;
 import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
@@ -18,6 +16,8 @@ import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.util.XbaseUsageCrossReferencer;
+import org.jnario.JnarioField;
+import org.jnario.JnarioMember;
 import org.jnario.feature.feature.Step;
 import org.jnario.feature.jvmmodel.StepExpressionProvider;
 import org.jnario.feature.jvmmodel.VisibleMembersCalculator;
@@ -36,14 +36,15 @@ public class StepContextProvider {
   @Extension
   private VisibleMembersCalculator _visibleMembersCalculator;
   
-  public Set<XtendField> usedFields(final Step step) {
-    Set<XtendField> _xblockexpression = null;
+  public Set<JnarioField> usedFields(final Step step) {
+    Set<JnarioField> _xblockexpression = null;
     {
       final XExpression expr = this._stepExpressionProvider.expressionOf(step);
-      Iterable<XtendMember> _allVisibleMembers = this._visibleMembersCalculator.allVisibleMembers(step);
-      Iterable<XtendField> _filter = Iterables.<XtendField>filter(_allVisibleMembers, XtendField.class);
-      final Function1<XtendField, Boolean> _function = new Function1<XtendField, Boolean>() {
-        public Boolean apply(final XtendField it) {
+      Iterable<JnarioMember> _allVisibleMembers = this._visibleMembersCalculator.allVisibleMembers(step);
+      Iterable<JnarioField> _filter = Iterables.<JnarioField>filter(_allVisibleMembers, JnarioField.class);
+      final Function1<JnarioField, Boolean> _function = new Function1<JnarioField, Boolean>() {
+        @Override
+        public Boolean apply(final JnarioField it) {
           boolean _xblockexpression = false;
           {
             Set<EObject> _jvmElements = StepContextProvider.this._iJvmModelAssociations.getJvmElements(it);
@@ -58,8 +59,8 @@ public class StepContextProvider {
           return Boolean.valueOf(_xblockexpression);
         }
       };
-      Iterable<XtendField> _filter_1 = IterableExtensions.<XtendField>filter(_filter, _function);
-      _xblockexpression = IterableExtensions.<XtendField>toSet(_filter_1);
+      Iterable<JnarioField> _filter_1 = IterableExtensions.<JnarioField>filter(_filter, _function);
+      _xblockexpression = IterableExtensions.<JnarioField>toSet(_filter_1);
     }
     return _xblockexpression;
   }

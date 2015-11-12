@@ -43,9 +43,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class IntroducingJnarioSuitesGettingStartedSpec extends IntroducingJnarioSuitesSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore _modelStore;
   
   /**
@@ -70,20 +70,24 @@ public class IntroducingJnarioSuitesGettingStartedSpec extends IntroducingJnario
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package demo");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("#My Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("- \"My Feature\"");
     _builder.newLine();
     _builder.append("- \"My Spec\"");
     _builder.newLine();
-    Resource _parseSuite = this._modelStore.parseSuite(_builder);
+    
+    Resource _parseSuite = this._modelStore.parseSuite(
+      _builder.toString());
     int _nrOfParseAndLinkingErrors = Resources.nrOfParseAndLinkingErrors(_parseSuite);
     Assert.assertTrue("\nExpected \'\'\'\r\n\t\t\tpackage demo\r\n\t\t\t\r\n\t\t\t#My Suite\r\n\t\t\t\r\n\t\t\t- \"My Feature\"\r\n\t\t\t- \"My Spec\"\r\n\t\t\t\'\'\'.parseSuite.nrOfParseAndLinkingErrors => 2 but"
      + "\n     \'\'\'\r\n\t\t\tpackage demo\r\n\t\t\t\r\n\t\t\t#My Suite\r\n\t\t\t\r\n\t\t\t- \"My Feature\"\r\n\t\t\t- \"My Spec\"\r\n\t\t\t\'\'\'.parseSuite.nrOfParseAndLinkingErrors is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_nrOfParseAndLinkingErrors)).toString()
      + "\n     \'\'\'\r\n\t\t\tpackage demo\r\n\t\t\t\r\n\t\t\t#My Suite\r\n\t\t\t\r\n\t\t\t- \"My Feature\"\r\n\t\t\t- \"My Spec\"\r\n\t\t\t\'\'\'.parseSuite is " + new org.hamcrest.StringDescription().appendValue(_parseSuite).toString()
-     + "\n     \'\'\'\r\n\t\t\tpackage demo\r\n\t\t\t\r\n\t\t\t#My Suite\r\n\t\t\t\r\n\t\t\t- \"My Feature\"\r\n\t\t\t- \"My Spec\"\r\n\t\t\t\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_nrOfParseAndLinkingErrors), Integer.valueOf(2)));
+     + "\n     \'\'\'\r\n\t\t\tpackage demo\r\n\t\t\t\r\n\t\t\t#My Suite\r\n\t\t\t\r\n\t\t\t- \"My Feature\"\r\n\t\t\t- \"My Spec\"\r\n\t\t\t\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_nrOfParseAndLinkingErrors), Integer.valueOf(2)));
     
   }
   
@@ -127,15 +131,19 @@ public class IntroducingJnarioSuitesGettingStartedSpec extends IntroducingJnario
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package demo");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("#My Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("- \"My Feature\"");
     _builder.newLine();
     _builder.append("- \"My Spec\"");
     _builder.newLine();
-    Resource _parseSuite = this._modelStore.parseSuite(_builder);
+    
+    Resource _parseSuite = this._modelStore.parseSuite(
+      _builder.toString());
     Resources.hasNoParseAndLinkingErrors(_parseSuite);
   }
   
@@ -149,25 +157,27 @@ public class IntroducingJnarioSuitesGettingStartedSpec extends IntroducingJnario
       _builder.newLine();
       _builder.append("Scenario: My Scenario");
       _builder.newLine();
-      _builder.append("\t");
-      _builder.append("When something happens");
+      _builder.append("	When something happens");
       _builder.newLine();
-      _builder.append("\t");
-      _builder.append("Then it happens");
+      _builder.append("	Then it happens");
       _builder.newLine();
-      this._modelStore.parseScenario(_builder);
+      
+      this._modelStore.parseScenario(
+        _builder.toString());
       StringConcatenation _builder_1 = new StringConcatenation();
       _builder_1.append("package demo");
       _builder_1.newLine();
+      _builder_1.append("");
       _builder_1.newLine();
       _builder_1.append("describe \"My Spec\"{");
       _builder_1.newLine();
-      _builder_1.append("\t");
-      _builder_1.append("fact \"hello\".length => 5");
+      _builder_1.append("	fact \"hello\".length => 5");
       _builder_1.newLine();
       _builder_1.append("}");
       _builder_1.newLine();
-      _xblockexpression = this._modelStore.parseSpec(_builder_1);
+      
+      _xblockexpression = this._modelStore.parseSpec(
+        _builder_1.toString());
     }
     return _xblockexpression;
   }
@@ -210,9 +220,11 @@ public class IntroducingJnarioSuitesGettingStartedSpec extends IntroducingJnario
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package demo");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("#My Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("This is the description of the suite. It is possible to use ");
     _builder.newLine();
@@ -220,28 +232,35 @@ public class IntroducingJnarioSuitesGettingStartedSpec extends IntroducingJnario
     _builder.newLine();
     _builder.append("for **formatting** the text and adding images or links. ");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("##My Features");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Here we list all our features...");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("- \"My Feature\": this is an example feature.");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("##My Specs");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("...and here are all our specs:");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("- \"My Spec\": this is an example spec.");
     _builder.newLine();
-    _builder.append("   ");
-    _builder.append("with a multiline description.");
+    _builder.append("   with a multiline description.");
     _builder.newLine();
-    Resource _parseSuite = this._modelStore.parseSuite(_builder);
+    
+    Resource _parseSuite = this._modelStore.parseSuite(
+      _builder.toString());
     Resources.hasNoParseAndLinkingErrors(_parseSuite);
   }
   
@@ -268,20 +287,25 @@ public class IntroducingJnarioSuitesGettingStartedSpec extends IntroducingJnario
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package demo");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("#My Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("// this will select all specs in the project");
     _builder.newLine();
     _builder.append("- \\.*\\ ");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("// this will select all specs that end with feature");
     _builder.newLine();
     _builder.append("- \\.*Feature\\");
     _builder.newLine();
-    Resource _parseSuite = this._modelStore.parseSuite(_builder);
+    
+    Resource _parseSuite = this._modelStore.parseSuite(
+      _builder.toString());
     Resources.hasNoParseAndLinkingErrors(_parseSuite);
   }
 }

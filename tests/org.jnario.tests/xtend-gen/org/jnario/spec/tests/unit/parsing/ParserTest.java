@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 @InjectWith(SpecInjectorProvider.class)
 @SuppressWarnings("all")
 public class ParserTest extends AbstractParserTest {
+  @Override
   public Class<?> context() {
     return ParserTest.class;
   }

@@ -99,8 +99,7 @@ describe "Compiler"{
 		"
 		describe 'Richstrings'{
 			fact {
-				val x = 'world'
-		        '''hello «x»'''.toString => 'hello world'
+		        '''hello world'''.toString => 'hello world'
 		    }
 		}
 		".executesSuccessfully

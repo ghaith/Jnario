@@ -40,6 +40,7 @@ public class HashBasedSpec2ResultMapping implements SpecExecutionAcceptor, Execu
     this.nameProvider = nameProvider;
   }
   
+  @Override
   public SpecExecution getResult(final Executable executable) {
     SpecExecution _xblockexpression = null;
     {
@@ -66,6 +67,7 @@ public class HashBasedSpec2ResultMapping implements SpecExecutionAcceptor, Execu
     {
       final List<? extends Executable> children = this.executables(specification);
       final Function1<Executable, SpecExecution> _function = new Function1<Executable, SpecExecution>() {
+        @Override
         public SpecExecution apply(final Executable it) {
           return HashBasedSpec2ResultMapping.this.getResult(it);
         }
@@ -87,6 +89,7 @@ public class HashBasedSpec2ResultMapping implements SpecExecutionAcceptor, Execu
       }
       final Double executionTime = this.executionTime(children);
       final Function1<SpecExecution, List<SpecFailure>> _function = new Function1<SpecExecution, List<SpecFailure>>() {
+        @Override
         public List<SpecFailure> apply(final SpecExecution it) {
           return it.getFailures();
         }
@@ -139,6 +142,7 @@ public class HashBasedSpec2ResultMapping implements SpecExecutionAcceptor, Execu
   
   private Double executionTime(final Iterable<SpecExecution> results) {
     final Function2<Double, SpecExecution, Double> _function = new Function2<Double, SpecExecution, Double>() {
+      @Override
       public Double apply(final Double sum, final SpecExecution result) {
         double _executionTimeInSeconds = result.getExecutionTimeInSeconds();
         return Double.valueOf(((sum).doubleValue() + _executionTimeInSeconds));
@@ -198,6 +202,7 @@ public class HashBasedSpec2ResultMapping implements SpecExecutionAcceptor, Execu
     return _xblockexpression;
   }
   
+  @Override
   public void accept(final SpecExecution result) {
     String _className = result.getClassName();
     String _name = result.getName();

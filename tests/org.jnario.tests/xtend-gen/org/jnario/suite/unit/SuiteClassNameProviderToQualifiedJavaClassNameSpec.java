@@ -97,6 +97,7 @@ public class SuiteClassNameProviderToQualifiedJavaClassNameSpec extends SuiteCla
   @Order(1)
   public void _examplesForEachValActualNameSubjectToQualifiedJavaClassNameSuiteNamePackageNameActualNameQualifiedName() throws Exception {
     final Procedure1<SuiteClassNameProviderToQualifiedJavaClassNameSpecExamples> _function = new Procedure1<SuiteClassNameProviderToQualifiedJavaClassNameSpecExamples>() {
+      @Override
       public void apply(final SuiteClassNameProviderToQualifiedJavaClassNameSpecExamples it) {
         String _name = it.getName();
         String _packageName = it.getPackageName();

@@ -9,7 +9,6 @@ package org.jnario.spec.jvmmodel
 
 import com.google.inject.Inject
 import java.util.Iterator
-import org.eclipse.xtend.core.xtend.XtendFunction
 import org.eclipse.xtext.common.types.JvmField
 import org.eclipse.xtext.common.types.JvmGenericType
 import org.eclipse.xtext.common.types.JvmTypeReference
@@ -28,7 +27,8 @@ import static org.jnario.spec.jvmmodel.Constants.*
 
 import static extension com.google.common.collect.Iterables.*
 import static extension com.google.common.collect.Iterators.*
- 
+import org.jnario.JnarioFunction
+
 /**
  * @author Sebastian Benz - Initial contribution and API
  */
@@ -44,7 +44,7 @@ class ImplicitSubject {
 		
 		type.members.add(0, exampleGroup.toField(SUBJECT_FIELD_NAME, targetType)[
 			if(exampleGroup.doesNotInitializeSubject){
-				annotations += exampleGroup.toAnnotation(typeof(Subject))
+				annotations += exampleGroup.toAnnotation(Subject)
 			}
 			visibility = JvmVisibility::PUBLIC
 		])
@@ -82,7 +82,7 @@ class ImplicitSubject {
 	def neverUsesSubject(ExampleGroup exampleGroup){
 		var Iterator<XAbstractFeatureCall> allFeatureCalls = emptyIterator
 		val members = exampleGroup.members
-		for(example : members.filter(typeof(XtendFunction)) + members.filter(typeof(TestFunction))){
+		for(example : members.filter(typeof(JnarioFunction)) + members.filter(typeof(TestFunction))){
 			allFeatureCalls = concat(allFeatureCalls, example.eAllContents.filter(typeof(XAbstractFeatureCall)))
 		}
 		return null == allFeatureCalls.findFirst[it.concreteSyntaxFeatureName == SUBJECT_FIELD_NAME]
@@ -91,7 +91,7 @@ class ImplicitSubject {
 	def doesNotInitializeSubject(ExampleGroup exampleGroup){
 		var Iterator<XAssignment> allAssignments = emptyIterator
 		val members = exampleGroup.members
-		for(example : members.filter(typeof(XtendFunction)) + members.filter(typeof(TestFunction))){
+		for(example : members.filter(typeof(JnarioFunction)) + members.filter(typeof(TestFunction))){
 			allAssignments = concat(allAssignments, example.eAllContents.filter(typeof(XAssignment)))
 		}
 		return null == allAssignments.findFirst[

@@ -117,12 +117,12 @@ describeStep =&gt; 'Given a step with multiline parameter'</pre>
 examples.forEach[
   parseScenario('''
     Scenario: scenario
-    &laquo;step&raquo;
+    ''' + step + '''
   ''')
   subject.removeArguments(step) =&gt; result
 ]</pre>
 </li></ul>
-<h3 class="exampleGroup notrun"  id="describe_Scenario">Describe[Scenario]</h3>
+<h3 class="exampleGroup notrun"  id="describe_Feature">Describe[Feature]</h3>
 <ul><li><p id="Features_scenario_With_whitespace_desc_With_whitespace" class="example notrun"><strong>Features::scenario[" With whitespace "].desc =>  "With whitespace"</strong></p>
 </li><li><p id="Features_scenario_With_parentheses_desc_With_parentheses" class="example notrun"><strong>Features::scenario["With [parentheses]"].desc =>  "With [parentheses]"</strong></p>
 </li></ul>
@@ -154,7 +154,6 @@ import static org.jnario.jnario.test.util.Features.*
 import static org.jnario.jnario.test.util.Query.*
 
 import static extension org.jnario.lib.ExampleTableIterators.*
-import static extension org.jnario.lib.Should.*
 import org.jnario.jnario.test.util.Features
 
 /**
@@ -213,7 +212,7 @@ describe StepNameProvider{
     }
     
   }
-  
+
   context ^describe(Feature){
     fact &quot;removes multilines parameters&quot;{
       parseScenario('''
@@ -242,7 +241,7 @@ describe StepNameProvider{
       examples.forEach[
         parseScenario('''
           Scenario: scenario
-          &laquo;step&raquo;
+          ''' + step + '''
         ''')
         subject.removeArguments(step) =&gt; result
       ]
@@ -285,7 +284,7 @@ describe StepNameProvider{
   def parseScenario(CharSequence s){
     val input = '''
       Feature: example
-      &laquo;s&raquo;
+      ''' + s + '''
     '''
     modelStore.parseScenario(input)
   }

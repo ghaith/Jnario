@@ -49,9 +49,9 @@ public class HashBasedSpec2ResultMappingSpec {
   
   final static String OTHER_SCENARIO_CLASSNAME = "test.MyFeatureFeatureMyOtherScenario";
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore m;
   
   final static double anyExecutionTime = 0.0;
@@ -83,7 +83,7 @@ public class HashBasedSpec2ResultMappingSpec {
     
   }
   
-  public boolean should_match(final Executable example, final SpecExecution execution) {
+  public boolean should_match(@Extension final Executable example, @Extension final SpecExecution execution) {
     SpecExecution _result = this.subject.getResult(example);
     return Objects.equal(_result, execution);
   }
@@ -108,24 +108,24 @@ public class HashBasedSpec2ResultMappingSpec {
     return this.m.<Scenario>first(Scenario.class);
   }
   
-  public SpecExecution result(final Executable executable) {
+  public SpecExecution result(@Extension final Executable executable) {
     return this.subject.getResult(executable);
   }
   
-  public void passedStep(final String name) {
+  public void passedStep(@Extension final String name) {
     this.passedStep(HashBasedSpec2ResultMappingSpec.SCENARIO_CLASSNAME, name);
   }
   
-  public void passedStep(final String className, final String name) {
+  public void passedStep(@Extension final String className, @Extension final String name) {
     Passed _passingSpec = Passed.passingSpec(className, name, 0.0);
     this.subject.accept(_passingSpec);
   }
   
-  public void failedStep(final String name) {
+  public void failedStep(@Extension final String name) {
     this.failedStep(HashBasedSpec2ResultMappingSpec.SCENARIO_CLASSNAME, name);
   }
   
-  public void failedStep(final String className, final String name) {
+  public void failedStep(@Extension final String className, @Extension final String name) {
     Failed _failingSpec = Failed.failingSpec(className, name, 0.0, this.anyFailure);
     this.subject.accept(_failingSpec);
   }

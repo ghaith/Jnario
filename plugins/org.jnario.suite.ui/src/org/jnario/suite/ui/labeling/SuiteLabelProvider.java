@@ -11,12 +11,8 @@
 package org.jnario.suite.ui.labeling;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.xtend.core.jvmmodel.IXtendJvmAssociations;
-import org.eclipse.xtend.ide.labeling.XtendImages;
-import org.eclipse.xtend.ide.labeling.XtendLabelProvider;
-import org.eclipse.xtext.common.types.JvmVisibility;
 import org.eclipse.xtext.xbase.ui.labeling.XbaseImageAdornments;
+import org.eclipse.xtext.xbase.ui.labeling.XbaseLabelProvider;
 import org.jnario.suite.jvmmodel.SuiteClassNameProvider;
 import org.jnario.suite.suite.Suite;
 
@@ -28,7 +24,7 @@ import com.google.inject.Inject;
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#labelProvider
  */
 @SuppressWarnings("restriction")
-public class SuiteLabelProvider extends XtendLabelProvider {
+public class SuiteLabelProvider extends XbaseLabelProvider {
 
 	@Inject public SuiteLabelProvider(AdapterFactoryLabelProvider delegate) {
 		super(delegate);
@@ -36,25 +32,28 @@ public class SuiteLabelProvider extends XtendLabelProvider {
 
 	@Inject private SuiteClassNameProvider nameProvider;
 	
-	@Inject private XtendImages images;
+// TODO NO_XTEND
+//	@Inject private XtendImages images;
 	
 	@Inject
 	private XbaseImageAdornments adornments;
 	
-	@Inject
-	private IXtendJvmAssociations associations;
-	
-	@Override
-	protected ImageDescriptor imageDescriptor(Object operation) {
-		if (operation instanceof Suite) {
-		  return _imageDescriptor((Suite)operation);
-		}
-		return super.imageDescriptor(operation);
-	}
-	
-	public ImageDescriptor _imageDescriptor(Suite element) {
-		return images.forClass(JvmVisibility.PUBLIC, adornments.get(associations.getInferredType(element)));
-	}
+	// TODO NO_XTEND
+	//@Inject
+	//private IXtendJvmAssociations associations;
+
+// TODO NO_XTEND
+//	@Override
+//	protected ImageDescriptor imageDescriptor(Object operation) {
+//		if (operation instanceof Suite) {
+//		  return _imageDescriptor((Suite)operation);
+//		}
+//		return super.imageDescriptor(operation);
+//	}
+//	
+//	public ImageDescriptor _imageDescriptor(Suite element) {
+//		return images.forClass(JvmVisibility.PUBLIC, adornments.get(associations.getInferredType(element)));
+//	}
 	
 	public String text(Suite element) {
 		return nameProvider.describe(element);

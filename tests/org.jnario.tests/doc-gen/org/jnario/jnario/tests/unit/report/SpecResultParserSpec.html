@@ -37,77 +37,58 @@
 							  	<div class="tab-pane active" id="spec">
 <ul><li><p id="parses_successfull_specs_from_xml" class="example notrun"><strong>parses successfull specs from xml</strong></p>
 <pre class="prettyprint lang-spec linenums">
-'''
-  &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;/&gt;
-'''.toXml.parse 
-
-verify(acceptor).accept(passingSpec)</pre>
+('''
+  &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;/&gt;
+''').toXml.parse(passingSpec)</pre>
 </li><li><p id="parses_specs_with_failure_from_xml" class="example notrun"><strong>parses specs with failure from xml</strong></p>
 <pre class="prettyprint lang-spec linenums">
-'''
-   &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;&gt;
-   &lt;failure message=&quot;&laquo;FAILURE_MESSAGE&raquo;&quot; type=&quot;&laquo;FAILURE_TYPE&raquo;&quot;&gt;&laquo;XML_STACKTRACE&raquo;&lt;/failure&gt;
+('''
+   &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;&gt;
+   &lt;failure message=&quot;''' + FAILURE_MESSAGE + '''&quot; type=&quot;''' + FAILURE_TYPE + '''&quot;&gt;''' + XML_STACKTRACE + '''&lt;/failure&gt;
    &lt;/testcase&gt;
-'''.toXml.parse 
-
-verify(acceptor).accept(failingSpec)</pre>
+''').toXml.parse(failingSpec)</pre>
 </li><li><p id="parses_specs_with_error_from_xml" class="example notrun"><strong>parses specs with error from xml</strong></p>
 <pre class="prettyprint lang-spec linenums">
-'''
-   &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;&gt;
-   &lt;error message=&quot;&laquo;FAILURE_MESSAGE&raquo;&quot; type=&quot;&laquo;FAILURE_TYPE&raquo;&quot;&gt;&laquo;XML_STACKTRACE&raquo;&lt;/error&gt;
+('''
+   &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;&gt;
+   &lt;error message=&quot;''' + FAILURE_MESSAGE + '''&quot; type=&quot;''' + FAILURE_TYPE + '''&quot;&gt;''' + XML_STACKTRACE + '''&lt;/error&gt;
    &lt;/testcase&gt;
-'''.toXml.parse 
-
-verify(acceptor).accept(failingSpec)</pre>
+''').toXml.parse(failingSpec)</pre>
 </li><li><p id="parses_multiple_spec_results" class="example notrun"><strong>parses multiple spec results</strong></p>
 <pre class="prettyprint lang-spec linenums">
-'''
-   &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;/&gt;
-   &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;&gt;
-   &lt;error message=&quot;&laquo;FAILURE_MESSAGE&raquo;&quot; type=&quot;&laquo;FAILURE_TYPE&raquo;&quot;&gt;&laquo;XML_STACKTRACE&raquo;&lt;/error&gt;
+('''
+   &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;/&gt;
+   &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;&gt;
+   &lt;error message=&quot;''' + FAILURE_MESSAGE + '''&quot; type=&quot;''' + FAILURE_TYPE + '''&quot;&gt;''' + XML_STACKTRACE + '''&lt;/error&gt;
    &lt;/testcase&gt;
-'''.toXml.parse 
-
-verify(acceptor).accept(passingSpec)
-verify(acceptor).accept(failingSpec)</pre>
+''').toXml.parse(passingSpec, failingSpec)</pre>
 </li><li><p id="created_pending_results" class="example notrun"><strong>created pending results</strong></p>
 <pre class="prettyprint lang-spec linenums">
-'''
-   &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;&gt;
+('''
+   &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;&gt;
     &lt;skipped/&gt;
    &lt;/testcase&gt;
-'''.toXml.parse 
-
-verify(acceptor).accept(pendingSpec)</pre>
+''').toXml.parse(pendingSpec)</pre>
 </li><li><p id="decodes_escaped_strings" class="example notrun"><strong>decodes escaped strings</strong></p>
 <pre class="prettyprint lang-spec linenums">
-'''
-   &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;When I entered \&amp;quot;50\&amp;quot; and \&amp;quot;70\&amp;quot;&quot;/&gt;
-'''.toXml.parse 
-
-verify(acceptor).accept(new Passed(CLASSNAME, 'When I entered \&quot;50\&quot; and \&quot;70\&quot;', EXECUTION_TIME))</pre>
+('''
+   &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;When I entered \&amp;quot;50\&amp;quot; and \&amp;quot;70\&amp;quot;&quot;/&gt;
+''').toXml.parse(new Passed(CLASSNAME, 'When I entered \&quot;50\&quot; and \&quot;70\&quot;', EXECUTION_TIME))</pre>
 </li><li><p id="removes_from_escaped_strings" class="example notrun"><strong>removes ',' from escaped strings</strong></p>
 <pre class="prettyprint lang-spec linenums">
-'''
-   &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;cell[-1\u002C 1].plus[cell[3\u002C4]] =&amp;gt; cell[2\u002C5]&quot;/&gt;
-'''.toXml.parse
-
-verify(acceptor).accept(new Passed(CLASSNAME, 'cell[-1, 1].plus[cell[3,4]] =&gt; cell[2,5]', EXECUTION_TIME))</pre>
+('''
+   &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;cell[-1\u002C 1].plus[cell[3\u002C4]] =&amp;gt; cell[2\u002C5]&quot;/&gt;
+''').toXml.parse(new Passed(CLASSNAME, 'cell[-1, 1].plus[cell[3,4]] =&gt; cell[2,5]', EXECUTION_TIME))</pre>
 </li><li><p id="supports_encoding" class="example notrun"><strong>supports encoding</strong></p>
 <pre class="prettyprint lang-spec linenums">
-'''
-&lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;L\u00D6sung&quot;/&gt;
-'''.toXml.parse
-
-verify(acceptor).accept(new Passed(CLASSNAME, 'L&Ouml;sung', EXECUTION_TIME))</pre>
+('''
+&lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;L\u00D6sung&quot;/&gt;
+''').toXml.parse(new Passed(CLASSNAME, 'L&Ouml;sung', EXECUTION_TIME))</pre>
 </li><li><p id="supports_escaped_chars" class="example notrun"><strong>supports escaped chars</strong></p>
 <pre class="prettyprint lang-spec linenums">
-'''
-&lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;\&amp;quot;http:\/\/www.google.de\&amp;quot;&quot;/&gt;
-'''.toXml.parse
-
-verify(acceptor).accept(new Passed(CLASSNAME, '&quot;http://www.google.de&quot;', EXECUTION_TIME))</pre>
+('''
+&lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;\&amp;quot;http:\/\/www.google.de\&amp;quot;&quot;/&gt;
+''').toXml.parse(new Passed(CLASSNAME, '&quot;http://www.google.de&quot;', EXECUTION_TIME))</pre>
 </li></ul>
 							</div>
 						    <div class="tab-pane" id="source">
@@ -117,17 +98,16 @@ verify(acceptor).accept(new Passed(CLASSNAME, '&quot;http://www.google.de&quot;'
 package org.jnario.jnario.tests.unit.report
 
 import org.eclipse.xtext.util.StringInputStream
+import org.jnario.report.Failed
 import org.jnario.report.Passed
-import org.jnario.report.SpecExecutionAcceptor
+import org.jnario.report.Pending
+import org.jnario.report.SpecExecution
 import org.jnario.report.SpecFailure
 import org.jnario.report.SpecResultParser
-import org.jnario.report.Pending
-
-import static org.jnario.jnario.tests.unit.report.SpecResultParserSpec.*
-import static org.mockito.Mockito.*
+import org.junit.Assert
 
 import static extension org.jnario.jnario.test.util.Strings.*
-import org.jnario.report.Failed
+
 describe SpecResultParser{
   
   static val CLASSNAME = &quot;demo.CalculatorSpec&quot;
@@ -139,95 +119,76 @@ describe SpecResultParser{
   static val FAILURE_TYPE = &quot;java.lang.AssertionError&quot;
   static val STACKTRACE = 
           '''  at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-  at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
-  at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
-  at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
-          '''.platformIndependent
+at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+                    '''.platformIndependent
 
   static val XML_STACKTRACE = FAILURE_MESSAGE + &quot;\n&quot; + STACKTRACE
   
-  val SpecExecutionAcceptor acceptor = mock(typeof(SpecExecutionAcceptor))
-  
   fact &quot;parses successfull specs from xml&quot;{ 
-    '''
-      &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;/&gt;
-    '''.toXml.parse 
-    
-    verify(acceptor).accept(passingSpec)
+    ('''
+      &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;/&gt;
+    ''').toXml.parse(passingSpec)
   }  
   
   fact &quot;parses specs with failure from xml&quot;{ 
-    '''
-       &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;&gt;
-       &lt;failure message=&quot;&laquo;FAILURE_MESSAGE&raquo;&quot; type=&quot;&laquo;FAILURE_TYPE&raquo;&quot;&gt;&laquo;XML_STACKTRACE&raquo;&lt;/failure&gt;
+    ('''
+       &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;&gt;
+       &lt;failure message=&quot;''' + FAILURE_MESSAGE + '''&quot; type=&quot;''' + FAILURE_TYPE + '''&quot;&gt;''' + XML_STACKTRACE + '''&lt;/failure&gt;
        &lt;/testcase&gt;
-    '''.toXml.parse 
+    ''').toXml.parse(failingSpec)
     
-    verify(acceptor).accept(failingSpec)
   }
   
   fact &quot;parses specs with error from xml&quot;{ 
-    '''
-       &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;&gt;
-       &lt;error message=&quot;&laquo;FAILURE_MESSAGE&raquo;&quot; type=&quot;&laquo;FAILURE_TYPE&raquo;&quot;&gt;&laquo;XML_STACKTRACE&raquo;&lt;/error&gt;
+    ('''
+       &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;&gt;
+       &lt;error message=&quot;''' + FAILURE_MESSAGE + '''&quot; type=&quot;''' + FAILURE_TYPE + '''&quot;&gt;''' + XML_STACKTRACE + '''&lt;/error&gt;
        &lt;/testcase&gt;
-    '''.toXml.parse 
-    
-    verify(acceptor).accept(failingSpec)
+    ''').toXml.parse(failingSpec)
   }
   
   fact &quot;parses multiple spec results&quot;{ 
-    '''
-       &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;/&gt;
-       &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;&gt;
-       &lt;error message=&quot;&laquo;FAILURE_MESSAGE&raquo;&quot; type=&quot;&laquo;FAILURE_TYPE&raquo;&quot;&gt;&laquo;XML_STACKTRACE&raquo;&lt;/error&gt;
+    ('''
+       &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;/&gt;
+       &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;&gt;
+       &lt;error message=&quot;''' + FAILURE_MESSAGE + '''&quot; type=&quot;''' + FAILURE_TYPE + '''&quot;&gt;''' + XML_STACKTRACE + '''&lt;/error&gt;
        &lt;/testcase&gt;
-    '''.toXml.parse 
+    ''').toXml.parse(passingSpec, failingSpec)
     
-    verify(acceptor).accept(passingSpec)
-    verify(acceptor).accept(failingSpec)
   }
   
   fact &quot;created pending results&quot;{
-    '''
-       &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;&laquo;NAME&raquo;&quot;&gt;
+    ('''
+       &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;''' + NAME + '''&quot;&gt;
         &lt;skipped/&gt;
        &lt;/testcase&gt;
-    '''.toXml.parse 
-    
-    verify(acceptor).accept(pendingSpec)
+    ''').toXml.parse(pendingSpec)
   }
   
   fact &quot;decodes escaped strings&quot;{
-    '''
-       &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;When I entered \&amp;quot;50\&amp;quot; and \&amp;quot;70\&amp;quot;&quot;/&gt;
-    '''.toXml.parse 
-    
-    verify(acceptor).accept(new Passed(CLASSNAME, 'When I entered \&quot;50\&quot; and \&quot;70\&quot;', EXECUTION_TIME))
+    ('''
+       &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;When I entered \&amp;quot;50\&amp;quot; and \&amp;quot;70\&amp;quot;&quot;/&gt;
+    ''').toXml.parse(new Passed(CLASSNAME, 'When I entered \&quot;50\&quot; and \&quot;70\&quot;', EXECUTION_TIME))
   }
   
   fact &quot;removes '\u002C' from escaped strings&quot; {
-    '''
-       &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;cell[-1\u002C 1].plus[cell[3\u002C4]] =&amp;gt; cell[2\u002C5]&quot;/&gt;
-    '''.toXml.parse
-    
-    verify(acceptor).accept(new Passed(CLASSNAME, 'cell[-1, 1].plus[cell[3,4]] =&gt; cell[2,5]', EXECUTION_TIME))
+    ('''
+       &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;cell[-1\u002C 1].plus[cell[3\u002C4]] =&amp;gt; cell[2\u002C5]&quot;/&gt;
+    ''').toXml.parse(new Passed(CLASSNAME, 'cell[-1, 1].plus[cell[3,4]] =&gt; cell[2,5]', EXECUTION_TIME))
   }
   
   fact &quot;supports encoding&quot;{
-    '''
-    &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;L\u00D6sung&quot;/&gt;
-    '''.toXml.parse
-    
-    verify(acceptor).accept(new Passed(CLASSNAME, 'L&Ouml;sung', EXECUTION_TIME))
+    ('''
+    &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;L\u00D6sung&quot;/&gt;
+    ''').toXml.parse(new Passed(CLASSNAME, 'L&Ouml;sung', EXECUTION_TIME))
   }
   
   fact &quot;supports escaped chars&quot;{
-    '''
-    &lt;testcase time=&quot;&laquo;EXECUTION_TIME&raquo;&quot; classname=&quot;&laquo;CLASSNAME&raquo;&quot; name=&quot;\&amp;quot;http:\/\/www.google.de\&amp;quot;&quot;/&gt;
-    '''.toXml.parse
-    
-    verify(acceptor).accept(new Passed(CLASSNAME, '&quot;http://www.google.de&quot;', EXECUTION_TIME))
+    ('''
+    &lt;testcase time=&quot;''' + EXECUTION_TIME + '''&quot; classname=&quot;''' + CLASSNAME + '''&quot; name=&quot;\&amp;quot;http:\/\/www.google.de\&amp;quot;&quot;/&gt;
+    ''').toXml.parse(new Passed(CLASSNAME, '&quot;http://www.google.de&quot;', EXECUTION_TIME))
   }
   
   
@@ -244,15 +205,21 @@ describe SpecResultParser{
   }
   
   
-  def toXml(CharSequence content)'''
+  def toXml(CharSequence content) {
+    '''
     &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
     &lt;testsuite failures=&quot;1&quot; time=&quot;0.017&quot; errors=&quot;0&quot; skipped=&quot;0&quot; tests=&quot;1&quot; name=&quot;example.AddingValuesSpec&quot;&gt;
-      &laquo;content&raquo;
+    &laquo;content&raquo;
     &lt;/testsuite&gt;  
   '''
+  }
   
-  def parse(CharSequence content){
-    subject.parse(new StringInputStream(content.toString), acceptor)
+  def parse(CharSequence content, SpecExecution ... expected){
+      val i = expected.iterator
+    subject.parse(new StringInputStream(content.toString), [
+        i.hasNext =&gt; true
+        Assert.assertEquals(i.next.toString, it.toString)
+    ])
   }
 }
 </pre>

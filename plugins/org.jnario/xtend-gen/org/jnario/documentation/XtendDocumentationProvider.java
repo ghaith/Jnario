@@ -4,14 +4,15 @@ import com.google.common.base.Objects;
 import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.xtend.core.xtend.XtendAnnotationTarget;
-import org.eclipse.xtend.core.xtend.XtendPackage;
 import org.eclipse.xtext.documentation.impl.MultiLineCommentDocumentationProvider;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.jnario.JnarioAnnotationTarget;
+import org.jnario.JnarioPackage;
 
 @SuppressWarnings("all")
 public class XtendDocumentationProvider extends MultiLineCommentDocumentationProvider {
+  @Override
   public String getDocumentation(final EObject o) {
     String _xblockexpression = null;
     {
@@ -25,6 +26,7 @@ public class XtendDocumentationProvider extends MultiLineCommentDocumentationPro
     return _xblockexpression;
   }
   
+  @Override
   public List<INode> getDocumentationNodes(final EObject o) {
     List<INode> _xblockexpression = null;
     {
@@ -43,11 +45,11 @@ public class XtendDocumentationProvider extends MultiLineCommentDocumentationPro
    */
   public boolean shouldBeHandeled(final EObject o) {
     boolean _and = false;
-    if (!(o instanceof XtendAnnotationTarget)) {
+    if (!(o instanceof JnarioAnnotationTarget)) {
       _and = false;
     } else {
       EStructuralFeature _eContainingFeature = o.eContainingFeature();
-      boolean _equals = Objects.equal(_eContainingFeature, XtendPackage.Literals.XTEND_MEMBER__ANNOTATION_INFO);
+      boolean _equals = Objects.equal(_eContainingFeature, JnarioPackage.Literals.JNARIO_MEMBER__ANNOTATION_INFO);
       _and = _equals;
     }
     return (!_and);

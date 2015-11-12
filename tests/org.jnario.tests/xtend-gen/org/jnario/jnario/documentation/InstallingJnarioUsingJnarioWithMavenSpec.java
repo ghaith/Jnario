@@ -11,6 +11,7 @@ import org.jnario.jnario.documentation.InstallingJnarioSpec;
 import org.jnario.runner.ExampleGroupRunner;
 import org.jnario.runner.Named;
 import org.jnario.runner.Order;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -46,10 +47,10 @@ public class InstallingJnarioUsingJnarioWithMavenSpec extends InstallingJnarioSp
    *  @filter(.*)
    */
   @Test
-  @Named("Jnario Runtime")
+  @Ignore
+  @Named("Jnario Runtime [PENDING]")
   @Order(1)
   public void _jnarioRuntime() throws Exception {
-    /* "not yet implemented" */
   }
   
   /**
@@ -73,10 +74,10 @@ public class InstallingJnarioUsingJnarioWithMavenSpec extends InstallingJnarioSp
    *  @filter(.*)
    */
   @Test
-  @Named("Executing specs")
+  @Ignore
+  @Named("Executing specs [PENDING]")
   @Order(2)
   public void _executingSpecs() throws Exception {
-    /* "not yet implemented" */
   }
   
   /**
@@ -99,10 +100,10 @@ public class InstallingJnarioUsingJnarioWithMavenSpec extends InstallingJnarioSp
    * @filter(.*)
    */
   @Test
-  @Named("Jnario Compiler")
+  @Ignore
+  @Named("Jnario Compiler [PENDING]")
   @Order(3)
   public void _jnarioCompiler() throws Exception {
-    /* "not yet implemented" */
   }
   
   /**
@@ -119,9 +120,9 @@ public class InstallingJnarioUsingJnarioWithMavenSpec extends InstallingJnarioSp
    * @filter(.*)
    */
   @Test
-  @Named("Configuring Eclipse")
+  @Ignore
+  @Named("Configuring Eclipse [PENDING]")
   @Order(4)
   public void _configuringEclipse() throws Exception {
-    /* "not yet implemented" */
   }
 }

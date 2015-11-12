@@ -17,6 +17,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class JnarioNodeModelAccess extends NodeModelAccess {
+  @Override
   public Iterable<ILeafNode> nodesForKeyword(final EObject obj, final String kw) {
     List<ILeafNode> _xblockexpression = null;
     {
@@ -27,6 +28,7 @@ public class JnarioNodeModelAccess extends NodeModelAccess {
       }
       BidiTreeIterable<INode> _asTreeIterable = node.getAsTreeIterable();
       final Function1<INode, Boolean> _function = new Function1<INode, Boolean>() {
+        @Override
         public Boolean apply(final INode it) {
           boolean _and = false;
           boolean _and_1 = false;
@@ -51,8 +53,7 @@ public class JnarioNodeModelAccess extends NodeModelAccess {
       INode _findFirst = IterableExtensions.<INode>findFirst(_asTreeIterable, _function);
       final ILeafNode leafNode = ((ILeafNode) _findFirst);
       List<ILeafNode> _xifexpression = null;
-      boolean _tripleEquals = (leafNode == null);
-      if (_tripleEquals) {
+      if ((leafNode == null)) {
         _xifexpression = Collections.<ILeafNode>unmodifiableList(CollectionLiterals.<ILeafNode>newArrayList());
       } else {
         _xifexpression = Collections.<ILeafNode>unmodifiableList(CollectionLiterals.<ILeafNode>newArrayList(leafNode));

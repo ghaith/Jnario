@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.util.NoSuchElementException;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.common.types.JvmTypeReference;
+import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.util.TypeReferences;
 import org.jnario.jnario.test.util.SpecTestCreator;
 import org.jnario.jvmmodel.JUnit3RuntimeSupport;
@@ -36,7 +36,7 @@ public class TestRuntimeProviderSpec {
   @Inject
   Provider<JUnit4RuntimeSupport> junit4Support;
   
-  final JvmTypeReference resultingType = Mockito.<JvmTypeReference>mock(JvmTypeReference.class);
+  final JvmType resultingType = Mockito.<JvmType>mock(JvmType.class);
   
   final TypeReferences typeReferences = Mockito.<TypeReferences>mock(TypeReferences.class);
   
@@ -52,8 +52,10 @@ public class TestRuntimeProviderSpec {
   @Named("returns JUnit3 runtime provider if JUnit4 is not on classpath")
   @Order(1)
   public void _returnsJUnit3RuntimeProviderIfJUnit4IsNotOnClasspath() throws Exception {
-    JvmTypeReference _typeForName = this.typeReferences.getTypeForName("junit.framework.TestCase", this.anyNotifier);
-    OngoingStubbing<JvmTypeReference> _when = Mockito.<JvmTypeReference>when(_typeForName);
+    TestRuntimeProvider _testRuntimeProvider = new TestRuntimeProvider(this.typeReferences, this.junit3Support, this.junit4Support);
+    this.subject = _testRuntimeProvider;
+    JvmType _findDeclaredType = this.typeReferences.findDeclaredType("junit.framework.TestCase", this.anyNotifier);
+    OngoingStubbing<JvmType> _when = Mockito.<JvmType>when(_findDeclaredType);
     _when.thenReturn(this.resultingType);
     TestRuntimeSupport _get = this.subject.get(this.anyNotifier);
     Assert.assertTrue("\nExpected subject.get(anyNotifier) => typeof(JUnit3RuntimeSupport) but"
@@ -67,8 +69,8 @@ public class TestRuntimeProviderSpec {
   @Named("returns JUnit4 runtime provider if JUnit4 is on classpath")
   @Order(2)
   public void _returnsJUnit4RuntimeProviderIfJUnit4IsOnClasspath() throws Exception {
-    JvmTypeReference _typeForName = this.typeReferences.getTypeForName("org.junit.rules.TestRule", this.anyNotifier);
-    OngoingStubbing<JvmTypeReference> _when = Mockito.<JvmTypeReference>when(_typeForName);
+    JvmType _findDeclaredType = this.typeReferences.findDeclaredType("org.junit.rules.TestRule", this.anyNotifier);
+    OngoingStubbing<JvmType> _when = Mockito.<JvmType>when(_findDeclaredType);
     _when.thenReturn(this.resultingType);
     TestRuntimeSupport _get = this.subject.get(this.anyNotifier);
     Assert.assertTrue("\nExpected subject.get(anyNotifier) => typeof(JUnit4RuntimeSupport) but"

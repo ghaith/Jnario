@@ -9,16 +9,17 @@ package org.jnario.ui.builder
 
 import com.google.inject.Inject
 import com.google.inject.Provider
+import org.eclipse.core.resources.IBuildContext
 import org.eclipse.core.resources.IContainer
 import org.eclipse.core.runtime.CoreException
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.NullProgressMonitor
-import org.eclipse.xtend.ide.builder.XtendBuilderParticipant
+import org.eclipse.xtext.builder.BuilderParticipant
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2
 import org.eclipse.xtext.builder.EclipseSourceFolderProvider
 import org.jnario.doc.HtmlAssets
 
-class JnarioBuilderParticipant extends XtendBuilderParticipant {
+class JnarioBuilderParticipant extends BuilderParticipant {
 
 	@Inject Provider<EclipseResourceFileSystemAccess2> fileSystemAccessProvider
 	@Inject HtmlAssets htmlAssets

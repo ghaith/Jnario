@@ -1,9 +1,9 @@
 package org.jnario.documentation
 
-import org.eclipse.xtext.documentation.impl.MultiLineCommentDocumentationProvider
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtend.core.xtend.XtendAnnotationTarget
-import org.eclipse.xtend.core.xtend.XtendPackage
+import org.eclipse.xtext.documentation.impl.MultiLineCommentDocumentationProvider
+import org.jnario.JnarioAnnotationTarget
+import org.jnario.JnarioPackage
 
 class XtendDocumentationProvider extends MultiLineCommentDocumentationProvider {
 	
@@ -25,7 +25,7 @@ class XtendDocumentationProvider extends MultiLineCommentDocumentationProvider {
 	 * The Xtend parser constructs a synthetic nested AST element to hold annotations which should be ignored as a documentation provider
 	 */
 	def boolean shouldBeHandeled(EObject o) {
-		!(o instanceof XtendAnnotationTarget && o.eContainingFeature == XtendPackage.Literals.XTEND_MEMBER__ANNOTATION_INFO)
+		!(o instanceof JnarioAnnotationTarget && o.eContainingFeature == JnarioPackage.Literals.JNARIO_MEMBER__ANNOTATION_INFO)
 	}
 	
 }

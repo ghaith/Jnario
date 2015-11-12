@@ -9,7 +9,7 @@ package org.jnario.feature.feature.impl;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.xtend.core.xtend.XtendMember;
+import org.jnario.JnarioMember;
 import org.jnario.feature.feature.Background;
 import org.jnario.feature.feature.Scenario;
 
@@ -23,7 +23,7 @@ public class FeatureImplCustom extends FeatureImpl {
 	public EList<Scenario> getScenarios() {
 		if (scenarios == null) {
 			scenarios = new BasicEList<Scenario>();
-			for (XtendMember member : getMembers()) {
+			for (JnarioMember member : getMembers()) {
 				if (member instanceof Background) {
 					setBackground((Background) member);
 				}else if (member instanceof Scenario) {

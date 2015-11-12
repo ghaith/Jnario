@@ -33,17 +33,16 @@ public class HashBasedSpec2ResultMappingFeatureSpec extends HashBasedSpec2Result
     _builder.newLine();
     _builder.append("Given a step");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("\"with implementation\"");
+    _builder.append("	\"with implementation\"");
     _builder.newLine();
     _builder.append("Scenario: My other Scenario");
     _builder.newLine();
     _builder.append("Given another step");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("\"with implementation\"");
+    _builder.append("	\"with implementation\"");
     _builder.newLine();
-    this.m.parseScenario(_builder);
+    
+    this.m.parseScenario(_builder.toString());
   }
   
   @Test

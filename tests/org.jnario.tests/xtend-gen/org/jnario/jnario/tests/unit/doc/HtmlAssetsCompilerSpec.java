@@ -33,10 +33,10 @@ public class HtmlAssetsCompilerSpec {
   @Subject
   public HtmlAssetsCompiler subject;
   
-  @Inject
-  @Rule
   @Extension
   @org.jnario.runner.Extension
+  @Inject
+  @Rule
   public TemporaryFolder _temporaryFolder;
   
   @Test
@@ -72,12 +72,12 @@ public class HtmlAssetsCompilerSpec {
     
   }
   
-  public boolean mkdir(final String name) {
+  public boolean mkdir(@Extension final String name) {
     File _file = this.file(name);
     return _file.mkdir();
   }
   
-  public File file(final String path) {
+  public File file(@Extension final String path) {
     File _root = this._temporaryFolder.getRoot();
     String _absolutePath = _root.getAbsolutePath();
     String _plus = (_absolutePath + "/");

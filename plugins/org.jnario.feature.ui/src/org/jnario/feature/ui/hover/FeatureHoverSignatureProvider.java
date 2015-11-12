@@ -1,13 +1,13 @@
 package org.jnario.feature.ui.hover;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.ide.hover.XtendHoverSignatureProvider;
+import org.eclipse.xtext.xbase.ui.hover.XbaseDeclarativeHoverSignatureProvider;
 import org.jnario.feature.feature.Step;
 import org.jnario.feature.naming.StepNameProvider;
 
 import com.google.inject.Inject;
 
-public class FeatureHoverSignatureProvider extends XtendHoverSignatureProvider {
+public class FeatureHoverSignatureProvider extends XbaseDeclarativeHoverSignatureProvider {
 	@Inject StepNameProvider stepNameProvider;  
 	
 	public String getSignature(EObject object) {

@@ -119,6 +119,7 @@ public class _20FactsAboutXtendFunctionalProgrammingFTWSpec extends _20FactsAbou
   @Order(3)
   public void _conciseLambdaExpressions() throws Exception {
     final Function1<String, Integer> _function = new Function1<String, Integer>() {
+      @Override
       public Integer apply(final String it) {
         return Integer.valueOf(it.length());
       }
@@ -143,6 +144,7 @@ public class _20FactsAboutXtendFunctionalProgrammingFTWSpec extends _20FactsAbou
   public void _betterLoops() throws Exception {
     List<Integer> _list = JnarioCollectionLiterals.<Integer>list(Integer.valueOf(11), Integer.valueOf(17), Integer.valueOf(19));
     final Procedure1<Integer> _function = new Procedure1<Integer>() {
+      @Override
       public void apply(final Integer it) {
         Assert.assertTrue("\nExpected it > 10 but"
          + "\n     it is " + new org.hamcrest.StringDescription().appendValue((it).intValue()).toString() + "\n", ((it).intValue() > 10));
@@ -179,6 +181,7 @@ public class _20FactsAboutXtendFunctionalProgrammingFTWSpec extends _20FactsAbou
   public void _orViaACustomPredicate() throws Exception {
     List<String> _list = JnarioCollectionLiterals.<String>list("red", "blue", "green");
     final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
+      @Override
       public Boolean apply(final String it) {
         return Boolean.valueOf(it.startsWith("b"));
       }
@@ -203,12 +206,14 @@ public class _20FactsAboutXtendFunctionalProgrammingFTWSpec extends _20FactsAbou
   public void _mapReduceMadeEasy() throws Exception {
     final List<String> strings = JnarioCollectionLiterals.<String>list("red", "blue", "green");
     final Function1<String, Integer> _function = new Function1<String, Integer>() {
+      @Override
       public Integer apply(final String s) {
         return Integer.valueOf(s.length());
       }
     };
     List<Integer> _map = ListExtensions.<String, Integer>map(strings, _function);
     final Function2<Integer, Integer, Integer> _function_1 = new Function2<Integer, Integer, Integer>() {
+      @Override
       public Integer apply(final Integer sum, final Integer size) {
         return Integer.valueOf(((sum).intValue() + (size).intValue()));
       }

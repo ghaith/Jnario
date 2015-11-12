@@ -43,9 +43,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class JnarioSpecsFactsForJavaSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public SpecExecutor _specExecutor;
   
   /**
@@ -87,6 +87,7 @@ public class JnarioSpecsFactsForJavaSpec {
     final int x = 0;
     final int y = 1;
     final Procedure1<Boolean> _function = new Procedure1<Boolean>() {
+      @Override
       public void apply(final Boolean it) {
         Assert.assertTrue("\nExpected x == 1 && y == 0 but"
          + "\n     x == 1 is " + new org.hamcrest.StringDescription().appendValue((x == 1)).toString()
@@ -100,18 +101,15 @@ public class JnarioSpecsFactsForJavaSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Expected x == 1 && y == 0 but");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("x == 1 is <false>");
+    _builder.append("     x == 1 is <false>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("x is <0>");
+    _builder.append("     x is <0>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("y == 0 is <false>");
+    _builder.append("     y == 0 is <false>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("y is <1>");
-    Helpers.is(_errorMessage, _builder);
+    _builder.append("     y is <1>");
+    
+    Helpers.is(_errorMessage, _builder.toString());
   }
   
   /**
@@ -131,25 +129,28 @@ public class JnarioSpecsFactsForJavaSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("import java.util.ArrayList");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe ArrayList{");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"should automatically create an instance of ArrayList called subject\"{");
+    _builder.append("  fact \"should automatically create an instance of ArrayList called subject\"{");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("subject should be typeof(ArrayList)");
+    _builder.append("    subject should be typeof(ArrayList)");
     _builder.newLine();
-    _builder.append("  ");
+    _builder.append("  }");
+    _builder.newLine();
+    _builder.append("");
+    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
-    this._specExecutor.executesSuccessfully(_builder);
+    
+    this._specExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

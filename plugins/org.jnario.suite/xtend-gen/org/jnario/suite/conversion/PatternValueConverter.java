@@ -18,6 +18,7 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 
 @SuppressWarnings("all")
 public class PatternValueConverter implements IValueConverter<String> {
+  @Override
   public String toString(final String string) throws ValueConverterException {
     String _xblockexpression = null;
     {
@@ -32,6 +33,7 @@ public class PatternValueConverter implements IValueConverter<String> {
     return _xblockexpression;
   }
   
+  @Override
   public String toValue(final String string, final INode node) throws ValueConverterException {
     try {
       boolean _isNullOrEmpty = com.google.common.base.Strings.isNullOrEmpty(string);

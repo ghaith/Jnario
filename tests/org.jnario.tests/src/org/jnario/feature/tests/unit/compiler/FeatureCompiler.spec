@@ -25,7 +25,7 @@ describe "Feature Compiler" {
 			Scenario: A
 			When I a rich strings
 				val x = 'world'
-				'''hello «x»'''.toString => 'hello world'
+				('''hello ''' + x + '''''').toString => 'hello world'
 		".executesSuccessfully
 	}
 }

@@ -7,6 +7,7 @@
  */
 package org.jnario.suite.unit;
 
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.lib.Assert;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
@@ -70,7 +71,7 @@ public class SuiteNodeBuilderLevelSpec extends SuiteNodeBuilderSpec {
     
   }
   
-  public int level(final String name) {
+  public int level(@Extension final String name) {
     Suite _suite = this.suite(name);
     return this.subject.level(_suite);
   }

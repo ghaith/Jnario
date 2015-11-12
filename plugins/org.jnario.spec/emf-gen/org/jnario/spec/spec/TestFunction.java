@@ -7,7 +7,7 @@
  */
 package org.jnario.spec.spec;
 
-import org.eclipse.xtend.core.xtend.XtendFunction;
+import org.jnario.JnarioFunction;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,6 +19,6 @@ import org.eclipse.xtend.core.xtend.XtendFunction;
  * @model
  * @generated
  */
-public interface TestFunction extends XtendFunction
+public interface TestFunction extends JnarioFunction
 {
 } // TestFunction

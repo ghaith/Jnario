@@ -19,21 +19,21 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendField;
-import org.eclipse.xtend.core.xtend.XtendPackage;
-import org.eclipse.xtend.core.xtend.XtendParameter;
-import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.EcoreUtil2;
-import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.GrammarUtil;
 import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.common.types.xtext.ui.JdtVariableCompletions;
-import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
 import org.eclipse.xtext.common.types.xtext.ui.JdtVariableCompletions.VariableType;
+import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotationsPackage;
+import org.jnario.JnarioClass;
+import org.jnario.JnarioField;
+import org.jnario.JnarioPackage;
+import org.jnario.JnarioParameter;
+import org.jnario.spec.services.SpecGrammarAccess;
 import org.jnario.spec.spec.SpecPackage;
 import org.jnario.spec.spec.TestFunction;
 
@@ -45,8 +45,8 @@ import com.google.inject.Inject;
 @SuppressWarnings("restriction")
 public class SpecProposalProvider extends AbstractSpecProposalProvider {
 	
-	@Inject
-	private JdtVariableCompletions completions;
+	@Inject private JdtVariableCompletions completions;
+	@Inject private SpecGrammarAccess grammarAccess;
 	
 	@Override
 	public void completeXAnnotation_AnnotationType(EObject model, Assignment assignment, ContentAssistContext context,
@@ -87,67 +87,68 @@ public class SpecProposalProvider extends AbstractSpecProposalProvider {
 			ICompletionProposalAcceptor acceptor) {
 		if (model instanceof TestFunction) {
 			EObject xtendClass = model.eContainer();
-			while(xtendClass != null && (xtendClass instanceof XtendClass)){
-				for (XtendField field : filter(((XtendClass)xtendClass).getMembers(), XtendField.class)) {
+			while(xtendClass != null && (xtendClass instanceof JnarioClass)){
+				for (JnarioField field : filter(((JnarioClass)xtendClass).getMembers(), JnarioField.class)) {
 					acceptor.accept(createCompletionProposal(field.getName(), field.getName(), getImage(field),  context));
 				}
 				xtendClass = xtendClass.eContainer();
 			}
 			createLocalVariableAndImplicitProposals(model, context, acceptor);
-		}else if (model instanceof XtendField) {
+		}else if (model instanceof JnarioField) {
 			createLocalVariableAndImplicitProposals(model, context, acceptor);
 		} else {
 			super.completeXFeatureCall_Feature(model, assignment, context, acceptor);
 		}
 	}
 
-	@Override
-	public void complete_RICH_TEXT(EObject model, RuleCall ruleCall, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		completeInRichString(model, ruleCall, context, acceptor);
-	}
-
-	@Override
-	public void complete_RICH_TEXT_START(EObject model, RuleCall ruleCall, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		completeInRichString(model, ruleCall, context, acceptor);
-	}
-
-	@Override
-	public void complete_RICH_TEXT_END(EObject model, RuleCall ruleCall, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		completeInRichString(model, ruleCall, context, acceptor);
-	}
-
-	@Override
-	public void complete_RICH_TEXT_INBETWEEN(EObject model, RuleCall ruleCall, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		completeInRichString(model, ruleCall, context, acceptor);
-	}
-
-	@Override
-	public void complete_COMMENT_RICH_TEXT_END(EObject model, RuleCall ruleCall, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		completeInRichString(model, ruleCall, context, acceptor);
-	}
-
-	@Override
-	public void complete_COMMENT_RICH_TEXT_INBETWEEN(EObject model, RuleCall ruleCall, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		completeInRichString(model, ruleCall, context, acceptor);
-	}
+	// TODO NO_XTEND
+//	@Override
+//	public void complete_RICH_TEXT(EObject model, RuleCall ruleCall, ContentAssistContext context,
+//			ICompletionProposalAcceptor acceptor) {
+//		completeInRichString(model, ruleCall, context, acceptor);
+//	}
+//
+//	@Override
+//	public void complete_RICH_TEXT_START(EObject model, RuleCall ruleCall, ContentAssistContext context,
+//			ICompletionProposalAcceptor acceptor) {
+//		completeInRichString(model, ruleCall, context, acceptor);
+//	}
+//
+//	@Override
+//	public void complete_RICH_TEXT_END(EObject model, RuleCall ruleCall, ContentAssistContext context,
+//			ICompletionProposalAcceptor acceptor) {
+//		completeInRichString(model, ruleCall, context, acceptor);
+//	}
+//
+//	@Override
+//	public void complete_RICH_TEXT_INBETWEEN(EObject model, RuleCall ruleCall, ContentAssistContext context,
+//			ICompletionProposalAcceptor acceptor) {
+//		completeInRichString(model, ruleCall, context, acceptor);
+//	}
+//
+//	@Override
+//	public void complete_COMMENT_RICH_TEXT_END(EObject model, RuleCall ruleCall, ContentAssistContext context,
+//			ICompletionProposalAcceptor acceptor) {
+//		completeInRichString(model, ruleCall, context, acceptor);
+//	}
+//
+//	@Override
+//	public void complete_COMMENT_RICH_TEXT_INBETWEEN(EObject model, RuleCall ruleCall, ContentAssistContext context,
+//			ICompletionProposalAcceptor acceptor) {
+//		completeInRichString(model, ruleCall, context, acceptor);
+//	}
 	
 	@Override
 	public void completeParameter_Name(final EObject model, Assignment assignment, final ContentAssistContext context,
 			final ICompletionProposalAcceptor acceptor) {
-		if (model instanceof XtendParameter) {
-			final List<XtendParameter> siblings = EcoreUtil2.getSiblingsOfType(model, XtendParameter.class);
+		if (model instanceof JnarioParameter) {
+			final List<JnarioParameter> siblings = EcoreUtil2.getSiblingsOfType(model, JnarioParameter.class);
 			Set<String> alreadyTaken = Sets.newHashSet();
-			for(XtendParameter sibling: siblings) {
+			for(JnarioParameter sibling: siblings) {
 				alreadyTaken.add(sibling.getName());
 			}
 			alreadyTaken.addAll(getAllKeywords());
-			completions.getVariableProposals(model, XtendPackage.Literals.XTEND_PARAMETER__PARAMETER_TYPE,
+			completions.getVariableProposals(model, JnarioPackage.Literals.JNARIO_PARAMETER__PARAMETER_TYPE,
 					VariableType.PARAMETER, alreadyTaken, new JdtVariableCompletions.CompletionDataAcceptor() {
 						public void accept(String replaceText, StyledString label, Image img) {
 							acceptor.accept(createCompletionProposal(replaceText, label, img, context));
@@ -161,7 +162,7 @@ public class SpecProposalProvider extends AbstractSpecProposalProvider {
 	@Override
 	public void completeMember_Type(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
-		if (model instanceof XtendField) {
+		if (model instanceof JnarioField) {
 			// don't propose types everywhere but only if there's already an indicator for fields, e.g. static, extension, var, val
 			completeJavaTypes(context, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE, true,
 					getQualifiedNameValueConverter(), new TypeMatchFilters.All(IJavaSearchConstants.TYPE), acceptor);
@@ -178,15 +179,15 @@ public class SpecProposalProvider extends AbstractSpecProposalProvider {
 	@Override
 	public void completeMember_Name(final EObject model, Assignment assignment, final ContentAssistContext context,
 			final ICompletionProposalAcceptor acceptor) {
-		if (model instanceof XtendField) {
+		if (model instanceof JnarioField) {
 			//TODO go up type hierarchy and collect all local fields
-			final List<XtendField> siblings = EcoreUtil2.getSiblingsOfType(model, XtendField.class);
+			final List<JnarioField> siblings = EcoreUtil2.getSiblingsOfType(model, JnarioField.class);
 			Set<String> alreadyTaken = Sets.newHashSet();
-			for(XtendField sibling: siblings) {
+			for(JnarioField sibling: siblings) {
 				alreadyTaken.add(sibling.getName());
 			}
 			alreadyTaken.addAll(getAllKeywords());
-			completions.getVariableProposals(model, XtendPackage.Literals.XTEND_FIELD__TYPE,
+			completions.getVariableProposals(model, JnarioPackage.Literals.JNARIO_FIELD__TYPE,
 					VariableType.INSTANCE_FIELD, alreadyTaken, new JdtVariableCompletions.CompletionDataAcceptor() {
 						public void accept(String replaceText, StyledString label, Image img) {
 							acceptor.accept(createCompletionProposal(replaceText, label, img, context));
@@ -198,4 +199,7 @@ public class SpecProposalProvider extends AbstractSpecProposalProvider {
 	}
 	
 
+	protected Set<String> getAllKeywords() {
+		return GrammarUtil.getAllKeywords(grammarAccess.getGrammar());
+	}
 }

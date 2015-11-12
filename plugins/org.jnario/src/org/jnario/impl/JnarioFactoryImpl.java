@@ -76,6 +76,16 @@ public class JnarioFactoryImpl extends EFactoryImpl implements JnarioFactory {
 			case JnarioPackage.SPECIFICATION: return createSpecification();
 			case JnarioPackage.MOCK_LITERAL: return createMockLiteral();
 			case JnarioPackage.EXAMPLE_CELL: return createExampleCell();
+			case JnarioPackage.JNARIO_FILE: return createJnarioFile();
+			case JnarioPackage.JNARIO_CLASS: return createJnarioClass();
+			case JnarioPackage.JNARIO_MEMBER: return createJnarioMember();
+			case JnarioPackage.JNARIO_FUNCTION: return createJnarioFunction();
+			case JnarioPackage.JNARIO_FIELD: return createJnarioField();
+			case JnarioPackage.JNARIO_TYPE_DECLARATION: return createJnarioTypeDeclaration();
+			case JnarioPackage.JNARIO_ANNOTATION_TARGET: return createJnarioAnnotationTarget();
+			case JnarioPackage.JNARIO_PARAMETER: return createJnarioParameter();
+			case JnarioPackage.RICH_STRING: return createRichString();
+			case JnarioPackage.RICH_STRING_LITERAL: return createRichStringLiteral();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -169,6 +179,106 @@ public class JnarioFactoryImpl extends EFactoryImpl implements JnarioFactory {
 	public ExampleCell createExampleCell() {
 		ExampleCellImpl exampleCell = new ExampleCellImpl();
 		return exampleCell;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JnarioFile createJnarioFile() {
+		JnarioFileImpl jnarioFile = new JnarioFileImpl();
+		return jnarioFile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JnarioClass createJnarioClass() {
+		JnarioClassImpl jnarioClass = new JnarioClassImpl();
+		return jnarioClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JnarioMember createJnarioMember() {
+		JnarioMemberImpl jnarioMember = new JnarioMemberImpl();
+		return jnarioMember;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JnarioFunction createJnarioFunction() {
+		JnarioFunctionImpl jnarioFunction = new JnarioFunctionImpl();
+		return jnarioFunction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JnarioField createJnarioField() {
+		JnarioFieldImpl jnarioField = new JnarioFieldImpl();
+		return jnarioField;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JnarioTypeDeclaration createJnarioTypeDeclaration() {
+		JnarioTypeDeclarationImpl jnarioTypeDeclaration = new JnarioTypeDeclarationImpl();
+		return jnarioTypeDeclaration;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JnarioAnnotationTarget createJnarioAnnotationTarget() {
+		JnarioAnnotationTargetImpl jnarioAnnotationTarget = new JnarioAnnotationTargetImpl();
+		return jnarioAnnotationTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JnarioParameter createJnarioParameter() {
+		JnarioParameterImpl jnarioParameter = new JnarioParameterImpl();
+		return jnarioParameter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RichString createRichString() {
+		RichStringImpl richString = new RichStringImpl();
+		return richString;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RichStringLiteral createRichStringLiteral() {
+		RichStringLiteralImpl richStringLiteral = new RichStringLiteralImpl();
+		return richStringLiteral;
 	}
 
 	/**

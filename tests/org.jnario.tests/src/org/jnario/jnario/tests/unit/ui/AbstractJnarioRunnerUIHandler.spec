@@ -5,19 +5,10 @@ import org.eclipse.jdt.internal.junit.model.TestElement
 import org.eclipse.jdt.internal.junit.model.TestRoot
 import org.eclipse.jdt.internal.junit.model.TestRunSession
 import org.eclipse.jdt.internal.junit.model.TestSuiteElement
-import org.eclipse.jdt.junit.model.ITestElement
 import org.eclipse.ui.part.ViewPart
-import org.jnario.ui.handler.AbstractJnarioRunnerUIHandler
 import org.jnario.util.Strings
 
 import static org.hamcrest.Matchers.*
-
-class TestUIHandler extends AbstractJnarioRunnerUIHandler {
-
-	override getAction(ViewPart part, ITestElement element) {
-	}
-
-}
 
 describe "AbstractJnarioRunnerUIHandler" {
 

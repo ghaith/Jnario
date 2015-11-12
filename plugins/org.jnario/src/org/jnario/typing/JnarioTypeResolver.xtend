@@ -12,13 +12,13 @@ import org.eclipse.xtext.xbase.XNullLiteral
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations
 import org.eclipse.xtext.xbase.scoping.batch.IFeatureScopeSession
 import org.eclipse.xtext.xbase.typesystem.InferredTypeIndicator
+import org.eclipse.xtext.xbase.typesystem.internal.LogicalContainerAwareReentrantTypeResolver
 import org.eclipse.xtext.xbase.typesystem.internal.ResolvedTypes
 import org.eclipse.xtext.xtype.XComputedTypeReference
 import org.jnario.ExampleColumn
 import org.jnario.ExampleTable
-import org.eclipse.xtend.core.typesystem.XtendReentrantTypeResolver
 
-class JnarioTypeResolver extends XtendReentrantTypeResolver {
+class JnarioTypeResolver extends LogicalContainerAwareReentrantTypeResolver {
 	
 	@Inject extension IJvmModelAssociations
 	

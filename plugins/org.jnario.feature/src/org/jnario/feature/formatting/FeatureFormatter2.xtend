@@ -1,23 +1,21 @@
 package org.jnario.feature.formatting
 
 import com.google.inject.Inject
-import org.eclipse.xtext.xbase.formatting.FormattableDocument
-import org.eclipse.xtext.xbase.formatting.FormattingDataFactory
-import org.eclipse.xtext.xbase.formatting.NodeModelAccess
+import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.jnario.feature.feature.Background
 import org.jnario.feature.feature.Scenario
+import org.jnario.feature.services.FeatureGrammarAccess
 import org.jnario.formatter.JnarioFormatter
 
 class FeatureFormatter2 extends JnarioFormatter {
 	
-	@Inject extension NodeModelAccess
-	@Inject extension FormattingDataFactory
+    @Inject extension FeatureGrammarAccess
 	
-	def protected dispatch void format(Scenario scenario, FormattableDocument format) { 
-		format += scenario.nodeForEObject.prepend[increaseIndentation]
+	def dispatch void format(Scenario scenario, extension IFormattableDocument format) { 
+		scenario.regionForRuleCallTo(scenarioRule).prepend[increaseIndentation]
 	}
 
-	def protected dispatch void format(Background background, FormattableDocument format) { 
-		format += background.nodeForEObject.prepend[increaseIndentation]
+	def dispatch void format(Background background, extension IFormattableDocument format) { 
+		background.regionForRuleCallTo(scenarioRule).prepend[increaseIndentation]
 	}
 }

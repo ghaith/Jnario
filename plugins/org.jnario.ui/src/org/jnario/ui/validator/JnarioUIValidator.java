@@ -3,15 +3,15 @@ package org.jnario.ui.validator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.xtend.core.xtend.XtendFile;
-import org.eclipse.xtend.ide.validator.XtendUIValidator;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.xbase.XConstructorCall;
+import org.eclipse.xtext.xbase.ui.validation.XbaseUIValidator;
 import org.eclipse.xtext.xtype.XImportDeclaration;
+import org.jnario.JnarioFile;
 import org.jnario.JnarioPackage;
 
-public class JnarioUIValidator extends XtendUIValidator {
+public class JnarioUIValidator extends XbaseUIValidator {
 
 	@Override
 	protected List<EPackage> getEPackages() {
@@ -36,9 +36,10 @@ public class JnarioUIValidator extends XtendUIValidator {
 		super.checkRestrictedType(importDeclaration);
 	}
 	
-	@Override
-	@Check
-	public void checkFileNamingConventions(XtendFile xtendFile) {
-		super.checkFileNamingConventions(xtendFile);
-	}
+// TODO NO_XTEND
+//	@Override
+//	@Check
+//	public void checkFileNamingConventions(JnarioFile jnarioFile) {
+//		super.checkFileNamingConventions(jnarioFile);
+//	}
 }

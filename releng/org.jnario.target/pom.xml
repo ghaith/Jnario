@@ -31,9 +31,9 @@ xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLS
 					<configuration>
 						<artifacts>
 							<artifact>
-								<file>kepler.target</file>
+								<file>mars.target</file>
 								<type>target</type>
-								<classifier>kepler</classifier>
+								<classifier>mars</classifier>
 							</artifact>
 						</artifacts>
 					</configuration>

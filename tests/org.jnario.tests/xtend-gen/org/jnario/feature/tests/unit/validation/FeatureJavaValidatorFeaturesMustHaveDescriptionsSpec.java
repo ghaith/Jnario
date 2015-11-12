@@ -28,7 +28,8 @@ public class FeatureJavaValidatorFeaturesMustHaveDescriptionsSpec extends Featur
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Feature: ");
     _builder.newLine();
-    AssertableDiagnostics _select = this.select(_builder, Feature.class);
+    
+    AssertableDiagnostics _select = this.select(_builder.toString(), Feature.class);
     _select.assertErrorContains("description");
   }
 }

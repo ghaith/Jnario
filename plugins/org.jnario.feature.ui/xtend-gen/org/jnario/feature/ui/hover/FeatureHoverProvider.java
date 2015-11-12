@@ -17,6 +17,7 @@ public class FeatureHoverProvider extends JnarioHoverProvider {
   @Extension
   private WhiteSpaceNormalizer normalizer;
   
+  @Override
   protected String getDocumentation(final EObject o) {
     String _switchResult = null;
     boolean _matched = false;

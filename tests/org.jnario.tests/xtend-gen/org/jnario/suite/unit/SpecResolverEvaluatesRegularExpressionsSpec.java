@@ -38,10 +38,12 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
     _builder.newLine();
     _builder.append("#The Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("- \\demo\\.My.*\\");
     _builder.newLine();
-    this.m.parseSuite(_builder);
+    
+    this.m.parseSuite(_builder.toString());
     Suite _firstSuite = this.m.firstSuite();
     List<String> _resolvedSpecs = this.resolvedSpecs(_firstSuite);
     Set<String> _set = IterableExtensions.<String>toSet(_resolvedSpecs);
@@ -66,10 +68,12 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
     _builder.newLine();
     _builder.append("#My Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("- \\.*Spec\\");
     _builder.newLine();
-    this.m.parseSuite(_builder);
+    
+    this.m.parseSuite(_builder.toString());
     Suite _firstSuite = this.m.firstSuite();
     List<String> _resolvedSpecs = this.resolvedSpecs(_firstSuite);
     List<String> _list = JnarioCollectionLiterals.<String>list("MySpecSpec");
@@ -99,10 +103,12 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
     _builder.newLine();
     _builder.append("#My Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("- \\NonExistent\\");
     _builder.newLine();
-    this.m.parseSuite(_builder);
+    
+    this.m.parseSuite(_builder.toString());
   }
   
   @Test
@@ -116,10 +122,12 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
     _builder.newLine();
     _builder.append("#My Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("- \\.*\\");
     _builder.newLine();
-    this.m.parseSuite(_builder);
+    
+    this.m.parseSuite(_builder.toString());
     Suite _firstSuite = this.m.firstSuite();
     List<String> _resolvedSpecs = this.resolvedSpecs(_firstSuite);
     Set<String> _set = IterableExtensions.<String>toSet(_resolvedSpecs);
@@ -144,10 +152,12 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
     _builder.newLine();
     _builder.append("#My Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("- \\.*\\");
     _builder.newLine();
-    this.m.parseSuite(_builder);
+    
+    this.m.parseSuite(_builder.toString());
     Suite _firstSuite = this.m.firstSuite();
     List<String> _resolvedSpecs = this.resolvedSpecs(_firstSuite);
     List<String> _list = JnarioCollectionLiterals.<String>list("MyFeatureFeature", "MySpecSpec", "StringSpec");

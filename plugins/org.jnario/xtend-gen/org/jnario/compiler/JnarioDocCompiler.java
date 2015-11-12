@@ -17,7 +17,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler;
 import org.eclipse.xtend.lib.Property;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.mwe.NameBasedFilter;
@@ -25,12 +24,13 @@ import org.eclipse.xtext.mwe.PathTraverser;
 import org.eclipse.xtext.parser.IEncodingProvider;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.jnario.compiler.AbstractBatchCompiler;
 import org.jnario.doc.AbstractDocGenerator;
 import org.jnario.doc.DocOutputConfigurationProvider;
 import org.jnario.report.Executable2ResultMapping;
 
 @SuppressWarnings("all")
-public class JnarioDocCompiler extends XtendBatchCompiler {
+public class JnarioDocCompiler extends AbstractBatchCompiler {
   private Executable2ResultMapping resultMapping;
   
   @Property
@@ -44,6 +44,7 @@ public class JnarioDocCompiler extends XtendBatchCompiler {
   
   private ResourceSet resourceSet;
   
+  @Override
   public boolean compile() {
     this.loadResources();
     this.generateDocumentation(this.resultMapping);
@@ -71,6 +72,7 @@ public class JnarioDocCompiler extends XtendBatchCompiler {
       final PathTraverser pathTraverser = new PathTraverser();
       List<String> _sourcePathDirectories = this.getSourcePathDirectories();
       final Predicate<URI> _function = new Predicate<URI>() {
+        @Override
         public boolean apply(final URI input) {
           final boolean matches = nameBasedFilter.matches(input);
           if (matches) {

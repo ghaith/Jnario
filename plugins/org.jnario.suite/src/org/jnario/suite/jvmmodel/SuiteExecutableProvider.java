@@ -6,9 +6,8 @@ import static org.eclipse.xtext.EcoreUtil2.getContainerOfType;
 
 import java.util.List;
 
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.jnario.Executable;
+import org.jnario.JnarioTypeDeclaration;
 import org.jnario.jvmmodel.ExecutableProvider;
 import org.jnario.suite.suite.Suite;
 import org.jnario.suite.suite.SuiteFile;
@@ -47,7 +46,7 @@ public class SuiteExecutableProvider implements ExecutableProvider {
 		if(file == null){
 			return children;
 		}
-		List<XtendTypeDeclaration> suites = file.getXtendTypes();
+		List<JnarioTypeDeclaration> suites = file.getXtendTypes();
 		int index = suites.indexOf(suite) + 1;
 		int level = suiteNodeBuilder.level(suite);
 		while(index < suites.size()){

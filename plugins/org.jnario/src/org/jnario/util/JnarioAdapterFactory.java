@@ -10,15 +10,11 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.xtend.XtendAnnotationTarget;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendFunction;
-import org.eclipse.xtend.core.xtend.XtendField;
-import org.eclipse.xtend.core.xtend.XtendMember;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XBinaryOperation;
+import org.eclipse.xtext.xbase.XBlockExpression;
 import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XStringLiteral;
 import org.eclipse.xtext.xbase.XTypeLiteral;
 import org.jnario.*;
 import org.jnario.Assertion;
@@ -129,12 +125,44 @@ public class JnarioAdapterFactory extends AdapterFactoryImpl {
 				return createExampleCellAdapter();
 			}
 			@Override
-			public Adapter caseXtendAnnotationTarget(XtendAnnotationTarget object) {
-				return createXtendAnnotationTargetAdapter();
+			public Adapter caseJnarioFile(JnarioFile object) {
+				return createJnarioFileAdapter();
 			}
 			@Override
-			public Adapter caseXtendMember(XtendMember object) {
-				return createXtendMemberAdapter();
+			public Adapter caseJnarioClass(JnarioClass object) {
+				return createJnarioClassAdapter();
+			}
+			@Override
+			public Adapter caseJnarioMember(JnarioMember object) {
+				return createJnarioMemberAdapter();
+			}
+			@Override
+			public Adapter caseJnarioFunction(JnarioFunction object) {
+				return createJnarioFunctionAdapter();
+			}
+			@Override
+			public Adapter caseJnarioField(JnarioField object) {
+				return createJnarioFieldAdapter();
+			}
+			@Override
+			public Adapter caseJnarioTypeDeclaration(JnarioTypeDeclaration object) {
+				return createJnarioTypeDeclarationAdapter();
+			}
+			@Override
+			public Adapter caseJnarioAnnotationTarget(JnarioAnnotationTarget object) {
+				return createJnarioAnnotationTargetAdapter();
+			}
+			@Override
+			public Adapter caseJnarioParameter(JnarioParameter object) {
+				return createJnarioParameterAdapter();
+			}
+			@Override
+			public Adapter caseRichString(RichString object) {
+				return createRichStringAdapter();
+			}
+			@Override
+			public Adapter caseRichStringLiteral(RichStringLiteral object) {
+				return createRichStringLiteralAdapter();
 			}
 			@Override
 			public Adapter caseXExpression(XExpression object) {
@@ -149,20 +177,16 @@ public class JnarioAdapterFactory extends AdapterFactoryImpl {
 				return createXBinaryOperationAdapter();
 			}
 			@Override
-			public Adapter caseXtendTypeDeclaration(XtendTypeDeclaration object) {
-				return createXtendTypeDeclarationAdapter();
-			}
-			@Override
-			public Adapter caseXtendClass(XtendClass object) {
-				return createXtendClassAdapter();
-			}
-			@Override
 			public Adapter caseXTypeLiteral(XTypeLiteral object) {
 				return createXTypeLiteralAdapter();
 			}
 			@Override
-			public Adapter caseXtendFunction(XtendFunction object) {
-				return createXtendFunctionAdapter();
+			public Adapter caseXBlockExpression(XBlockExpression object) {
+				return createXBlockExpressionAdapter();
+			}
+			@Override
+			public Adapter caseXStringLiteral(XStringLiteral object) {
+				return createXStringLiteralAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -325,30 +349,142 @@ public class JnarioAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendAnnotationTarget <em>Annotation Target</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioFile <em>File</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationTarget
+	 * @see org.jnario.JnarioFile
 	 * @generated
 	 */
-	public Adapter createXtendAnnotationTargetAdapter() {
+	public Adapter createJnarioFileAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendMember <em>Member</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioClass <em>Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendMember
+	 * @see org.jnario.JnarioClass
 	 * @generated
 	 */
-	public Adapter createXtendMemberAdapter() {
+	public Adapter createJnarioClassAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioMember <em>Member</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.JnarioMember
+	 * @generated
+	 */
+	public Adapter createJnarioMemberAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioFunction <em>Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.JnarioFunction
+	 * @generated
+	 */
+	public Adapter createJnarioFunctionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioField <em>Field</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.JnarioField
+	 * @generated
+	 */
+	public Adapter createJnarioFieldAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioTypeDeclaration <em>Type Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.JnarioTypeDeclaration
+	 * @generated
+	 */
+	public Adapter createJnarioTypeDeclarationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioAnnotationTarget <em>Annotation Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.JnarioAnnotationTarget
+	 * @generated
+	 */
+	public Adapter createJnarioAnnotationTargetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioParameter <em>Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.JnarioParameter
+	 * @generated
+	 */
+	public Adapter createJnarioParameterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.RichString <em>Rich String</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.RichString
+	 * @generated
+	 */
+	public Adapter createRichStringAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.RichStringLiteral <em>Rich String Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.RichStringLiteral
+	 * @generated
+	 */
+	public Adapter createRichStringLiteralAdapter() {
 		return null;
 	}
 
@@ -395,34 +531,6 @@ public class JnarioAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendTypeDeclaration <em>Type Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendTypeDeclaration
-	 * @generated
-	 */
-	public Adapter createXtendTypeDeclarationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendClass <em>Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendClass
-	 * @generated
-	 */
-	public Adapter createXtendClassAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.xtext.xbase.XTypeLiteral <em>XType Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -437,16 +545,30 @@ public class JnarioAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendFunction <em>Function</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtext.xbase.XBlockExpression <em>XBlock Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendFunction
+	 * @see org.eclipse.xtext.xbase.XBlockExpression
 	 * @generated
 	 */
-	public Adapter createXtendFunctionAdapter() {
+	public Adapter createXBlockExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtext.xbase.XStringLiteral <em>XString Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtext.xbase.XStringLiteral
+	 * @generated
+	 */
+	public Adapter createXStringLiteralAdapter() {
 		return null;
 	}
 

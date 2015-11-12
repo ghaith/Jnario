@@ -18,6 +18,7 @@ public class SuiteGenerator implements IGenerator {
   @Inject
   private SuiteDocGenerator docGenerator;
   
+  @Override
   public void doGenerate(final Resource input, final IFileSystemAccess fsa) {
     this.jvmModelGenerator.doGenerate(input, fsa);
     this.docGenerator.doGenerate(input, fsa);

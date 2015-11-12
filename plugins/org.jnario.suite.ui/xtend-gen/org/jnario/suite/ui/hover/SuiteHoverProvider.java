@@ -29,6 +29,7 @@ public class SuiteHoverProvider extends JnarioHoverProvider {
   @Extension
   private SuiteClassNameProvider _suiteClassNameProvider;
   
+  @Override
   public String getHoverInfoAsHtml(final EObject call, final EObject objectToView, final IRegion hoverRegion) {
     String comment = null;
     if ((objectToView instanceof PatternReference)) {

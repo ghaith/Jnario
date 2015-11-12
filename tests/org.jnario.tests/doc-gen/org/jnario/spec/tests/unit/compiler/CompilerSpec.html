@@ -115,8 +115,7 @@ describe &quot;Should in closures&quot;{
 &quot;
 describe 'Richstrings'{
   fact {
-    val x = 'world'
-        '''hello &laquo;x&raquo;'''.toString =&gt; 'hello world'
+        '''hello world'''.toString =&gt; 'hello world'
     }
 }
 &quot;.executesSuccessfully</pre>
@@ -248,8 +247,7 @@ describe &quot;Compiler&quot;{
     &quot;
     describe 'Richstrings'{
       fact {
-        val x = 'world'
-            '''hello &laquo;x&raquo;'''.toString =&gt; 'hello world'
+            '''hello world'''.toString =&gt; 'hello world'
         }
     }
     &quot;.executesSuccessfully

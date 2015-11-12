@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="jnario" nsURI="http://www.org/Jnario" nsPrefix="jnario">
-  <eClassifiers xsi:type="ecore:EClass" name="ExampleTable" eSuperTypes="../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression #//JnarioMember">
+  <eClassifiers xsi:type="ecore:EClass" name="ExampleTable" eSuperTypes="#//JnarioMember ../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression">
     <eOperations name="isValid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rows" upperBound="-1" eType="#//ExampleRow"
@@ -51,8 +51,16 @@
         eType="#//JnarioTypeDeclaration" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="package" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JnarioClass" eSuperTypes="#//JnarioTypeDeclaration"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JnarioClass" eSuperTypes="#//JnarioTypeDeclaration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JnarioMember" eSuperTypes="#//JnarioAnnotationTarget">
+    <eOperations name="isStatic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="getVisibility" eType="ecore:EEnum ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmVisibility"/>
+    <eOperations name="getDeclaredVisibility" eType="ecore:EEnum ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmVisibility"/>
+    <eOperations name="getDefaultVisibility" eType="ecore:EEnum ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmVisibility"/>
+    <eOperations name="isFinal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modifiers" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotationInfo" eType="#//JnarioAnnotationTarget"
@@ -74,6 +82,9 @@
         eType="#//JnarioParameter" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JnarioField" eSuperTypes="#//JnarioMember">
+    <eOperations name="isTransient" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="isVolatile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="isExtension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -97,4 +108,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="varArg" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="extension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RichString" eSuperTypes="../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XBlockExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RichStringLiteral" eSuperTypes="../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XStringLiteral"/>
 </ecore:EPackage>

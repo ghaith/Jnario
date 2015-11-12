@@ -19,6 +19,7 @@ import org.jnario.report.SpecFailure;
 
 @SuppressWarnings("all")
 public class ErrorMessageProvider extends ExecutableStateSwitch<String> {
+  @Override
   protected String handleFailed(final Failed result) {
     StringConcatenation _builder = new StringConcatenation();
     {
@@ -36,16 +37,19 @@ public class ErrorMessageProvider extends ExecutableStateSwitch<String> {
     return _builder.toString();
   }
   
+  @Override
   protected String handleNotRun(final NotRun execution) {
     StringConcatenation _builder = new StringConcatenation();
     return _builder.toString();
   }
   
+  @Override
   protected String handlePassed(final Passed execution) {
     StringConcatenation _builder = new StringConcatenation();
     return _builder.toString();
   }
   
+  @Override
   protected String handlePending(final Pending execution) {
     StringConcatenation _builder = new StringConcatenation();
     return _builder.toString();

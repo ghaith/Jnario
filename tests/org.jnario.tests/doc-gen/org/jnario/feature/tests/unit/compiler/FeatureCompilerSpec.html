@@ -51,7 +51,7 @@ Feature: Rich Strings
   Scenario: A
   When I a rich strings
     val x = 'world'
-    '''hello &laquo;x&raquo;'''.toString =&gt; 'hello world'
+    ('''hello ''' + x + '''''').toString =&gt; 'hello world'
 &quot;.executesSuccessfully</pre>
 </li></ul>
 							</div>
@@ -86,7 +86,7 @@ describe &quot;Feature Compiler&quot; {
       Scenario: A
       When I a rich strings
         val x = 'world'
-        '''hello &laquo;x&raquo;'''.toString =&gt; 'hello world'
+        ('''hello ''' + x + '''''').toString =&gt; 'hello world'
     &quot;.executesSuccessfully
   }
 }

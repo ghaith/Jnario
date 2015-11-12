@@ -13,9 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendMember;
-import org.eclipse.xtend.core.xtend.XtendPackage;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -24,6 +21,9 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.ExampleTable;
+import org.jnario.JnarioClass;
+import org.jnario.JnarioMember;
+import org.jnario.JnarioPackage;
 import org.jnario.doc.AbstractDocGenerator;
 import org.jnario.doc.Filter;
 import org.jnario.doc.FilterExtractor;
@@ -43,7 +43,8 @@ public class SpecDocGenerator extends AbstractDocGenerator {
   @Extension
   private FilterExtractor _filterExtractor;
   
-  public HtmlFile createHtmlFile(final XtendClass xtendClass) {
+  @Override
+  public HtmlFile createHtmlFile(final JnarioClass xtendClass) {
     HtmlFile _xblockexpression = null;
     {
       if ((!(xtendClass instanceof ExampleGroup))) {
@@ -51,6 +52,7 @@ public class SpecDocGenerator extends AbstractDocGenerator {
       }
       final ExampleGroup exampleGroup = ((ExampleGroup) xtendClass);
       final Procedure1<HtmlFile> _function = new Procedure1<HtmlFile>() {
+        @Override
         public void apply(final HtmlFile it) {
           String _javaClassName = SpecDocGenerator.this._exampleNameProvider.toJavaClassName(exampleGroup);
           it.setName(_javaClassName);
@@ -88,9 +90,10 @@ public class SpecDocGenerator extends AbstractDocGenerator {
   private StringConcatenation generateMembers(final ExampleGroup exampleGroup, final int level) {
     final StringConcatenation result = new StringConcatenation();
     boolean inList = false;
-    EList<XtendMember> _members = exampleGroup.getMembers();
-    final Function1<XtendMember, Boolean> _function = new Function1<XtendMember, Boolean>() {
-      public Boolean apply(final XtendMember it) {
+    EList<JnarioMember> _members = exampleGroup.getMembers();
+    final Function1<JnarioMember, Boolean> _function = new Function1<JnarioMember, Boolean>() {
+      @Override
+      public Boolean apply(final JnarioMember it) {
         boolean _or = false;
         if (((it instanceof Example) || (it instanceof ExampleGroup))) {
           _or = true;
@@ -100,8 +103,8 @@ public class SpecDocGenerator extends AbstractDocGenerator {
         return Boolean.valueOf(_or);
       }
     };
-    final Iterable<XtendMember> members = IterableExtensions.<XtendMember>filter(_members, _function);
-    for (final XtendMember member : members) {
+    final Iterable<JnarioMember> members = IterableExtensions.<JnarioMember>filter(_members, _function);
+    for (final JnarioMember member : members) {
       {
         final boolean isExampleGroup = (member instanceof ExampleGroup);
         if ((inList && (!isExampleGroup))) {
@@ -166,7 +169,7 @@ public class SpecDocGenerator extends AbstractDocGenerator {
     return _builder;
   }
   
-  protected CharSequence _generate(final XtendMember member, final int level) {
+  protected CharSequence _generate(final JnarioMember member, final int level) {
     StringConcatenation _builder = new StringConcatenation();
     return _builder;
   }
@@ -215,7 +218,7 @@ public class SpecDocGenerator extends AbstractDocGenerator {
         if (!_not) {
           _and = false;
         } else {
-          boolean _eIsSet = example.eIsSet(XtendPackage.Literals.XTEND_EXECUTABLE__EXPRESSION);
+          boolean _eIsSet = example.eIsSet(JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION);
           _and = _eIsSet;
         }
         if (_and) {
@@ -343,29 +346,29 @@ public class SpecDocGenerator extends AbstractDocGenerator {
     return this.toTitle(_describe);
   }
   
-  public CharSequence generate(final XtendMember example, final int level) {
-    if (example instanceof Example) {
-      return _generate((Example)example, level);
-    } else if (example instanceof ExampleGroup) {
-      return _generate((ExampleGroup)example, level);
-    } else if (example instanceof ExampleTable) {
-      return _generate((ExampleTable)example, level);
-    } else if (example != null) {
-      return _generate(example, level);
+  public CharSequence generate(final JnarioMember exampleGroup, final int level) {
+    if (exampleGroup instanceof ExampleGroup) {
+      return _generate((ExampleGroup)exampleGroup, level);
+    } else if (exampleGroup instanceof Example) {
+      return _generate((Example)exampleGroup, level);
+    } else if (exampleGroup instanceof ExampleTable) {
+      return _generate((ExampleTable)exampleGroup, level);
+    } else if (exampleGroup != null) {
+      return _generate(exampleGroup, level);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(example, level).toString());
+        Arrays.<Object>asList(exampleGroup, level).toString());
     }
   }
   
-  public String asTitle(final EObject example) {
-    if (example instanceof Example) {
-      return _asTitle((Example)example);
-    } else if (example instanceof ExampleGroup) {
-      return _asTitle((ExampleGroup)example);
+  public String asTitle(final EObject exampleGroup) {
+    if (exampleGroup instanceof ExampleGroup) {
+      return _asTitle((ExampleGroup)exampleGroup);
+    } else if (exampleGroup instanceof Example) {
+      return _asTitle((Example)exampleGroup);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(example).toString());
+        Arrays.<Object>asList(exampleGroup).toString());
     }
   }
 }

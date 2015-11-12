@@ -5,7 +5,6 @@ import static org.jnario.jvmmodel.DoubleArrowSupport.isDoubleArrow;
 
 import java.util.List;
 
-import org.eclipse.xtend.core.typesystem.XtendTypeComputer;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmPrimitiveType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
@@ -14,6 +13,7 @@ import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XBinaryOperation;
 import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.XNullLiteral;
+import org.eclipse.xtext.xbase.annotations.typesystem.XbaseWithAnnotationsTypeComputer;
 import org.eclipse.xtext.xbase.typesystem.computation.IFeatureLinkingCandidate;
 import org.eclipse.xtext.xbase.typesystem.computation.ITypeComputationState;
 import org.eclipse.xtext.xbase.typesystem.conformance.ConformanceHint;
@@ -24,7 +24,7 @@ import org.jnario.ShouldThrow;
 
 import com.google.inject.Inject;
 
-public class JnarioTypeComputer extends XtendTypeComputer {
+public class JnarioTypeComputer extends XbaseWithAnnotationsTypeComputer {
 
 	@Inject
 	CommonTypeComputationServices services;

@@ -14,8 +14,6 @@ import org.apache.commons.lang.StringEscapeUtils
 import org.apache.log4j.Logger
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtend.core.xtend.XtendClass
-import org.eclipse.xtend.core.xtend.XtendFile
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
@@ -24,6 +22,8 @@ import org.eclipse.xtext.xbase.XBlockExpression
 import org.eclipse.xtext.xbase.XExpression
 import org.jnario.ExampleTable
 import org.jnario.Executable
+import org.jnario.JnarioClass
+import org.jnario.JnarioFile
 import org.jnario.report.Executable2ResultMapping
 import org.jnario.report.ExecutableStateSwitch
 import org.jnario.report.Failed
@@ -31,6 +31,7 @@ import org.jnario.report.NotRun
 import org.jnario.report.Passed
 import org.jnario.report.Pending
 import org.pegdown.PegDownProcessor
+
 import static extension org.apache.commons.lang.StringEscapeUtils.*
 import static extension org.eclipse.xtext.util.Strings.*
 import static extension org.jnario.util.Strings.*
@@ -53,8 +54,8 @@ abstract class AbstractDocGenerator implements IGenerator {
 
 	def doGenerate(Resource input, IFileSystemAccess fsa, Executable2ResultMapping spec2ResultMapping) {
 		initResultMapping(spec2ResultMapping)
-		input.contents.filter(typeof(XtendFile)).forEach[
-			xtendTypes.filter(typeof(XtendClass)).forEach[
+		input.contents.filter(typeof(JnarioFile)).forEach[
+			xtendTypes.filter(typeof(JnarioClass)).forEach[
 				generate(fsa, createHtmlFile())
 			]
 		]
@@ -64,7 +65,7 @@ abstract class AbstractDocGenerator implements IGenerator {
 		this.spec2ResultMapping = spec2ResultMapping
 	}
 
-	def createHtmlFile(XtendClass xtendClass){
+	def createHtmlFile(JnarioClass jnarioClass){
 		return HtmlFile::EMPTY_FILE
 	}
 
@@ -79,7 +80,7 @@ abstract class AbstractDocGenerator implements IGenerator {
 			}else{
 				return string.convertFromJavaString(true)
 			}
-		}catch(java.lang.IllegalArgumentException e){
+		}catch(IllegalArgumentException e){
 			LOG.error("Exception when converting string", e)
 			return string
 		}
@@ -135,8 +136,8 @@ abstract class AbstractDocGenerator implements IGenerator {
 		return result
 	}
 	
-	def protected root(EObject xtendClass){
-		val specFile = EcoreUtil2::getContainerOfType(xtendClass, typeof(XtendFile))
+	def protected root(EObject jnarioClass){
+		val specFile = EcoreUtil2::getContainerOfType(jnarioClass, JnarioFile)
 		val packageName= specFile.^package
 		if(packageName == null){
 			return ""

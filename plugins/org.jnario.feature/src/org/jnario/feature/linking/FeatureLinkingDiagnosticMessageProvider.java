@@ -1,11 +1,11 @@
 package org.jnario.feature.linking;
 
-import org.eclipse.xtend.core.linking.XtendLinkingDiagnosticMessageProvider;
 import org.eclipse.xtext.diagnostics.DiagnosticMessage;
 import org.jnario.feature.feature.StepReference;
+import org.jnario.linking.JnarioLinkingDiagnosticMessageProvider;
 
 
-public class FeatureLinkingDiagnosticMessageProvider extends XtendLinkingDiagnosticMessageProvider {
+public class FeatureLinkingDiagnosticMessageProvider extends JnarioLinkingDiagnosticMessageProvider {
 	@Override
 	public DiagnosticMessage getUnresolvedProxyMessage(ILinkingDiagnosticContext context) {
 		if(context.getContext() instanceof StepReference){

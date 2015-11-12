@@ -9,6 +9,7 @@ package org.jnario.spec.tests.unit.naming;
 
 import java.util.ArrayList;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.jnario.test.util.Query;
@@ -41,6 +42,7 @@ public class ExampleNameProviderToMethodNameBeforeSpec extends ExampleNameProvid
       "before \'my\texample\'", 
       "before \'my_example\'");
     final Procedure1<String> _function = new Procedure1<String>() {
+      @Override
       public void apply(final String it) {
         String _firstMethodName = ExampleNameProviderToMethodNameBeforeSpec.this.firstMethodName(it);
         Assert.assertTrue("\nExpected firstMethodName => \'_myExample\' but"
@@ -124,7 +126,7 @@ public class ExampleNameProviderToMethodNameBeforeSpec extends ExampleNameProvid
     
   }
   
-  public String firstMethodName(final String content) {
+  public String firstMethodName(@Extension final String content) {
     String _xblockexpression = null;
     {
       final String contentWithContext = (("describe \'Context\'{" + content) + "}");
@@ -135,7 +137,7 @@ public class ExampleNameProviderToMethodNameBeforeSpec extends ExampleNameProvid
     return _xblockexpression;
   }
   
-  public String secondMethodName(final String content) {
+  public String secondMethodName(@Extension final String content) {
     String _xblockexpression = null;
     {
       final String contentWithContext = (("describe \'Context\'{" + content) + "}");

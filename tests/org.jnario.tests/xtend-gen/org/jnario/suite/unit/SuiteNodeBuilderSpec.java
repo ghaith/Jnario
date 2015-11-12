@@ -33,28 +33,32 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class SuiteNodeBuilderSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore m;
   
-  public Resource parseSuite(final CharSequence s) {
+  public Resource parseSuite(@Extension final CharSequence s) {
     Resource _xblockexpression = null;
     {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("package test");
       _builder.newLine();
+      _builder.append("");
       _builder.newLine();
-      _builder.append(s, "");
-      _builder.newLineIfNotEmpty();
-      final String input = _builder.toString();
+      
+      String _plus = (_builder.toString() + s);
+      StringConcatenation _builder_1 = new StringConcatenation();
+      
+      final String input = (_plus + _builder_1.toString());
       _xblockexpression = this.m.parseSuite(input);
     }
     return _xblockexpression;
   }
   
-  public List<Suite> suites(final String... names) {
+  public List<Suite> suites(@Extension final String... names) {
     final Function1<String, Suite> _function = new Function1<String, Suite>() {
+      @Override
       public Suite apply(final String it) {
         return SuiteNodeBuilderSpec.this.suite(it);
       }
@@ -62,7 +66,7 @@ public class SuiteNodeBuilderSpec {
     return ListExtensions.<String, Suite>map(((List<String>)Conversions.doWrapArray(names)), _function);
   }
   
-  public Suite suite(final String name) {
+  public Suite suite(@Extension final String name) {
     Suite _xblockexpression = null;
     {
       final Suite suite = SuiteFactory.eINSTANCE.createSuite();

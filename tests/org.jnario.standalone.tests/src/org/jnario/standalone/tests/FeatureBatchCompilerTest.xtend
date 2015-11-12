@@ -19,7 +19,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.eclipse.xtext.util.Files.*
-import static org.jnario.standalone.tests.FeatureBatchCompilerTest.*
 import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner))
@@ -39,6 +38,7 @@ class FeatureBatchCompilerTest {
         batchCompiler.outputPath = OUTPUT_DIRECTORY
         batchCompiler.deleteTempDirectory = true
         batchCompiler.useCurrentClassLoaderAsParent = true
+        batchCompiler.currentClassLoader = class.classLoader
         new File(OUTPUT_DIRECTORY).mkdir
         cleanFolder(new File(OUTPUT_DIRECTORY), null, true, false)
         new File(OUTPUT_DIRECTORY_WITH_SPACES).mkdir

@@ -9,6 +9,7 @@ package org.jnario.jnario.documentation;
 
 import java.util.Collections;
 import java.util.List;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.documentation._20FactsAboutXtendSpec;
 import org.jnario.lib.Assert;
 import org.jnario.lib.JnarioCollectionLiterals;
@@ -94,7 +95,7 @@ public class _20FactsAboutXtendReadableCodeWithExtensionMethodsSpec extends _20F
     
   }
   
-  public boolean hasOneElement(final List<?> list) {
+  public boolean hasOneElement(@Extension final List<?> list) {
     int _size = list.size();
     return (_size == 1);
   }

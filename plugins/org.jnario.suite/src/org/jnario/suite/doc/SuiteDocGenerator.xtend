@@ -7,26 +7,25 @@
  *******************************************************************************/
 package org.jnario.suite.doc
 
-import static extension org.jnario.util.XtendTypes.*
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtend.core.xtend.XtendClass
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.xtext.generator.IFileSystemAccess
+import org.jnario.JnarioClass
 import org.jnario.Specification
 import org.jnario.doc.AbstractDocGenerator
+import org.jnario.doc.HtmlFile
+import org.jnario.doc.HtmlFileBuilder
+import org.jnario.report.Executable2ResultMapping
+import org.jnario.suite.jvmmodel.SpecResolver
 import org.jnario.suite.jvmmodel.SuiteClassNameProvider
 import org.jnario.suite.suite.Reference
 import org.jnario.suite.suite.SpecReference
 import org.jnario.suite.suite.Suite
-import org.jnario.suite.jvmmodel.SpecResolver
-import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.generator.IFileSystemAccess
 import org.jnario.suite.suite.SuiteFile
-import org.jnario.doc.HtmlFileBuilder
-import org.jnario.doc.HtmlFile
 
 import static extension org.jnario.util.Strings.*
-import static extension org.eclipse.xtext.util.Strings.*
-import org.jnario.report.Executable2ResultMapping
+import static extension org.jnario.util.XtendTypes.*
 
 class SuiteDocGenerator extends AbstractDocGenerator {
 	
@@ -57,7 +56,7 @@ class SuiteDocGenerator extends AbstractDocGenerator {
 		]
 	}
 
-	override HtmlFile createHtmlFile(XtendClass file) {
+	override HtmlFile createHtmlFile(JnarioClass file) {
 		val suite = file as Suite
 		HtmlFile::newHtmlFile[
 			name = suite.toJavaClassName 

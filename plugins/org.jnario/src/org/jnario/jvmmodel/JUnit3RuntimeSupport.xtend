@@ -3,15 +3,16 @@ package org.jnario.jvmmodel
 import com.google.inject.Inject
 import java.util.Collection
 import java.util.List
-import org.eclipse.xtend.core.xtend.XtendClass
-import org.eclipse.xtend.core.xtend.XtendFunction
-import org.eclipse.xtend.core.xtend.XtendMember
 import org.eclipse.xtext.common.types.JvmGenericType
 import org.eclipse.xtext.common.types.JvmOperation
+import org.eclipse.xtext.common.types.JvmTypeReference
 import org.eclipse.xtext.common.types.JvmVisibility
 import org.eclipse.xtext.common.types.util.TypeReferences
 import org.jnario.Executable
-import org.jnario.Specificationimport org.eclipse.xtext.common.types.JvmTypeReference
+import org.jnario.JnarioClass
+import org.jnario.JnarioFunction
+import org.jnario.JnarioMember
+import org.jnario.Specification
 
 class JUnit3RuntimeSupport implements TestRuntimeSupport {
 	
@@ -19,19 +20,19 @@ class JUnit3RuntimeSupport implements TestRuntimeSupport {
 	@Inject extension JnarioNameProvider 
 	@Inject extension ExtendedJvmTypesBuilder
 	
-	override afterAllMethod(XtendMember before, JvmOperation operation) {
+	override afterAllMethod(JnarioMember before, JvmOperation operation) {
 		// implement me
 	}
 	
-	override afterMethod(XtendMember before, JvmOperation operation) {
+	override afterMethod(JnarioMember before, JvmOperation operation) {
 		// implement me
 	}
 	
-	override beforeAllMethod(XtendMember before, JvmOperation operation) {
+	override beforeAllMethod(JnarioMember before, JvmOperation operation) {
 		// implement me
 	}
 	
-	override beforeMethod(XtendMember before, JvmOperation operation) {
+	override beforeMethod(JnarioMember before, JvmOperation operation) {
 		// implement me
 	}
 	
@@ -45,7 +46,7 @@ class JUnit3RuntimeSupport implements TestRuntimeSupport {
 		}
 	}
 	
-	override updateExampleGroup(XtendClass exampleGroup, JvmGenericType inferredType) {
+	override updateExampleGroup(JnarioClass exampleGroup, JvmGenericType inferredType) {
 		makeTestCase(exampleGroup, inferredType)
 		inferredType.addTestCase(exampleGroup)
 		inferredType.addSuite(exampleGroup, exampleGroup.children, exampleGroup.examples)
@@ -53,7 +54,7 @@ class JUnit3RuntimeSupport implements TestRuntimeSupport {
 		generateSetup("tearDown", exampleGroup, inferredType, exampleGroup.afters)
 	}
 	
-	def generateSetup(String methodName, XtendClass exampleGroup, JvmGenericType type, Iterable<XtendFunction> executables) {
+	def generateSetup(String methodName, JnarioClass exampleGroup, JvmGenericType type, Iterable<JnarioFunction> executables) {
 		val voidType = getTypeForName(Void::TYPE, exampleGroup)
 		type.members += exampleGroup.toMethod(methodName, voidType)[
 			visibility = JvmVisibility::PUBLIC
@@ -69,15 +70,15 @@ class JUnit3RuntimeSupport implements TestRuntimeSupport {
 		]
 	}
 	
-	def private befores(XtendClass exampleGroup){
-		exampleGroup.members.filter(typeof(XtendFunction)).filter[eClass.name == "Before"]
+	def private befores(JnarioClass exampleGroup){
+		exampleGroup.members.filter(typeof(JnarioFunction)).filter[eClass.name == "Before"]
 	}
 
-	def private afters(XtendClass exampleGroup){
-		exampleGroup.members.filter(typeof(XtendFunction)).filter[eClass.name == "After"]
+	def private afters(JnarioClass exampleGroup){
+		exampleGroup.members.filter(typeof(JnarioFunction)).filter[eClass.name == "After"]
 	}
 		
-	def private addSuite(JvmGenericType it, XtendClass context, Iterable<String> children, Iterable<Executable> tests){
+	def private addSuite(JvmGenericType it, JnarioClass context, Iterable<String> children, Iterable<Executable> tests){
 		val testType = getTypeForName("junit.framework.Test", context)
 		members += context.toMethod("suite", testType)[
 			^static = true
@@ -93,11 +94,10 @@ class JUnit3RuntimeSupport implements TestRuntimeSupport {
 					return suite;
 				''')
 			]
-			
 		]
 	}
 	
-	def private makeTestCase(XtendClass exampleGroup, JvmGenericType inferredType){
+	def private makeTestCase(JnarioClass exampleGroup, JvmGenericType inferredType){
 		val stringType = getTypeForName("java.lang.String", exampleGroup)
 		inferredType.members += exampleGroup.toField("__name", stringType)
 
@@ -117,7 +117,7 @@ class JUnit3RuntimeSupport implements TestRuntimeSupport {
 		]
 	}
 	
-	def addTestCase(JvmGenericType inferredType, XtendClass context) {
+	def addTestCase(JvmGenericType inferredType, JnarioClass context) {
 		if(inferredType.superTypes.empty){
 			inferredType.superTypes += getTypeForName("junit.framework.TestCase", context)
 		}else if(inferredType.superTypes.get(0).simpleName == "Object"){
@@ -126,11 +126,11 @@ class JUnit3RuntimeSupport implements TestRuntimeSupport {
 	}
 
 	
-	def private children(XtendClass exampleGroup){
+	def private children(JnarioClass exampleGroup){
 		exampleGroup.members.filter(typeof(Specification)).map[toJavaClassName]
 	}
 
-	def private examples(XtendClass exampleGroup){
+	def private examples(JnarioClass exampleGroup){
 		exampleGroup.members.filter(typeof(Executable)).filter[!(it instanceof Specification)]
 	}
 
@@ -142,12 +142,12 @@ class JUnit3RuntimeSupport implements TestRuntimeSupport {
 		"test" + toMethodName(e)
 	}
 	
-	override updateFeature(XtendClass feature, JvmGenericType inferredType, List<JvmTypeReference> scenarios) {
+	override updateFeature(JnarioClass feature, JvmGenericType inferredType, List<JvmTypeReference> scenarios) {
 		inferredType.addTestCase(feature)
 		inferredType.addSuite(feature, scenarios.map[simpleName], emptyList)
 	}
 	
-	override updateScenario(XtendClass scenario, JvmGenericType inferredType) {
+	override updateScenario(JnarioClass scenario, JvmGenericType inferredType) {
 		val testType = getTypeForName("junit.framework.Test", scenario)
 		val tests = scenario.examples
 		
@@ -207,7 +207,7 @@ class JUnit3RuntimeSupport implements TestRuntimeSupport {
 		]
 	}
 
-	override updateSuite(XtendClass exampleGroup, JvmGenericType inferredType) {
+	override updateSuite(JnarioClass exampleGroup, JvmGenericType inferredType) {
 		// implement me
 	}
 	

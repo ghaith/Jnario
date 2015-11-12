@@ -1,17 +1,17 @@
 package org.jnario.util;
 
-import org.eclipse.xtend.core.xtend.XtendFile;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtext.EcoreUtil2;
+import org.jnario.JnarioFile;
+import org.jnario.JnarioTypeDeclaration;
 
 public class XtendTypes {
 
-	public static String packageName(XtendTypeDeclaration typeDeclaration){
-		XtendFile xtendFile = EcoreUtil2.getContainerOfType(typeDeclaration, XtendFile.class);
-		if(xtendFile == null){
+	public static String packageName(JnarioTypeDeclaration typeDeclaration){
+		JnarioFile jnarioFile = EcoreUtil2.getContainerOfType(typeDeclaration, JnarioFile.class);
+		if(jnarioFile == null){
 			return null;
 		}
-		return xtendFile.getPackage();
+		return jnarioFile.getPackage();
 	}
 	
 }

@@ -7,7 +7,7 @@
  */
 package org.jnario.feature.feature;
 
-import org.eclipse.xtend.core.xtend.XtendFile;
+import org.jnario.JnarioFile;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,6 +19,6 @@ import org.eclipse.xtend.core.xtend.XtendFile;
  * @model
  * @generated
  */
-public interface FeatureFile extends XtendFile
+public interface FeatureFile extends JnarioFile
 {
 } // FeatureFile

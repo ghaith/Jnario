@@ -33,15 +33,14 @@ public class HashBasedSpec2ResultMappingScenarioSpec extends HashBasedSpec2Resul
     _builder.newLine();
     _builder.append("Given my Step");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("\"with implementation\"");
+    _builder.append("	\"with implementation\"");
     _builder.newLine();
     _builder.append("And other Step");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("\"with implementation\"");
+    _builder.append("	\"with implementation\"");
     _builder.newLine();
-    this.m.parseScenario(_builder);
+    
+    this.m.parseScenario(_builder.toString());
   }
   
   @Test

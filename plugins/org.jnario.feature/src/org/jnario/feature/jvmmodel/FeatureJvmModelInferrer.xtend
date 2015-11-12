@@ -10,16 +10,13 @@ package org.jnario.feature.jvmmodel
 import com.google.inject.Inject
 import java.util.List
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtend.core.xtend.XtendClass
-import org.eclipse.xtend.core.xtend.XtendField
-import org.eclipse.xtend.core.xtend.XtendFile
-import org.eclipse.xtend.core.xtend.XtendFunction
 import org.eclipse.xtext.common.types.JvmConstructor
+import org.eclipse.xtext.common.types.JvmField
 import org.eclipse.xtext.common.types.JvmGenericType
 import org.eclipse.xtext.common.types.JvmOperation
+import org.eclipse.xtext.common.types.JvmVisibility
 import org.eclipse.xtext.common.types.TypesFactory
 import org.eclipse.xtext.common.types.util.TypeReferences
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.xbase.XConstructorCall
 import org.eclipse.xtext.xbase.XExpression
 import org.eclipse.xtext.xbase.XVariableDeclaration
@@ -28,6 +25,9 @@ import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociator
+import org.jnario.JnarioClass
+import org.jnario.JnarioField
+import org.jnario.JnarioFile
 import org.jnario.feature.feature.Background
 import org.jnario.feature.feature.Feature
 import org.jnario.feature.feature.FeatureFile
@@ -39,6 +39,7 @@ import org.jnario.feature.naming.StepNameProvider
 import org.jnario.jvmmodel.ExtendedJvmTypesBuilder
 import org.jnario.jvmmodel.JnarioJvmModelInferrer
 import org.jnario.lib.StepArguments
+import org.jnario.runner.Extension
 import org.jnario.runner.Named
 import org.jnario.runner.Order
 import org.jnario.util.SourceAdapter
@@ -47,7 +48,6 @@ import static com.google.common.collect.Iterators.*
 
 import static extension com.google.common.base.Strings.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.eclipse.xtend.core.xtend.AnonymousClass
 
 /**
  * @author Birgit Engelmann - Initial contribution and API
@@ -75,10 +75,11 @@ class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
 	
 	@Inject extension JvmFieldReferenceUpdater
 	
-	@Inject TypesFactory typesFactory
+	@Inject extension TypesFactory typesFactory
+//	@Inject ExpressionCopier copier
 	
    override doInfer(EObject object, IJvmDeclaredTypeAcceptor acceptor, boolean preIndexingPhase) {
-   		if (!(object instanceof XtendFile))
+   		if (!(object instanceof JnarioFile))
 			return;
 		val doLater = <Runnable>newArrayList()
 		
@@ -134,15 +135,16 @@ class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
    		}
    	}
    	
-   	def register(IJvmDeclaredTypeAcceptor acceptor, XtendClass source, JvmGenericType inferredJvmType, List<JvmGenericType> scenarios, List<Runnable> doLater, boolean preIndexingPhase){
+   	def register(IJvmDeclaredTypeAcceptor acceptor, JnarioClass source, JvmGenericType inferredJvmType, List<JvmGenericType> scenarios, List<Runnable> doLater, boolean preIndexingPhase){
    		if (!preIndexingPhase) {
 			doLater.add([|init(source, inferredJvmType, scenarios)]);
 		}
    	} 
    	
-	def toClass(XtendClass xtendClass, List<JvmGenericType> scenarios, IJvmDeclaredTypeAcceptor acceptor, List<Runnable> doLater, boolean preIndexingPhase){
+	def toClass(JnarioClass xtendClass, List<JvmGenericType> scenarios, IJvmDeclaredTypeAcceptor acceptor, List<Runnable> doLater, boolean preIndexingPhase){
    		val javaType = typesFactory.createJvmGenericType
-   		setNameAndAssociate(xtendClass.xtendFile, xtendClass, javaType)
+   		xtendClass.eResource.contents += javaType
+   		setNameAndAssociate(xtendClass.jnarioFile, xtendClass, javaType)
    		acceptor.accept(javaType)
    		if (!preIndexingPhase) {
 			doLater.add([|init(xtendClass, javaType, scenarios)]);
@@ -154,24 +156,34 @@ class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
    		val annotations = inferredJvmType.annotations
    		if(!scenarios.empty)
    			testRuntime.addChildren(feature, inferredJvmType, scenarios.map[createTypeRef])
-   		annotations += feature.toAnnotation(typeof(Named), feature.describe)
-   		super.initialize(feature, inferredJvmType)
+   		annotations += Named.annotationRef(feature.describe)
+   		
+        inferredJvmType => [
+            visibility = JvmVisibility.PUBLIC
+            static = feature.static
+        ]
+        
+        inferredJvmType.translateAnnotations(feature.annotations)
+        feature.copyDocumentationTo(inferredJvmType);
+        
+        
    		testRuntime.updateFeature(feature, inferredJvmType, scenarios.map[createTypeRef])
    	}
    	
    	def dispatch void init(Scenario scenario, JvmGenericType inferredJvmType, List<JvmGenericType> scenarios){
-   		scenario.copyXtendMemberForReferences
-		scenario.members.filter(typeof(XtendField)).forEach[
+   		scenario.copyJnarioMemberForReferences
+		scenario.members.filter(typeof(JnarioField)).forEach[
 //			initializeName
-			transform2(it, inferredJvmType)
+
+			transform(it, inferredJvmType)
 		]   		
    		val annotations = inferredJvmType.annotations
    		testRuntime.updateScenario(scenario, inferredJvmType)
-   		annotations += scenario.toAnnotation(typeof(Named), scenario.describe)
+   		annotations += Named.annotationRef(scenario.describe)
    		val feature = scenario.feature
 		var start = 0
    		
-   		feature.annotations.translateAnnotationsTo(inferredJvmType)
+   		inferredJvmType.translateAnnotations(feature.annotations)
    		
    		val background = feature.background
    		
@@ -179,8 +191,9 @@ class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
 			start = background.steps.generateBackgroundStepCalls(inferredJvmType, scenario)
 		}
 		scenario.steps.generateSteps(inferredJvmType, start, scenario)
-   		super.initialize(scenario, inferredJvmType)
-   		scenario.steps.filter(typeof(StepReference)).forEach[
+		// TODO NO_XTEND
+   		// super.initialize(scenario, inferredJvmType)
+   		scenario.steps.filter(StepReference).forEach[
    			if(it.reference == null){
    				return
    			}
@@ -191,7 +204,7 @@ class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
    			val expr = expressionOf(it)
    			updateReferences(original, expr, inferredJvmType)
    		]
-   		scenario.members.filter(typeof(XtendField)).filter[initialValue != null].forEach[
+   		scenario.members.filter(JnarioField).filter[initialValue != null].forEach[
    			val source = SourceAdapter::find(it)
    			if(source == null){
    				return
@@ -208,32 +221,37 @@ class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
 		]
 		expr.updateReferences(originalType, inferredJvmType)
 	}
-   	
-	override protected transform(XtendField source, JvmGenericType container) {
-	  if(source.eContainer instanceof AnonymousClass){
-      super.transform(source, container)
-    }
-	}
-	
-	def protected transform2(XtendField source, JvmGenericType container) {
-		super.transform(source, container)
-	}
-	
-	
-	override protected transform(XtendFunction source, JvmGenericType container, boolean allowDispatch) {
-	  if(source.eContainer instanceof AnonymousClass){
-      super.transform(source, container, allowDispatch)
-    }
-	}
-	
-   	
-	override protected computeFieldName(XtendField field) {
-		var source = field
-		while(NodeModelUtils::getNode(source) == null && source != null){
-			source = SourceAdapter::find(source) as XtendField
-		}
-		super.computeFieldName(source as XtendField)
-	}
+
+// Seams unnecessary to me
+//    override protected void _transform(JnarioField source, JvmGenericType container) {
+//        super._transform(source, container)
+//        if (source.isExtension()){
+//            val field = source.jvmElements.head as JvmField
+//            if(field == null){
+//                return
+//            }
+//            field.setVisibility(JvmVisibility::PUBLIC)
+//            field.annotations += Extension.annotationRef
+//        }
+//    }
+
+//	
+// TODO NO_XTEND   	
+//	
+//	override protected transform(JnarioFunction source, JvmGenericType container, boolean allowDispatch) {
+//	  if(source.eContainer instanceof AnonymousClass){
+//      super.transform(source, container, allowDispatch)
+//    }
+//	}
+//	
+//   	
+//	override protected computeFieldName(JnarioField field) {
+//		var source = field
+//		while(NodeModelUtils::getNode(source) == null && source != null){
+//			source = SourceAdapter::find(source) as JnarioField
+//		}
+//		super.computeFieldName(source as JnarioField)
+//	}
 
    	def generateStepValues(Step step){
 		val arguments = stepArgumentsProvider.findStepArguments(step)
@@ -290,8 +308,12 @@ class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
 			markAsPending(step, scenario)
 			associatePrimary(step, it)
 			testRuntime.markAsTestMethod(step, it)
-			annotations += step.toAnnotation(typeof(Order), order.intValue)
-			annotations += step.toAnnotation(typeof(Named), step.describe)
+			annotations += Order.annotationRef => [
+			    explicitValues += createJvmIntAnnotationValue => [
+			        values += order.intValue
+			    ]
+		    ]
+			annotations += Named.annotationRef(step.describe)
 		]	
 		order + 1
    	}
@@ -311,11 +333,15 @@ class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
 			step.generateStepValues
 			body = stepExpression
 			testRuntime.markAsTestMethod(step, it)
-			annotations += step.toAnnotation(typeof(Order), order.intValue)
+			annotations += Order.annotationRef => [
+                explicitValues += createJvmIntAnnotationValue => [
+                    values += order.intValue
+                ]
+			]
 			var name = step.describe
 			associatePrimary(step, it)
 			markAsPending(step, scenario)
-			annotations += step.toAnnotation(typeof(Named), name)
+			annotations += Named.annotationRef(name)
 		]	
 		order + 1
 	}

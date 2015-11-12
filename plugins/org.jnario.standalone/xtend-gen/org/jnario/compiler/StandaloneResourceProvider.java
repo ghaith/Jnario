@@ -18,6 +18,7 @@ public class StandaloneResourceProvider implements Provider<ResourceSet> {
     this.resourceSet = resourceSet;
   }
   
+  @Override
   public ResourceSet get() {
     return this.resourceSet;
   }

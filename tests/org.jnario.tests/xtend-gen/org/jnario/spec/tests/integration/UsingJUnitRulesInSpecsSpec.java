@@ -27,9 +27,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class UsingJUnitRulesInSpecsSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor _behaviorExecutor;
   
   /**
@@ -42,24 +42,26 @@ public class UsingJUnitRulesInSpecsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package test");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("		");
     _builder.newLine();
     _builder.append("import org.junit.Rule");
     _builder.newLine();
     _builder.append("import org.junit.rules.TemporaryFolder");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe Rule{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("@Rule public val folder = new TemporaryFolder\t");
+    _builder.append("  @Rule public val folder = new TemporaryFolder	");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact folder.root should not be null");
+    _builder.append("  fact folder.root should not be null");
     _builder.newLine();
-    _builder.append("}\t\t");
+    _builder.append("}		");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

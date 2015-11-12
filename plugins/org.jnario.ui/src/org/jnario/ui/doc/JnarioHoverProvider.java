@@ -11,7 +11,7 @@
 package org.jnario.ui.doc;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.ide.hover.XtendHoverProvider;
+import org.eclipse.xtext.xbase.ui.hover.XbaseHoverProvider;
 import org.jnario.Specification;
 import org.jnario.doc.AbstractDocGenerator;
 import org.jnario.doc.HtmlFileBuilder;
@@ -23,7 +23,7 @@ import com.google.inject.Inject;
  *
  */
 @SuppressWarnings("restriction")
-public class JnarioHoverProvider extends XtendHoverProvider {
+public class JnarioHoverProvider extends XbaseHoverProvider {
 	
 	@Inject	AbstractDocGenerator docGenerator;
 	@Inject HtmlFileBuilder htmlFileBuilder;

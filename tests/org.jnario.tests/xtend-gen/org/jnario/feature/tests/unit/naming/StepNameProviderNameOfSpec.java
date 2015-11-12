@@ -44,13 +44,12 @@ public class StepNameProviderNameOfSpec extends StepNameProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Scenario: MyScenario");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given a step with an implementation");
+    _builder.append("	Given a step with an implementation");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("1 + 1 => 2");
+    _builder.append("		1 + 1 => 2");
     _builder.newLine();
-    this.parseScenario(_builder);
+    
+    this.parseScenario(_builder.toString());
     String _stepName = this.stepName();
     Assert.assertTrue("\nExpected stepName => \"Given a step with an implementation\" but"
      + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.<String>operator_doubleArrow(_stepName, "Given a step with an implementation"));
@@ -64,18 +63,16 @@ public class StepNameProviderNameOfSpec extends StepNameProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Scenario: MyScenario 2");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given a step with a resolved reference");
+    _builder.append("	Given a step with a resolved reference");
     _builder.newLine();
     _builder.append("Scenario: MyScenario 1");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given a step with a resolved reference");
+    _builder.append("	Given a step with a resolved reference");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("\"implementation\"");
+    _builder.append("		\"implementation\"");
     _builder.newLine();
-    this.parseScenario(_builder);
+    
+    this.parseScenario(_builder.toString());
     String _stepName = this.stepName();
     Assert.assertTrue("\nExpected stepName => \"Given a step with a resolved reference\" but"
      + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.<String>operator_doubleArrow(_stepName, "Given a step with a resolved reference"));
@@ -89,10 +86,10 @@ public class StepNameProviderNameOfSpec extends StepNameProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Scenario: MyScenario 2");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given a step with an unresolved reference");
+    _builder.append("	Given a step with an unresolved reference");
     _builder.newLine();
-    this.parseScenario(_builder);
+    
+    this.parseScenario(_builder.toString());
     String _stepName = this.stepName();
     Assert.assertTrue("\nExpected stepName => \"Given a step with an unresolved reference\" but"
      + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.<String>operator_doubleArrow(_stepName, "Given a step with an unresolved reference"));
@@ -106,13 +103,12 @@ public class StepNameProviderNameOfSpec extends StepNameProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Scenario: MyScenario 2");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given a step with two values \"a\" and \"b\"");
+    _builder.append("	Given a step with two values \"a\" and \"b\"");
     _builder.newLine();
-    _builder.append("\t ");
-    _builder.append("1 + 1 => 2");
+    _builder.append("	 1 + 1 => 2");
     _builder.newLine();
-    this.parseScenario(_builder);
+    
+    this.parseScenario(_builder.toString());
     String _stepName = this.stepName();
     Assert.assertTrue("\nExpected stepName => \'Given a step with two values \"a\" and \"b\"\' but"
      + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.<String>operator_doubleArrow(_stepName, "Given a step with two values \"a\" and \"b\""));

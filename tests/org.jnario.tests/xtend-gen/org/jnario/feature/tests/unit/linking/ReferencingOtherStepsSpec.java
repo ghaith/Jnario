@@ -35,9 +35,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class ReferencingOtherStepsSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore m;
   
   @Test
@@ -47,28 +47,26 @@ public class ReferencingOtherStepsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package test");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Feature: My Feature");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: Scenario 1");
+    _builder.append("	Scenario: Scenario 1");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step");
+    _builder.append("		Given a step");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("val x = \"an implementation\"");
+    _builder.append("			val x = \"an implementation\"");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: Scenario 2");
+    _builder.append("	Scenario: Scenario 2");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step");
+    _builder.append("		Given a step");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("		");
     _builder.newLine();
-    this.m.parseScenario(_builder);
+    
+    this.m.parseScenario(_builder.toString());
     GivenReference _first = this.m.<GivenReference>first(GivenReference.class);
     StepImplementation _reference = _first.getReference();
     StepImplementation _first_1 = this.m.<StepImplementation>first(Given.class);
@@ -86,32 +84,28 @@ public class ReferencingOtherStepsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package test");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Feature: My Feature");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: Scenario 1");
+    _builder.append("	Scenario: Scenario 1");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step");
+    _builder.append("		Given a step");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("val x = \"an implementation\"");
+    _builder.append("			val x = \"an implementation\"");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: Scenario 2");
+    _builder.append("	Scenario: Scenario 2");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step\t");
+    _builder.append("		Given a step	");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("//            ^ ");
+    _builder.append("		//            ^ ");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("//   here is a whitespace");
+    _builder.append("		//   here is a whitespace");
     _builder.newLine();
-    this.m.parseScenario(_builder);
+    
+    this.m.parseScenario(_builder.toString());
     GivenReference _first = this.m.<GivenReference>first(GivenReference.class);
     StepImplementation _reference = _first.getReference();
     StepImplementation _first_1 = this.m.<StepImplementation>first(Given.class);
@@ -129,35 +123,35 @@ public class ReferencingOtherStepsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package test");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Feature: My Feature 1");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: Scenario 1");
+    _builder.append("	Scenario: Scenario 1");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step");
+    _builder.append("		Given a step");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("val x = \"an implementation\"");
+    _builder.append("			val x = \"an implementation\"");
     _builder.newLine();
-    this.m.parseScenario(_builder);
+    
+    this.m.parseScenario(_builder.toString());
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("package test");
     _builder_1.newLine();
+    _builder_1.append("");
     _builder_1.newLine();
     _builder_1.append("Feature: My Feature 2");
     _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("Scenario: Scenario 2");
+    _builder_1.append("	Scenario: Scenario 2");
     _builder_1.newLine();
-    _builder_1.append("\t\t");
-    _builder_1.append("Given a step");
+    _builder_1.append("		Given a step");
     _builder_1.newLine();
-    _builder_1.append("\t\t");
+    _builder_1.append("		");
     _builder_1.newLine();
-    this.m.parseScenario(_builder_1);
+    
+    this.m.parseScenario(_builder_1.toString());
     GivenReference _first = this.m.<GivenReference>first(GivenReference.class);
     StepImplementation _reference = _first.getReference();
     StepImplementation _first_1 = this.m.<StepImplementation>first(Given.class);
@@ -175,20 +169,20 @@ public class ReferencingOtherStepsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package test1");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Feature: My Feature 1");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: Scenario 1");
+    _builder.append("	Scenario: Scenario 1");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step");
+    _builder.append("		Given a step");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("val x = \"an implementation\"");
+    _builder.append("			val x = \"an implementation\"");
     _builder.newLine();
-    this.m.parseScenario(_builder);
+    
+    this.m.parseScenario(_builder.toString());
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("package test2");
     _builder_1.newLine();
@@ -196,15 +190,14 @@ public class ReferencingOtherStepsSpec {
     _builder_1.newLine();
     _builder_1.append("Feature: My Feature 2");
     _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("Scenario: Scenario 2");
+    _builder_1.append("	Scenario: Scenario 2");
     _builder_1.newLine();
-    _builder_1.append("\t\t");
-    _builder_1.append("Given a step");
+    _builder_1.append("		Given a step");
     _builder_1.newLine();
-    _builder_1.append("\t\t");
+    _builder_1.append("		");
     _builder_1.newLine();
-    this.m.parseScenario(_builder_1);
+    
+    this.m.parseScenario(_builder_1.toString());
     GivenReference _first = this.m.<GivenReference>first(GivenReference.class);
     StepImplementation _reference = _first.getReference();
     StepImplementation _first_1 = this.m.<StepImplementation>first(Given.class);

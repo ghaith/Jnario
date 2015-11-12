@@ -10,23 +10,28 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.xtend.XtendAnnotationTarget;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendFunction;
-import org.eclipse.xtend.core.xtend.XtendField;
-import org.eclipse.xtend.core.xtend.XtendMember;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XBinaryOperation;
+import org.eclipse.xtext.xbase.XBlockExpression;
 import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XStringLiteral;
 import org.eclipse.xtext.xbase.XTypeLiteral;
 import org.jnario.*;
 import org.jnario.Assertion;
+import org.jnario.ExampleCell;
 import org.jnario.ExampleColumn;
 import org.jnario.ExampleRow;
 import org.jnario.ExampleTable;
 import org.jnario.Executable;
+import org.jnario.JnarioAnnotationTarget;
+import org.jnario.JnarioClass;
+import org.jnario.JnarioField;
+import org.jnario.JnarioFile;
+import org.jnario.JnarioFunction;
+import org.jnario.JnarioMember;
 import org.jnario.JnarioPackage;
+import org.jnario.JnarioParameter;
+import org.jnario.JnarioTypeDeclaration;
 import org.jnario.MockLiteral;
 import org.jnario.Should;
 import org.jnario.ShouldThrow;
@@ -109,9 +114,9 @@ public class JnarioSwitch<T> {
 			case JnarioPackage.EXAMPLE_TABLE: {
 				ExampleTable exampleTable = (ExampleTable)theEObject;
 				T result = caseExampleTable(exampleTable);
-				if (result == null) result = caseXtendMember(exampleTable);
+				if (result == null) result = caseJnarioMember(exampleTable);
 				if (result == null) result = caseXExpression(exampleTable);
-				if (result == null) result = caseXtendAnnotationTarget(exampleTable);
+				if (result == null) result = caseJnarioAnnotationTarget(exampleTable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -153,11 +158,11 @@ public class JnarioSwitch<T> {
 			case JnarioPackage.SPECIFICATION: {
 				Specification specification = (Specification)theEObject;
 				T result = caseSpecification(specification);
-				if (result == null) result = caseXtendClass(specification);
 				if (result == null) result = caseExecutable(specification);
-				if (result == null) result = caseXtendTypeDeclaration(specification);
-				if (result == null) result = caseXtendMember(specification);
-				if (result == null) result = caseXtendAnnotationTarget(specification);
+				if (result == null) result = caseJnarioClass(specification);
+				if (result == null) result = caseJnarioTypeDeclaration(specification);
+				if (result == null) result = caseJnarioMember(specification);
+				if (result == null) result = caseJnarioAnnotationTarget(specification);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -178,9 +183,84 @@ public class JnarioSwitch<T> {
 			case JnarioPackage.EXAMPLE_CELL: {
 				ExampleCell exampleCell = (ExampleCell)theEObject;
 				T result = caseExampleCell(exampleCell);
-				if (result == null) result = caseXtendFunction(exampleCell);
-				if (result == null) result = caseXtendMember(exampleCell);
-				if (result == null) result = caseXtendAnnotationTarget(exampleCell);
+				if (result == null) result = caseJnarioFunction(exampleCell);
+				if (result == null) result = caseJnarioMember(exampleCell);
+				if (result == null) result = caseJnarioAnnotationTarget(exampleCell);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JnarioPackage.JNARIO_FILE: {
+				JnarioFile jnarioFile = (JnarioFile)theEObject;
+				T result = caseJnarioFile(jnarioFile);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JnarioPackage.JNARIO_CLASS: {
+				JnarioClass jnarioClass = (JnarioClass)theEObject;
+				T result = caseJnarioClass(jnarioClass);
+				if (result == null) result = caseJnarioTypeDeclaration(jnarioClass);
+				if (result == null) result = caseJnarioMember(jnarioClass);
+				if (result == null) result = caseJnarioAnnotationTarget(jnarioClass);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JnarioPackage.JNARIO_MEMBER: {
+				JnarioMember jnarioMember = (JnarioMember)theEObject;
+				T result = caseJnarioMember(jnarioMember);
+				if (result == null) result = caseJnarioAnnotationTarget(jnarioMember);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JnarioPackage.JNARIO_FUNCTION: {
+				JnarioFunction jnarioFunction = (JnarioFunction)theEObject;
+				T result = caseJnarioFunction(jnarioFunction);
+				if (result == null) result = caseJnarioMember(jnarioFunction);
+				if (result == null) result = caseJnarioAnnotationTarget(jnarioFunction);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JnarioPackage.JNARIO_FIELD: {
+				JnarioField jnarioField = (JnarioField)theEObject;
+				T result = caseJnarioField(jnarioField);
+				if (result == null) result = caseJnarioMember(jnarioField);
+				if (result == null) result = caseJnarioAnnotationTarget(jnarioField);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JnarioPackage.JNARIO_TYPE_DECLARATION: {
+				JnarioTypeDeclaration jnarioTypeDeclaration = (JnarioTypeDeclaration)theEObject;
+				T result = caseJnarioTypeDeclaration(jnarioTypeDeclaration);
+				if (result == null) result = caseJnarioMember(jnarioTypeDeclaration);
+				if (result == null) result = caseJnarioAnnotationTarget(jnarioTypeDeclaration);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JnarioPackage.JNARIO_ANNOTATION_TARGET: {
+				JnarioAnnotationTarget jnarioAnnotationTarget = (JnarioAnnotationTarget)theEObject;
+				T result = caseJnarioAnnotationTarget(jnarioAnnotationTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JnarioPackage.JNARIO_PARAMETER: {
+				JnarioParameter jnarioParameter = (JnarioParameter)theEObject;
+				T result = caseJnarioParameter(jnarioParameter);
+				if (result == null) result = caseJnarioAnnotationTarget(jnarioParameter);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JnarioPackage.RICH_STRING: {
+				RichString richString = (RichString)theEObject;
+				T result = caseRichString(richString);
+				if (result == null) result = caseXBlockExpression(richString);
+				if (result == null) result = caseXExpression(richString);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JnarioPackage.RICH_STRING_LITERAL: {
+				RichStringLiteral richStringLiteral = (RichStringLiteral)theEObject;
+				T result = caseRichStringLiteral(richStringLiteral);
+				if (result == null) result = caseXStringLiteral(richStringLiteral);
+				if (result == null) result = caseXExpression(richStringLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -339,17 +419,32 @@ public class JnarioSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>File</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>File</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendAnnotationTarget(XtendAnnotationTarget object) {
+	public T caseJnarioFile(JnarioFile object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Class</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJnarioClass(JnarioClass object) {
 		return null;
 	}
 
@@ -364,7 +459,112 @@ public class JnarioSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendMember(XtendMember object) {
+	public T caseJnarioMember(JnarioMember object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Function</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Function</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJnarioFunction(JnarioFunction object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Field</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Field</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJnarioField(JnarioField object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Declaration</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Declaration</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJnarioTypeDeclaration(JnarioTypeDeclaration object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJnarioAnnotationTarget(JnarioAnnotationTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Parameter</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Parameter</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJnarioParameter(JnarioParameter object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Rich String</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Rich String</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRichString(RichString object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Rich String Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Rich String Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRichStringLiteral(RichStringLiteral object) {
 		return null;
 	}
 
@@ -414,36 +614,6 @@ public class JnarioSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Type Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type Declaration</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseXtendTypeDeclaration(XtendTypeDeclaration object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Class</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Class</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseXtendClass(XtendClass object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>XType Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -459,17 +629,32 @@ public class JnarioSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Function</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>XBlock Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Function</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>XBlock Expression</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendFunction(XtendFunction object) {
+	public T caseXBlockExpression(XBlockExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>XString Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>XString Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseXStringLiteral(XStringLiteral object) {
 		return null;
 	}
 

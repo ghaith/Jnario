@@ -117,6 +117,7 @@ public class StringsStartsWithWordSpec extends StringsSpec {
   @Order(1)
   public void _examplesForEachStringStartsWithWordWordIndex() throws Exception {
     final Procedure1<StringsStartsWithWordSpecExamples> _function = new Procedure1<StringsStartsWithWordSpecExamples>() {
+      @Override
       public void apply(final StringsStartsWithWordSpecExamples it) {
         String _string = it.getString();
         String _word = it.getWord();

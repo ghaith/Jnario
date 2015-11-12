@@ -44,16 +44,16 @@ public class StepNameProviderSpec {
   @Subject
   public StepNameProvider subject;
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore modelStore;
   
-  public String desc(final Feature feature) {
+  public String desc(@Extension final Feature feature) {
     return this.subject.describe(feature);
   }
   
-  public String desc(final Scenario scen) {
+  public String desc(@Extension final Scenario scen) {
     return this.subject.describe(scen);
   }
   
@@ -80,15 +80,17 @@ public class StepNameProviderSpec {
     return FeatureFactory.eINSTANCE.createGivenReference();
   }
   
-  public Resource parseScenario(final CharSequence s) {
+  public Resource parseScenario(@Extension final CharSequence s) {
     Resource _xblockexpression = null;
     {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("Feature: example");
       _builder.newLine();
-      _builder.append(s, "");
-      _builder.newLineIfNotEmpty();
-      final String input = _builder.toString();
+      
+      String _plus = (_builder.toString() + s);
+      StringConcatenation _builder_1 = new StringConcatenation();
+      
+      final String input = (_plus + _builder_1.toString());
       _xblockexpression = this.modelStore.parseScenario(input);
     }
     return _xblockexpression;

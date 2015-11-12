@@ -7,9 +7,9 @@
  *******************************************************************************/
 package org.jnario.suite.conversion
 
-import org.eclipse.xtext.xbase.conversion.XbaseValueConverterService
-import org.eclipse.xtext.conversion.ValueConverter
 import org.eclipse.xtext.conversion.IValueConverter
+import org.eclipse.xtext.conversion.ValueConverter
+import org.eclipse.xtext.xbase.conversion.XbaseValueConverterService
 
 class SuiteValueConverterService extends XbaseValueConverterService {
 	

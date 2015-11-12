@@ -14,10 +14,6 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.eclipse.xtend.core.xtend.XtendPackage;
-
-import org.eclipse.xtext.xtype.XtypePackage;
-
 import org.jnario.JnarioPackage;
 
 import org.jnario.suite.suite.PatternReference;
@@ -121,7 +117,6 @@ public class SuitePackageImpl extends EPackageImpl implements SuitePackage
 
 		// Initialize simple dependencies
 		JnarioPackage.eINSTANCE.eClass();
-		XtypePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theSuitePackage.createPackageContents();
@@ -299,7 +294,6 @@ public class SuitePackageImpl extends EPackageImpl implements SuitePackage
 
 		// Obtain other dependent packages
 		JnarioPackage theJnarioPackage = (JnarioPackage)EPackage.Registry.INSTANCE.getEPackage(JnarioPackage.eNS_URI);
-		XtendPackage theXtendPackage = (XtendPackage)EPackage.Registry.INSTANCE.getEPackage(XtendPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -309,7 +303,7 @@ public class SuitePackageImpl extends EPackageImpl implements SuitePackage
 		patternReferenceEClass.getESuperTypes().add(this.getReference());
 		specReferenceEClass.getESuperTypes().add(this.getReference());
 		suiteEClass.getESuperTypes().add(theJnarioPackage.getSpecification());
-		suiteFileEClass.getESuperTypes().add(theXtendPackage.getXtendFile());
+		suiteFileEClass.getESuperTypes().add(theJnarioPackage.getJnarioFile());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(patternReferenceEClass, PatternReference.class, "PatternReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -7,8 +7,6 @@
  *******************************************************************************/
 package org.jnario.feature.compiler;
 
-import static com.google.common.collect.Iterables.filter;
-
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notifier;
@@ -21,6 +19,7 @@ import org.jnario.feature.feature.Scenario;
 import org.jnario.feature.naming.FeatureClassNameProvider;
 
 import com.google.inject.Inject;
+import static com.google.common.collect.Iterables.*;
 
 /**
  * @author Sebastian Benz - Initial contribution and API

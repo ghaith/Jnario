@@ -34,24 +34,20 @@ public class GivenWhenThenSpec {
     _builder.newLine();
     _builder.append("Scenario: Multiple Givens");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("Given one thing");
+    _builder.append("  Given one thing");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("And another thing");
+    _builder.append("    And another thing");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("And yet another thing");
+    _builder.append("    And yet another thing");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("When I trigger something");
+    _builder.append("  When I trigger something");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("Then happens something");
+    _builder.append("  Then happens something");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("But not more");
+    _builder.append("    But not more");
     _builder.newLine();
-    FeatureExecutor.isSuccessful(_builder);
+    
+    FeatureExecutor.isSuccessful(
+      _builder.toString());
   }
 }

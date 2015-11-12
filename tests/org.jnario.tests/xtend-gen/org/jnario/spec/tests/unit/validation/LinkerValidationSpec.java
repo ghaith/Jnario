@@ -26,14 +26,14 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class LinkerValidationSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ParseHelper<EObject> parseHelper;
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ValidationTestHelper validationTestHelper;
   
   @Test
@@ -43,21 +43,21 @@ public class LinkerValidationSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"something\"{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"x\" {");
+    _builder.append("  fact \"x\" {");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("1 should not be 2");
+    _builder.append("    1 should not be 2");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    EObject _parse = this.parseHelper.parse(_builder);
+    
+    EObject _parse = this.parseHelper.parse(
+      _builder.toString());
     List<Issue> _validate = this.validationTestHelper.validate(_parse);
     this.assertNoIssues(_validate);
   }
@@ -69,21 +69,21 @@ public class LinkerValidationSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"something\"{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"x\" {");
+    _builder.append("  fact \"x\" {");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("println(abc)");
+    _builder.append("    println(abc)");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    EObject _parse = this.parseHelper.parse(_builder);
+    
+    EObject _parse = this.parseHelper.parse(
+      _builder.toString());
     List<Issue> _validate = this.validationTestHelper.validate(_parse);
     this.assertIssues(_validate, 
       "The method or field abc is undefined");
@@ -96,21 +96,21 @@ public class LinkerValidationSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"something\"{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"x\" {");
+    _builder.append("  fact \"x\" {");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("abc should be 0");
+    _builder.append("    abc should be 0");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    EObject _parse = this.parseHelper.parse(_builder);
+    
+    EObject _parse = this.parseHelper.parse(
+      _builder.toString());
     List<Issue> _validate = this.validationTestHelper.validate(_parse);
     this.assertIssues(_validate, 
       "The method or field abc is undefined");
@@ -123,21 +123,21 @@ public class LinkerValidationSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"something\"{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"x\" {");
+    _builder.append("  fact \"x\" {");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("abc should be null");
+    _builder.append("    abc should be null");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    EObject _parse = this.parseHelper.parse(_builder);
+    
+    EObject _parse = this.parseHelper.parse(
+      _builder.toString());
     List<Issue> _validate = this.validationTestHelper.validate(_parse);
     this.assertIssues(_validate, 
       "The method or field abc is undefined");
@@ -150,21 +150,21 @@ public class LinkerValidationSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"something\"{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"x\" {");
+    _builder.append("  fact \"x\" {");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("abc => null");
+    _builder.append("    abc => null");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    EObject _parse = this.parseHelper.parse(_builder);
+    
+    EObject _parse = this.parseHelper.parse(
+      _builder.toString());
     List<Issue> _validate = this.validationTestHelper.validate(_parse);
     this.assertIssues(_validate, 
       "The method or field abc is undefined");
@@ -177,24 +177,23 @@ public class LinkerValidationSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"something\"{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"x\" {");
+    _builder.append("  fact \"x\" {");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("string => null");
+    _builder.append("    string => null");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("def getString() {\"\"}");
+    _builder.append("  def getString() {\"\"}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    EObject _parse = this.parseHelper.parse(_builder);
+    
+    EObject _parse = this.parseHelper.parse(
+      _builder.toString());
     List<Issue> _validate = this.validationTestHelper.validate(_parse);
     this.assertNoIssues(_validate);
   }
@@ -206,29 +205,28 @@ public class LinkerValidationSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"something\"{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"x\" {");
+    _builder.append("  fact \"x\" {");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("val withoutType = null");
+    _builder.append("    val withoutType = null");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("withoutType => null");
+    _builder.append("    withoutType => null");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    EObject _parse = this.parseHelper.parse(_builder);
+    
+    EObject _parse = this.parseHelper.parse(
+      _builder.toString());
     List<Issue> _validate = this.validationTestHelper.validate(_parse);
     this.assertNoIssues(_validate);
   }
   
-  public boolean assertNoIssues(final List<Issue> issues) {
+  public boolean assertNoIssues(@Extension final List<Issue> issues) {
     int _size = issues.size();
     Assert.assertTrue("\nExpected issues.size => 0 but"
      + "\n     issues.size is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_size)).toString()
@@ -237,11 +235,13 @@ public class LinkerValidationSpec {
     return Should.<Integer>operator_doubleArrow(Integer.valueOf(_size), Integer.valueOf(0));
   }
   
-  public void assertIssues(final List<Issue> issues, final String... parts) {
+  public void assertIssues(@Extension final List<Issue> issues, @Extension final String... parts) {
     final StringBuilder sb = new StringBuilder();
     final Function1<Issue, Boolean> _function = new Function1<Issue, Boolean>() {
+      @Override
       public Boolean apply(final Issue it) {
         final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
+          @Override
           public Boolean apply(final String part) {
             String _message = it.getMessage();
             return Boolean.valueOf(_message.contains(part));
@@ -261,8 +261,10 @@ public class LinkerValidationSpec {
       }
     }
     final Function1<String, Boolean> _function_1 = new Function1<String, Boolean>() {
+      @Override
       public Boolean apply(final String part) {
         final Function1<Issue, Boolean> _function = new Function1<Issue, Boolean>() {
+          @Override
           public Boolean apply(final Issue it) {
             String _message = it.getMessage();
             return Boolean.valueOf(_message.contains(part));
@@ -287,10 +289,13 @@ public class LinkerValidationSpec {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("Issue mismatch");
       _builder.newLine();
+      
       String _string = sb.toString();
-      _builder.append(_string, "");
-      _builder.newLineIfNotEmpty();
-      org.junit.Assert.fail(_builder.toString());
+      String _plus = (_builder.toString() + _string);
+      StringConcatenation _builder_1 = new StringConcatenation();
+      
+      String _plus_1 = (_plus + _builder_1.toString());
+      org.junit.Assert.fail(_plus_1);
     }
   }
 }

@@ -28,12 +28,12 @@ public class FeatureJavaValidatorScenariosMustHaveDescriptionsSpec extends Featu
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Feature: A Feature");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario:");
+    _builder.append("	Scenario:");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
-    AssertableDiagnostics _select = this.select(_builder, Scenario.class);
+    
+    AssertableDiagnostics _select = this.select(_builder.toString(), Scenario.class);
     _select.assertErrorContains("description");
   }
 }

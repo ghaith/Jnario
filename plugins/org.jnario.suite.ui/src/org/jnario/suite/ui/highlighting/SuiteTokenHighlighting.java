@@ -7,16 +7,15 @@
  *******************************************************************************/
 package org.jnario.suite.ui.highlighting;
 
-import org.eclipse.xtend.ide.highlighting.TokenToAttributeIdMapper;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultAntlrTokenToAttributeIdMapper;
 
 import com.google.inject.Singleton;
 
 /**
  * @author Sebastian Benz - Initial contribution and API
  */
-@SuppressWarnings("restriction")
 @Singleton
-public class SuiteTokenHighlighting extends TokenToAttributeIdMapper{
+public class SuiteTokenHighlighting extends DefaultAntlrTokenToAttributeIdMapper {
 
 	@Override
 	protected String calculateId(String tokenName, int tokenType) {

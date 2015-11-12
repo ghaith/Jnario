@@ -5,7 +5,6 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtext.common.types.JvmDeclaredType;
 import org.eclipse.xtext.common.types.JvmMember;
 import org.eclipse.xtext.resource.EObjectDescription;
@@ -13,6 +12,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.ISelectable;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.MultimapBasedSelectable;
+import org.jnario.JnarioTypeDeclaration;
 import org.jnario.feature.feature.Feature;
 import org.jnario.feature.feature.FeatureFile;
 import org.jnario.feature.feature.FeaturePackage;
@@ -52,7 +52,7 @@ public class FeatureImportedNamespaceScopeProvider extends
 
 	private void doGetAllDescriptions(FeatureFile featureFile,
 			List<IEObjectDescription> descriptions) {
-		for (XtendTypeDeclaration typeDeclaration : featureFile.getXtendTypes()) {
+		for (JnarioTypeDeclaration typeDeclaration : featureFile.getXtendTypes()) {
 			if (typeDeclaration instanceof Feature) {
 				doGetAllDescriptions((Feature) typeDeclaration, descriptions);
 			}

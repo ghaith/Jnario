@@ -25,6 +25,7 @@ public class CellLocation {
   
   public Set<CellLocation> neighbours() {
     final Function1<CellLocation, CellLocation> _function = new Function1<CellLocation, CellLocation>() {
+      @Override
       public CellLocation apply(final CellLocation it) {
         return CellLocation.this.plus(it);
       }

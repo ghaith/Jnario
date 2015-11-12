@@ -12,15 +12,13 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtend.core.xtend.XtendAnnotationTarget;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendExecutable;
-import org.eclipse.xtend.core.xtend.XtendFile;
-import org.eclipse.xtend.core.xtend.XtendFunction;
-import org.eclipse.xtend.core.xtend.XtendMember;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
-
 import org.jnario.Executable;
+import org.jnario.JnarioAnnotationTarget;
+import org.jnario.JnarioClass;
+import org.jnario.JnarioFile;
+import org.jnario.JnarioFunction;
+import org.jnario.JnarioMember;
+import org.jnario.JnarioTypeDeclaration;
 import org.jnario.Specification;
 
 import org.jnario.feature.feature.*;
@@ -113,11 +111,11 @@ public class FeatureSwitch<T>
 				Feature feature = (Feature)theEObject;
 				T result = caseFeature(feature);
 				if (result == null) result = caseSpecification(feature);
-				if (result == null) result = caseXtendClass(feature);
 				if (result == null) result = caseExecutable(feature);
-				if (result == null) result = caseXtendTypeDeclaration(feature);
-				if (result == null) result = caseXtendMember(feature);
-				if (result == null) result = caseXtendAnnotationTarget(feature);
+				if (result == null) result = caseJnarioClass(feature);
+				if (result == null) result = caseJnarioTypeDeclaration(feature);
+				if (result == null) result = caseJnarioMember(feature);
+				if (result == null) result = caseJnarioAnnotationTarget(feature);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -126,11 +124,11 @@ public class FeatureSwitch<T>
 				Background background = (Background)theEObject;
 				T result = caseBackground(background);
 				if (result == null) result = caseScenario(background);
-				if (result == null) result = caseXtendClass(background);
 				if (result == null) result = caseExecutable(background);
-				if (result == null) result = caseXtendTypeDeclaration(background);
-				if (result == null) result = caseXtendMember(background);
-				if (result == null) result = caseXtendAnnotationTarget(background);
+				if (result == null) result = caseJnarioClass(background);
+				if (result == null) result = caseJnarioTypeDeclaration(background);
+				if (result == null) result = caseJnarioMember(background);
+				if (result == null) result = caseJnarioAnnotationTarget(background);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -138,11 +136,11 @@ public class FeatureSwitch<T>
 			{
 				Scenario scenario = (Scenario)theEObject;
 				T result = caseScenario(scenario);
-				if (result == null) result = caseXtendClass(scenario);
 				if (result == null) result = caseExecutable(scenario);
-				if (result == null) result = caseXtendTypeDeclaration(scenario);
-				if (result == null) result = caseXtendMember(scenario);
-				if (result == null) result = caseXtendAnnotationTarget(scenario);
+				if (result == null) result = caseJnarioClass(scenario);
+				if (result == null) result = caseJnarioTypeDeclaration(scenario);
+				if (result == null) result = caseJnarioMember(scenario);
+				if (result == null) result = caseJnarioAnnotationTarget(scenario);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -150,11 +148,10 @@ public class FeatureSwitch<T>
 			{
 				Step step = (Step)theEObject;
 				T result = caseStep(step);
-				if (result == null) result = caseXtendFunction(step);
 				if (result == null) result = caseExecutable(step);
-				if (result == null) result = caseXtendExecutable(step);
-				if (result == null) result = caseXtendMember(step);
-				if (result == null) result = caseXtendAnnotationTarget(step);
+				if (result == null) result = caseJnarioFunction(step);
+				if (result == null) result = caseJnarioMember(step);
+				if (result == null) result = caseJnarioAnnotationTarget(step);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -164,11 +161,10 @@ public class FeatureSwitch<T>
 				T result = caseGiven(given);
 				if (result == null) result = caseStepImplementation(given);
 				if (result == null) result = caseStep(given);
-				if (result == null) result = caseXtendFunction(given);
 				if (result == null) result = caseExecutable(given);
-				if (result == null) result = caseXtendExecutable(given);
-				if (result == null) result = caseXtendMember(given);
-				if (result == null) result = caseXtendAnnotationTarget(given);
+				if (result == null) result = caseJnarioFunction(given);
+				if (result == null) result = caseJnarioMember(given);
+				if (result == null) result = caseJnarioAnnotationTarget(given);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -178,11 +174,10 @@ public class FeatureSwitch<T>
 				T result = caseWhen(when);
 				if (result == null) result = caseStepImplementation(when);
 				if (result == null) result = caseStep(when);
-				if (result == null) result = caseXtendFunction(when);
 				if (result == null) result = caseExecutable(when);
-				if (result == null) result = caseXtendExecutable(when);
-				if (result == null) result = caseXtendMember(when);
-				if (result == null) result = caseXtendAnnotationTarget(when);
+				if (result == null) result = caseJnarioFunction(when);
+				if (result == null) result = caseJnarioMember(when);
+				if (result == null) result = caseJnarioAnnotationTarget(when);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -192,11 +187,10 @@ public class FeatureSwitch<T>
 				T result = caseThen(then);
 				if (result == null) result = caseStepImplementation(then);
 				if (result == null) result = caseStep(then);
-				if (result == null) result = caseXtendFunction(then);
 				if (result == null) result = caseExecutable(then);
-				if (result == null) result = caseXtendExecutable(then);
-				if (result == null) result = caseXtendMember(then);
-				if (result == null) result = caseXtendAnnotationTarget(then);
+				if (result == null) result = caseJnarioFunction(then);
+				if (result == null) result = caseJnarioMember(then);
+				if (result == null) result = caseJnarioAnnotationTarget(then);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -206,11 +200,10 @@ public class FeatureSwitch<T>
 				T result = caseAnd(and);
 				if (result == null) result = caseStepImplementation(and);
 				if (result == null) result = caseStep(and);
-				if (result == null) result = caseXtendFunction(and);
 				if (result == null) result = caseExecutable(and);
-				if (result == null) result = caseXtendExecutable(and);
-				if (result == null) result = caseXtendMember(and);
-				if (result == null) result = caseXtendAnnotationTarget(and);
+				if (result == null) result = caseJnarioFunction(and);
+				if (result == null) result = caseJnarioMember(and);
+				if (result == null) result = caseJnarioAnnotationTarget(and);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -218,7 +211,7 @@ public class FeatureSwitch<T>
 			{
 				FeatureFile featureFile = (FeatureFile)theEObject;
 				T result = caseFeatureFile(featureFile);
-				if (result == null) result = caseXtendFile(featureFile);
+				if (result == null) result = caseJnarioFile(featureFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -228,11 +221,10 @@ public class FeatureSwitch<T>
 				T result = caseGivenReference(givenReference);
 				if (result == null) result = caseStepReference(givenReference);
 				if (result == null) result = caseStep(givenReference);
-				if (result == null) result = caseXtendFunction(givenReference);
 				if (result == null) result = caseExecutable(givenReference);
-				if (result == null) result = caseXtendExecutable(givenReference);
-				if (result == null) result = caseXtendMember(givenReference);
-				if (result == null) result = caseXtendAnnotationTarget(givenReference);
+				if (result == null) result = caseJnarioFunction(givenReference);
+				if (result == null) result = caseJnarioMember(givenReference);
+				if (result == null) result = caseJnarioAnnotationTarget(givenReference);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -242,11 +234,10 @@ public class FeatureSwitch<T>
 				T result = caseWhenReference(whenReference);
 				if (result == null) result = caseStepReference(whenReference);
 				if (result == null) result = caseStep(whenReference);
-				if (result == null) result = caseXtendFunction(whenReference);
 				if (result == null) result = caseExecutable(whenReference);
-				if (result == null) result = caseXtendExecutable(whenReference);
-				if (result == null) result = caseXtendMember(whenReference);
-				if (result == null) result = caseXtendAnnotationTarget(whenReference);
+				if (result == null) result = caseJnarioFunction(whenReference);
+				if (result == null) result = caseJnarioMember(whenReference);
+				if (result == null) result = caseJnarioAnnotationTarget(whenReference);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -256,11 +247,10 @@ public class FeatureSwitch<T>
 				T result = caseThenReference(thenReference);
 				if (result == null) result = caseStepReference(thenReference);
 				if (result == null) result = caseStep(thenReference);
-				if (result == null) result = caseXtendFunction(thenReference);
 				if (result == null) result = caseExecutable(thenReference);
-				if (result == null) result = caseXtendExecutable(thenReference);
-				if (result == null) result = caseXtendMember(thenReference);
-				if (result == null) result = caseXtendAnnotationTarget(thenReference);
+				if (result == null) result = caseJnarioFunction(thenReference);
+				if (result == null) result = caseJnarioMember(thenReference);
+				if (result == null) result = caseJnarioAnnotationTarget(thenReference);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -270,11 +260,10 @@ public class FeatureSwitch<T>
 				T result = caseAndReference(andReference);
 				if (result == null) result = caseStepReference(andReference);
 				if (result == null) result = caseStep(andReference);
-				if (result == null) result = caseXtendFunction(andReference);
 				if (result == null) result = caseExecutable(andReference);
-				if (result == null) result = caseXtendExecutable(andReference);
-				if (result == null) result = caseXtendMember(andReference);
-				if (result == null) result = caseXtendAnnotationTarget(andReference);
+				if (result == null) result = caseJnarioFunction(andReference);
+				if (result == null) result = caseJnarioMember(andReference);
+				if (result == null) result = caseJnarioAnnotationTarget(andReference);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -283,11 +272,10 @@ public class FeatureSwitch<T>
 				StepReference stepReference = (StepReference)theEObject;
 				T result = caseStepReference(stepReference);
 				if (result == null) result = caseStep(stepReference);
-				if (result == null) result = caseXtendFunction(stepReference);
 				if (result == null) result = caseExecutable(stepReference);
-				if (result == null) result = caseXtendExecutable(stepReference);
-				if (result == null) result = caseXtendMember(stepReference);
-				if (result == null) result = caseXtendAnnotationTarget(stepReference);
+				if (result == null) result = caseJnarioFunction(stepReference);
+				if (result == null) result = caseJnarioMember(stepReference);
+				if (result == null) result = caseJnarioAnnotationTarget(stepReference);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -296,11 +284,10 @@ public class FeatureSwitch<T>
 				StepImplementation stepImplementation = (StepImplementation)theEObject;
 				T result = caseStepImplementation(stepImplementation);
 				if (result == null) result = caseStep(stepImplementation);
-				if (result == null) result = caseXtendFunction(stepImplementation);
 				if (result == null) result = caseExecutable(stepImplementation);
-				if (result == null) result = caseXtendExecutable(stepImplementation);
-				if (result == null) result = caseXtendMember(stepImplementation);
-				if (result == null) result = caseXtendAnnotationTarget(stepImplementation);
+				if (result == null) result = caseJnarioFunction(stepImplementation);
+				if (result == null) result = caseJnarioMember(stepImplementation);
+				if (result == null) result = caseJnarioAnnotationTarget(stepImplementation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -310,11 +297,10 @@ public class FeatureSwitch<T>
 				T result = caseBut(but);
 				if (result == null) result = caseStepImplementation(but);
 				if (result == null) result = caseStep(but);
-				if (result == null) result = caseXtendFunction(but);
 				if (result == null) result = caseExecutable(but);
-				if (result == null) result = caseXtendExecutable(but);
-				if (result == null) result = caseXtendMember(but);
-				if (result == null) result = caseXtendAnnotationTarget(but);
+				if (result == null) result = caseJnarioFunction(but);
+				if (result == null) result = caseJnarioMember(but);
+				if (result == null) result = caseJnarioAnnotationTarget(but);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -324,11 +310,10 @@ public class FeatureSwitch<T>
 				T result = caseButReference(butReference);
 				if (result == null) result = caseStepReference(butReference);
 				if (result == null) result = caseStep(butReference);
-				if (result == null) result = caseXtendFunction(butReference);
 				if (result == null) result = caseExecutable(butReference);
-				if (result == null) result = caseXtendExecutable(butReference);
-				if (result == null) result = caseXtendMember(butReference);
-				if (result == null) result = caseXtendAnnotationTarget(butReference);
+				if (result == null) result = caseJnarioFunction(butReference);
+				if (result == null) result = caseJnarioMember(butReference);
+				if (result == null) result = caseJnarioAnnotationTarget(butReference);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -609,6 +594,22 @@ public class FeatureSwitch<T>
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Executable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Executable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExecutable(Executable object)
+	{
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -619,7 +620,7 @@ public class FeatureSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendAnnotationTarget(XtendAnnotationTarget object)
+	public T caseJnarioAnnotationTarget(JnarioAnnotationTarget object)
 	{
 		return null;
 	}
@@ -635,7 +636,7 @@ public class FeatureSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendMember(XtendMember object)
+	public T caseJnarioMember(JnarioMember object)
 	{
 		return null;
 	}
@@ -651,7 +652,7 @@ public class FeatureSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendTypeDeclaration(XtendTypeDeclaration object)
+	public T caseJnarioTypeDeclaration(JnarioTypeDeclaration object)
 	{
 		return null;
 	}
@@ -667,23 +668,7 @@ public class FeatureSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendClass(XtendClass object)
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Executable</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Executable</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseExecutable(Executable object)
+	public T caseJnarioClass(JnarioClass object)
 	{
 		return null;
 	}
@@ -705,22 +690,6 @@ public class FeatureSwitch<T>
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Executable</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Executable</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseXtendExecutable(XtendExecutable object)
-	{
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -731,7 +700,7 @@ public class FeatureSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendFunction(XtendFunction object)
+	public T caseJnarioFunction(JnarioFunction object)
 	{
 		return null;
 	}
@@ -747,7 +716,7 @@ public class FeatureSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendFile(XtendFile object)
+	public T caseJnarioFile(JnarioFile object)
 	{
 		return null;
 	}

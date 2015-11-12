@@ -22,6 +22,7 @@ public class HtmlAssetsCompiler extends JnarioDocCompiler {
   @Inject
   private HtmlAssets htmlAssets;
   
+  @Override
   public boolean compile() {
     final JavaIoFileSystemAccess fsa = this.filesystemAccessProvider.get();
     fsa.setOutputPath(DocOutputConfigurationProvider.ASSET_OUTPUT, this.outputPath);

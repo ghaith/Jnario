@@ -9,12 +9,10 @@ package org.jnario.suite.ui.editor;
 
 import org.eclipse.jface.text.ITextDoubleClickStrategy;
 import org.eclipse.jface.text.source.ISourceViewer;
-import org.eclipse.xtend.ide.editor.XtendDoubleClickStrategyProvider;
+import org.eclipse.xtext.ui.editor.doubleClicking.DoubleClickStrategyProvider;
 import org.eclipse.xtext.ui.editor.doubleClicking.FixedCharCountPartitionDoubleClickSelector;
 
-@SuppressWarnings("restriction")
-public class SuiteDoubleClickStrategyProvider extends
-		XtendDoubleClickStrategyProvider {
+public class SuiteDoubleClickStrategyProvider extends DoubleClickStrategyProvider {
 
 	
 	public ITextDoubleClickStrategy getStrategy(ISourceViewer sourceViewer, String contentType, String documentPartitioning) {

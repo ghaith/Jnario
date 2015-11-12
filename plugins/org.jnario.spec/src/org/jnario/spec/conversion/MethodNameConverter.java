@@ -7,15 +7,43 @@
  *******************************************************************************/
 package org.jnario.spec.conversion;
 
-import org.antlr.runtime.TokenSource;
-import org.eclipse.xtext.conversion.impl.IDValueConverter;
+import org.eclipse.xtext.GrammarUtil;
+import org.eclipse.xtext.IGrammarAccess;
+import org.eclipse.xtext.conversion.IValueConverter;
+import org.eclipse.xtext.conversion.IValueConverterService;
+import org.eclipse.xtext.conversion.ValueConverterException;
+import org.eclipse.xtext.nodemodel.INode;
+
+import com.google.inject.Inject;
+
 /**
- * @author Sebastian Benz - Initial contribution and API
+ * 
+ * @author Boris Brodski
  */
-public class MethodNameConverter extends IDValueConverter {
+public class MethodNameConverter implements IValueConverter<String> {
+	
+	@Inject
+	private IValueConverterService delegateConverterService;
 
 	@Override
-	protected void assertTokens(String value, TokenSource tokenSource,
-			String escapedString) {
+	public String toValue(String string, INode node) throws ValueConverterException {
+		String name = getName(string);
+		return (String)delegateConverterService.toValue(name, "ValidID", node);
 	}
+
+	@Override
+	public String toString(String value) throws ValueConverterException {
+		String name = getName(value);
+		return delegateConverterService.toString(name, "ValidID");
+	}
+
+	private String getName(String string) {
+		int index = string.indexOf("(");
+		if (index == -1) {
+			return string;
+		}
+		return string.substring(0, index);
+	}
+
+
 }

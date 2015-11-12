@@ -126,6 +126,6 @@ class SpecResultParser extends DefaultHandler{
 	
 	def convertValue(Attributes attributes, String key) {
 		val value = attributes.getValue(key).replace("\\/", "/")
-    Strings.convertFromJavaString(value, true)
+        Strings.convertFromJavaString(value, true)
 	}
 }

@@ -59,9 +59,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class SpecExtensionsSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor _behaviorExecutor;
   
   @Test
@@ -71,32 +71,29 @@ public class SpecExtensionsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("import org.jnario.spec.tests.integration.ExtensionExample");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"Extension\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("extension static ExtensionExample = new ExtensionExample()");
+    _builder.append("	extension static ExtensionExample = new ExtensionExample()");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("context \"Nested Spec\"{");
+    _builder.append("	context \"Nested Spec\"{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("fact println(\"test 3\")");
+    _builder.append("		fact println(\"test 3\")");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact println(\"test 1\")");
+    _builder.append("	fact println(\"test 1\")");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact println(\"test 2\")");
+    _builder.append("	fact println(\"test 2\")");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
+    
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("before Class");
     _builder_1.newLine();
@@ -120,10 +117,12 @@ public class SpecExtensionsSpec {
     _builder_1.newLine();
     _builder_1.append("after Class");
     _builder_1.newLine();
-    this.prints(_builder, _builder_1.toString());
+    
+    this.prints(
+      _builder.toString(), _builder_1.toString());
   }
   
-  public void prints(final CharSequence spec, final String expected) {
+  public void prints(@Extension final CharSequence spec, @Extension final String expected) {
     final ConsoleRecorder recording = ConsoleRecorder.start();
     this._behaviorExecutor.executesSuccessfully(spec);
     final String actual = recording.stop();

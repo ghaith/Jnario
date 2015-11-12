@@ -26,23 +26,19 @@ public class SetupTeardownAfterAllSpec extends SetupTeardownSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"After All\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("after all{");
+    _builder.append("	after all{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("println(\"after all\")");
+    _builder.append("		println(\"after all\")");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact println(\"fact 1\")");
+    _builder.append("	fact println(\"fact 1\")");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact println(\"fact 2\")");
+    _builder.append("	fact println(\"fact 2\")");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
+    
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("fact 1");
     _builder_1.newLine();
@@ -50,6 +46,9 @@ public class SetupTeardownAfterAllSpec extends SetupTeardownSpec {
     _builder_1.newLine();
     _builder_1.append("after all");
     _builder_1.newLine();
-    this.prints(_builder, _builder_1.toString());
+    
+    this.prints(
+      _builder.toString(), 
+      _builder_1.toString());
   }
 }

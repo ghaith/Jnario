@@ -18,6 +18,7 @@ public class SimpleCalculator {
   
   public int add() {
     final Function2<Integer, Integer, Integer> _function = new Function2<Integer, Integer, Integer>() {
+      @Override
       public Integer apply(final Integer a, final Integer b) {
         return Integer.valueOf(((a).intValue() + (b).intValue()));
       }
@@ -30,6 +31,7 @@ public class SimpleCalculator {
     return Integer.valueOf(this.result).toString();
   }
   
+  @Override
   public String toString() {
     return "Calculator";
   }

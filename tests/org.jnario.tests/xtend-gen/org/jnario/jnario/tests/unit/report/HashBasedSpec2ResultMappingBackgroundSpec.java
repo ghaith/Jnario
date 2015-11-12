@@ -31,21 +31,18 @@ public class HashBasedSpec2ResultMappingBackgroundSpec extends HashBasedSpec2Res
     _builder.newLine();
     _builder.append("Background:");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given a step");
+    _builder.append("	Given a step");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("\"with implementation\"");
+    _builder.append("		\"with implementation\"");
     _builder.newLine();
     _builder.append("Scenario: My Scenario");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given another step");
+    _builder.append("	Given another step");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("\"with implementation\"");
+    _builder.append("		\"with implementation\"");
     _builder.newLine();
-    this.m.parseScenario(_builder);
+    
+    this.m.parseScenario(_builder.toString());
   }
   
   @Test

@@ -7,6 +7,7 @@
  */
 package org.jnario.spec.tests.unit.naming;
 
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.Query;
 import org.jnario.lib.Assert;
 import org.jnario.lib.Should;
@@ -52,7 +53,7 @@ public class ExampleNameProviderDescribeExampleSpec extends ExampleNameProviderS
     
   }
   
-  public String describeFirst(final String content) {
+  public String describeFirst(@Extension final String content) {
     String _xblockexpression = null;
     {
       final String contentWithExampleGroup = (("describe \'Example\'{ fact " + content) + "}");

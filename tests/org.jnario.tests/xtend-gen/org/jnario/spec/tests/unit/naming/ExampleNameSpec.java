@@ -67,6 +67,7 @@ public class ExampleNameSpec extends ExampleSpec {
   @Order(1)
   public void _examplesForEachPrintlnExampleParseNameShouldBeName() throws Exception {
     final Procedure1<ExampleNameSpecExamples> _function = new Procedure1<ExampleNameSpecExamples>() {
+      @Override
       public void apply(final ExampleNameSpecExamples it) {
         String _example = it.getExample();
         Example _parse = ExampleNameSpec.this.parse(_example);

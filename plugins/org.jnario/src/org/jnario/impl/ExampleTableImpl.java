@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.xtend.core.xtend.impl.XtendMemberImpl;
 import org.jnario.ExampleColumn;
 import org.jnario.ExampleRow;
 import org.jnario.ExampleTable;
@@ -38,7 +37,7 @@ import org.jnario.JnarioPackage;
  *
  * @generated
  */
-public class ExampleTableImpl extends XtendMemberImpl implements ExampleTable {
+public class ExampleTableImpl extends JnarioMemberImpl implements ExampleTable {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -156,6 +155,24 @@ public class ExampleTableImpl extends XtendMemberImpl implements ExampleTable {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isStatic() {
+		return false;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isFinal() {
+		return false;
 	}
 
 	/**
@@ -287,16 +304,5 @@ public class ExampleTableImpl extends XtendMemberImpl implements ExampleTable {
 		result.append(')');
 		return result.toString();
 	}
-	
-	@Override
-	public boolean isStatic() {
-		return false;
-	}
-	
-	@Override
-	public boolean isFinal() {
-		return true;
-	}
-	
 
 } //ExampleTableImpl

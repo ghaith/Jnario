@@ -8,69 +8,36 @@
 package org.jnario.compiler;
 
 import static com.google.common.collect.Iterables.addAll;
-import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.filter;
-import static com.google.common.collect.Iterables.toArray;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.transform;
-import static java.util.Arrays.asList;
 import static org.eclipse.xtext.EcoreUtil2.getContainerOfType;
-import static org.eclipse.xtext.util.Strings.concat;
-import static org.eclipse.xtext.util.Strings.emptyIfNull;
-import static org.eclipse.xtext.util.Strings.isEmpty;
-import static org.eclipse.xtext.util.Strings.split;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jdt.core.compiler.batch.BatchCompiler;
-import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler;
-import org.eclipse.xtend.core.jvmmodel.IXtendJvmAssociations;
-import org.eclipse.xtend.core.xtend.XtendFile;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtext.common.types.JvmDeclaredType;
 import org.eclipse.xtext.common.types.JvmGenericType;
-import org.eclipse.xtext.common.types.TypesPackage;
-import org.eclipse.xtext.common.types.access.impl.ClasspathTypeProvider;
-import org.eclipse.xtext.common.types.access.impl.IndexedJvmTypeAccess;
-import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.mwe.NameBasedFilter;
 import org.eclipse.xtext.mwe.PathTraverser;
-import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.parser.IEncodingProvider;
-import org.eclipse.xtext.parser.IParseResult;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.XtextResourceSet;
-import org.eclipse.xtext.resource.impl.ResourceSetBasedResourceDescriptions;
 import org.eclipse.xtext.util.Strings;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
 import org.eclipse.xtext.xbase.compiler.IGeneratorConfigProvider;
 import org.eclipse.xtext.xbase.compiler.JvmModelGenerator;
-import org.eclipse.xtext.xbase.file.ProjectConfig;
-import org.eclipse.xtext.xbase.file.RuntimeWorkspaceConfigProvider;
-import org.eclipse.xtext.xbase.file.WorkspaceConfig;
+import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
+import org.jnario.JnarioFile;
+import org.jnario.JnarioTypeDeclaration;
 
-import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -81,7 +48,7 @@ import com.google.inject.Inject;
 /**
  * @author Sebastian - Initial contribution and API
  */
-public abstract class JnarioBatchCompiler extends XtendBatchCompiler {
+public abstract class JnarioBatchCompiler extends AbstractBatchCompiler {
 	
 	@Inject
 	private IEncodingProvider.Runtime encodingProvider;
@@ -95,7 +62,7 @@ public abstract class JnarioBatchCompiler extends XtendBatchCompiler {
 	private IGeneratorConfigProvider generatorConfigprovider;
 
 	@Inject
-	private IXtendJvmAssociations xtendJvmAssociations;
+	private IJvmModelAssociations jvmModelAssociations;
 
 	@Override
 	protected File createStubs(ResourceSet resourceSet) {
@@ -131,9 +98,9 @@ public abstract class JnarioBatchCompiler extends XtendBatchCompiler {
 		javaIoFileSystemAccess.setWriteTrace(writeTraceFiles);
 
 		for (Resource resource : jnarioResources(resourceSet)) {
-			XtendFile file = filter(resource.getContents(), XtendFile.class)
+			JnarioFile file = filter(resource.getContents(), JnarioFile.class)
 					.iterator().next();
-			for (XtendTypeDeclaration xtendClass : file.getXtendTypes()) {
+			for (JnarioTypeDeclaration xtendClass : file.getXtendTypes()) {
 				String packageName = toPath(getPackageName(xtendClass));
 				for (JvmGenericType type : filter(resource.getContents(),
 						JvmGenericType.class)) {
@@ -159,7 +126,7 @@ public abstract class JnarioBatchCompiler extends XtendBatchCompiler {
 		}
 		for (EObject eObject : objectsWithClasses) {
 			Iterable<JvmDeclaredType> jvmGenericTypes = Iterables.filter(
-					xtendJvmAssociations.getJvmElements(eObject),
+					jvmModelAssociations.getJvmElements(eObject),
 					JvmDeclaredType.class);
 			for (JvmDeclaredType jvmType : jvmGenericTypes) {
 				CharSequence generatedType = generator.generateType(jvmType,
@@ -218,7 +185,7 @@ public abstract class JnarioBatchCompiler extends XtendBatchCompiler {
 	}
 
 	protected String getPackageName(EObject obj) {
-		return getContainerOfType(obj, XtendFile.class).getPackage();
+		return getContainerOfType(obj, JnarioFile.class).getPackage();
 	}
 
 	protected abstract String getClassName(EObject eObject);
@@ -252,7 +219,7 @@ public abstract class JnarioBatchCompiler extends XtendBatchCompiler {
 			String identifier = Joiner.on("_").join(baseDir.segments());
 			for (URI uri :  pathes.get(src)) {
 				if (log.isDebugEnabled()) {
-					log.debug("load xtend file '" + uri + "'");
+					log.debug("load jnario file '" + uri + "'");
 				}
 				resourceSet.getResource(uri, true);
 			}

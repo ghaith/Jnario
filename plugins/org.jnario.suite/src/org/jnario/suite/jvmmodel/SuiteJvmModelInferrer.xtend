@@ -44,7 +44,7 @@ class SuiteJvmModelInferrer extends JnarioJvmModelInferrer {
 		val suites = suiteFile.xtendTypes.filter(typeof(Suite)).toList
 		suites.forEach[
 			val javaType = typesFactory.createJvmGenericType();
-			setNameAndAssociate(it.xtendFile, it, javaType);
+			setNameAndAssociate(it.jnarioFile, it, javaType);
 		]
 
 		val nodes = suiteFile.buildNodeModel
@@ -65,6 +65,7 @@ class SuiteJvmModelInferrer extends JnarioJvmModelInferrer {
    		if (!preIndexingPhase) {
  	 		val subSuiteReferences = subSuites.map[createTypeRef as JvmTypeReference]
 	   		doLater.add([|
+	   		    // TODO NO_XTEND Add null check (in case "Named" annotation not found)
 				suiteClass.annotations += suite.toAnnotation(typeof(Named), suite.describe)
 				val children = suite.children + subSuiteReferences
 				if(!children.empty){

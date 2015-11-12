@@ -107,7 +107,7 @@ public class SuiteSpecFilterSpec {
     
   }
   
-  public IEObjectDescription desc(final EClass type) {
+  public IEObjectDescription desc(@Extension final EClass type) {
     Suite _suite = Suites.suite("mySuite");
     return EObjectDescription.create("name", _suite);
   }
@@ -120,7 +120,7 @@ public class SuiteSpecFilterSpec {
     return this.spec(SpecResourceDescriptionStrategy.FALSE);
   }
   
-  public IEObjectDescription spec(final String value) {
+  public IEObjectDescription spec(@Extension final String value) {
     IEObjectDescription _xblockexpression = null;
     {
       final ExampleGroup spec = Specs.exampleGroup("name");

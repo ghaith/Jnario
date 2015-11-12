@@ -14,6 +14,7 @@ import org.jnario.jvmmodel.ExecutableProvider;
 
 @SuppressWarnings("all")
 public class FeatureExecutableProvider implements ExecutableProvider {
+  @Override
   public List<? extends Executable> getExecutables(final Executable specification) {
     return this.doGetExecutables(specification);
   }

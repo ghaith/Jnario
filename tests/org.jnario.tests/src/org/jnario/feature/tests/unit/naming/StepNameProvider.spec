@@ -21,7 +21,7 @@ import static org.jnario.jnario.test.util.Features.*
 import static org.jnario.jnario.test.util.Query.*
 
 import static extension org.jnario.lib.ExampleTableIterators.*
-import static extension org.jnario.lib.Should.*import org.jnario.jnario.test.util.Features
+import org.jnario.jnario.test.util.Features
 
 /**
  * @author Sebastian Benz - Initial contribution and API
@@ -79,7 +79,7 @@ describe StepNameProvider{
 		}
 		
 	}
-	
+
 	context ^describe(Feature){
 		fact "removes multilines parameters"{
 			parseScenario('''
@@ -108,7 +108,7 @@ describe StepNameProvider{
 			examples.forEach[
 				parseScenario('''
 					Scenario: scenario
-					«step»
+					''' + step + '''
 				''')
 				subject.removeArguments(step) => result
 			]
@@ -151,7 +151,7 @@ describe StepNameProvider{
 	def parseScenario(CharSequence s){
 		val input = '''
 			Feature: example
-			«s»
+			''' + s + '''
 		'''
 		modelStore.parseScenario(input)
 	}

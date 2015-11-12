@@ -4,8 +4,8 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import static org.eclipse.xtext.EcoreUtil2.getContainerOfType;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.xtend.XtendClass;
 import org.eclipse.xtext.util.IResourceScopeCache;
+import org.jnario.JnarioClass;
 import org.jnario.util.XtendTypes;
 
 import com.google.common.collect.ImmutableList;
@@ -56,7 +56,7 @@ public abstract class JnarioNameProvider {
 	}
 
 	protected String getPackageName(EObject eObject) {
-		XtendClass xtendClass = getContainerOfType(eObject, XtendClass.class);
+		JnarioClass xtendClass = getContainerOfType(eObject, JnarioClass.class);
 		String packageName = XtendTypes.packageName(xtendClass);
 		return packageName;
 	}

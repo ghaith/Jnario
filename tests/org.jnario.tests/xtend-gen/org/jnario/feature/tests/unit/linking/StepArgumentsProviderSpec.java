@@ -19,6 +19,7 @@ import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.parser.IParser;
 import org.eclipse.xtext.util.StringInputStream;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.feature.feature.Given;
@@ -175,6 +176,7 @@ public class StepArgumentsProviderSpec {
   @Order(1)
   public void _extractsArgumentsFromStepDescriptions() throws Exception {
     final Procedure1<StepArgumentsProviderSpecExamples> _function = new Procedure1<StepArgumentsProviderSpecExamples>() {
+      @Override
       public void apply(final StepArgumentsProviderSpecExamples it) {
         String _step = it.getStep();
         Step _create = StepArgumentsProviderSpec.this.create(_step);
@@ -204,7 +206,7 @@ public class StepArgumentsProviderSpec {
     
   }
   
-  public Step create(final String step) {
+  public Step create(@Extension final String step) {
     Step _xblockexpression = null;
     {
       boolean _equals = Objects.equal(step, null);
@@ -214,15 +216,17 @@ public class StepArgumentsProviderSpec {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("Feature: dummy");
       _builder.newLine();
-      _builder.append("\t");
-      _builder.append("Scenario: dummy ");
+      _builder.append("	Scenario: dummy ");
       _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append(step, "\t\t");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t\t");
-      _builder.newLine();
-      final String scenario = _builder.toString();
+      
+      String _plus = (_builder.toString() + step);
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("'");
+      _builder_1.newLine();
+      _builder_1.append("					");
+      _builder_1.newLine();
+      
+      final String scenario = (_plus + _builder_1.toString());
       IParser _parser = this.resource.getParser();
       String _string = scenario.toString();
       StringInputStream _stringInputStream = new StringInputStream(_string);

@@ -10,13 +10,13 @@
 */
 package org.jnario.suite.ui.outline;
 
-import org.eclipse.xtend.ide.outline.XtendOutlineTreeProvider;
+import org.eclipse.xtext.xbase.ui.outline.XbaseOutlineTreeProvider;
 
 /**
  * customization of the default outline structure
  * 
  */
 @SuppressWarnings("restriction")
-public class SuiteOutlineTreeProvider extends XtendOutlineTreeProvider {
+public class SuiteOutlineTreeProvider extends XbaseOutlineTreeProvider {
 	
 }

@@ -44,6 +44,9 @@ public class SpecBatchCompilerTest {
       this.batchCompiler.setOutputPath(SpecBatchCompilerTest.OUTPUT_DIRECTORY);
       this.batchCompiler.setDeleteTempDirectory(true);
       this.batchCompiler.setUseCurrentClassLoaderAsParent(true);
+      Class<? extends SpecBatchCompilerTest> _class = this.getClass();
+      ClassLoader _classLoader = _class.getClassLoader();
+      this.batchCompiler.setCurrentClassLoader(_classLoader);
       File _file = new File(SpecBatchCompilerTest.OUTPUT_DIRECTORY);
       _file.mkdir();
       File _file_1 = new File(SpecBatchCompilerTest.OUTPUT_DIRECTORY);
@@ -74,6 +77,7 @@ public class SpecBatchCompilerTest {
     this.batchCompiler.compile();
     File _file = new File((SpecBatchCompilerTest.OUTPUT_DIRECTORY + "/test"));
     final FilenameFilter _function = new FilenameFilter() {
+      @Override
       public boolean accept(final File dir, final String name) {
         return name.endsWith(".java");
       }

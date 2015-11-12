@@ -17,9 +17,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class DefiningSpecBaseClassesSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor _behaviorExecutor;
   
   @Test
@@ -31,16 +31,18 @@ public class DefiningSpecBaseClassesSpec {
     _builder.newLine();
     _builder.append("import junit.framework.TestCase");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("@Extends(typeof(TestCase)) ");
     _builder.newLine();
     _builder.append("describe \"A spec\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact typeof(ASpecSpec).superclass => typeof(TestCase)");
+    _builder.append("	fact typeof(ASpecSpec).superclass => typeof(TestCase)");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

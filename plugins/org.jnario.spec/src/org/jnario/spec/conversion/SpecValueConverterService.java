@@ -20,15 +20,10 @@ import com.google.inject.Singleton;
 public class SpecValueConverterService extends JnarioValueConverterService {
 
 	@Inject
-	private MethodNameConverter validIDConverter;
+	private MethodNameConverter methodIDConverter;
 
-	@ValueConverter(rule = "ValidID")
-	public IValueConverter<String> getValidIDConverter() {
-		return validIDConverter;
-	}
-	
 	@ValueConverter(rule = "Method")
 	public IValueConverter<String> getMethodConverter() {
-		return validIDConverter;
+		return methodIDConverter;
 	}
 }

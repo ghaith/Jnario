@@ -35,6 +35,7 @@ public class UsingXtendSWithOperatorSpec {
   public void _initializeFixtures() throws Exception {
     Stack<String> _stack = new Stack<String>();
     final Procedure1<Stack<String>> _function = new Procedure1<Stack<String>>() {
+      @Override
       public void apply(final Stack<String> it) {
         it.add("red");
         it.add("blue");
@@ -53,6 +54,7 @@ public class UsingXtendSWithOperatorSpec {
   @Order(2)
   public void _writeMultipleAssertions() throws Exception {
     final Procedure1<String> _function = new Procedure1<String>() {
+      @Override
       public void apply(final String it) {
         int _length = it.length();
         boolean _doubleArrow = Should.<Integer>operator_doubleArrow(Integer.valueOf(_length), Integer.valueOf(11));

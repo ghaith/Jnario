@@ -14,18 +14,18 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.resource.XtendLocationInFileProvider;
-import org.eclipse.xtend.core.xtend.XtendPackage;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.TextRegionWithLineInformation;
+import org.eclipse.xtext.xbase.jvmmodel.JvmLocationInFileProvider;
+import org.jnario.JnarioPackage;
 import org.jnario.feature.feature.FeaturePackage;
 import org.jnario.feature.feature.Scenario;
 import org.jnario.feature.feature.Step;
 import org.jnario.feature.feature.StepReference;
 
 
-public class FeatureLocationInFileProvider extends XtendLocationInFileProvider {
+public class FeatureLocationInFileProvider extends JvmLocationInFileProvider {
 
 	protected ITextRegion getTextRegion(EObject obj, boolean isSignificant) {
 		if(isSignificant && obj instanceof Step){
@@ -46,7 +46,7 @@ public class FeatureLocationInFileProvider extends XtendLocationInFileProvider {
 	}
 
 	public List<INode> nodesFor(Scenario element) {
-		return findNodesForFeature(element, XtendPackage.Literals.XTEND_TYPE_DECLARATION__NAME);
+		return findNodesForFeature(element, JnarioPackage.Literals.JNARIO_TYPE_DECLARATION__NAME);
 	}
 	
 	
@@ -56,7 +56,7 @@ public class FeatureLocationInFileProvider extends XtendLocationInFileProvider {
 		if (element instanceof StepReference) {
 			nodes = findNodesForFeature(element, FeaturePackage.Literals.STEP_REFERENCE__REFERENCE);
 		}else{
-			nodes = findNodesForFeature(element, XtendPackage.Literals.XTEND_FUNCTION__NAME);
+			nodes = findNodesForFeature(element, JnarioPackage.Literals.JNARIO_FUNCTION__NAME);
 		}
 		return createTextRegion(nodes);
 	}

@@ -9,7 +9,7 @@ package org.jnario.suite.suite.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.xtend.core.xtend.impl.XtendFileImpl;
+import org.jnario.impl.JnarioFileImpl;
 
 import org.jnario.suite.suite.SuiteFile;
 import org.jnario.suite.suite.SuitePackage;
@@ -23,7 +23,7 @@ import org.jnario.suite.suite.SuitePackage;
  *
  * @generated
  */
-public class SuiteFileImpl extends XtendFileImpl implements SuiteFile
+public class SuiteFileImpl extends JnarioFileImpl implements SuiteFile
 {
 	/**
 	 * <!-- begin-user-doc -->

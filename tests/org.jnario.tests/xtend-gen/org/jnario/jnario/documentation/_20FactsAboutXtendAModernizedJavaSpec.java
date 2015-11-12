@@ -9,6 +9,7 @@ package org.jnario.jnario.documentation;
 
 import java.util.HashMap;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.jnario.jnario.documentation._20FactsAboutXtendSpec;
@@ -102,7 +103,7 @@ public class _20FactsAboutXtendAModernizedJavaSpec extends _20FactsAboutXtendSpe
   
   final String greeting = "Hello ";
   
-  public String sayHello(final String name) {
+  public String sayHello(@Extension final String name) {
     return (this.greeting + name);
   }
   

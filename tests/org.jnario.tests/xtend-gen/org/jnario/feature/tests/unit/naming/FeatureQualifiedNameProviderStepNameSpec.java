@@ -121,6 +121,7 @@ public class FeatureQualifiedNameProviderStepNameSpec extends FeatureQualifiedNa
   @Order(1)
   public void _stepImplementation() throws Exception {
     final Procedure1<FeatureQualifiedNameProviderStepNameSpecExamples> _function = new Procedure1<FeatureQualifiedNameProviderStepNameSpecExamples>() {
+      @Override
       public void apply(final FeatureQualifiedNameProviderStepNameSpecExamples it) {
         String _description = it.getDescription();
         String _expected = it.getExpected();
@@ -138,6 +139,7 @@ public class FeatureQualifiedNameProviderStepNameSpec extends FeatureQualifiedNa
   @Order(2)
   public void _stepReference() throws Exception {
     final Procedure1<FeatureQualifiedNameProviderStepNameSpecExamples> _function = new Procedure1<FeatureQualifiedNameProviderStepNameSpecExamples>() {
+      @Override
       public void apply(final FeatureQualifiedNameProviderStepNameSpecExamples it) {
         String _description = it.getDescription();
         String _expected = it.getExpected();

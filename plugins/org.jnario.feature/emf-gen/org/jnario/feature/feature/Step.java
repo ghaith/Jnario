@@ -7,9 +7,8 @@
  */
 package org.jnario.feature.feature;
 
-import org.eclipse.xtend.core.xtend.XtendFunction;
-
 import org.jnario.Executable;
+import org.jnario.JnarioFunction;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,6 +20,6 @@ import org.jnario.Executable;
  * @model
  * @generated
  */
-public interface Step extends XtendFunction, Executable
+public interface Step extends Executable, JnarioFunction
 {
 } // Step

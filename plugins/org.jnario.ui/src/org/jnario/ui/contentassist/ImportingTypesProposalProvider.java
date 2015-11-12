@@ -14,8 +14,6 @@ import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.ITextViewerExtension;
 import org.eclipse.jface.text.TextUtilities;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendFile;
 import org.eclipse.xtext.common.types.xtext.ui.JdtTypesProposalProvider;
 import org.eclipse.xtext.conversion.IValueConverter;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
@@ -29,6 +27,8 @@ import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal.
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.xbase.conversion.XbaseQualifiedNameValueConverter;
 import org.eclipse.xtext.xtype.XImportDeclaration;
+import org.jnario.JnarioClass;
+import org.jnario.JnarioFile;
 
 import com.google.inject.Inject;
 
@@ -80,8 +80,8 @@ public class ImportingTypesProposalProvider extends JdtTypesProposalProvider {
 				}
 			}
 			// we could create an import statement if there is no conflict
-			XtendFile file = (XtendFile) context.getContents().get(0);
-			XtendClass clazz = (XtendClass) (file.getXtendTypes().isEmpty() ? null : file.getXtendTypes().get(0));
+			JnarioFile file = (JnarioFile) context.getContents().get(0);
+			JnarioClass clazz = (JnarioClass) (file.getXtendTypes().isEmpty() ? null : file.getXtendTypes().get(0));
 			
 			QualifiedName qualifiedName = qualifiedNameConverter.toQualifiedName(typeName);			
 			if (qualifiedName.getSegmentCount() == 1) {

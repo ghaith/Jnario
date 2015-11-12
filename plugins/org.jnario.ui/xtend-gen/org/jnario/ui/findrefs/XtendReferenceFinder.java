@@ -35,14 +35,17 @@ public class XtendReferenceFinder extends DefaultReferenceFinder implements IRef
     this.nameConverter = nameConverter;
   }
   
+  @Override
   public void findReferences(final Set<URI> targetURIs, final IResourceDescription resourceDescription, final IAcceptor<IReferenceDescription> acceptor, final IProgressMonitor monitor, final IReferenceFinder.ILocalResourceAccess localResourceAccess) {
     final Function1<URI, URI> _function = new Function1<URI, URI>() {
+      @Override
       public URI apply(final URI it) {
         return it.trimFragment();
       }
     };
     Iterable<URI> _map = IterableExtensions.<URI, URI>map(targetURIs, _function);
     final Function1<URI, Boolean> _function_1 = new Function1<URI, Boolean>() {
+      @Override
       public Boolean apply(final URI it) {
         URI _uRI = resourceDescription.getURI();
         return Boolean.valueOf(Objects.equal(it, _uRI));
@@ -55,6 +58,7 @@ public class XtendReferenceFinder extends DefaultReferenceFinder implements IRef
     final HashSet<QualifiedName> names = CollectionLiterals.<QualifiedName>newHashSet();
     for (final URI uri : targetURIs) {
       final IUnitOfWork<Boolean, ResourceSet> _function_2 = new IUnitOfWork<Boolean, ResourceSet>() {
+        @Override
         public Boolean exec(final ResourceSet it) throws Exception {
           boolean _xblockexpression = false;
           {
@@ -77,6 +81,7 @@ public class XtendReferenceFinder extends DefaultReferenceFinder implements IRef
     }
     Iterable<QualifiedName> _importedNames = resourceDescription.getImportedNames();
     final Function1<QualifiedName, QualifiedName> _function_3 = new Function1<QualifiedName, QualifiedName>() {
+      @Override
       public QualifiedName apply(final QualifiedName it) {
         return it.toLowerCase();
       }
@@ -84,6 +89,7 @@ public class XtendReferenceFinder extends DefaultReferenceFinder implements IRef
     Iterable<QualifiedName> _map_1 = IterableExtensions.<QualifiedName, QualifiedName>map(_importedNames, _function_3);
     final Set<QualifiedName> importedNames = IterableExtensions.<QualifiedName>toSet(_map_1);
     final Function1<QualifiedName, Boolean> _function_4 = new Function1<QualifiedName, Boolean>() {
+      @Override
       public Boolean apply(final QualifiedName it) {
         return Boolean.valueOf(importedNames.contains(it));
       }
@@ -92,10 +98,12 @@ public class XtendReferenceFinder extends DefaultReferenceFinder implements IRef
     if (_exists_1) {
       URI _uRI = resourceDescription.getURI();
       final IUnitOfWork<Object, ResourceSet> _function_5 = new IUnitOfWork<Object, ResourceSet>() {
+        @Override
         public Object exec(final ResourceSet it) throws Exception {
           URI _uRI = resourceDescription.getURI();
           Resource _resource = it.getResource(_uRI, true);
           final IAcceptor<IReferenceDescription> _function = new IAcceptor<IReferenceDescription>() {
+            @Override
             public void accept(final IReferenceDescription it) {
               acceptor.accept(it);
             }

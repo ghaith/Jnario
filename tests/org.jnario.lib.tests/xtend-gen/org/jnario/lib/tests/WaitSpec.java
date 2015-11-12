@@ -1,5 +1,6 @@
 package org.jnario.lib.tests;
 
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.jnario.lib.Assert;
 import org.jnario.lib.Clock;
@@ -90,7 +91,7 @@ public class WaitSpec {
     Assert.assertTrue(message, expectedException);
   }
   
-  public void waitFor(final Function0<Boolean> condition) {
+  public void waitFor(@Extension final Function0<Boolean> condition) {
     this.subject.until(condition);
   }
 }

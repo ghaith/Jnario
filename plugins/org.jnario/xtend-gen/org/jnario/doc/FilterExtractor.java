@@ -28,11 +28,13 @@ public class FilterExtractor {
   
   private Map<String, Function1<String, Filter>> filterRegistry = CollectionLiterals.<String, Function1<String, Filter>>newHashMap(
     Pair.<String, Function1<String, Filter>>of("filter", new Function1<String, Filter>() {
+      @Override
       public Filter apply(final String s) {
         return RegexFilter.create(s);
       }
     }), 
     Pair.<String, Function1<String, Filter>>of("lang", new Function1<String, Filter>() {
+      @Override
       public Filter apply(final String s) {
         return LangFilter.create(s);
       }

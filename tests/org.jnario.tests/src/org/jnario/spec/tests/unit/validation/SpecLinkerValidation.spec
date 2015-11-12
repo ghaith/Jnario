@@ -128,7 +128,7 @@ describe "Linker validation"{
 	if (sb.length > 0) {
 		Assert.fail('''
 			Issue mismatch
-			«sb.toString»
+			''' + sb.toString + '''
 		''');
 	}
   }

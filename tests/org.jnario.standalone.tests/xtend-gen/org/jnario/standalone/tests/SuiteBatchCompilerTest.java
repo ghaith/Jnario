@@ -16,7 +16,6 @@ import java.io.FilenameFilter;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler;
 import org.eclipse.xtext.ISetup;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
@@ -28,6 +27,8 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.jnario.compiler.AbstractBatchCompiler;
+import org.jnario.compiler.JnarioBatchCompiler;
 import org.jnario.feature.FeatureStandaloneSetup;
 import org.jnario.jnario.test.util.ExtendedSuiteInjectorProvider;
 import org.jnario.jnario.test.util.ModelStore;
@@ -66,12 +67,16 @@ public class SuiteBatchCompilerTest {
     }
   }
   
-  public void compile(final XtendBatchCompiler batchCompiler) {
+  public void compile(final AbstractBatchCompiler batchCompiler) {
     batchCompiler.setSourcePath(SuiteBatchCompilerTest.XTEND_SRC_DIRECTORY);
     batchCompiler.setOutputPath(SuiteBatchCompilerTest.OUTPUT_DIRECTORY);
     batchCompiler.setDeleteTempDirectory(true);
     batchCompiler.setUseCurrentClassLoaderAsParent(true);
+    Class<? extends SuiteBatchCompilerTest> _class = this.getClass();
+    ClassLoader _classLoader = _class.getClassLoader();
+    batchCompiler.setCurrentClassLoader(_classLoader);
     final Provider<ResourceSet> _function = new Provider<ResourceSet>() {
+      @Override
       public ResourceSet get() {
         XtextResourceSet _resourceSet = SuiteBatchCompilerTest.this.modelStore.getResourceSet();
         return ((ResourceSet) _resourceSet);
@@ -98,15 +103,17 @@ public class SuiteBatchCompilerTest {
       SpecStandaloneSetup _specStandaloneSetup = new SpecStandaloneSetup();
       SuiteStandaloneSetup _suiteStandaloneSetup = new SuiteStandaloneSetup();
       final Procedure1<ISetup> _function = new Procedure1<ISetup>() {
+        @Override
         public void apply(final ISetup it) {
           Injector _createInjectorAndDoEMFRegistration = it.createInjectorAndDoEMFRegistration();
-          final XtendBatchCompiler compiler = _createInjectorAndDoEMFRegistration.<XtendBatchCompiler>getInstance(XtendBatchCompiler.class);
+          final JnarioBatchCompiler compiler = _createInjectorAndDoEMFRegistration.<JnarioBatchCompiler>getInstance(JnarioBatchCompiler.class);
           SuiteBatchCompilerTest.this.compile(compiler);
         }
       };
       IterableExtensions.forEach(Collections.<ISetup>unmodifiableList(CollectionLiterals.<ISetup>newArrayList(_featureStandaloneSetup, _specStandaloneSetup, _suiteStandaloneSetup)), _function);
       final File outputDir = new File((SuiteBatchCompilerTest.OUTPUT_DIRECTORY + "/test"));
       final FilenameFilter _function_1 = new FilenameFilter() {
+        @Override
         public boolean accept(final File dir, final String name) {
           return name.endsWith(".java");
         }

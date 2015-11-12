@@ -26,11 +26,11 @@ import org.jnario.spec.spec.SpecPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.spec.spec.impl.ExampleImpl#getExpr <em>Expr</em>}</li>
  *   <li>{@link org.jnario.spec.spec.impl.ExampleImpl#isPending <em>Pending</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

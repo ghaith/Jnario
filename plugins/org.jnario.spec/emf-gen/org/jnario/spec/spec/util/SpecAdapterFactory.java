@@ -14,15 +14,13 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtend.core.xtend.XtendAnnotationTarget;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendExecutable;
-import org.eclipse.xtend.core.xtend.XtendFile;
-import org.eclipse.xtend.core.xtend.XtendFunction;
-import org.eclipse.xtend.core.xtend.XtendMember;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
-
 import org.jnario.Executable;
+import org.jnario.JnarioAnnotationTarget;
+import org.jnario.JnarioClass;
+import org.jnario.JnarioFile;
+import org.jnario.JnarioFunction;
+import org.jnario.JnarioMember;
+import org.jnario.JnarioTypeDeclaration;
 import org.jnario.Specification;
 
 import org.jnario.spec.spec.*;
@@ -121,29 +119,9 @@ public class SpecAdapterFactory extends AdapterFactoryImpl
 				return createTestFunctionAdapter();
 			}
 			@Override
-			public Adapter caseXtendFile(XtendFile object)
+			public Adapter caseJnarioFile(JnarioFile object)
 			{
-				return createXtendFileAdapter();
-			}
-			@Override
-			public Adapter caseXtendAnnotationTarget(XtendAnnotationTarget object)
-			{
-				return createXtendAnnotationTargetAdapter();
-			}
-			@Override
-			public Adapter caseXtendMember(XtendMember object)
-			{
-				return createXtendMemberAdapter();
-			}
-			@Override
-			public Adapter caseXtendTypeDeclaration(XtendTypeDeclaration object)
-			{
-				return createXtendTypeDeclarationAdapter();
-			}
-			@Override
-			public Adapter caseXtendClass(XtendClass object)
-			{
-				return createXtendClassAdapter();
+				return createJnarioFileAdapter();
 			}
 			@Override
 			public Adapter caseExecutable(Executable object)
@@ -151,19 +129,34 @@ public class SpecAdapterFactory extends AdapterFactoryImpl
 				return createExecutableAdapter();
 			}
 			@Override
+			public Adapter caseJnarioAnnotationTarget(JnarioAnnotationTarget object)
+			{
+				return createJnarioAnnotationTargetAdapter();
+			}
+			@Override
+			public Adapter caseJnarioMember(JnarioMember object)
+			{
+				return createJnarioMemberAdapter();
+			}
+			@Override
+			public Adapter caseJnarioTypeDeclaration(JnarioTypeDeclaration object)
+			{
+				return createJnarioTypeDeclarationAdapter();
+			}
+			@Override
+			public Adapter caseJnarioClass(JnarioClass object)
+			{
+				return createJnarioClassAdapter();
+			}
+			@Override
 			public Adapter caseSpecification(Specification object)
 			{
 				return createSpecificationAdapter();
 			}
 			@Override
-			public Adapter caseXtendExecutable(XtendExecutable object)
+			public Adapter caseJnarioFunction(JnarioFunction object)
 			{
-				return createXtendExecutableAdapter();
-			}
-			@Override
-			public Adapter caseXtendFunction(XtendFunction object)
-			{
-				return createXtendFunctionAdapter();
+				return createJnarioFunctionAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object)
@@ -278,76 +271,16 @@ public class SpecAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendFile <em>File</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioFile <em>File</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendFile
+	 * @see org.jnario.JnarioFile
 	 * @generated
 	 */
-	public Adapter createXtendFileAdapter()
-	{
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendAnnotationTarget <em>Annotation Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationTarget
-	 * @generated
-	 */
-	public Adapter createXtendAnnotationTargetAdapter()
-	{
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendMember <em>Member</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendMember
-	 * @generated
-	 */
-	public Adapter createXtendMemberAdapter()
-	{
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendTypeDeclaration <em>Type Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendTypeDeclaration
-	 * @generated
-	 */
-	public Adapter createXtendTypeDeclarationAdapter()
-	{
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendClass <em>Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendClass
-	 * @generated
-	 */
-	public Adapter createXtendClassAdapter()
+	public Adapter createJnarioFileAdapter()
 	{
 		return null;
 	}
@@ -368,6 +301,66 @@ public class SpecAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioAnnotationTarget <em>Annotation Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.JnarioAnnotationTarget
+	 * @generated
+	 */
+	public Adapter createJnarioAnnotationTargetAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioMember <em>Member</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.JnarioMember
+	 * @generated
+	 */
+	public Adapter createJnarioMemberAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioTypeDeclaration <em>Type Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.JnarioTypeDeclaration
+	 * @generated
+	 */
+	public Adapter createJnarioTypeDeclarationAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioClass <em>Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.jnario.JnarioClass
+	 * @generated
+	 */
+	public Adapter createJnarioClassAdapter()
+	{
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.jnario.Specification <em>Specification</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -383,31 +376,16 @@ public class SpecAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendExecutable <em>Executable</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.jnario.JnarioFunction <em>Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendExecutable
+	 * @see org.jnario.JnarioFunction
 	 * @generated
 	 */
-	public Adapter createXtendExecutableAdapter()
-	{
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendFunction <em>Function</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendFunction
-	 * @generated
-	 */
-	public Adapter createXtendFunctionAdapter()
+	public Adapter createJnarioFunctionAdapter()
 	{
 		return null;
 	}

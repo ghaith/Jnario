@@ -11,7 +11,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -19,7 +18,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.xtend.ide.builder.XtendBuilderParticipant;
+import org.eclipse.xtext.builder.BuilderParticipant;
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
 import org.eclipse.xtext.builder.EclipseSourceFolderProvider;
 import org.eclipse.xtext.builder.IXtextBuilderParticipant;
@@ -27,11 +26,12 @@ import org.eclipse.xtext.generator.OutputConfiguration;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.doc.HtmlAssets;
 import org.jnario.ui.builder.NullFileCallBack;
 
 @SuppressWarnings("all")
-public class JnarioBuilderParticipant extends XtendBuilderParticipant {
+public class JnarioBuilderParticipant extends BuilderParticipant {
   @Inject
   private Provider<EclipseResourceFileSystemAccess2> fileSystemAccessProvider;
   
@@ -41,14 +41,17 @@ public class JnarioBuilderParticipant extends XtendBuilderParticipant {
   @Inject
   private EclipseSourceFolderProvider sourceFolders;
   
+  @Override
   public void build(final IXtextBuilderParticipant.IBuildContext context, final IProgressMonitor monitor) throws CoreException {
     super.build(context, monitor);
     IProject _builtProject = context.getBuiltProject();
     List<? extends IContainer> _sourceFolders = this.sourceFolders.getSourceFolders(_builtProject);
-    final Consumer<IContainer> _function = new Consumer<IContainer>() {
-      public void accept(final IContainer source) {
+    final Procedure1<IContainer> _function = new Procedure1<IContainer>() {
+      @Override
+      public void apply(final IContainer source) {
         List<IResourceDescription.Delta> _relevantDeltas = JnarioBuilderParticipant.this.getRelevantDeltas(context);
         final Function1<IResourceDescription.Delta, Boolean> _function = new Function1<IResourceDescription.Delta, Boolean>() {
+          @Override
           public Boolean apply(final IResourceDescription.Delta it) {
             URI _uri = it.getUri();
             String _string = _uri.toString();
@@ -63,7 +66,7 @@ public class JnarioBuilderParticipant extends XtendBuilderParticipant {
         }
       }
     };
-    _sourceFolders.forEach(_function);
+    IterableExtensions.forEach(_sourceFolders, _function);
   }
   
   private EclipseResourceFileSystemAccess2 createFsa(final IXtextBuilderParticipant.IBuildContext context, final IContainer source) {

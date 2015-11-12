@@ -61,6 +61,7 @@ public class ExampleImplementationSpec extends ExampleSpec {
   @Order(1)
   public void _examplesForEachExampleParseExpressionShouldBeInstanceOfType() throws Exception {
     final Procedure1<ExampleImplementationSpecExamples> _function = new Procedure1<ExampleImplementationSpecExamples>() {
+      @Override
       public void apply(final ExampleImplementationSpecExamples it) {
         String _example = it.getExample();
         Example _parse = ExampleImplementationSpec.this.parse(_example);

@@ -10,16 +10,16 @@ package org.jnario.compiler
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.util.EcoreUtil
-import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler
 import org.eclipse.xtend.lib.Property
 import org.eclipse.xtext.mwe.NameBasedFilter
 import org.eclipse.xtext.mwe.PathTraverser
+import org.eclipse.xtext.parser.IEncodingProvider
 import org.eclipse.xtext.resource.XtextResource
 import org.jnario.doc.AbstractDocGenerator
 import org.jnario.doc.DocOutputConfigurationProvider
-import org.jnario.report.Executable2ResultMappingimport org.eclipse.xtext.parser.IEncodingProvider
+import org.jnario.report.Executable2ResultMapping
 
-class JnarioDocCompiler extends XtendBatchCompiler{
+class JnarioDocCompiler extends AbstractBatchCompiler{
 	
 	private Executable2ResultMapping resultMapping
 	@Property private String resultFolder

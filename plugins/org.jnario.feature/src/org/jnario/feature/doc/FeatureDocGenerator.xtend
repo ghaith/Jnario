@@ -8,7 +8,7 @@
 package org.jnario.feature.doc
 
 import com.google.inject.Inject
-import org.eclipse.xtend.core.xtend.XtendClass
+import org.jnario.JnarioClass
 import org.jnario.doc.AbstractDocGenerator
 import org.jnario.doc.HtmlFile
 import org.jnario.feature.feature.Feature
@@ -19,14 +19,14 @@ import org.jnario.feature.naming.StepNameProvider
 
 import static org.jnario.feature.jvmmodel.StepArgumentsProvider.*
 
-import static extension org.jnario.util.Strings.*
+import static extension org.eclipse.xtext.util.Strings.*
 
 class FeatureDocGenerator extends AbstractDocGenerator {
 	
 	@Inject extension FeatureClassNameProvider 
 	@Inject extension StepNameProvider
 	
-	override createHtmlFile(XtendClass xtendClass) {
+	override createHtmlFile(JnarioClass xtendClass) {
 		if(!(xtendClass instanceof Feature)){
 			return HtmlFile::EMPTY_FILE
 		}

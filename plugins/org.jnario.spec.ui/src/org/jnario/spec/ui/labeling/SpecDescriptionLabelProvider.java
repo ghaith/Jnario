@@ -10,14 +10,13 @@
 */
 package org.jnario.spec.ui.labeling;
 
-import org.eclipse.xtend.ide.labeling.XtendDescriptionLabelProvider;
+import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
 
 
 /**
  * @author Sebastian Benz - Initial contribution and API
  */
-@SuppressWarnings("restriction")
-public class SpecDescriptionLabelProvider extends XtendDescriptionLabelProvider {
+public class SpecDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 
 /*
 	//Labels and icons can be computed like this:

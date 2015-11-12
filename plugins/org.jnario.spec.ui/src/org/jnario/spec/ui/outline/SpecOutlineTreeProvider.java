@@ -7,20 +7,14 @@
  *******************************************************************************/
 package org.jnario.spec.ui.outline;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.xtend.core.jvmmodel.IXtendJvmAssociations;
-import org.eclipse.xtend.ide.outline.XtendFeatureNode;
-import org.eclipse.xtend.ide.outline.XtendOutlineNodeFactory;
-import org.eclipse.xtend.ide.outline.XtendOutlineTreeProvider;
-import org.eclipse.xtext.common.types.JvmConstructor;
-import org.eclipse.xtext.common.types.JvmDeclaredType;
-import org.eclipse.xtext.common.types.JvmFeature;
-import org.eclipse.xtext.common.types.JvmOperation;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
+import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.OutlineMode;
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypeExtensions;
-import org.jnario.ExampleCell;
-import org.jnario.ExampleRow;
 import org.jnario.ExampleTable;
 import org.jnario.spec.spec.ExampleGroup;
 
@@ -29,17 +23,20 @@ import com.google.inject.Inject;
 /**
  * @author Sebastian Benz - Initial contribution and API
  */
-@SuppressWarnings("restriction")
-public class SpecOutlineTreeProvider extends XtendOutlineTreeProvider {
+public class SpecOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
-	@Inject
-	private IXtendJvmAssociations associations;
+// TODO NO_XTEND
+//	@Inject
+//	private IXtendJvmAssociations associations;
 	
 	@Inject
 	private JvmTypeExtensions typeExtensions;
 	
-	@Inject
-	private XtendOutlineNodeFactory factory;
+// TODO NO_XTEND
+//	@Inject
+//	private XtendOutlineNodeFactory factory;
+	
+	
 //	
 //	@Override
 //	protected XtendFeatureNode createNodeForFeature(IOutlineNode parentNode,
@@ -64,12 +61,11 @@ public class SpecOutlineTreeProvider extends XtendOutlineTreeProvider {
 //	   return factory.createXtendFeatureNode(parentNode, semanticFeature, image, text, true, synthetic, inheritanceDepth);
 //	}
 //	
-	protected boolean _isLeaf(ExampleTable element) {
-		return true;
-	}
-
-	protected boolean _isLeaf(ExampleGroup element) {
-		return element.getMembers().isEmpty();
-	}
-	
+//	protected boolean _isLeaf(ExampleTable element) {
+//		return true;
+//	}
+//
+//	protected boolean _isLeaf(ExampleGroup element) {
+//		return element.getMembers().isEmpty();
+//	}
 }

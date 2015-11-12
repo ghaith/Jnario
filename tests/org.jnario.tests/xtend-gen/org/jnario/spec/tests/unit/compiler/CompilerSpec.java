@@ -17,9 +17,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class CompilerSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor _behaviorExecutor;
   
   @Test
@@ -29,26 +29,23 @@ public class CompilerSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Something with an expression\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"a fact with an if\"{");
+    _builder.append("	fact \"a fact with an if\"{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val x = 4");
+    _builder.append("		val x = 4");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("if(x > 4 && x > 5){");
+    _builder.append("		if(x > 4 && x > 5){");
     _builder.newLine();
-    _builder.append("\t\t\t");
+    _builder.append("			");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("}");
+    _builder.append("		}");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -58,21 +55,19 @@ public class CompilerSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Something with an expression\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"a fact with an if\"{");
+    _builder.append("	fact \"a fact with an if\"{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val x = 6");
+    _builder.append("		val x = 6");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("assert x > 4 && x > 5");
+    _builder.append("		assert x > 4 && x > 5");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -82,21 +77,19 @@ public class CompilerSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Something with an expression\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"a fact with =>\"{");
+    _builder.append("	fact \"a fact with =>\"{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val x = 6");
+    _builder.append("		val x = 6");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("(x > 4 && x > 5) => true");
+    _builder.append("		(x > 4 && x > 5) => true");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -106,21 +99,19 @@ public class CompilerSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Something with an expression\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"a fact with should\"{");
+    _builder.append("	fact \"a fact with should\"{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val x = 6");
+    _builder.append("		val x = 6");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("x > 4 && x > 5 should be true");
+    _builder.append("		x > 4 && x > 5 should be true");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -130,26 +121,23 @@ public class CompilerSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Something with an expression\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"any fact\"{");
+    _builder.append("	fact \"any fact\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("def String[] x(){");
+    _builder.append("	def String[] x(){");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("list(\"some string\")");
+    _builder.append("	list(\"some string\")");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -161,17 +149,17 @@ public class CompilerSpec {
     _builder.newLine();
     _builder.append("  ");
     _builder.newLine();
-    _builder.append(" \t  ");
-    _builder.append("fact \"a***\"  ");
+    _builder.append(" 	  fact \"a***\"  ");
     _builder.newLine();
-    _builder.append("      ");
-    _builder.append("fact \"a???\" ");
+    _builder.append("      fact \"a???\" ");
     _builder.newLine();
-    _builder.append("   \t\t");
+    _builder.append("   		");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -181,31 +169,28 @@ public class CompilerSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Should in closures\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"should-be in closure\" {");
+    _builder.append("	fact \"should-be in closure\" {");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("[|1 should be 1].apply;  ");
+    _builder.append("        [|1 should be 1].apply;  ");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("[|var int i; 1 should be 1].apply;");
+    _builder.append("        [|var int i; 1 should be 1].apply;");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("[|].apply ;");
+    _builder.append("        [|].apply ;");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("}");
+    _builder.append("    }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
   @Named("compiles rich strings")
   @Order(8)
   public void _compilesRichStrings() throws Exception {
-    this._behaviorExecutor.executesSuccessfully("\r\n\t\tdescribe \'Richstrings\'{\r\n\t\t\tfact {\r\n\t\t\t\tval x = \'world\'\r\n\t\t        \'\'\'hello «x»\'\'\'.toString => \'hello world\'\r\n\t\t    }\r\n\t\t}\r\n\t\t");
+    this._behaviorExecutor.executesSuccessfully("\r\n\t\tdescribe \'Richstrings\'{\r\n\t\t\tfact {\r\n\t\t        \'\'\'hello world\'\'\'.toString => \'hello world\'\r\n\t\t    }\r\n\t\t}\r\n\t\t");
   }
   
   @Test
@@ -215,47 +200,40 @@ public class CompilerSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("import static org.jnario.spec.tests.unit.compiler.MyEnum.*");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"Tests type inference of the table columns\"{");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("def myTable {");
+    _builder.append("	def myTable {");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| value  |");
+    _builder.append("		| value  |");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| VALUE1 |");
+    _builder.append("		| VALUE1 |");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| VALUE2 |");
+    _builder.append("		| VALUE2 |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("}\t\t");
+    _builder.append("    }		");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"Table column type get inferred by the stand-alone compile correctly\" {");
+    _builder.append("	fact \"Table column type get inferred by the stand-alone compile correctly\" {");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("myTable.forEach [");
+    _builder.append("		myTable.forEach [");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("value should not be null");
+    _builder.append("			value should not be null");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("]");
+    _builder.append("		]");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

@@ -81,6 +81,7 @@ public class SuiteClassNameProviderToJavaClassNameSpec extends SuiteClassNamePro
   @Order(1)
   public void _examplesForEachSubjectToJavaClassNameSuiteNameExpectedClassName() throws Exception {
     final Procedure1<SuiteClassNameProviderToJavaClassNameSpecExamples> _function = new Procedure1<SuiteClassNameProviderToJavaClassNameSpecExamples>() {
+      @Override
       public void apply(final SuiteClassNameProviderToJavaClassNameSpecExamples it) {
         String _name = it.getName();
         Suite _suite = Suites.suite(_name);

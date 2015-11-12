@@ -37,6 +37,7 @@ public class FeatureExtensionsFeatureReferencingMultipleExtensions extends Featu
     String _first = JnarioIterableExtensions.<String>first(args);
     String[] _split = _first.split(",");
     final Function1<String, String> _function = new Function1<String, String>() {
+      @Override
       public String apply(final String it) {
         return it.trim();
       }

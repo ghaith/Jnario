@@ -1,13 +1,12 @@
 package org.jnario.jnario.test.util;
 
 import com.google.inject.Inject
+import org.eclipse.xtext.formatting2.FormatterPreferenceKeys
+import org.eclipse.xtext.junit4.formatter.FormatterTester
 import org.eclipse.xtext.preferences.MapBasedPreferenceValues
-import org.eclipse.xtext.xbase.junit.formatter.FormatterTester
-
-import static org.eclipse.xtext.xbase.formatting.BasicFormatterPreferenceKeys.*
 
 abstract class AbstractXbaseFormatterTest {
-	@Inject FormatterTester tester
+	@Inject extension FormatterTester
 
 	def assertFormatted(CharSequence toBeFormatted) {
 		assertFormatted(toBeFormatted, toBeFormatted)
@@ -66,20 +65,14 @@ abstract class AbstractXbaseFormatterTest {
 		String postfix,
 		boolean allowErrors
 	) {
-		tester.assertFormatted [
-			initConfig(it.config, cfg)
-			it.expectation = expectation
-			it.toBeFormatted = toBeFormatted
-			it.prefix = prefix
-			it.postfix = postfix
-			it.allowErrors = allowErrors
+		assertFormatted [
+		    preferences [
+		        put(FormatterPreferenceKeys.maxLineWidth, 80.toString)
+		        cfg?.apply(it)
+		    ]
+			it.expectation = prefix + expectation + postfix
+			it.toBeFormatted = prefix + toBeFormatted + postfix
+			it.allowSyntaxErrors = allowErrors
 		]
 	}
-
-	def initConfig(MapBasedPreferenceValues target, (MapBasedPreferenceValues)=>void cfg) {
-		target.put(maxLineWidth.id, 80.toString)
-		if (cfg != null)
-			cfg.apply(target)
-	}
-
 }

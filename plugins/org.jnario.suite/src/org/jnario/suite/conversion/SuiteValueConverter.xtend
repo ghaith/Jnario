@@ -11,8 +11,6 @@ import org.eclipse.xtext.conversion.IValueConverter
 import org.eclipse.xtext.conversion.ValueConverterException
 import org.eclipse.xtext.nodemodel.INode
 
-import static org.jnario.suite.conversion.SuiteValueConverter.*
-
 import static extension org.jnario.util.Strings.*
 
 class SuiteValueConverter implements IValueConverter<String> {

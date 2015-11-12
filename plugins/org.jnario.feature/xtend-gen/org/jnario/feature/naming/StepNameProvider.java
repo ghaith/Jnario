@@ -11,7 +11,7 @@ import com.google.common.base.Objects;
 import java.util.Arrays;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtend.core.xtend.XtendPackage;
+import org.jnario.JnarioPackage;
 import org.jnario.feature.feature.Feature;
 import org.jnario.feature.feature.FeaturePackage;
 import org.jnario.feature.feature.Scenario;
@@ -42,8 +42,8 @@ public class StepNameProvider {
       if (_or) {
         return null;
       }
-      EAttribute _xtendTypeDeclaration_Name = XtendPackage.eINSTANCE.getXtendTypeDeclaration_Name();
-      _xblockexpression = Nodes.textForFeature(step, _xtendTypeDeclaration_Name);
+      EAttribute _jnarioTypeDeclaration_Name = JnarioPackage.eINSTANCE.getJnarioTypeDeclaration_Name();
+      _xblockexpression = Nodes.textForFeature(step, _jnarioTypeDeclaration_Name);
     }
     return _xblockexpression;
   }

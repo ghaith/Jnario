@@ -7,19 +7,34 @@
  *******************************************************************************/
 package org.jnario.doc;
 
+import static com.google.common.collect.Sets.newHashSet;
+
 import java.util.Set;
 
-import org.eclipse.xtend.core.compiler.XtendOutputConfigurationProvider;
+import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.OutputConfiguration;
+import org.eclipse.xtext.generator.OutputConfigurationProvider;
 
-public class DocOutputConfigurationProvider extends XtendOutputConfigurationProvider{
+public class DocOutputConfigurationProvider extends OutputConfigurationProvider{
 
 	public static final String DOC_OUTPUT = "DOC_OUTPUT";
 	public static final String ASSET_OUTPUT = "ASSET_OUTPUT";
 
 	@Override
 	public Set<OutputConfiguration> getOutputConfigurations() {
-		Set<OutputConfiguration> configuration = super.getOutputConfigurations();
+		OutputConfiguration defaultOutput = new OutputConfiguration(IFileSystemAccess.DEFAULT_OUTPUT);
+		defaultOutput.setDescription("Output folder for generated Java files");
+		defaultOutput.setOutputDirectory("xtend-gen");
+		defaultOutput.setOverrideExistingResources(true);
+		defaultOutput.setCreateOutputDirectory(true);
+		defaultOutput.setCanClearOutputDirectory(false);
+		defaultOutput.setCleanUpDerivedResources(true);
+		defaultOutput.setSetDerivedProperty(true);
+		defaultOutput.setKeepLocalHistory(false);
+		
+		Set<OutputConfiguration> configuration = newHashSet(defaultOutput);
+		
+		
 		OutputConfiguration docOutput = new OutputConfiguration(DOC_OUTPUT);
 		docOutput.setDescription("Output folder for generated documentation files");
 		docOutput.setOutputDirectory("doc-gen");

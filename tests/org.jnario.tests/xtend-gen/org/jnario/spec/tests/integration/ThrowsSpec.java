@@ -24,9 +24,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class ThrowsSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor _behaviorExecutor;
   
   @Test
@@ -36,20 +36,23 @@ public class ThrowsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("import java.util.Stack");
     _builder.newLine();
     _builder.append("import java.util.EmptyStackException");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"throws\" {");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact new Stack<String>().pop throws EmptyStackException ");
+    _builder.append("  fact new Stack<String>().pop throws EmptyStackException ");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -59,18 +62,21 @@ public class ThrowsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("import java.util.Stack");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"throws\" {");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact new Stack<String>().pop throws Throwable ");
+    _builder.append("  fact new Stack<String>().pop throws Throwable ");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -80,14 +86,16 @@ public class ThrowsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"throws\" {");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact 1 + 1 throws RuntimeException ");
+    _builder.append("  fact 1 + 1 throws RuntimeException ");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executionFails(_builder);
+    
+    this._behaviorExecutor.executionFails(
+      _builder.toString());
   }
 }

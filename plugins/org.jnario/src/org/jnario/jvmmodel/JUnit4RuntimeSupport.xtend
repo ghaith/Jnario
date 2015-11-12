@@ -1,21 +1,21 @@
 package org.jnario.jvmmodel
 
-import org.jnario.jvmmodel.TestRuntimeSupport
+import com.google.inject.Inject
+import java.util.Collection
+import java.util.List
+import org.eclipse.emf.common.notify.Notifier
 import org.eclipse.xtext.common.types.JvmGenericType
+import org.eclipse.xtext.common.types.JvmOperation
+import org.eclipse.xtext.common.types.JvmTypeReference
+import org.eclipse.xtext.common.types.util.TypeReferences
+import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
+import org.jnario.Executable
+import org.jnario.JnarioClass
+import org.jnario.JnarioMember
 import org.jnario.Specification
 import org.jnario.runner.Contains
-import com.google.inject.Inject
-import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
-import org.eclipse.xtend.core.xtend.XtendMember
-import org.eclipse.xtext.common.types.JvmOperation
-import org.jnario.Executable
 import org.jnario.runner.ExampleGroupRunner
-import org.eclipse.xtend.core.xtend.XtendClass
 import org.jnario.runner.FeatureRunner
-import java.util.Collection
-import java.util.Listimport org.eclipse.xtext.common.types.JvmTypeReference
-import org.eclipse.xtext.common.types.util.TypeReferences
-import org.eclipse.emf.common.notify.Notifier
 
 class JUnit4RuntimeSupport implements TestRuntimeSupport {
 	
@@ -30,19 +30,19 @@ class JUnit4RuntimeSupport implements TestRuntimeSupport {
 		}
 	}
 
-	override afterAllMethod(XtendMember after, JvmOperation operation) {
+	override afterAllMethod(JnarioMember after, JvmOperation operation) {
 		operation.annotations += after.toAnnotation("org.junit.AfterClass")
 	}
 	
-	override afterMethod(XtendMember after, JvmOperation operation) {
+	override afterMethod(JnarioMember after, JvmOperation operation) {
 		operation.annotations += after.toAnnotation("org.junit.After")
 	}
 	
-	override beforeAllMethod(XtendMember before, JvmOperation operation) {
+	override beforeAllMethod(JnarioMember before, JvmOperation operation) {
 		operation.annotations += before.toAnnotation("org.junit.BeforeClass")
 	}
 	
-	override beforeMethod(XtendMember before, JvmOperation operation) {
+	override beforeMethod(JnarioMember before, JvmOperation operation) {
 		operation.annotations += before.toAnnotation("org.junit.Before")
 	}
 
@@ -50,7 +50,7 @@ class JUnit4RuntimeSupport implements TestRuntimeSupport {
 		operation.annotations += element.toAnnotation("org.junit.Ignore")
 	}
 
-	override updateExampleGroup(XtendClass exampleGroup, JvmGenericType inferredType) {
+	override updateExampleGroup(JnarioClass exampleGroup, JvmGenericType inferredType) {
 		inferredType.annotations += exampleGroup.toAnnotation(RUN_WITH, getTypeForName(ExampleGroupRunner, exampleGroup));
 	}
 	
@@ -58,15 +58,15 @@ class JUnit4RuntimeSupport implements TestRuntimeSupport {
 		operation.annotations += element.toAnnotation("org.junit.Test")
 	}
 	
-	override updateFeature(XtendClass feature, JvmGenericType inferredType, List<JvmTypeReference> scenarios) {
+	override updateFeature(JnarioClass feature, JvmGenericType inferredType, List<JvmTypeReference> scenarios) {
 		inferredType.annotations += feature.toAnnotation(RUN_WITH, getTypeForName(FeatureRunner, feature));
 	}
 	
-	override updateScenario(XtendClass scenario, JvmGenericType inferredType) {
+	override updateScenario(JnarioClass scenario, JvmGenericType inferredType) {
 		inferredType.annotations += scenario.toAnnotation(RUN_WITH, getTypeForName(FeatureRunner, scenario));
 	}
 
-	override updateSuite(XtendClass exampleGroup, JvmGenericType inferredType) {
+	override updateSuite(JnarioClass exampleGroup, JvmGenericType inferredType) {
 		inferredType.annotations += exampleGroup.toAnnotation(RUN_WITH, getTypeForName(ExampleGroupRunner, exampleGroup));
 	}
 

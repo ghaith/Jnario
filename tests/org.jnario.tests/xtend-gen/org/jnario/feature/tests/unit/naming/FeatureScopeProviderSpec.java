@@ -22,9 +22,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class FeatureScopeProviderSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ScopeTestExtension e;
   
   public Set<String> targetOperationScope() {

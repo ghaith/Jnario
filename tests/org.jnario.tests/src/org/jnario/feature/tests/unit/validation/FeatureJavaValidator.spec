@@ -9,7 +9,7 @@ package org.jnario.feature.tests.unit.validation
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtend.core.xtend.XtendFile
+import org.jnario.JnarioFile
 import org.eclipse.xtext.junit4.validation.AssertableDiagnostics
 import org.eclipse.xtext.junit4.validation.RegisteredValidatorTester
 import org.eclipse.xtext.xbase.lib.Procedures$Procedure1
@@ -22,6 +22,8 @@ import org.jnario.jnario.test.util.ModelStore
 import org.jnario.runner.CreateWith
 
 import static org.jnario.jnario.test.util.Query.*
+
+import static extension org.jnario.test.tools.JnarioTestTools.*
 
 /**
  * @author Sebastian Benz - Initial contribution and API
@@ -61,9 +63,9 @@ describe FeatureJavaValidator{
 			import java.util.Stack
 			Feature: Stack
 			Scenario: Example
-				Stack stack
+				Stack<?> stack
 		'''.parseScenario
-		validate(typeof(XtendFile)).assertOK
+		validate(typeof(JnarioFile)).assertOKWithMessage
 	}
 	
 	def select(CharSequence input, Class<? extends EObject> type){

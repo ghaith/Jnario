@@ -4,14 +4,13 @@
  */
 package org.jnario.spec.ui;
 
-import org.eclipse.xtext.ui.DefaultUiModule;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * Manual modifications go to {org.jnario.spec.ui.SpecUiModule}
  */
 @SuppressWarnings("all")
-public abstract class AbstractSpecUiModule extends DefaultUiModule {
+public abstract class AbstractSpecUiModule extends org.eclipse.xtext.xbase.annotations.ui.DefaultXbaseWithAnnotationsUiModule {
 	
 	public AbstractSpecUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
@@ -33,17 +32,22 @@ public abstract class AbstractSpecUiModule extends DefaultUiModule {
 		return org.eclipse.xtext.xbase.ui.editor.XbaseDocumentProvider.class;
 	}
 
-	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment
+	// contributed by org.eclipse.xtext.ui.generator.ImplicitUiFragment
+	public Class<? extends org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler> bindOpenGeneratedFileHandler() {
+		return org.eclipse.xtext.xbase.ui.generator.trace.XbaseOpenGeneratedFileHandler.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
 	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.IProposalConflictHelper> bindIProposalConflictHelper() {
 		return org.eclipse.xtext.ui.editor.contentassist.antlr.AntlrProposalConflictHelper.class;
 	}
 
-	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment
+	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
 	public void configureHighlightingLexer(com.google.inject.Binder binder) {
-		binder.bind(org.eclipse.xtext.parser.antlr.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.HIGHLIGHTING)).to(org.jnario.spec.parser.antlr.internal.InternalSpecLexer.class);
+		binder.bind(org.eclipse.xtext.parser.antlr.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.HIGHLIGHTING)).to(org.jnario.spec.parser.antlr.lexer.InternalSpecLexer.class);
 	}
 
-	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment
+	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
 	public void configureHighlightingTokenDefProvider(com.google.inject.Binder binder) {
 		binder.bind(org.eclipse.xtext.parser.antlr.ITokenDefProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.HIGHLIGHTING)).to(org.eclipse.xtext.parser.antlr.AntlrTokenDefProvider.class);
 	}
@@ -56,6 +60,11 @@ public abstract class AbstractSpecUiModule extends DefaultUiModule {
 	// contributed by org.eclipse.xtext.generator.builder.BuilderIntegrationFragment
 	public Class<? extends org.eclipse.xtext.ui.editor.IXtextEditorCallback> bindIXtextEditorCallback() {
 		return org.eclipse.xtext.builder.nature.NatureAddingEditorCallback.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.builder.BuilderIntegrationFragment
+	public Class<? extends org.eclipse.xtext.generator.IContextualOutputConfigurationProvider> bindIContextualOutputConfigurationProvider() {
+		return org.eclipse.xtext.builder.EclipseOutputConfigurationProvider.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.builder.BuilderIntegrationFragment
@@ -81,6 +90,11 @@ public abstract class AbstractSpecUiModule extends DefaultUiModule {
 	// contributed by org.eclipse.xtext.generator.generator.GeneratorFragment
 	public void configureBuilderPreferenceStoreInitializer(com.google.inject.Binder binder) {
 		binder.bind(org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer.class).annotatedWith(com.google.inject.name.Names.named("builderPreferenceInitializer")).to(org.eclipse.xtext.builder.preferences.BuilderPreferenceAccess.Initializer.class);
+	}
+
+	// contributed by org.eclipse.xtext.generator.formatting2.Formatter2Fragment
+	public Class<? extends org.eclipse.xtext.ui.editor.formatting.IContentFormatterFactory> bindIContentFormatterFactory() {
+		return org.eclipse.xtext.ui.editor.formatting2.ContentFormatterFactory.class;
 	}
 
 	// contributed by org.eclipse.xtext.ui.generator.labeling.LabelProviderFragment
@@ -113,119 +127,29 @@ public abstract class AbstractSpecUiModule extends DefaultUiModule {
 		return org.jnario.spec.ui.contentassist.SpecProposalProvider.class;
 	}
 
-	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrUiGeneratorFragment
+	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment
 	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext.Factory> bindContentAssistContext$Factory() {
 		return org.eclipse.xtext.ui.editor.contentassist.antlr.ParserBasedContentAssistContextFactory.class;
 	}
 
-	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrUiGeneratorFragment
+	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment
 	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.antlr.IContentAssistParser> bindIContentAssistParser() {
 		return org.jnario.spec.ui.contentassist.antlr.SpecParser.class;
 	}
 
-	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrUiGeneratorFragment
+	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment
 	public void configureContentAssistLexerProvider(com.google.inject.Binder binder) {
-		binder.bind(org.jnario.spec.ui.contentassist.antlr.internal.InternalSpecLexer.class).toProvider(org.eclipse.xtext.parser.antlr.LexerProvider.create(org.jnario.spec.ui.contentassist.antlr.internal.InternalSpecLexer.class));
+		binder.bind(org.jnario.spec.ui.contentassist.antlr.lexer.InternalSpecLexer.class).toProvider(org.eclipse.xtext.parser.antlr.LexerProvider.create(org.jnario.spec.ui.contentassist.antlr.lexer.InternalSpecLexer.class));
 	}
 
-	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrUiGeneratorFragment
+	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment
 	public void configureContentAssistLexer(com.google.inject.Binder binder) {
-		binder.bind(org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.CONTENT_ASSIST)).to(org.jnario.spec.ui.contentassist.antlr.internal.InternalSpecLexer.class);
-	}
-
-	// contributed by org.eclipse.xtext.generator.types.TypesGeneratorFragment
-	public java.lang.ClassLoader bindClassLoaderToInstance() {
-		return getClass().getClassLoader();
-	}
-
-	// contributed by org.eclipse.xtext.generator.types.TypesGeneratorFragment
-	public Class<? extends org.eclipse.xtext.common.types.access.IJvmTypeProvider.Factory> bindIJvmTypeProvider$Factory() {
-		return org.eclipse.xtext.common.types.access.jdt.JdtTypeProviderFactory.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.types.TypesGeneratorFragment
-	public Class<? extends org.eclipse.xtext.common.types.xtext.AbstractTypeScopeProvider> bindAbstractTypeScopeProvider() {
-		return org.eclipse.xtext.common.types.xtext.ui.JdtBasedSimpleTypeScopeProvider.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.types.TypesGeneratorFragment
-	public Class<? extends org.eclipse.xtext.common.types.access.jdt.IJavaProjectProvider> bindIJavaProjectProvider() {
-		return org.eclipse.xtext.common.types.xtext.ui.XtextResourceSetBasedProjectProvider.class;
+		binder.bind(org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.CONTENT_ASSIST)).to(org.jnario.spec.ui.contentassist.antlr.lexer.InternalSpecLexer.class);
 	}
 
 	// contributed by org.eclipse.xtext.generator.types.TypesGeneratorFragment
 	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher> bindPrefixMatcher() {
 		return org.eclipse.xtext.ui.editor.contentassist.FQNPrefixMatcher.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.types.TypesGeneratorFragment
-	public Class<? extends org.eclipse.xtext.ui.editor.IValidationJobScheduler> bindIValidationJobScheduler() {
-		return org.eclipse.xtext.common.types.xtext.ui.JdtValidationJobScheduler.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.types.TypesGeneratorFragment
-	public Class<? extends org.eclipse.xtext.ui.refactoring.impl.RefactoringResourceSetProvider> bindRefactoringResourceSetProvider() {
-		return org.eclipse.xtext.common.types.ui.refactoring.JvmRefactoringResourceSetProvider.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper> bindAbstractAntlrTokenToAttributeIdMapper() {
-		return org.eclipse.xtext.xbase.ui.syntaxcoloring.XbaseTokenToAttributeIdMapper.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.AbstractJavaBasedContentProposalProvider.ReferenceProposalCreator> bindAbstractJavaBasedContentProposalProvider$ReferenceProposalCreator() {
-		return org.eclipse.xtext.xbase.ui.contentassist.XbaseReferenceProposalCreator.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.jface.text.contentassist.IContentAssistProcessor> bindIContentAssistProcessor() {
-		return org.eclipse.xtext.ui.editor.contentassist.RepeatedContentAssistProcessor.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
-		return org.eclipse.xtext.xbase.ui.highlighting.XbaseHighlightingCalculator.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration> bindIHighlightingConfiguration() {
-		return org.eclipse.xtext.xbase.ui.highlighting.XbaseHighlightingConfiguration.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider> bindIEObjectHoverProvider() {
-		return org.eclipse.xtext.xbase.ui.hover.XbaseHoverProvider.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.ui.editor.hover.IEObjectHover> bindIEObjectHover() {
-		return org.eclipse.xtext.xbase.ui.hover.XbaseDispatchingEObjectTextHover.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.ui.editor.hover.html.IEObjectHoverDocumentationProvider> bindIEObjectHoverDocumentationProvider() {
-		return org.eclipse.xtext.xbase.ui.hover.XbaseHoverDocumentationProvider.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider.CrossRefResolutionConverter> bindDefaultQuickfixProvider$CrossRefResolutionConverter() {
-		return org.eclipse.xtext.xbase.ui.quickfix.XbaseCrossRefResolutionConverter.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.eclipse.xtext.xbase.ui.validation.XbaseUIValidator> bindXbaseUIValidator() {
-		return org.eclipse.xtext.xbase.ui.validation.XbaseUIValidator.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
-		return org.eclipse.xtext.xbase.ui.navigation.TypeLiteralAwareHyperlinkHelper.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.xbase.typesystem.internal.IFeatureScopeTracker.Provider> bindIFeatureScopeTracker$Provider() {
-		return org.eclipse.xtext.xbase.typesystem.internal.OptimizingFeatureScopeTrackerProvider.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
@@ -279,11 +203,6 @@ public abstract class AbstractSpecUiModule extends DefaultUiModule {
 			binder.bind(org.eclipse.xtext.ui.editor.IURIEditorOpener.class).annotatedWith(org.eclipse.xtext.ui.LanguageSpecific.class).to(org.eclipse.xtext.xbase.ui.jvmmodel.navigation.DerivedMemberAwareEditorOpener.class); 
 			binder.bind(org.eclipse.xtext.common.types.ui.navigation.IDerivedMemberAwareEditorOpener.class).to(org.eclipse.xtext.xbase.ui.jvmmodel.navigation.DerivedMemberAwareEditorOpener.class); 
 		};
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.jface.text.hyperlink.IHyperlinkDetector> bindIHyperlinkDetector() {
-		return org.eclipse.xtext.xbase.ui.navigation.XbaseHyperlinkDetector.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment

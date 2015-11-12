@@ -7,8 +7,6 @@
  */
 package org.jnario;
 
-import org.eclipse.xtend.core.xtend.XtendFunction;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Example Cell</b></em>'.
@@ -19,5 +17,5 @@ import org.eclipse.xtend.core.xtend.XtendFunction;
  * @model
  * @generated
  */
-public interface ExampleCell extends XtendFunction {
+public interface ExampleCell extends JnarioFunction {
 } // ExampleCell

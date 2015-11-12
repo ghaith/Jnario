@@ -13,7 +13,7 @@ package org.jnario.ui.builder;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.xtend.ide.builder.SourceRelativeFileSystemAccess;
+import org.eclipse.xtext.builder.JDTAwareEclipseResourceFileSystemAccess2;
 import org.eclipse.xtext.generator.OutputConfiguration;
 import org.eclipse.xtext.util.RuntimeIOException;
 import org.jnario.generator.JnarioEncodingProvider;
@@ -24,9 +24,7 @@ import com.google.inject.Inject;
  * @author Sebastian Benz
  *
  */
-@SuppressWarnings("restriction")
-public class JnarioSourceRelativeFileSystemAccess extends
-		SourceRelativeFileSystemAccess {
+public class JnarioSourceRelativeFileSystemAccess extends JDTAwareEclipseResourceFileSystemAccess2 {
 
 	@Inject
 	private JnarioEncodingProvider encodingProvider;

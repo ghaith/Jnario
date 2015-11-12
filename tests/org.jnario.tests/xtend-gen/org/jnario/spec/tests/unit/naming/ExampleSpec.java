@@ -32,27 +32,29 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class ExampleSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore modelStore;
   
-  public Example parse(final String content) {
+  public Example parse(@Extension final String content) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"test\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append(content, "\t");
-    _builder.newLineIfNotEmpty();
-    _builder.append("}");
-    _builder.newLine();
-    final Resource spec = this.modelStore.parseSpec(_builder);
+    
+    String _plus = (_builder.toString() + content);
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("}");
+    _builder_1.newLine();
+    
+    String _plus_1 = (_plus + _builder_1.toString());
+    final Resource spec = this.modelStore.parseSpec(_plus_1);
     TreeIterator<EObject> _allContents = spec.getAllContents();
     Query _query = Query.query(_allContents);
     return _query.<Example>first(Example.class);
   }
   
-  public boolean pendingStateOf(final String string) {
+  public boolean pendingStateOf(@Extension final String string) {
     Example _parse = this.parse(string);
     return _parse.isPending();
   }

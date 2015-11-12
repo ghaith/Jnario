@@ -37,12 +37,12 @@
 							  	<div class="tab-pane active" id="spec">
 <ul><li><p id="returns_background_and_scenarios" class="example notrun"><strong>returns background and scenarios</strong></p>
 <pre class="prettyprint lang-spec linenums">
-'''
+&quot;
 Feature: My feature
 Background: My Background
 Scenario: My first Scenario
 Scenario: My second Scenario
-'''.parseScenario
+&quot;.parseScenario
 feature().executables =&gt; list(scenario(&quot;Background: My Background&quot;), scenario(&quot;Scenario: My first Scenario&quot;), scenario(&quot;Scenario: My second Scenario&quot;))</pre>
 </li><li><p id="returns_steps" class="example notrun"><strong>returns steps</strong></p>
 <pre class="prettyprint lang-spec linenums">
@@ -85,12 +85,12 @@ describe FeatureExecutableProvider {
   
   @Inject extension ModelStore
   fact &quot;returns background and scenarios&quot;{
-    '''
+    &quot;
     Feature: My feature
     Background: My Background
     Scenario: My first Scenario
     Scenario: My second Scenario
-    '''.parseScenario
+    &quot;.parseScenario
     feature().executables =&gt; list(scenario(&quot;Background: My Background&quot;), scenario(&quot;Scenario: My first Scenario&quot;), scenario(&quot;Scenario: My second Scenario&quot;))
   }
   

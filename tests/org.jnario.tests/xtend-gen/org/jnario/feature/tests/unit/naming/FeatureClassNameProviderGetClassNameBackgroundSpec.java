@@ -91,6 +91,7 @@ public class FeatureClassNameProviderGetClassNameBackgroundSpec extends FeatureC
   @Order(1)
   public void _examplesWork() throws Exception {
     final Procedure1<FeatureClassNameProviderGetClassNameBackgroundSpecExamples> _function = new Procedure1<FeatureClassNameProviderGetClassNameBackgroundSpecExamples>() {
+      @Override
       public void apply(final FeatureClassNameProviderGetClassNameBackgroundSpecExamples it) {
         String _name = it.getName();
         String _feature = it.getFeature();

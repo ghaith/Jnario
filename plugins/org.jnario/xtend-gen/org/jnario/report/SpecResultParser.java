@@ -50,6 +50,7 @@ public class SpecResultParser extends DefaultHandler {
     }
   }
   
+  @Override
   public void startElement(final String uri, final String localName, final String qName, final Attributes attributes) throws SAXException {
     boolean _matched = false;
     if (!_matched) {
@@ -92,6 +93,7 @@ public class SpecResultParser extends DefaultHandler {
     return this.currentFailureType = _convertValue;
   }
   
+  @Override
   public void endElement(final String uri, final String localName, final String qName) throws SAXException {
     boolean _matched = false;
     if (!_matched) {
@@ -161,6 +163,7 @@ public class SpecResultParser extends DefaultHandler {
     return s.replaceAll("\n\t", "\n");
   }
   
+  @Override
   public void characters(final char[] ch, final int start, final int length) throws SAXException {
     String _valueOf = String.valueOf(ch, start, length);
     this.currentFailureStacktrace.append(_valueOf);

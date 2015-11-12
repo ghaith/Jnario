@@ -7,7 +7,7 @@
  */
 package org.jnario.spec.spec;
 
-import org.eclipse.xtend.core.xtend.XtendFile;
+import org.jnario.JnarioFile;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,6 +19,6 @@ import org.eclipse.xtend.core.xtend.XtendFile;
  * @model
  * @generated
  */
-public interface SpecFile extends XtendFile
+public interface SpecFile extends JnarioFile
 {
 } // SpecFile

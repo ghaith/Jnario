@@ -104,6 +104,7 @@ public class RegexFilterSpec {
   @Order(1)
   public void _removesAllMatchedElements() throws Exception {
     final Procedure1<RegexFilterSpecFilteringExamples> _function = new Procedure1<RegexFilterSpecFilteringExamples>() {
+      @Override
       public void apply(final RegexFilterSpecFilteringExamples it) {
         String _regex = it.getRegex();
         final Filter filter = RegexFilter.create(_regex);

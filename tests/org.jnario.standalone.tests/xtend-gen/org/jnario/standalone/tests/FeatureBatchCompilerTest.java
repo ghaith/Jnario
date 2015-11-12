@@ -46,6 +46,9 @@ public class FeatureBatchCompilerTest {
       this.batchCompiler.setOutputPath(FeatureBatchCompilerTest.OUTPUT_DIRECTORY);
       this.batchCompiler.setDeleteTempDirectory(true);
       this.batchCompiler.setUseCurrentClassLoaderAsParent(true);
+      Class<? extends FeatureBatchCompilerTest> _class = this.getClass();
+      ClassLoader _classLoader = _class.getClassLoader();
+      this.batchCompiler.setCurrentClassLoader(_classLoader);
       File _file = new File(FeatureBatchCompilerTest.OUTPUT_DIRECTORY);
       _file.mkdir();
       File _file_1 = new File(FeatureBatchCompilerTest.OUTPUT_DIRECTORY);
@@ -80,6 +83,7 @@ public class FeatureBatchCompilerTest {
     this.batchCompiler.compile();
     File _file = new File((FeatureBatchCompilerTest.OUTPUT_DIRECTORY + "/test"));
     final FilenameFilter _function = new FilenameFilter() {
+      @Override
       public boolean accept(final File dir, final String name) {
         return name.endsWith(".java");
       }

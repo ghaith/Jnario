@@ -70,6 +70,7 @@ public class PatternValueConverterToValueStringINodeSpec extends PatternValueCon
   @Order(1)
   public void _examplesForEachSubjectToValueInputNullResult() throws Exception {
     final Procedure1<PatternValueConverterToValueStringINodeSpecExamples> _function = new Procedure1<PatternValueConverterToValueStringINodeSpecExamples>() {
+      @Override
       public void apply(final PatternValueConverterToValueStringINodeSpecExamples it) {
         String _input = it.getInput();
         String _value = PatternValueConverterToValueStringINodeSpec.this.subject.toValue(_input, null);

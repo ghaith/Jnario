@@ -14,7 +14,6 @@ import static org.eclipse.xtext.scoping.Scopes.scopeFor;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtend.core.jvmmodel.IXtendJvmAssociations;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmType;
@@ -37,8 +36,8 @@ import com.google.inject.Singleton;
 @Singleton
 public class SpecScopeProvider extends AbstractDeclarativeScopeProvider {
 	
-	@Inject
-	private IXtendJvmAssociations xtendjvmAssociations;
+//	@Inject
+//	private IXtendJvmAssociations xtendjvmAssociations;
 	
 	@Inject
 	private TypeReferences typeReferences;

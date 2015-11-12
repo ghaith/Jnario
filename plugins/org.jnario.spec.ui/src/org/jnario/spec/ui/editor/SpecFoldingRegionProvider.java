@@ -9,14 +9,14 @@ package org.jnario.spec.ui.editor;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.ide.editor.XtendFoldingRegionProvider;
+import org.eclipse.xtext.ui.editor.folding.DefaultFoldingRegionProvider;
 import org.jnario.spec.spec.SpecPackage;
 
 /**
  * @author Sebastian Benz - Initial contribution and API
  */
 @SuppressWarnings("restriction")
-public class SpecFoldingRegionProvider extends XtendFoldingRegionProvider {
+public class SpecFoldingRegionProvider extends DefaultFoldingRegionProvider {
 
 	@Override
 	protected boolean isHandled(EObject object) {

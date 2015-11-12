@@ -26,9 +26,11 @@ public class World {
       String _string = grid.toString();
       String[] _split = _string.split("\r?\n");
       final Procedure2<String, Integer> _function = new Procedure2<String, Integer>() {
+        @Override
         public void apply(final String line, final Integer x) {
           char[] _charArray = line.toCharArray();
           final Procedure2<Character, Integer> _function = new Procedure2<Character, Integer>() {
+            @Override
             public void apply(final Character c, final Integer y) {
               String _string = c.toString();
               boolean _equals = Objects.equal(_string, "X");
@@ -55,6 +57,7 @@ public class World {
   public Set<CellLocation> deadCells() {
     Set<CellLocation> _livingCells = this.getLivingCells();
     final Function1<CellLocation, Set<CellLocation>> _function = new Function1<CellLocation, Set<CellLocation>>() {
+      @Override
       public Set<CellLocation> apply(final CellLocation it) {
         return it.neighbours();
       }
@@ -62,6 +65,7 @@ public class World {
     Iterable<Set<CellLocation>> _map = IterableExtensions.<CellLocation, Set<CellLocation>>map(_livingCells, _function);
     Iterable<CellLocation> _flatten = Iterables.<CellLocation>concat(_map);
     final Function1<CellLocation, Boolean> _function_1 = new Function1<CellLocation, Boolean>() {
+      @Override
       public Boolean apply(final CellLocation it) {
         Set<CellLocation> _livingCells = World.this.getLivingCells();
         boolean _contains = _livingCells.contains(it);
@@ -75,6 +79,7 @@ public class World {
   public int livingNeighbours(final CellLocation cell) {
     Set<CellLocation> _neighbours = cell.neighbours();
     final Function1<CellLocation, Boolean> _function = new Function1<CellLocation, Boolean>() {
+      @Override
       public Boolean apply(final CellLocation it) {
         Set<CellLocation> _livingCells = World.this.getLivingCells();
         return Boolean.valueOf(_livingCells.contains(it));

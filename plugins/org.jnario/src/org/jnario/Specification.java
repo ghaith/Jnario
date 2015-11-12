@@ -6,7 +6,6 @@
  */
 package org.jnario;
 
-import org.eclipse.xtend.core.xtend.XtendClass;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,5 +17,5 @@ import org.eclipse.xtend.core.xtend.XtendClass;
  * @model
  * @generated
  */
-public interface Specification extends XtendClass, Executable {
+public interface Specification extends Executable, JnarioClass {
 } // Specification

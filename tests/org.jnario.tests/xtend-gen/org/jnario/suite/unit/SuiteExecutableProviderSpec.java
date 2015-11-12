@@ -34,9 +34,9 @@ public class SuiteExecutableProviderSpec {
   @Subject
   public SuiteExecutableProvider subject;
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore m;
   
   @Before
@@ -46,26 +46,24 @@ public class SuiteExecutableProviderSpec {
     _builder.newLine();
     _builder.append("describe \"My Spec\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("// this should be filtered");
+    _builder.append("	// this should be filtered");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("describe \"My Internal Spec\"{");
+    _builder.append("	describe \"My Internal Spec\"{");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("		");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     _builder.append("describe String{");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this.m.parseSpec(_builder);
+    
+    this.m.parseSpec(_builder.toString());
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("package demo");
     _builder_1.newLine();
@@ -73,13 +71,12 @@ public class SuiteExecutableProviderSpec {
     _builder_1.newLine();
     _builder_1.append("Scenario My Scenario");
     _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("Given nothing");
+    _builder_1.append("	Given nothing");
     _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("Then nothing");
+    _builder_1.append("	Then nothing");
     _builder_1.newLine();
-    this.m.parseScenario(_builder_1);
+    
+    this.m.parseScenario(_builder_1.toString());
   }
   
   @Test
@@ -93,6 +90,7 @@ public class SuiteExecutableProviderSpec {
     _builder.newLine();
     _builder.append("#My Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("##Child 1");
     _builder.newLine();
@@ -100,7 +98,8 @@ public class SuiteExecutableProviderSpec {
     _builder.newLine();
     _builder.append("###Grandchild");
     _builder.newLine();
-    this.m.parseSuite(_builder);
+    
+    this.m.parseSuite(_builder.toString());
     Suite _suite = this.m.suite("My Suite");
     List<Executable> _executables = this.subject.getExecutables(_suite);
     Suite _suite_1 = this.m.suite("Child 1");
@@ -127,12 +126,14 @@ public class SuiteExecutableProviderSpec {
     _builder.newLine();
     _builder.append("#My Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("- \"My Spec\"");
     _builder.newLine();
     _builder.append("- \"My Feature\"");
     _builder.newLine();
-    this.m.parseSuite(_builder);
+    
+    this.m.parseSuite(_builder.toString());
     Suite _suite = this.m.suite("My Suite");
     List<Executable> _executables = this.subject.getExecutables(_suite);
     Set<Executable> _set = IterableExtensions.<Executable>toSet(_executables);
@@ -161,11 +162,14 @@ public class SuiteExecutableProviderSpec {
     _builder.newLine();
     _builder.append("#My Suite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("- \\demo.*\\");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    this.m.parseSuite(_builder);
+    
+    this.m.parseSuite(_builder.toString());
     Suite _suite = this.m.suite("My Suite");
     List<Executable> _executables = this.subject.getExecutables(_suite);
     Set<Executable> _set = IterableExtensions.<Executable>toSet(_executables);

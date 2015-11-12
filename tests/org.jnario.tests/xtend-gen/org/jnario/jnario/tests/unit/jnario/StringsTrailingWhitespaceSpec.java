@@ -120,6 +120,7 @@ public class StringsTrailingWhitespaceSpec extends StringsSpec {
   @Order(1)
   public void _returnsWhitespacesAtTheEnd() throws Exception {
     final Procedure1<StringsTrailingWhitespaceSpecExamples> _function = new Procedure1<StringsTrailingWhitespaceSpecExamples>() {
+      @Override
       public void apply(final StringsTrailingWhitespaceSpecExamples it) {
         String _string = it.getString();
         String _trailingWhitespace = Strings.trailingWhitespace(_string);

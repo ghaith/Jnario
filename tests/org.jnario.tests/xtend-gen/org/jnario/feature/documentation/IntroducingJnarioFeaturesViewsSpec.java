@@ -40,53 +40,47 @@ public class IntroducingJnarioFeaturesViewsSpec extends IntroducingJnarioFeature
     _builder.newLine();
     _builder.append("import org.jnario.feature.documentation.Calculator");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Feature: Calculator");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Background:");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("Calculator calculator");
+    _builder.append("  Calculator calculator");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("int result");
+    _builder.append("  int result");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("Given a calculator");
+    _builder.append("  Given a calculator");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("calculator = new Calculator");
+    _builder.append("    calculator = new Calculator");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Scenario: Adding two numbers");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("When adding two numbers \"5\" and \"6\". ");
+    _builder.append("  When adding two numbers \"5\" and \"6\". ");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("result = calculator.add(args.first.toInt, args.second.toInt)");
+    _builder.append("    result = calculator.add(args.first.toInt, args.second.toInt)");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("Then it prints \"11\"");
+    _builder.append("  Then it prints \"11\"");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("result => args.first.toInt");
+    _builder.append("    result => args.first.toInt");
     _builder.newLine();
     _builder.append("    ");
     _builder.newLine();
     _builder.append("Scenario: Dividing two numbers");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("When entering two numbers \"10\" and \"5\" and pressing enter. ");
+    _builder.append(" When entering two numbers \"10\" and \"5\" and pressing enter. ");
     _builder.newLine();
-    _builder.append("   ");
-    _builder.append("result = calculator.divide(args.first.toInt, args.second.toInt)");
+    _builder.append("   result = calculator.divide(args.first.toInt, args.second.toInt)");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("Then it prints \"2\"");
+    _builder.append(" Then it prints \"2\"");
     _builder.newLine();
-    FeatureExecutor.isSuccessful(_builder);
+    
+    FeatureExecutor.isSuccessful(
+      _builder.toString());
   }
   
   /**
@@ -102,34 +96,34 @@ public class IntroducingJnarioFeaturesViewsSpec extends IntroducingJnarioFeature
     _builder.newLine();
     _builder.append("import org.jnario.feature.documentation.Calculator");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Feature: Calculator");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Background:");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("Given a calculator");
+    _builder.append("  Given a calculator");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Scenario: Adding two numbers");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("When adding two numbers \"5\" and \"6\". ");
+    _builder.append("  When adding two numbers \"5\" and \"6\". ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("Then it prints \"11\"");
+    _builder.append("  Then it prints \"11\"");
     _builder.newLine();
     _builder.append("    ");
     _builder.newLine();
     _builder.append("Scenario: Dividing two numbers");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("When entering two numbers \"10\" and \"5\" and pressing enter. ");
+    _builder.append(" When entering two numbers \"10\" and \"5\" and pressing enter. ");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("Then it prints \"2\"");
+    _builder.append(" Then it prints \"2\"");
     _builder.newLine();
-    FeatureExecutor.isSuccessful(_builder);
+    
+    FeatureExecutor.isSuccessful(
+      _builder.toString());
   }
 }

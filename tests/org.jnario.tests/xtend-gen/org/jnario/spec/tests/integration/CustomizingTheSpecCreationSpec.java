@@ -47,9 +47,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class CustomizingTheSpecCreationSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor _behaviorExecutor;
   
   /**
@@ -63,6 +63,7 @@ public class CustomizingTheSpecCreationSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("import org.jnario.runner.CreateWith");
     _builder.newLine();
@@ -70,6 +71,7 @@ public class CustomizingTheSpecCreationSpec {
     _builder.newLine();
     _builder.append("import com.google.inject.Inject");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("@CreateWith(typeof(GuiceSpecCreator))");
     _builder.newLine();
@@ -77,18 +79,18 @@ public class CustomizingTheSpecCreationSpec {
     _builder.newLine();
     _builder.append("  ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("@Inject String toInject");
+    _builder.append("  @Inject String toInject");
     _builder.newLine();
     _builder.append("  ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact toInject should not be null");
+    _builder.append("  fact toInject should not be null");
     _builder.newLine();
     _builder.append("      ");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

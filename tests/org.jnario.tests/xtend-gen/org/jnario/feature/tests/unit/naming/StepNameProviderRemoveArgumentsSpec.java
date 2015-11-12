@@ -57,14 +57,18 @@ public class StepNameProviderRemoveArgumentsSpec extends StepNameProviderSpec {
   @Order(1)
   public void _examplesDoPass() throws Exception {
     final Procedure1<StepNameProviderRemoveArgumentsSpecExamples> _function = new Procedure1<StepNameProviderRemoveArgumentsSpecExamples>() {
+      @Override
       public void apply(final StepNameProviderRemoveArgumentsSpecExamples it) {
         StringConcatenation _builder = new StringConcatenation();
         _builder.append("Scenario: scenario");
         _builder.newLine();
+        
         String _step = it.getStep();
-        _builder.append(_step, "");
-        _builder.newLineIfNotEmpty();
-        StepNameProviderRemoveArgumentsSpec.this.parseScenario(_builder);
+        String _plus = (_builder.toString() + _step);
+        StringConcatenation _builder_1 = new StringConcatenation();
+        
+        String _plus_1 = (_plus + _builder_1.toString());
+        StepNameProviderRemoveArgumentsSpec.this.parseScenario(_plus_1);
         String _step_1 = it.getStep();
         String _removeArguments = StepNameProviderRemoveArgumentsSpec.this.subject.removeArguments(_step_1);
         String _result = it.getResult();

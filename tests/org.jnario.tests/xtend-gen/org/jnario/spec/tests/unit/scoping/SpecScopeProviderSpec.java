@@ -30,9 +30,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class SpecScopeProviderSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ScopeTestExtension _scopeTestExtension;
   
   @Test

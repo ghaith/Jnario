@@ -9,10 +9,10 @@ package org.jnario.feature.feature.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.xtend.core.xtend.impl.XtendFileImpl;
-
 import org.jnario.feature.feature.FeatureFile;
 import org.jnario.feature.feature.FeaturePackage;
+
+import org.jnario.impl.JnarioFileImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,7 +23,7 @@ import org.jnario.feature.feature.FeaturePackage;
  *
  * @generated
  */
-public class FeatureFileImpl extends XtendFileImpl implements FeatureFile
+public class FeatureFileImpl extends JnarioFileImpl implements FeatureFile
 {
 	/**
 	 * <!-- begin-user-doc -->

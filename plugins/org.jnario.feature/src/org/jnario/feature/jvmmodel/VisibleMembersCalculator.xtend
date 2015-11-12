@@ -1,18 +1,19 @@
 package org.jnario.feature.jvmmodel
 
-import static org.eclipse.xtext.EcoreUtil2.*
-import org.jnario.feature.feature.Step
-import org.eclipse.xtend.core.xtend.XtendMember
-import org.jnario.feature.feature.Scenario
-import org.jnario.feature.feature.Feature
+import org.jnario.JnarioMember
 import org.jnario.feature.feature.Background
+import org.jnario.feature.feature.Feature
+import org.jnario.feature.feature.Scenario
+import org.jnario.feature.feature.Step
+
+import static org.eclipse.xtext.EcoreUtil2.*
 
 class VisibleMembersCalculator {
 	
 	def allVisibleMembers(Step step){
    		val scenario = getContainerOfType(step, typeof(Scenario))
 		if(scenario == null){
-			return <XtendMember>emptyList
+			return <JnarioMember>emptyList
 		}
 		allVisibleMembers(scenario)
    	}

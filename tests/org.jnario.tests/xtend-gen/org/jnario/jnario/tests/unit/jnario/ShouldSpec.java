@@ -28,14 +28,14 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class ShouldSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore _modelStore;
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor _behaviorExecutor;
   
   @Test
@@ -47,12 +47,12 @@ public class ShouldSpec {
     _builder.newLine();
     _builder.append("describe \"Should\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact 1 should be 1");
+    _builder.append("	fact 1 should be 1");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._modelStore.parseSpec(_builder);
+    
+    this._modelStore.parseSpec(_builder.toString());
     Query _query = this._modelStore.query();
     Should _first = _query.<Should>first(Should.class);
     boolean _isNot = _first.isNot();
@@ -73,12 +73,12 @@ public class ShouldSpec {
     _builder.newLine();
     _builder.append("describe \"Should\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact 1 should not be 1");
+    _builder.append("	fact 1 should not be 1");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._modelStore.parseSpec(_builder);
+    
+    this._modelStore.parseSpec(_builder.toString());
     Query _query = this._modelStore.query();
     Should _first = _query.<Should>first(Should.class);
     boolean _isNot = _first.isNot();
@@ -95,12 +95,13 @@ public class ShouldSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Test\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact assert list(null, \"\").filter [ it != null && it.length > 2 ].empty");
+    _builder.append("	fact assert list(null, \"\").filter [ it != null && it.length > 2 ].empty");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -112,12 +113,13 @@ public class ShouldSpec {
     _builder.newLine();
     _builder.append("describe \"Test\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact new Stack().pop throws EmptyStackException");
+    _builder.append("	fact new Stack().pop throws EmptyStackException");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -127,12 +129,13 @@ public class ShouldSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Test\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"\" throws Exception");
+    _builder.append("	fact \"\" throws Exception");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executionFails(_builder);
+    
+    this._behaviorExecutor.executionFails(
+      _builder.toString());
   }
   
   @Test
@@ -144,12 +147,13 @@ public class ShouldSpec {
     _builder.newLine();
     _builder.append("describe \"Test\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact new Stack().pop throws NoSuchElementException");
+    _builder.append("	fact new Stack().pop throws NoSuchElementException");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executionFails(_builder);
+    
+    this._behaviorExecutor.executionFails(
+      _builder.toString());
   }
   
   @Test
@@ -159,12 +163,13 @@ public class ShouldSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Test\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact list(\"red\").toArray => list(\"red\").toArray");
+    _builder.append("	fact list(\"red\").toArray => list(\"red\").toArray");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -176,15 +181,15 @@ public class ShouldSpec {
     _builder.newLine();
     _builder.append("describe \"Test\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact new Stack<String>().pop should throw EmptyStackException");
+    _builder.append("	fact new Stack<String>().pop should throw EmptyStackException");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact new Stack<String>().pop throws EmptyStackException");
+    _builder.append("	fact new Stack<String>().pop throws EmptyStackException");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -194,12 +199,13 @@ public class ShouldSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Test\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"hello\" should not be null");
+    _builder.append("	fact \"hello\" should not be null");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   @Test
@@ -209,11 +215,12 @@ public class ShouldSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Test\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact null => null");
+    _builder.append("	fact null => null");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

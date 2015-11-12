@@ -12,15 +12,13 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtend.core.xtend.XtendAnnotationTarget;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendExecutable;
-import org.eclipse.xtend.core.xtend.XtendFile;
-import org.eclipse.xtend.core.xtend.XtendFunction;
-import org.eclipse.xtend.core.xtend.XtendMember;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
-
 import org.jnario.Executable;
+import org.jnario.JnarioAnnotationTarget;
+import org.jnario.JnarioClass;
+import org.jnario.JnarioFile;
+import org.jnario.JnarioFunction;
+import org.jnario.JnarioMember;
+import org.jnario.JnarioTypeDeclaration;
 import org.jnario.Specification;
 
 import org.jnario.spec.spec.*;
@@ -112,7 +110,7 @@ public class SpecSwitch<T>
 			{
 				SpecFile specFile = (SpecFile)theEObject;
 				T result = caseSpecFile(specFile);
-				if (result == null) result = caseXtendFile(specFile);
+				if (result == null) result = caseJnarioFile(specFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -121,11 +119,11 @@ public class SpecSwitch<T>
 				ExampleGroup exampleGroup = (ExampleGroup)theEObject;
 				T result = caseExampleGroup(exampleGroup);
 				if (result == null) result = caseSpecification(exampleGroup);
-				if (result == null) result = caseXtendClass(exampleGroup);
 				if (result == null) result = caseExecutable(exampleGroup);
-				if (result == null) result = caseXtendTypeDeclaration(exampleGroup);
-				if (result == null) result = caseXtendMember(exampleGroup);
-				if (result == null) result = caseXtendAnnotationTarget(exampleGroup);
+				if (result == null) result = caseJnarioClass(exampleGroup);
+				if (result == null) result = caseJnarioTypeDeclaration(exampleGroup);
+				if (result == null) result = caseJnarioMember(exampleGroup);
+				if (result == null) result = caseJnarioAnnotationTarget(exampleGroup);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -135,10 +133,9 @@ public class SpecSwitch<T>
 				T result = caseExample(example);
 				if (result == null) result = caseTestFunction(example);
 				if (result == null) result = caseExecutable(example);
-				if (result == null) result = caseXtendFunction(example);
-				if (result == null) result = caseXtendExecutable(example);
-				if (result == null) result = caseXtendMember(example);
-				if (result == null) result = caseXtendAnnotationTarget(example);
+				if (result == null) result = caseJnarioFunction(example);
+				if (result == null) result = caseJnarioMember(example);
+				if (result == null) result = caseJnarioAnnotationTarget(example);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -147,10 +144,9 @@ public class SpecSwitch<T>
 				Before before = (Before)theEObject;
 				T result = caseBefore(before);
 				if (result == null) result = caseTestFunction(before);
-				if (result == null) result = caseXtendFunction(before);
-				if (result == null) result = caseXtendExecutable(before);
-				if (result == null) result = caseXtendMember(before);
-				if (result == null) result = caseXtendAnnotationTarget(before);
+				if (result == null) result = caseJnarioFunction(before);
+				if (result == null) result = caseJnarioMember(before);
+				if (result == null) result = caseJnarioAnnotationTarget(before);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -159,10 +155,9 @@ public class SpecSwitch<T>
 				After after = (After)theEObject;
 				T result = caseAfter(after);
 				if (result == null) result = caseTestFunction(after);
-				if (result == null) result = caseXtendFunction(after);
-				if (result == null) result = caseXtendExecutable(after);
-				if (result == null) result = caseXtendMember(after);
-				if (result == null) result = caseXtendAnnotationTarget(after);
+				if (result == null) result = caseJnarioFunction(after);
+				if (result == null) result = caseJnarioMember(after);
+				if (result == null) result = caseJnarioAnnotationTarget(after);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -170,10 +165,9 @@ public class SpecSwitch<T>
 			{
 				TestFunction testFunction = (TestFunction)theEObject;
 				T result = caseTestFunction(testFunction);
-				if (result == null) result = caseXtendFunction(testFunction);
-				if (result == null) result = caseXtendExecutable(testFunction);
-				if (result == null) result = caseXtendMember(testFunction);
-				if (result == null) result = caseXtendAnnotationTarget(testFunction);
+				if (result == null) result = caseJnarioFunction(testFunction);
+				if (result == null) result = caseJnarioMember(testFunction);
+				if (result == null) result = caseJnarioAnnotationTarget(testFunction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -288,71 +282,7 @@ public class SpecSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendFile(XtendFile object)
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseXtendAnnotationTarget(XtendAnnotationTarget object)
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Member</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Member</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseXtendMember(XtendMember object)
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Type Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type Declaration</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseXtendTypeDeclaration(XtendTypeDeclaration object)
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Class</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Class</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseXtendClass(XtendClass object)
+	public T caseJnarioFile(JnarioFile object)
 	{
 		return null;
 	}
@@ -374,6 +304,70 @@ public class SpecSwitch<T>
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJnarioAnnotationTarget(JnarioAnnotationTarget object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Member</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Member</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJnarioMember(JnarioMember object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Declaration</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Declaration</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJnarioTypeDeclaration(JnarioTypeDeclaration object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Class</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJnarioClass(JnarioClass object)
+	{
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Specification</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -390,22 +384,6 @@ public class SpecSwitch<T>
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Executable</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Executable</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseXtendExecutable(XtendExecutable object)
-	{
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -416,7 +394,7 @@ public class SpecSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendFunction(XtendFunction object)
+	public T caseJnarioFunction(JnarioFunction object)
 	{
 		return null;
 	}

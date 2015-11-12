@@ -14,10 +14,6 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.eclipse.xtend.core.xtend.XtendPackage;
-
-import org.eclipse.xtext.xtype.XtypePackage;
-
 import org.jnario.JnarioPackage;
 
 import org.jnario.feature.feature.And;
@@ -217,7 +213,6 @@ public class FeaturePackageImpl extends EPackageImpl implements FeaturePackage
 
 		// Initialize simple dependencies
 		JnarioPackage.eINSTANCE.eClass();
-		XtypePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theFeaturePackage.createPackageContents();
@@ -550,7 +545,6 @@ public class FeaturePackageImpl extends EPackageImpl implements FeaturePackage
 
 		// Obtain other dependent packages
 		JnarioPackage theJnarioPackage = (JnarioPackage)EPackage.Registry.INSTANCE.getEPackage(JnarioPackage.eNS_URI);
-		XtendPackage theXtendPackage = (XtendPackage)EPackage.Registry.INSTANCE.getEPackage(XtendPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -559,15 +553,15 @@ public class FeaturePackageImpl extends EPackageImpl implements FeaturePackage
 		// Add supertypes to classes
 		featureEClass.getESuperTypes().add(theJnarioPackage.getSpecification());
 		backgroundEClass.getESuperTypes().add(this.getScenario());
-		scenarioEClass.getESuperTypes().add(theXtendPackage.getXtendClass());
 		scenarioEClass.getESuperTypes().add(theJnarioPackage.getExecutable());
-		stepEClass.getESuperTypes().add(theXtendPackage.getXtendFunction());
+		scenarioEClass.getESuperTypes().add(theJnarioPackage.getJnarioClass());
 		stepEClass.getESuperTypes().add(theJnarioPackage.getExecutable());
+		stepEClass.getESuperTypes().add(theJnarioPackage.getJnarioFunction());
 		givenEClass.getESuperTypes().add(this.getStepImplementation());
 		whenEClass.getESuperTypes().add(this.getStepImplementation());
 		thenEClass.getESuperTypes().add(this.getStepImplementation());
 		andEClass.getESuperTypes().add(this.getStepImplementation());
-		featureFileEClass.getESuperTypes().add(theXtendPackage.getXtendFile());
+		featureFileEClass.getESuperTypes().add(theJnarioPackage.getJnarioFile());
 		givenReferenceEClass.getESuperTypes().add(this.getStepReference());
 		whenReferenceEClass.getESuperTypes().add(this.getStepReference());
 		thenReferenceEClass.getESuperTypes().add(this.getStepReference());
@@ -581,7 +575,7 @@ public class FeaturePackageImpl extends EPackageImpl implements FeaturePackage
 		initEClass(featureEClass, Feature.class, "Feature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeature_Description(), ecorePackage.getEString(), "description", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeature_Scenarios(), this.getScenario(), null, "scenarios", null, 0, -1, Feature.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getFeature_Background(), this.getBackground(), null, "background", null, 0, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getFeature_Background(), this.getBackground(), null, "background", null, 0, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(backgroundEClass, Background.class, "Background", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

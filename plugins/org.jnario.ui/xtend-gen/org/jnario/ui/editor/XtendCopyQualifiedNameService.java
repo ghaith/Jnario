@@ -2,40 +2,25 @@ package org.jnario.ui.editor;
 
 import java.util.Arrays;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.xtend.XtendConstructor;
-import org.eclipse.xtend.core.xtend.XtendFunction;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.common.types.JvmConstructor;
 import org.eclipse.xtext.common.types.JvmExecutable;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XConstructorCall;
 import org.eclipse.xtext.xbase.ui.editor.copyqualifiedname.XbaseCopyQualifiedNameService;
+import org.jnario.JnarioFunction;
 
 @SuppressWarnings("all")
 public class XtendCopyQualifiedNameService extends XbaseCopyQualifiedNameService {
-  protected String _getQualifiedName(final XtendFunction it, final EObject context) {
+  protected String _getQualifiedName(final JnarioFunction it, final EObject context) {
     return this.toQualifiedName(it);
   }
   
-  protected String _getQualifiedName(final XtendFunction it, final Void context) {
+  protected String _getQualifiedName(final JnarioFunction it, final Void context) {
     return this.toQualifiedName(it);
   }
   
-  protected String toQualifiedName(final XtendFunction it) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("´toFullyQualifiedNameª(´parameters.toQualifiedNames[parameterType.simpleName]ª)");
-    return _builder.toString();
-  }
-  
-  protected String _getQualifiedName(final XtendConstructor it, final EObject context) {
-    return this.toQualifiedName(it);
-  }
-  
-  protected String _getQualifiedName(final XtendConstructor it, final Void context) {
-    return this.toQualifiedName(it);
-  }
-  
-  protected String toQualifiedName(final XtendConstructor it) {
+  protected String toQualifiedName(final JnarioFunction it) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("´toFullyQualifiedNameª(´parameters.toQualifiedNames[parameterType.simpleName]ª)");
     return _builder.toString();
@@ -54,18 +39,12 @@ public class XtendCopyQualifiedNameService extends XbaseCopyQualifiedNameService
     } else if (it instanceof JvmExecutable
          && context == null) {
       return _getQualifiedName((JvmExecutable)it, (Void)null);
-    } else if (it instanceof XtendConstructor
+    } else if (it instanceof JnarioFunction
          && context != null) {
-      return _getQualifiedName((XtendConstructor)it, context);
-    } else if (it instanceof XtendFunction
-         && context != null) {
-      return _getQualifiedName((XtendFunction)it, context);
-    } else if (it instanceof XtendConstructor
+      return _getQualifiedName((JnarioFunction)it, context);
+    } else if (it instanceof JnarioFunction
          && context == null) {
-      return _getQualifiedName((XtendConstructor)it, (Void)null);
-    } else if (it instanceof XtendFunction
-         && context == null) {
-      return _getQualifiedName((XtendFunction)it, (Void)null);
+      return _getQualifiedName((JnarioFunction)it, (Void)null);
     } else if (it != null
          && context != null) {
       return _getQualifiedName(it, context);

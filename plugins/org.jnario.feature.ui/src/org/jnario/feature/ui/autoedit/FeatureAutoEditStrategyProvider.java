@@ -8,10 +8,10 @@
 package org.jnario.feature.ui.autoedit;
 
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.xtend.ide.autoedit.AutoEditStrategyProvider;
+import org.eclipse.xtext.ui.editor.autoedit.DefaultAutoEditStrategyProvider;
 import org.jnario.feature.ui.editor.FeatureTokenTypeToPartitionTypeMapper;
 
-public class FeatureAutoEditStrategyProvider extends AutoEditStrategyProvider{
+public class FeatureAutoEditStrategyProvider extends DefaultAutoEditStrategyProvider{
 
 	@Override
 	protected void configureIndentationEditStrategy(IEditStrategyAcceptor acceptor) {

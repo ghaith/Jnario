@@ -29,25 +29,23 @@ public class FeatureJavaValidatorStepsMustHaveDescriptionsSpec extends FeatureJa
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Feature: A feature");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: A scenario");
+    _builder.append("	Scenario: A scenario");
     _builder.newLine();
-    _builder.append("\t \t");
-    _builder.append("Given ");
+    _builder.append("	 	Given ");
     _builder.newLine();
-    _builder.append("\t \t");
-    _builder.append("When ");
+    _builder.append("	 	When ");
     _builder.newLine();
-    _builder.append("\t \t");
-    _builder.append("Then ");
+    _builder.append("	 	Then ");
     _builder.newLine();
-    _builder.append("\t \t");
+    _builder.append("	 	");
     _builder.newLine();
+    
     final Procedure1<AssertableDiagnostics> _function = new Procedure1<AssertableDiagnostics>() {
+      @Override
       public void apply(final AssertableDiagnostics it) {
         it.assertErrorContains("description");
       }
     };
-    this.allOf(_builder, Step.class, _function);
+    this.allOf(_builder.toString(), Step.class, _function);
   }
 }

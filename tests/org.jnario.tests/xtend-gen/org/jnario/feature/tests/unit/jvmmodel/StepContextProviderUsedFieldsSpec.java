@@ -1,8 +1,8 @@
 package org.jnario.feature.tests.unit.jvmmodel;
 
 import java.util.Set;
-import org.eclipse.xtend.core.xtend.XtendField;
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.jnario.JnarioField;
 import org.jnario.feature.tests.unit.jvmmodel.StepContextProviderSpec;
 import org.jnario.lib.Assert;
 import org.jnario.lib.Should;
@@ -23,27 +23,24 @@ public class StepContextProviderUsedFieldsSpec extends StepContextProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Feature: My Feature");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: My Scenario");
+    _builder.append("	Scenario: My Scenario");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val field1 = \"\"");
+    _builder.append("		val field1 = \"\"");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val field2 = \"\"");
+    _builder.append("		val field2 = \"\"");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given a step");
+    _builder.append("	Given a step");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("println(field1)");
+    _builder.append("		println(field1)");
     _builder.newLine();
-    final Set<XtendField> usedFields = this.usedFields(_builder);
-    Set<XtendField> _fields = this.fields("field1");
+    
+    final Set<JnarioField> usedFields = this.usedFields(_builder.toString());
+    Set<JnarioField> _fields = this.fields("field1");
     Assert.assertTrue("\nExpected usedFields => fields(\"field1\") but"
      + "\n     usedFields is " + new org.hamcrest.StringDescription().appendValue(usedFields).toString()
-     + "\n     fields(\"field1\") is " + new org.hamcrest.StringDescription().appendValue(_fields).toString() + "\n", Should.<Set<XtendField>>operator_doubleArrow(usedFields, _fields));
+     + "\n     fields(\"field1\") is " + new org.hamcrest.StringDescription().appendValue(_fields).toString() + "\n", Should.<Set<JnarioField>>operator_doubleArrow(usedFields, _fields));
     
   }
   
@@ -54,39 +51,32 @@ public class StepContextProviderUsedFieldsSpec extends StepContextProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Feature: My Feature");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Background: ");
+    _builder.append("	Background: ");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val field3 = \"\"");
+    _builder.append("		val field3 = \"\"");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val field4 = \"\"");
+    _builder.append("		val field4 = \"\"");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: My Scenario");
+    _builder.append("	Scenario: My Scenario");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val field1 = \"\"");
+    _builder.append("		val field1 = \"\"");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val field2 = \"\"");
+    _builder.append("		val field2 = \"\"");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given a step");
+    _builder.append("	Given a step");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("println(field1)");
+    _builder.append("		println(field1)");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("println(field3)");
+    _builder.append("		println(field3)");
     _builder.newLine();
-    final Set<XtendField> usedFields = this.usedFields(_builder);
-    Set<XtendField> _fields = this.fields("field1", "field3");
+    
+    final Set<JnarioField> usedFields = this.usedFields(_builder.toString());
+    Set<JnarioField> _fields = this.fields("field1", "field3");
     Assert.assertTrue("\nExpected usedFields => fields(\"field1\", \"field3\") but"
      + "\n     usedFields is " + new org.hamcrest.StringDescription().appendValue(usedFields).toString()
-     + "\n     fields(\"field1\", \"field3\") is " + new org.hamcrest.StringDescription().appendValue(_fields).toString() + "\n", Should.<Set<XtendField>>operator_doubleArrow(usedFields, _fields));
+     + "\n     fields(\"field1\", \"field3\") is " + new org.hamcrest.StringDescription().appendValue(_fields).toString() + "\n", Should.<Set<JnarioField>>operator_doubleArrow(usedFields, _fields));
     
   }
 }

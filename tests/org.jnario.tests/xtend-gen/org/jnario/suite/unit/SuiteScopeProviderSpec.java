@@ -32,9 +32,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class SuiteScopeProviderSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ScopeTestExtension _scopeTestExtension;
   
   @Extension
@@ -46,14 +46,19 @@ public class SuiteScopeProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package test");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("#MySuite");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("- \"My Spec Reference\"\t");
+    _builder.append("- \"My Spec Reference\"	");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    this._scopeTestExtension.parseSuite(_builder);
+    
+    this._scopeTestExtension.parseSuite(
+      _builder.toString());
   }
   
   @Before
@@ -61,30 +66,29 @@ public class SuiteScopeProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package test");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"RootSpec\"{");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("describe \"SubSpec 1\"{");
+    _builder.append("	describe \"SubSpec 1\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("describe \"SubSpec 2\"{");
+    _builder.append("	describe \"SubSpec 2\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._scopeTestExtension.parseSpec(_builder);
+    
+    this._scopeTestExtension.parseSpec(
+      _builder.toString());
   }
   
   @Test

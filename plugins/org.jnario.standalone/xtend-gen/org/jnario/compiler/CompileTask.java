@@ -36,9 +36,11 @@ public class CompileTask extends Task {
   
   private Path sourcePath = null;
   
+  @Override
   public void execute() throws BuildException {
     CompilerMain _compilerMain = new CompilerMain();
     final Procedure1<CompilerMain> _function = new Procedure1<CompilerMain>() {
+      @Override
       public void apply(final CompilerMain it) {
         String _outputPath = CompileTask.this.getOutputPath();
         it.setOutputPath(_outputPath);

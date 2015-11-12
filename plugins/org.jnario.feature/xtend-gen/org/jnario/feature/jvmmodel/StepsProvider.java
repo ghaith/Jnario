@@ -6,10 +6,10 @@ import java.util.Collections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.jnario.JnarioTypeDeclaration;
 import org.jnario.feature.feature.Background;
 import org.jnario.feature.feature.Feature;
 import org.jnario.feature.feature.FeatureFile;
@@ -30,15 +30,17 @@ public class StepsProvider {
       Resource _eResource_1 = context.eResource();
       EList<EObject> _contents = _eResource_1.getContents();
       final Iterable<FeatureFile> featureFiles = Iterables.<FeatureFile>filter(_contents, FeatureFile.class);
-      final Function1<FeatureFile, EList<XtendTypeDeclaration>> _function = new Function1<FeatureFile, EList<XtendTypeDeclaration>>() {
-        public EList<XtendTypeDeclaration> apply(final FeatureFile it) {
+      final Function1<FeatureFile, EList<JnarioTypeDeclaration>> _function = new Function1<FeatureFile, EList<JnarioTypeDeclaration>>() {
+        @Override
+        public EList<JnarioTypeDeclaration> apply(final FeatureFile it) {
           return it.getXtendTypes();
         }
       };
-      Iterable<EList<XtendTypeDeclaration>> _map = IterableExtensions.<FeatureFile, EList<XtendTypeDeclaration>>map(featureFiles, _function);
-      Iterable<XtendTypeDeclaration> _flatten = Iterables.<XtendTypeDeclaration>concat(_map);
+      Iterable<EList<JnarioTypeDeclaration>> _map = IterableExtensions.<FeatureFile, EList<JnarioTypeDeclaration>>map(featureFiles, _function);
+      Iterable<JnarioTypeDeclaration> _flatten = Iterables.<JnarioTypeDeclaration>concat(_map);
       final Iterable<Feature> features = Iterables.<Feature>filter(_flatten, Feature.class);
       final Function1<Feature, Iterable<Scenario>> _function_1 = new Function1<Feature, Iterable<Scenario>>() {
+        @Override
         public Iterable<Scenario> apply(final Feature it) {
           Iterable<Scenario> _xblockexpression = null;
           {
@@ -58,6 +60,7 @@ public class StepsProvider {
       Iterable<Scenario> _flatten_1 = Iterables.<Scenario>concat(_map_1);
       final Iterable<Scenario> scenarios = IterableExtensions.<Scenario>filterNull(_flatten_1);
       final Function1<Scenario, EList<Step>> _function_2 = new Function1<Scenario, EList<Step>>() {
+        @Override
         public EList<Step> apply(final Scenario it) {
           return it.getSteps();
         }

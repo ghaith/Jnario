@@ -85,6 +85,7 @@ public class SuiteClassNameProvider extends JnarioNameProvider {
     return _javaClassName;
   }
   
+  @Override
   protected String internalDescribe(final EObject eObject) {
     return this.doDescribe(eObject);
   }
@@ -122,14 +123,17 @@ public class SuiteClassNameProvider extends JnarioNameProvider {
     return _xblockexpression;
   }
   
+  @Override
   protected String internalToJavaClassName(final EObject eObject) {
     return this.internalGetClassName(eObject);
   }
   
+  @Override
   protected String internalToFieldName(final EObject eObject) {
     throw new UnsupportedOperationException("Auto-generated function stub");
   }
   
+  @Override
   protected String internalToMethodName(final EObject eObject) {
     throw new UnsupportedOperationException("Auto-generated function stub");
   }

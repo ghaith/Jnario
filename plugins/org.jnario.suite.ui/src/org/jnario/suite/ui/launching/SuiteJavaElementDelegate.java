@@ -20,14 +20,14 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendFile;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.common.types.JvmIdentifiableElement;
 import org.eclipse.xtext.generator.IDerivedResourceMarkers;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipse.xtext.xbase.ui.launching.JavaElementDelegateJunitLaunch;
+import org.jnario.JnarioClass;
+import org.jnario.JnarioFile;
 import org.jnario.suite.jvmmodel.SuiteClassNameProvider;
 import org.jnario.suite.suite.Suite;
 import org.jnario.suite.suite.SuiteFile;
@@ -90,13 +90,13 @@ public class SuiteJavaElementDelegate extends JavaElementDelegateJunitLaunch {
 	protected JvmIdentifiableElement findAssociatedJvmElement(EObject element) {
 		if (element == null)
 			return null;
-		if (element instanceof XtendFile) {
-			XtendFile specFile = (XtendFile) element;
+		if (element instanceof JnarioFile) {
+			JnarioFile specFile = (JnarioFile) element;
 			if(!specFile.getXtendTypes().isEmpty()){
 				element = specFile.getXtendTypes().get(0);
 			}
 		}else{
-			element = EcoreUtil2.getContainerOfType(element, XtendClass.class);
+			element = EcoreUtil2.getContainerOfType(element, JnarioClass.class);
 		}
 		Set<EObject> elements = associations.getJvmElements(element);
 		if (elements.isEmpty()) {

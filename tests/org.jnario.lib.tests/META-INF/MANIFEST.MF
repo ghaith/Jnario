@@ -4,11 +4,11 @@ Bundle-Name: Jnario Lib Tests
 Bundle-SymbolicName: org.jnario.lib.tests
 Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: BMW
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.junit;bundle-version="4.8.2",
  org.jnario.lib;bundle-version="1.0.0",
  org.jnario;bundle-version="1.0.0",
  org.jnario.tests;bundle-version="1.0.0",
- org.eclipse.xtext.util;bundle-version="[2.7.0,2.8.0)",
+ org.eclipse.xtext.util;bundle-version="[2.8.0,2.9.0)",
  org.mockito;bundle-version="1.8.4",
  org.objenesis;bundle-version="1.0.0"

@@ -27,9 +27,9 @@ import org.junit.runner.RunWith;
 @CreateWith(FeatureTestCreator.class)
 @SuppressWarnings("all")
 public class ReferencesForStepsFeatureStaticMethodsWithParameters extends ReferencesForStepsFeature {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor behaviorExecutor;
   
   CharSequence jnarioFile;

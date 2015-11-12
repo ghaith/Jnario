@@ -9,7 +9,7 @@ package org.jnario.feature.ui.editor;
 
 import java.util.HashSet;
 
-import org.eclipse.xtend.ide.autoedit.TokenTypeToPartitionMapper;
+import org.eclipse.xtext.ui.editor.model.TerminalsTokenTypeToPartitionMapper;
 
 import com.google.common.collect.Sets;
 import com.google.inject.Singleton;
@@ -18,7 +18,7 @@ import com.google.inject.Singleton;
  * @author Birgit Engelmann - Initial contribution and API
  */
 @Singleton
-public class FeatureTokenTypeToPartitionTypeMapper extends TokenTypeToPartitionMapper{
+public class FeatureTokenTypeToPartitionTypeMapper extends TerminalsTokenTypeToPartitionMapper{
 
 	public static final String NONE_CODE_PARTITION = "__no_code";
 	

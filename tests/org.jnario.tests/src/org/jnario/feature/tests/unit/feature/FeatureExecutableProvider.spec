@@ -16,12 +16,12 @@ describe FeatureExecutableProvider {
 	
 	@Inject extension ModelStore
 	fact "returns background and scenarios"{
-		'''
+		"
 		Feature: My feature
 		Background: My Background
 		Scenario: My first Scenario
 		Scenario: My second Scenario
-		'''.parseScenario
+		".parseScenario
 		feature().executables => list(scenario("Background: My Background"), scenario("Scenario: My first Scenario"), scenario("Scenario: My second Scenario"))
 	}
 	

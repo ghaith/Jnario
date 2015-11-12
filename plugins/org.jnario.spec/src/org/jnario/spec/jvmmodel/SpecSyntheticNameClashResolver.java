@@ -1,19 +1,18 @@
 package org.jnario.spec.jvmmodel;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.jvmmodel.IXtendJvmAssociations;
-import org.eclipse.xtend.core.jvmmodel.SyntheticNameClashResolver;
 import org.eclipse.xtext.common.types.JvmIdentifiableElement;
+import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
+import org.jnario.jvmmodel.JnarioSyntheticNameClashResolver;
 import org.jnario.spec.spec.Example;
 
 import com.google.inject.Inject;
 
-@SuppressWarnings("restriction")
-public class SpecSyntheticNameClashResolver extends
-		SyntheticNameClashResolver {
+
+public class SpecSyntheticNameClashResolver extends JnarioSyntheticNameClashResolver {
 	
 	@Inject
-	private IXtendJvmAssociations associations;
+	private IJvmModelAssociations associations;
 	
 	@Override
 	protected boolean isRenameable(JvmIdentifiableElement element) {

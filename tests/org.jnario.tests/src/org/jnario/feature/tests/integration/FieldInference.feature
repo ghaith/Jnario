@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 package org.jnario.feature.tests.integration
-
+ 
 import org.jnario.runner.CreateWith
 import org.jnario.jnario.test.util.FeatureTestCreator
 import com.google.inject.Inject

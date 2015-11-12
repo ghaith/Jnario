@@ -12,6 +12,7 @@ import org.eclipse.xtext.xbase.lib.util.ToStringHelper;
 public class IEObjectDescriptionFilter implements Predicate<IEObjectDescription> {
   private final EClass _type;
   
+  @Override
   public boolean apply(final IEObjectDescription input) {
     EClass _type = this.getType();
     EClass _eClass = input.getEClass();

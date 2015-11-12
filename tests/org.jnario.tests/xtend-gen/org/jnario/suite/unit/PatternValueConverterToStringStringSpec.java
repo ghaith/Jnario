@@ -71,6 +71,7 @@ public class PatternValueConverterToStringStringSpec extends PatternValueConvert
   @Order(1)
   public void _examplesForEachSubjectToStringInputResultNewLine() throws Exception {
     final Procedure1<PatternValueConverterToStringStringSpecExamples> _function = new Procedure1<PatternValueConverterToStringStringSpecExamples>() {
+      @Override
       public void apply(final PatternValueConverterToStringStringSpecExamples it) {
         String _input = it.getInput();
         String _string = PatternValueConverterToStringStringSpec.this.subject.toString(_input);

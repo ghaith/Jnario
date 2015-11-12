@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.util.NoSuchElementException;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.common.types.JvmTypeReference;
+import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.util.TypeReferences;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jvmmodel.JUnit3RuntimeSupport;
@@ -33,13 +33,13 @@ public class TestRuntimeProvider {
   }
   
   public TestRuntimeSupport get(final EObject context) {
-    JvmTypeReference _typeForName = this.typeReferences.getTypeForName(TestRuntimeProvider.JUNIT4_CLASS, context);
-    boolean _notEquals = (!Objects.equal(_typeForName, null));
+    JvmType _findDeclaredType = this.typeReferences.findDeclaredType(TestRuntimeProvider.JUNIT4_CLASS, context);
+    boolean _notEquals = (!Objects.equal(_findDeclaredType, null));
     if (_notEquals) {
       return this.junit4Support.get();
     }
-    JvmTypeReference _typeForName_1 = this.typeReferences.getTypeForName(TestRuntimeProvider.JUNIT3_CLASS, context);
-    boolean _notEquals_1 = (!Objects.equal(_typeForName_1, null));
+    JvmType _findDeclaredType_1 = this.typeReferences.findDeclaredType(TestRuntimeProvider.JUNIT3_CLASS, context);
+    boolean _notEquals_1 = (!Objects.equal(_findDeclaredType_1, null));
     if (_notEquals_1) {
       return this.junit3Support.get();
     }

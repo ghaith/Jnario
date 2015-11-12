@@ -18,22 +18,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
-import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtend.core.resource.XtendResourceDescriptionManager;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtext.builder.clustering.CurrentDescriptions;
 import org.eclipse.xtext.builder.impl.BuildData;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
@@ -42,6 +41,7 @@ import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.jnario.JnarioPackage;
 import org.jnario.Specification;
@@ -52,7 +52,7 @@ import org.jnario.suite.suite.Suite;
 import org.jnario.suite.suite.SuitePackage;
 
 @SuppressWarnings("all")
-public class SuiteResourceDescriptionManager extends XtendResourceDescriptionManager {
+public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDescriptionManager {
   private final static Logger logger = Logger.getLogger(SuiteResourceDescriptionManager.class);
   
   private final static HashSet<String> FILE_EXTENSIONS = CollectionLiterals.<String>newHashSet("suite", "spec", "feature");
@@ -66,6 +66,7 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
   /**
    * Every spec change means new potential matches for a regex in a spec PatternReference.
    */
+  @Override
   public boolean isAffected(final Collection<IResourceDescription.Delta> deltas, final IResourceDescription candidate, final IResourceDescriptions context) {
     boolean _isAffected = super.isAffected(deltas, candidate, context);
     if (_isAffected) {
@@ -81,12 +82,13 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
       boolean _isTraceEnabled = SuiteResourceDescriptionManager.logger.isTraceEnabled();
       if (_isTraceEnabled) {
         SuiteResourceDescriptionManager.logger.debug(" Deltas to check: ");
-        final Consumer<IResourceDescription.Delta> _function = new Consumer<IResourceDescription.Delta>() {
-          public void accept(final IResourceDescription.Delta it) {
+        final Procedure1<IResourceDescription.Delta> _function = new Procedure1<IResourceDescription.Delta>() {
+          @Override
+          public void apply(final IResourceDescription.Delta it) {
             SuiteResourceDescriptionManager.logger.debug(("  " + it));
           }
         };
-        deltas.forEach(_function);
+        IterableExtensions.<IResourceDescription.Delta>forEach(deltas, _function);
       }
       ResourceSet _xifexpression = null;
       if ((context instanceof CurrentDescriptions)) {
@@ -100,12 +102,14 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
       boolean _equals = Objects.equal(changedSpecs, null);
       if (_equals) {
         final Function1<IResourceDescription.Delta, Boolean> _function_1 = new Function1<IResourceDescription.Delta, Boolean>() {
+          @Override
           public Boolean apply(final IResourceDescription.Delta it) {
             return Boolean.valueOf(SuiteResourceDescriptionManager.this.isSpecFile(it));
           }
         };
         Iterable<IResourceDescription.Delta> _filter = IterableExtensions.<IResourceDescription.Delta>filter(deltas, _function_1);
         final Function1<IResourceDescription.Delta, Iterable<QualifiedName>> _function_2 = new Function1<IResourceDescription.Delta, Iterable<QualifiedName>>() {
+          @Override
           public Iterable<QualifiedName> apply(final IResourceDescription.Delta it) {
             return SuiteResourceDescriptionManager.this.modifiedSpecs(it, resourceSet);
           }
@@ -126,17 +130,19 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
       boolean _isDebugEnabled = SuiteResourceDescriptionManager.logger.isDebugEnabled();
       if (_isDebugEnabled) {
         SuiteResourceDescriptionManager.logger.debug(" Changed specs: ");
-        final Consumer<QualifiedName> _function_3 = new Consumer<QualifiedName>() {
-          public void accept(final QualifiedName it) {
+        final Procedure1<QualifiedName> _function_3 = new Procedure1<QualifiedName>() {
+          @Override
+          public void apply(final QualifiedName it) {
             String _string = SuiteResourceDescriptionManager.this._iQualifiedNameConverter.toString(it);
             String _plus = ("  " + _string);
             SuiteResourceDescriptionManager.logger.debug(_plus);
           }
         };
-        changedSpecs.forEach(_function_3);
+        IterableExtensions.<QualifiedName>forEach(changedSpecs, _function_3);
       }
       final Iterable<IEObjectDescription> suites = candidate.getExportedObjectsByType(SuitePackage.Literals.SUITE);
       final Function1<IEObjectDescription, Suite> _function_4 = new Function1<IEObjectDescription, Suite>() {
+        @Override
         public Suite apply(final IEObjectDescription it) {
           EObject _eObjectOrProxy = it.getEObjectOrProxy();
           EObject _resolve = EcoreUtil.resolve(((Suite) _eObjectOrProxy), resourceSet);
@@ -145,6 +151,7 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
       };
       Iterable<Suite> _map_1 = IterableExtensions.<IEObjectDescription, Suite>map(suites, _function_4);
       final Function1<Suite, Boolean> _function_5 = new Function1<Suite, Boolean>() {
+        @Override
         public Boolean apply(final Suite it) {
           boolean _eIsProxy = it.eIsProxy();
           return Boolean.valueOf((!_eIsProxy));
@@ -152,9 +159,11 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
       };
       Iterable<Suite> _filter_1 = IterableExtensions.<Suite>filter(_map_1, _function_5);
       final Function1<Suite, List<Pattern>> _function_6 = new Function1<Suite, List<Pattern>>() {
+        @Override
         public List<Pattern> apply(final Suite it) {
           List<PatternReference> _resolvePatternReferences = SuiteResourceDescriptionManager.this.resolvePatternReferences(it);
           final Function1<PatternReference, Pattern> _function = new Function1<PatternReference, Pattern>() {
+            @Override
             public Pattern apply(final PatternReference it) {
               String _pattern = it.getPattern();
               return Pattern.compile(_pattern);
@@ -172,18 +181,21 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
       SuiteResourceDescriptionManager.logger.debug(_plus_2);
       boolean _isTraceEnabled_1 = SuiteResourceDescriptionManager.logger.isTraceEnabled();
       if (_isTraceEnabled_1) {
-        final Consumer<Pattern> _function_7 = new Consumer<Pattern>() {
-          public void accept(final Pattern it) {
+        final Procedure1<Pattern> _function_7 = new Procedure1<Pattern>() {
+          @Override
+          public void apply(final Pattern it) {
             String _pattern = it.pattern();
             String _plus = ("  " + _pattern);
             SuiteResourceDescriptionManager.logger.trace(_plus);
           }
         };
-        matchers.forEach(_function_7);
+        IterableExtensions.<Pattern>forEach(matchers, _function_7);
       }
       final Function1<QualifiedName, Boolean> _function_8 = new Function1<QualifiedName, Boolean>() {
+        @Override
         public Boolean apply(final QualifiedName specName) {
           final Function1<Pattern, Boolean> _function = new Function1<Pattern, Boolean>() {
+            @Override
             public Boolean apply(final Pattern it) {
               String _string = SuiteResourceDescriptionManager.this._iQualifiedNameConverter.toString(specName);
               Matcher _matcher = it.matcher(_string);
@@ -214,6 +226,7 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
   protected List<PatternReference> _resolvePatternReferences(final Suite suite) {
     EList<Reference> _elements = suite.getElements();
     final Function1<Reference, List<PatternReference>> _function = new Function1<Reference, List<PatternReference>>() {
+      @Override
       public List<PatternReference> apply(final Reference it) {
         return SuiteResourceDescriptionManager.this.resolvePatternReferences(it);
       }
@@ -268,12 +281,14 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
       }
       final Iterable<IEObjectDescription> newEObjects = _xifexpression_1;
       final Function1<IEObjectDescription, QualifiedName> _function = new Function1<IEObjectDescription, QualifiedName>() {
+        @Override
         public QualifiedName apply(final IEObjectDescription it) {
           return it.getQualifiedName();
         }
       };
       final Map<QualifiedName, IEObjectDescription> before = IterableExtensions.<QualifiedName, IEObjectDescription>toMap(oldEObjects, _function);
       final Function1<IEObjectDescription, QualifiedName> _function_1 = new Function1<IEObjectDescription, QualifiedName>() {
+        @Override
         public QualifiedName apply(final IEObjectDescription it) {
           return it.getQualifiedName();
         }
@@ -281,6 +296,7 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
       final Map<QualifiedName, IEObjectDescription> after = IterableExtensions.<QualifiedName, IEObjectDescription>toMap(newEObjects, _function_1);
       Set<QualifiedName> _keySet = before.keySet();
       final Function1<QualifiedName, Boolean> _function_2 = new Function1<QualifiedName, Boolean>() {
+        @Override
         public Boolean apply(final QualifiedName it) {
           boolean _containsKey = after.containsKey(it);
           return Boolean.valueOf((!_containsKey));
@@ -290,6 +306,7 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
       final Set<QualifiedName> deleted = IterableExtensions.<QualifiedName>toSet(_filter);
       Set<QualifiedName> _keySet_1 = after.keySet();
       final Function1<QualifiedName, Boolean> _function_3 = new Function1<QualifiedName, Boolean>() {
+        @Override
         public Boolean apply(final QualifiedName it) {
           boolean _containsKey = before.containsKey(it);
           return Boolean.valueOf((!_containsKey));
@@ -301,6 +318,7 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
       Set<QualifiedName> _keySet_3 = after.keySet();
       Iterable<QualifiedName> _plus = Iterables.<QualifiedName>concat(_keySet_2, _keySet_3);
       final Function1<QualifiedName, Boolean> _function_4 = new Function1<QualifiedName, Boolean>() {
+        @Override
         public Boolean apply(final QualifiedName it) {
           boolean _or = false;
           boolean _contains = deleted.contains(it);
@@ -315,6 +333,7 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
       };
       final Iterable<QualifiedName> kept = IterableExtensions.<QualifiedName>filter(_plus, _function_4);
       final Function1<QualifiedName, Boolean> _function_5 = new Function1<QualifiedName, Boolean>() {
+        @Override
         public Boolean apply(final QualifiedName it) {
           IEObjectDescription _get = before.get(it);
           IEObjectDescription _get_1 = after.get(it);
@@ -332,14 +351,14 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
   public Iterable<IEObjectDescription> topLevelSpecs(final IResourceDescription resource, final ResourceSet resourceSet) {
     Iterable<IEObjectDescription> _exportedObjectsByType = resource.getExportedObjectsByType(JnarioPackage.Literals.SPECIFICATION);
     final Function1<IEObjectDescription, Boolean> _function = new Function1<IEObjectDescription, Boolean>() {
+      @Override
       public Boolean apply(final IEObjectDescription it) {
         boolean _xblockexpression = false;
         {
           EObject _eObjectOrProxy = it.getEObjectOrProxy();
           EObject _resolve = EcoreUtil.resolve(_eObjectOrProxy, resourceSet);
           final Specification spec = ((Specification) _resolve);
-          XtendTypeDeclaration _declaringType = spec.getDeclaringType();
-          _xblockexpression = Objects.equal(_declaringType, null);
+          _xblockexpression = true;
         }
         return Boolean.valueOf(_xblockexpression);
       }
@@ -383,7 +402,7 @@ public class SuiteResourceDescriptionManager extends XtendResourceDescriptionMan
     return true;
   }
   
-  public List<PatternReference> resolvePatternReferences(final EObject suite) {
+  public List<PatternReference> resolvePatternReferences(final Notifier suite) {
     if (suite instanceof Suite) {
       return _resolvePatternReferences((Suite)suite);
     } else if (suite instanceof PatternReference) {

@@ -6,7 +6,7 @@ import org.jnario.jnario.test.util.FeatureTestCreator
 import com.google.inject.Inject
 import org.jnario.jnario.test.util.ModelStore
 import org.jnario.feature.feature.StepImplementation
-import org.eclipse.xtend.core.xtend.XtendField
+import org.jnario.JnarioField
 
 @CreateWith(typeof(FeatureTestCreator))
 describe StepContextProvider {
@@ -51,7 +51,7 @@ describe StepContextProvider {
 	
 	def fields(String... names){
 		val expected = names.toSet
-		m.filter(typeof(XtendField)).filter[
+		m.filter(typeof(JnarioField)).filter[
 			expected.contains(it.name)
 		].toSet
 	}

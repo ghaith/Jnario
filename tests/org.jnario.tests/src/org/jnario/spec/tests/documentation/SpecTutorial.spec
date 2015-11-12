@@ -7,14 +7,14 @@
  *******************************************************************************/
 package org.jnario.spec.tests.documentation
 
-import static extension org.jnario.jnario.test.util.Helpers.*
-import static extension org.jnario.lib.Should.*
-import java.util.Stack
-import org.jnario.runner.CreateWith
-import org.jnario.jnario.test.util.SpecTestCreator
-import org.jnario.jnario.test.util.BehaviorExecutor
 import com.google.inject.Inject
- 
+import java.util.Stack
+import org.jnario.jnario.test.util.BehaviorExecutor
+import org.jnario.jnario.test.util.SpecTestCreator
+import org.jnario.runner.CreateWith
+
+import static extension org.jnario.jnario.test.util.Helpers.*
+
 /*
  * This tutorial gives you an introduction on how to write specifications with Jnario.
  * Jnario Specs are based on [Xtend](http://www.xtend-lang.org). it might be a good idea
@@ -461,7 +461,7 @@ describe "Introducing Jnario Specs"{
 		 * closeDatabaseConnection
 		 * </pre>
 		 * 
-		 * @filter('''|.executesSuccessfully) 
+		 * @filter('''|.toString) 
 		 */
 		fact "Spec extensions"{
 			'''
@@ -469,7 +469,7 @@ describe "Introducing Jnario Specs"{
 			  extension DatabaseExtension db = new DatabaseExtension
 			  fact query("SELECT * FROM content")	      
 			}
-			'''
+			'''.toString
 		}
  
 		/*

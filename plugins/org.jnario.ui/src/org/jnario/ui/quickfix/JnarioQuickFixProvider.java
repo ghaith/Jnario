@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.xtend.ide.quickfix.XtendQuickfixProvider;
 import org.eclipse.xtext.common.types.access.jdt.IJavaProjectProvider;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
@@ -23,6 +22,7 @@ import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification;
 import org.eclipse.xtext.ui.editor.quickfix.Fix;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
 import org.eclipse.xtext.validation.Issue;
+import org.eclipse.xtext.xbase.ui.quickfix.XbaseQuickfixProvider;
 import org.jnario.ui.buildpath.JnarioLibClasspathAdder;
 import org.jnario.validation.JnarioIssueCodes;
 
@@ -33,17 +33,18 @@ import com.google.inject.Inject;
  *
  */
 @SuppressWarnings({ "restriction"})
-public class JnarioQuickFixProvider extends XtendQuickfixProvider{
+public class JnarioQuickFixProvider extends XbaseQuickfixProvider{
 
 	@Inject
 	private IJavaProjectProvider projectProvider;
 	
 	@Inject
 	private JnarioLibClasspathAdder jnarioLibAdder;
-	
-	@Override
-	public void putXtendOnClasspath(Issue issue, IssueResolutionAcceptor acceptor) {
-	}
+
+	// TODO NO_XTEND
+//	@Override
+//	public void putXtendOnClasspath(Issue issue, IssueResolutionAcceptor acceptor) {
+//	}
 	
 	@Fix(JnarioIssueCodes.JNARIO_LIB_NOT_ON_CLASSPATH)
 	public void putJnarioOnClasspath(final Issue issue, IssueResolutionAcceptor acceptor) {

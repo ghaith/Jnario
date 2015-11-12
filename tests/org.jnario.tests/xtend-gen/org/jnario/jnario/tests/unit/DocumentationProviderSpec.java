@@ -9,6 +9,7 @@ package org.jnario.jnario.tests.unit;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.doc.DocumentationProvider;
 import org.jnario.lib.Assert;
 import org.jnario.lib.Should;
@@ -25,6 +26,7 @@ public class DocumentationProviderSpec {
   String comment = "";
   
   final DocumentationProvider subject = new DocumentationProvider(new IEObjectDocumentationProvider() {
+    @Override
     public String getDocumentation(final EObject it) {
       return DocumentationProviderSpec.this.comment;
     }
@@ -89,7 +91,7 @@ public class DocumentationProviderSpec {
     
   }
   
-  public String documentation(final String doc) {
+  public String documentation(@Extension final String doc) {
     String _xblockexpression = null;
     {
       this.comment = doc;

@@ -12,8 +12,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
-import org.eclipse.xtend.core.xtend.XtendPackage;
-
 import org.jnario.JnarioPackage;
 
 /**
@@ -85,15 +83,6 @@ public interface FeaturePackage extends EPackage
 	int FEATURE__ANNOTATIONS = JnarioPackage.SPECIFICATION__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__ANNOTATION_INFO = JnarioPackage.SPECIFICATION__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -103,13 +92,13 @@ public interface FeaturePackage extends EPackage
 	int FEATURE__MODIFIERS = JnarioPackage.SPECIFICATION__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__DECLARING_TYPE = JnarioPackage.SPECIFICATION__DECLARING_TYPE;
+	int FEATURE__ANNOTATION_INFO = JnarioPackage.SPECIFICATION__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -137,24 +126,6 @@ public interface FeaturePackage extends EPackage
 	 * @ordered
 	 */
 	int FEATURE__EXTENDS = JnarioPackage.SPECIFICATION__EXTENDS;
-
-	/**
-	 * The feature id for the '<em><b>Implements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__IMPLEMENTS = JnarioPackage.SPECIFICATION__IMPLEMENTS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__TYPE_PARAMETERS = JnarioPackage.SPECIFICATION__TYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -209,16 +180,7 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SCENARIO__ANNOTATIONS = XtendPackage.XTEND_CLASS__ANNOTATIONS;
-
-	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SCENARIO__ANNOTATION_INFO = XtendPackage.XTEND_CLASS__ANNOTATION_INFO;
+	int SCENARIO__ANNOTATIONS = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
@@ -227,16 +189,16 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SCENARIO__MODIFIERS = XtendPackage.XTEND_CLASS__MODIFIERS;
+	int SCENARIO__MODIFIERS = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SCENARIO__DECLARING_TYPE = XtendPackage.XTEND_CLASS__DECLARING_TYPE;
+	int SCENARIO__ANNOTATION_INFO = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -245,7 +207,7 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SCENARIO__NAME = XtendPackage.XTEND_CLASS__NAME;
+	int SCENARIO__NAME = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Members</b></em>' containment reference list.
@@ -254,7 +216,7 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SCENARIO__MEMBERS = XtendPackage.XTEND_CLASS__MEMBERS;
+	int SCENARIO__MEMBERS = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Extends</b></em>' containment reference.
@@ -263,25 +225,7 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SCENARIO__EXTENDS = XtendPackage.XTEND_CLASS__EXTENDS;
-
-	/**
-	 * The feature id for the '<em><b>Implements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SCENARIO__IMPLEMENTS = XtendPackage.XTEND_CLASS__IMPLEMENTS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SCENARIO__TYPE_PARAMETERS = XtendPackage.XTEND_CLASS__TYPE_PARAMETERS;
+	int SCENARIO__EXTENDS = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Scenario</em>' class.
@@ -290,7 +234,7 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SCENARIO_FEATURE_COUNT = XtendPackage.XTEND_CLASS_FEATURE_COUNT + 0;
+	int SCENARIO_FEATURE_COUNT = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.jnario.feature.feature.impl.BackgroundImpl <em>Background</em>}' class.
@@ -312,15 +256,6 @@ public interface FeaturePackage extends EPackage
 	int BACKGROUND__ANNOTATIONS = SCENARIO__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BACKGROUND__ANNOTATION_INFO = SCENARIO__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -330,13 +265,13 @@ public interface FeaturePackage extends EPackage
 	int BACKGROUND__MODIFIERS = SCENARIO__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BACKGROUND__DECLARING_TYPE = SCENARIO__DECLARING_TYPE;
+	int BACKGROUND__ANNOTATION_INFO = SCENARIO__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -366,24 +301,6 @@ public interface FeaturePackage extends EPackage
 	int BACKGROUND__EXTENDS = SCENARIO__EXTENDS;
 
 	/**
-	 * The feature id for the '<em><b>Implements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BACKGROUND__IMPLEMENTS = SCENARIO__IMPLEMENTS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BACKGROUND__TYPE_PARAMETERS = SCENARIO__TYPE_PARAMETERS;
-
-	/**
 	 * The number of structural features of the '<em>Background</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -409,16 +326,7 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int STEP__ANNOTATIONS = XtendPackage.XTEND_FUNCTION__ANNOTATIONS;
-
-	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP__ANNOTATION_INFO = XtendPackage.XTEND_FUNCTION__ANNOTATION_INFO;
+	int STEP__ANNOTATIONS = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
@@ -427,52 +335,16 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int STEP__MODIFIERS = XtendPackage.XTEND_FUNCTION__MODIFIERS;
+	int STEP__MODIFIERS = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STEP__DECLARING_TYPE = XtendPackage.XTEND_FUNCTION__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP__EXCEPTIONS = XtendPackage.XTEND_FUNCTION__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP__TYPE_PARAMETERS = XtendPackage.XTEND_FUNCTION__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP__EXPRESSION = XtendPackage.XTEND_FUNCTION__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP__PARAMETERS = XtendPackage.XTEND_FUNCTION__PARAMETERS;
+	int STEP__ANNOTATION_INFO = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -481,7 +353,25 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int STEP__NAME = XtendPackage.XTEND_FUNCTION__NAME;
+	int STEP__NAME = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP__EXPRESSION = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP__TYPE_PARAMETERS = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
@@ -490,16 +380,25 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int STEP__RETURN_TYPE = XtendPackage.XTEND_FUNCTION__RETURN_TYPE;
+	int STEP__RETURN_TYPE = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STEP__CREATE_EXTENSION_INFO = XtendPackage.XTEND_FUNCTION__CREATE_EXTENSION_INFO;
+	int STEP__EXCEPTIONS = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP__PARAMETERS = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of structural features of the '<em>Step</em>' class.
@@ -508,7 +407,7 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int STEP_FEATURE_COUNT = XtendPackage.XTEND_FUNCTION_FEATURE_COUNT + 0;
+	int STEP_FEATURE_COUNT = JnarioPackage.EXECUTABLE_FEATURE_COUNT + 9;
 
 	/**
 	 * The meta object id for the '{@link org.jnario.feature.feature.impl.StepImplementationImpl <em>Step Implementation</em>}' class.
@@ -530,15 +429,6 @@ public interface FeaturePackage extends EPackage
 	int STEP_IMPLEMENTATION__ANNOTATIONS = STEP__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP_IMPLEMENTATION__ANNOTATION_INFO = STEP__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -548,49 +438,13 @@ public interface FeaturePackage extends EPackage
 	int STEP_IMPLEMENTATION__MODIFIERS = STEP__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STEP_IMPLEMENTATION__DECLARING_TYPE = STEP__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP_IMPLEMENTATION__EXCEPTIONS = STEP__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP_IMPLEMENTATION__TYPE_PARAMETERS = STEP__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP_IMPLEMENTATION__EXPRESSION = STEP__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP_IMPLEMENTATION__PARAMETERS = STEP__PARAMETERS;
+	int STEP_IMPLEMENTATION__ANNOTATION_INFO = STEP__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -602,6 +456,24 @@ public interface FeaturePackage extends EPackage
 	int STEP_IMPLEMENTATION__NAME = STEP__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_IMPLEMENTATION__EXPRESSION = STEP__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_IMPLEMENTATION__TYPE_PARAMETERS = STEP__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -611,13 +483,22 @@ public interface FeaturePackage extends EPackage
 	int STEP_IMPLEMENTATION__RETURN_TYPE = STEP__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STEP_IMPLEMENTATION__CREATE_EXTENSION_INFO = STEP__CREATE_EXTENSION_INFO;
+	int STEP_IMPLEMENTATION__EXCEPTIONS = STEP__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_IMPLEMENTATION__PARAMETERS = STEP__PARAMETERS;
 
 	/**
 	 * The number of structural features of the '<em>Step Implementation</em>' class.
@@ -648,15 +529,6 @@ public interface FeaturePackage extends EPackage
 	int GIVEN__ANNOTATIONS = STEP_IMPLEMENTATION__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GIVEN__ANNOTATION_INFO = STEP_IMPLEMENTATION__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -666,49 +538,13 @@ public interface FeaturePackage extends EPackage
 	int GIVEN__MODIFIERS = STEP_IMPLEMENTATION__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GIVEN__DECLARING_TYPE = STEP_IMPLEMENTATION__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GIVEN__EXCEPTIONS = STEP_IMPLEMENTATION__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GIVEN__TYPE_PARAMETERS = STEP_IMPLEMENTATION__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GIVEN__EXPRESSION = STEP_IMPLEMENTATION__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GIVEN__PARAMETERS = STEP_IMPLEMENTATION__PARAMETERS;
+	int GIVEN__ANNOTATION_INFO = STEP_IMPLEMENTATION__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -720,6 +556,24 @@ public interface FeaturePackage extends EPackage
 	int GIVEN__NAME = STEP_IMPLEMENTATION__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GIVEN__EXPRESSION = STEP_IMPLEMENTATION__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GIVEN__TYPE_PARAMETERS = STEP_IMPLEMENTATION__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -729,13 +583,22 @@ public interface FeaturePackage extends EPackage
 	int GIVEN__RETURN_TYPE = STEP_IMPLEMENTATION__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GIVEN__CREATE_EXTENSION_INFO = STEP_IMPLEMENTATION__CREATE_EXTENSION_INFO;
+	int GIVEN__EXCEPTIONS = STEP_IMPLEMENTATION__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GIVEN__PARAMETERS = STEP_IMPLEMENTATION__PARAMETERS;
 
 	/**
 	 * The number of structural features of the '<em>Given</em>' class.
@@ -766,15 +629,6 @@ public interface FeaturePackage extends EPackage
 	int WHEN__ANNOTATIONS = STEP_IMPLEMENTATION__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHEN__ANNOTATION_INFO = STEP_IMPLEMENTATION__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -784,49 +638,13 @@ public interface FeaturePackage extends EPackage
 	int WHEN__MODIFIERS = STEP_IMPLEMENTATION__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WHEN__DECLARING_TYPE = STEP_IMPLEMENTATION__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHEN__EXCEPTIONS = STEP_IMPLEMENTATION__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHEN__TYPE_PARAMETERS = STEP_IMPLEMENTATION__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHEN__EXPRESSION = STEP_IMPLEMENTATION__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHEN__PARAMETERS = STEP_IMPLEMENTATION__PARAMETERS;
+	int WHEN__ANNOTATION_INFO = STEP_IMPLEMENTATION__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -838,6 +656,24 @@ public interface FeaturePackage extends EPackage
 	int WHEN__NAME = STEP_IMPLEMENTATION__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WHEN__EXPRESSION = STEP_IMPLEMENTATION__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WHEN__TYPE_PARAMETERS = STEP_IMPLEMENTATION__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -847,13 +683,22 @@ public interface FeaturePackage extends EPackage
 	int WHEN__RETURN_TYPE = STEP_IMPLEMENTATION__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WHEN__CREATE_EXTENSION_INFO = STEP_IMPLEMENTATION__CREATE_EXTENSION_INFO;
+	int WHEN__EXCEPTIONS = STEP_IMPLEMENTATION__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WHEN__PARAMETERS = STEP_IMPLEMENTATION__PARAMETERS;
 
 	/**
 	 * The number of structural features of the '<em>When</em>' class.
@@ -884,15 +729,6 @@ public interface FeaturePackage extends EPackage
 	int THEN__ANNOTATIONS = STEP_IMPLEMENTATION__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int THEN__ANNOTATION_INFO = STEP_IMPLEMENTATION__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -902,49 +738,13 @@ public interface FeaturePackage extends EPackage
 	int THEN__MODIFIERS = STEP_IMPLEMENTATION__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THEN__DECLARING_TYPE = STEP_IMPLEMENTATION__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int THEN__EXCEPTIONS = STEP_IMPLEMENTATION__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int THEN__TYPE_PARAMETERS = STEP_IMPLEMENTATION__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int THEN__EXPRESSION = STEP_IMPLEMENTATION__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int THEN__PARAMETERS = STEP_IMPLEMENTATION__PARAMETERS;
+	int THEN__ANNOTATION_INFO = STEP_IMPLEMENTATION__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -956,6 +756,24 @@ public interface FeaturePackage extends EPackage
 	int THEN__NAME = STEP_IMPLEMENTATION__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEN__EXPRESSION = STEP_IMPLEMENTATION__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEN__TYPE_PARAMETERS = STEP_IMPLEMENTATION__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -965,13 +783,22 @@ public interface FeaturePackage extends EPackage
 	int THEN__RETURN_TYPE = STEP_IMPLEMENTATION__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THEN__CREATE_EXTENSION_INFO = STEP_IMPLEMENTATION__CREATE_EXTENSION_INFO;
+	int THEN__EXCEPTIONS = STEP_IMPLEMENTATION__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEN__PARAMETERS = STEP_IMPLEMENTATION__PARAMETERS;
 
 	/**
 	 * The number of structural features of the '<em>Then</em>' class.
@@ -1002,15 +829,6 @@ public interface FeaturePackage extends EPackage
 	int AND__ANNOTATIONS = STEP_IMPLEMENTATION__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__ANNOTATION_INFO = STEP_IMPLEMENTATION__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1020,49 +838,13 @@ public interface FeaturePackage extends EPackage
 	int AND__MODIFIERS = STEP_IMPLEMENTATION__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AND__DECLARING_TYPE = STEP_IMPLEMENTATION__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__EXCEPTIONS = STEP_IMPLEMENTATION__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__TYPE_PARAMETERS = STEP_IMPLEMENTATION__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__EXPRESSION = STEP_IMPLEMENTATION__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__PARAMETERS = STEP_IMPLEMENTATION__PARAMETERS;
+	int AND__ANNOTATION_INFO = STEP_IMPLEMENTATION__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1074,6 +856,24 @@ public interface FeaturePackage extends EPackage
 	int AND__NAME = STEP_IMPLEMENTATION__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND__EXPRESSION = STEP_IMPLEMENTATION__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND__TYPE_PARAMETERS = STEP_IMPLEMENTATION__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1083,13 +883,22 @@ public interface FeaturePackage extends EPackage
 	int AND__RETURN_TYPE = STEP_IMPLEMENTATION__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AND__CREATE_EXTENSION_INFO = STEP_IMPLEMENTATION__CREATE_EXTENSION_INFO;
+	int AND__EXCEPTIONS = STEP_IMPLEMENTATION__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND__PARAMETERS = STEP_IMPLEMENTATION__PARAMETERS;
 
 	/**
 	 * The number of structural features of the '<em>And</em>' class.
@@ -1117,7 +926,7 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_FILE__IMPORT_SECTION = XtendPackage.XTEND_FILE__IMPORT_SECTION;
+	int FEATURE_FILE__IMPORT_SECTION = JnarioPackage.JNARIO_FILE__IMPORT_SECTION;
 
 	/**
 	 * The feature id for the '<em><b>Xtend Types</b></em>' containment reference list.
@@ -1126,7 +935,7 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_FILE__XTEND_TYPES = XtendPackage.XTEND_FILE__XTEND_TYPES;
+	int FEATURE_FILE__XTEND_TYPES = JnarioPackage.JNARIO_FILE__XTEND_TYPES;
 
 	/**
 	 * The feature id for the '<em><b>Package</b></em>' attribute.
@@ -1135,7 +944,7 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_FILE__PACKAGE = XtendPackage.XTEND_FILE__PACKAGE;
+	int FEATURE_FILE__PACKAGE = JnarioPackage.JNARIO_FILE__PACKAGE;
 
 	/**
 	 * The number of structural features of the '<em>File</em>' class.
@@ -1144,7 +953,7 @@ public interface FeaturePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_FILE_FEATURE_COUNT = XtendPackage.XTEND_FILE_FEATURE_COUNT + 0;
+	int FEATURE_FILE_FEATURE_COUNT = JnarioPackage.JNARIO_FILE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.jnario.feature.feature.impl.StepReferenceImpl <em>Step Reference</em>}' class.
@@ -1166,15 +975,6 @@ public interface FeaturePackage extends EPackage
 	int STEP_REFERENCE__ANNOTATIONS = STEP__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP_REFERENCE__ANNOTATION_INFO = STEP__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1184,49 +984,13 @@ public interface FeaturePackage extends EPackage
 	int STEP_REFERENCE__MODIFIERS = STEP__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STEP_REFERENCE__DECLARING_TYPE = STEP__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP_REFERENCE__EXCEPTIONS = STEP__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP_REFERENCE__TYPE_PARAMETERS = STEP__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP_REFERENCE__EXPRESSION = STEP__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STEP_REFERENCE__PARAMETERS = STEP__PARAMETERS;
+	int STEP_REFERENCE__ANNOTATION_INFO = STEP__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1238,6 +1002,24 @@ public interface FeaturePackage extends EPackage
 	int STEP_REFERENCE__NAME = STEP__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_REFERENCE__EXPRESSION = STEP__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_REFERENCE__TYPE_PARAMETERS = STEP__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1247,13 +1029,22 @@ public interface FeaturePackage extends EPackage
 	int STEP_REFERENCE__RETURN_TYPE = STEP__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STEP_REFERENCE__CREATE_EXTENSION_INFO = STEP__CREATE_EXTENSION_INFO;
+	int STEP_REFERENCE__EXCEPTIONS = STEP__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_REFERENCE__PARAMETERS = STEP__PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Reference</b></em>' reference.
@@ -1302,15 +1093,6 @@ public interface FeaturePackage extends EPackage
 	int GIVEN_REFERENCE__ANNOTATIONS = STEP_REFERENCE__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GIVEN_REFERENCE__ANNOTATION_INFO = STEP_REFERENCE__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1320,49 +1102,13 @@ public interface FeaturePackage extends EPackage
 	int GIVEN_REFERENCE__MODIFIERS = STEP_REFERENCE__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GIVEN_REFERENCE__DECLARING_TYPE = STEP_REFERENCE__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GIVEN_REFERENCE__EXCEPTIONS = STEP_REFERENCE__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GIVEN_REFERENCE__TYPE_PARAMETERS = STEP_REFERENCE__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GIVEN_REFERENCE__EXPRESSION = STEP_REFERENCE__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GIVEN_REFERENCE__PARAMETERS = STEP_REFERENCE__PARAMETERS;
+	int GIVEN_REFERENCE__ANNOTATION_INFO = STEP_REFERENCE__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1374,6 +1120,24 @@ public interface FeaturePackage extends EPackage
 	int GIVEN_REFERENCE__NAME = STEP_REFERENCE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GIVEN_REFERENCE__EXPRESSION = STEP_REFERENCE__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GIVEN_REFERENCE__TYPE_PARAMETERS = STEP_REFERENCE__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1383,13 +1147,22 @@ public interface FeaturePackage extends EPackage
 	int GIVEN_REFERENCE__RETURN_TYPE = STEP_REFERENCE__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GIVEN_REFERENCE__CREATE_EXTENSION_INFO = STEP_REFERENCE__CREATE_EXTENSION_INFO;
+	int GIVEN_REFERENCE__EXCEPTIONS = STEP_REFERENCE__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GIVEN_REFERENCE__PARAMETERS = STEP_REFERENCE__PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Reference</b></em>' reference.
@@ -1438,15 +1211,6 @@ public interface FeaturePackage extends EPackage
 	int WHEN_REFERENCE__ANNOTATIONS = STEP_REFERENCE__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHEN_REFERENCE__ANNOTATION_INFO = STEP_REFERENCE__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1456,49 +1220,13 @@ public interface FeaturePackage extends EPackage
 	int WHEN_REFERENCE__MODIFIERS = STEP_REFERENCE__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WHEN_REFERENCE__DECLARING_TYPE = STEP_REFERENCE__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHEN_REFERENCE__EXCEPTIONS = STEP_REFERENCE__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHEN_REFERENCE__TYPE_PARAMETERS = STEP_REFERENCE__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHEN_REFERENCE__EXPRESSION = STEP_REFERENCE__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHEN_REFERENCE__PARAMETERS = STEP_REFERENCE__PARAMETERS;
+	int WHEN_REFERENCE__ANNOTATION_INFO = STEP_REFERENCE__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1510,6 +1238,24 @@ public interface FeaturePackage extends EPackage
 	int WHEN_REFERENCE__NAME = STEP_REFERENCE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WHEN_REFERENCE__EXPRESSION = STEP_REFERENCE__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WHEN_REFERENCE__TYPE_PARAMETERS = STEP_REFERENCE__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1519,13 +1265,22 @@ public interface FeaturePackage extends EPackage
 	int WHEN_REFERENCE__RETURN_TYPE = STEP_REFERENCE__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WHEN_REFERENCE__CREATE_EXTENSION_INFO = STEP_REFERENCE__CREATE_EXTENSION_INFO;
+	int WHEN_REFERENCE__EXCEPTIONS = STEP_REFERENCE__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WHEN_REFERENCE__PARAMETERS = STEP_REFERENCE__PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Reference</b></em>' reference.
@@ -1574,15 +1329,6 @@ public interface FeaturePackage extends EPackage
 	int THEN_REFERENCE__ANNOTATIONS = STEP_REFERENCE__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int THEN_REFERENCE__ANNOTATION_INFO = STEP_REFERENCE__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1592,49 +1338,13 @@ public interface FeaturePackage extends EPackage
 	int THEN_REFERENCE__MODIFIERS = STEP_REFERENCE__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THEN_REFERENCE__DECLARING_TYPE = STEP_REFERENCE__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int THEN_REFERENCE__EXCEPTIONS = STEP_REFERENCE__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int THEN_REFERENCE__TYPE_PARAMETERS = STEP_REFERENCE__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int THEN_REFERENCE__EXPRESSION = STEP_REFERENCE__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int THEN_REFERENCE__PARAMETERS = STEP_REFERENCE__PARAMETERS;
+	int THEN_REFERENCE__ANNOTATION_INFO = STEP_REFERENCE__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1646,6 +1356,24 @@ public interface FeaturePackage extends EPackage
 	int THEN_REFERENCE__NAME = STEP_REFERENCE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEN_REFERENCE__EXPRESSION = STEP_REFERENCE__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEN_REFERENCE__TYPE_PARAMETERS = STEP_REFERENCE__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1655,13 +1383,22 @@ public interface FeaturePackage extends EPackage
 	int THEN_REFERENCE__RETURN_TYPE = STEP_REFERENCE__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THEN_REFERENCE__CREATE_EXTENSION_INFO = STEP_REFERENCE__CREATE_EXTENSION_INFO;
+	int THEN_REFERENCE__EXCEPTIONS = STEP_REFERENCE__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEN_REFERENCE__PARAMETERS = STEP_REFERENCE__PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Reference</b></em>' reference.
@@ -1710,15 +1447,6 @@ public interface FeaturePackage extends EPackage
 	int AND_REFERENCE__ANNOTATIONS = STEP_REFERENCE__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_REFERENCE__ANNOTATION_INFO = STEP_REFERENCE__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1728,49 +1456,13 @@ public interface FeaturePackage extends EPackage
 	int AND_REFERENCE__MODIFIERS = STEP_REFERENCE__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AND_REFERENCE__DECLARING_TYPE = STEP_REFERENCE__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_REFERENCE__EXCEPTIONS = STEP_REFERENCE__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_REFERENCE__TYPE_PARAMETERS = STEP_REFERENCE__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_REFERENCE__EXPRESSION = STEP_REFERENCE__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_REFERENCE__PARAMETERS = STEP_REFERENCE__PARAMETERS;
+	int AND_REFERENCE__ANNOTATION_INFO = STEP_REFERENCE__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1782,6 +1474,24 @@ public interface FeaturePackage extends EPackage
 	int AND_REFERENCE__NAME = STEP_REFERENCE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_REFERENCE__EXPRESSION = STEP_REFERENCE__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_REFERENCE__TYPE_PARAMETERS = STEP_REFERENCE__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1791,13 +1501,22 @@ public interface FeaturePackage extends EPackage
 	int AND_REFERENCE__RETURN_TYPE = STEP_REFERENCE__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AND_REFERENCE__CREATE_EXTENSION_INFO = STEP_REFERENCE__CREATE_EXTENSION_INFO;
+	int AND_REFERENCE__EXCEPTIONS = STEP_REFERENCE__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_REFERENCE__PARAMETERS = STEP_REFERENCE__PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Reference</b></em>' reference.
@@ -1846,15 +1565,6 @@ public interface FeaturePackage extends EPackage
 	int BUT__ANNOTATIONS = STEP_IMPLEMENTATION__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUT__ANNOTATION_INFO = STEP_IMPLEMENTATION__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1864,49 +1574,13 @@ public interface FeaturePackage extends EPackage
 	int BUT__MODIFIERS = STEP_IMPLEMENTATION__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUT__DECLARING_TYPE = STEP_IMPLEMENTATION__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUT__EXCEPTIONS = STEP_IMPLEMENTATION__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUT__TYPE_PARAMETERS = STEP_IMPLEMENTATION__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUT__EXPRESSION = STEP_IMPLEMENTATION__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUT__PARAMETERS = STEP_IMPLEMENTATION__PARAMETERS;
+	int BUT__ANNOTATION_INFO = STEP_IMPLEMENTATION__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1918,6 +1592,24 @@ public interface FeaturePackage extends EPackage
 	int BUT__NAME = STEP_IMPLEMENTATION__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUT__EXPRESSION = STEP_IMPLEMENTATION__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUT__TYPE_PARAMETERS = STEP_IMPLEMENTATION__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1927,13 +1619,22 @@ public interface FeaturePackage extends EPackage
 	int BUT__RETURN_TYPE = STEP_IMPLEMENTATION__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUT__CREATE_EXTENSION_INFO = STEP_IMPLEMENTATION__CREATE_EXTENSION_INFO;
+	int BUT__EXCEPTIONS = STEP_IMPLEMENTATION__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUT__PARAMETERS = STEP_IMPLEMENTATION__PARAMETERS;
 
 	/**
 	 * The number of structural features of the '<em>But</em>' class.
@@ -1964,15 +1665,6 @@ public interface FeaturePackage extends EPackage
 	int BUT_REFERENCE__ANNOTATIONS = STEP_REFERENCE__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUT_REFERENCE__ANNOTATION_INFO = STEP_REFERENCE__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1982,49 +1674,13 @@ public interface FeaturePackage extends EPackage
 	int BUT_REFERENCE__MODIFIERS = STEP_REFERENCE__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUT_REFERENCE__DECLARING_TYPE = STEP_REFERENCE__DECLARING_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUT_REFERENCE__EXCEPTIONS = STEP_REFERENCE__EXCEPTIONS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUT_REFERENCE__TYPE_PARAMETERS = STEP_REFERENCE__TYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUT_REFERENCE__EXPRESSION = STEP_REFERENCE__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUT_REFERENCE__PARAMETERS = STEP_REFERENCE__PARAMETERS;
+	int BUT_REFERENCE__ANNOTATION_INFO = STEP_REFERENCE__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2036,6 +1692,24 @@ public interface FeaturePackage extends EPackage
 	int BUT_REFERENCE__NAME = STEP_REFERENCE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUT_REFERENCE__EXPRESSION = STEP_REFERENCE__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUT_REFERENCE__TYPE_PARAMETERS = STEP_REFERENCE__TYPE_PARAMETERS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2045,13 +1719,22 @@ public interface FeaturePackage extends EPackage
 	int BUT_REFERENCE__RETURN_TYPE = STEP_REFERENCE__RETURN_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Create Extension Info</b></em>' containment reference.
+	 * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUT_REFERENCE__CREATE_EXTENSION_INFO = STEP_REFERENCE__CREATE_EXTENSION_INFO;
+	int BUT_REFERENCE__EXCEPTIONS = STEP_REFERENCE__EXCEPTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUT_REFERENCE__PARAMETERS = STEP_REFERENCE__PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Reference</b></em>' reference.

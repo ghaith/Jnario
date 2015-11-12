@@ -102,6 +102,7 @@ public class StringsTrimSpec extends StringsSpec {
   @Order(1)
   public void _removesTheSpecifiedLeadingAndTrailingCharacter() throws Exception {
     final Procedure1<StringsTrimSpecExamples> _function = new Procedure1<StringsTrimSpecExamples>() {
+      @Override
       public void apply(final StringsTrimSpecExamples it) {
         String _string = it.getString();
         char _charAt = "_".charAt(0);

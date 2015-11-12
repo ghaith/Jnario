@@ -11,57 +11,26 @@
 package org.jnario.spec;
 
 
-import org.eclipse.xtend.core.compiler.UnicodeAwarePostProcessor;
-import org.eclipse.xtend.core.compiler.XtendGenerator;
-import org.eclipse.xtend.core.compiler.XtendOutputConfigurationProvider;
-import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler;
-import org.eclipse.xtend.core.imports.XtendImportsConfiguration;
-import org.eclipse.xtend.core.jvmmodel.IXtendJvmAssociations;
-import org.eclipse.xtend.core.jvmmodel.SyntheticNameClashResolver;
-import org.eclipse.xtend.core.linking.XtendEObjectAtOffsetHelper;
-import org.eclipse.xtend.core.linking.XtendLinkingDiagnosticMessageProvider;
-import org.eclipse.xtend.core.macro.AnnotationProcessor;
-import org.eclipse.xtend.core.macro.declaration.NopResourceChangeRegistry;
-import org.eclipse.xtend.core.macro.declaration.ResourceChangeRegistry;
-import org.eclipse.xtend.core.parser.antlr.internal.FlexerFactory;
-import org.eclipse.xtend.core.resource.XtendLocationInFileProvider;
-import org.eclipse.xtend.core.resource.XtendResourceDescriptionManager;
-import org.eclipse.xtend.core.scoping.AnonymousClassConstructorScopes;
-import org.eclipse.xtend.core.typesystem.LocalClassAwareTypeNames;
-import org.eclipse.xtend.core.typesystem.TypeDeclarationAwareBatchTypeResolver;
-import org.eclipse.xtend.core.validation.XtendConfigurableIssueCodes;
-import org.eclipse.xtend.core.validation.XtendEarlyExitValidator;
-import org.eclipse.xtend.core.validation.XtendImplicitReturnFinder;
-import org.eclipse.xtend.core.xtend.XtendFactory;
 import org.eclipse.xtend.lib.macro.file.FileLocations;
-import org.eclipse.xtend.lib.macro.file.MutableFileSystemSupport;
 import org.eclipse.xtext.common.types.descriptions.JvmDeclaredTypeSignatureHashProvider.SignatureHashBuilder;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.conversion.impl.IDValueConverter;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.generator.IFilePostProcessor;
-import org.eclipse.xtext.generator.IGenerator;
-import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.generator.OutputConfigurationProvider;
-import org.eclipse.xtext.linking.ILinker;
 import org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider;
 import org.eclipse.xtext.linking.ILinkingService;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.IParser;
-import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
-import org.eclipse.xtext.resource.ILocationInFileProvider;
-import org.eclipse.xtext.resource.IResourceDescription.Manager;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.impl.EagerResourceSetBasedResourceDescriptions;
+import org.eclipse.xtext.resource.persistence.IResourceStorageFacade;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.validation.CompositeEValidator;
-import org.eclipse.xtext.validation.ConfigurableIssueCodesProvider;
-import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.xbase.XbaseFactory;
-import org.eclipse.xtext.xbase.compiler.JvmModelGenerator;
 import org.eclipse.xtext.xbase.compiler.XbaseCompiler;
 import org.eclipse.xtext.xbase.compiler.output.TraceAwarePostProcessor;
 import org.eclipse.xtext.xbase.file.AbstractFileSystemSupport;
@@ -69,22 +38,15 @@ import org.eclipse.xtext.xbase.file.FileLocationsImpl;
 import org.eclipse.xtext.xbase.file.JavaIOFileSystemSupport;
 import org.eclipse.xtext.xbase.file.RuntimeWorkspaceConfigProvider;
 import org.eclipse.xtext.xbase.file.WorkspaceConfig;
-import org.eclipse.xtext.xbase.formatting.IBasicFormatter;
 import org.eclipse.xtext.xbase.formatting.NodeModelAccess;
-import org.eclipse.xtext.xbase.imports.IImportsConfiguration;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelInferrer;
-import org.eclipse.xtext.xbase.jvmmodel.JvmModelAssociator;
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder;
-import org.eclipse.xtext.xbase.scoping.batch.ConstructorScopes;
 import org.eclipse.xtext.xbase.scoping.batch.ImplicitlyImportedFeatures;
 import org.eclipse.xtext.xbase.scoping.batch.XbaseBatchScopeProvider;
 import org.eclipse.xtext.xbase.typesystem.computation.ITypeComputer;
-import org.eclipse.xtext.xbase.typesystem.internal.DefaultBatchTypeResolver;
 import org.eclipse.xtext.xbase.typesystem.internal.DefaultReentrantTypeResolver;
-import org.eclipse.xtext.xbase.typesystem.util.HumanReadableTypeNames;
 import org.eclipse.xtext.xbase.util.XExpressionHelper;
-import org.eclipse.xtext.xbase.validation.EarlyExitValidator;
-import org.eclipse.xtext.xbase.validation.ImplicitReturnFinder;
+import org.jnario.compiler.JnarioBatchCompiler;
 import org.jnario.compiler.JnarioCompiler;
 import org.jnario.compiler.JnarioExpressionHelper;
 import org.jnario.conversion.JnarioJavaIDValueConverter;
@@ -97,19 +59,18 @@ import org.jnario.jvmmodel.ExecutableProvider;
 import org.jnario.jvmmodel.ExtendedJvmTypesBuilder;
 import org.jnario.jvmmodel.JnarioNameProvider;
 import org.jnario.jvmmodel.JnarioSignatureHashBuilder;
+import org.jnario.jvmmodel.JnarioSyntheticNameClashResolver;
+import org.jnario.linking.JnarioLinkingDiagnosticMessageProvider;
 import org.jnario.linking.JnarioLinkingService;
-import org.jnario.macro.JnarioAnnotationProcessor;
 import org.jnario.report.Executable2ResultMapping;
 import org.jnario.report.HashBasedSpec2ResultMapping;
+import org.jnario.resource.NonStoringBatchLinkableResourceStorageFacade;
 import org.jnario.scoping.JnarioImplicitlyImportedFeatures;
 import org.jnario.spec.compiler.SpecBatchCompiler;
 import org.jnario.spec.conversion.SpecValueConverterService;
 import org.jnario.spec.doc.SpecDocGenerator;
-import org.jnario.spec.formatting.SpecFormatter;
 import org.jnario.spec.jvmmodel.SpecExecutableProvider;
-import org.jnario.spec.jvmmodel.SpecJvmModelGenerator;
 import org.jnario.spec.jvmmodel.SpecJvmModelInferrer;
-import org.jnario.spec.jvmmodel.SpecLazyLinker;
 import org.jnario.spec.jvmmodel.SpecSyntheticNameClashResolver;
 import org.jnario.spec.naming.ExampleNameProvider;
 import org.jnario.spec.naming.SpecQualifiedNameProvider;
@@ -120,38 +81,36 @@ import org.jnario.typing.JnarioTypeComputer;
 import org.jnario.typing.JnarioTypeResolver;
 
 import com.google.inject.Binder;
-import com.google.inject.Scopes;
 import com.google.inject.name.Names;
 
 /**
  * @author Sebastian Benz - Initial contribution and API
  */
-@SuppressWarnings("restriction")
 public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule {
 
 	@Override
 	public void configure(Binder binder) {
 		super.configure(binder);
-		binder.bind(FlexerFactory.class).in(Scopes.SINGLETON);
+//		binder.bind(FlexerFactory.class).in(Scopes.SINGLETON);
 		binder.bind(AbstractDocGenerator.class).to(SpecDocGenerator.class);
 		binder.bind(SignatureHashBuilder.class).to(JnarioSignatureHashBuilder.class);
-		binder.bind(SyntheticNameClashResolver.class).to(SpecSyntheticNameClashResolver.class);
+		binder.bind(JnarioSyntheticNameClashResolver.class).to(SpecSyntheticNameClashResolver.class);
 		binder.bind(JnarioNameProvider.class).to(ExampleNameProvider.class);
 		binder.bind(ExecutableProvider.class).to(SpecExecutableProvider.class);
 		binder.bind(Executable2ResultMapping.class).to(HashBasedSpec2ResultMapping.class);
 		binder.bind(ImplicitlyImportedFeatures.class).to(JnarioImplicitlyImportedFeatures.class);
 		binder.bind(boolean.class).annotatedWith(
 				Names.named(CompositeEValidator.USE_EOBJECT_VALIDATOR)).toInstance(false);
-		binder.bind(XtendBatchCompiler.class).to(SpecBatchCompiler.class);
+		binder.bind(JnarioBatchCompiler.class).to(SpecBatchCompiler.class);
 	}
 	
 	public Class<? extends JvmTypesBuilder> bindJvmTypesBuilder(){
 		return ExtendedJvmTypesBuilder.class;
 	}
 	
-	public Class<? extends JvmModelGenerator> bindJvmModelGenerator(){
-		return SpecJvmModelGenerator.class;
-	}
+//	public Class<? extends JvmModelGenerator> bindJvmModelGenerator(){
+//		return SpecJvmModelGenerator.class;
+//	}
 
 	public Class<? extends OutputConfigurationProvider> bindOutputConfigurationProvider() {
 		return DocOutputConfigurationProvider.class;
@@ -168,10 +127,6 @@ public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule
 	
 	public Class<? extends JavaIoFileSystemAccess> bindJavaIoFileSystemAccess() {
 		return JnarioJavaIoFileSystemAccess.class;
-	}
-	
-	public Class<? extends org.jnario.compiler.JnarioBatchCompiler> bindJnarioBatchCompiler(){
-		return SpecBatchCompiler.class;
 	}
 	
 	public XbaseFactory bindXbaseFactory() {
@@ -210,49 +165,45 @@ public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule
 		return SpecResourceDescriptionStrategy.class;
 	}
 
-	public Class<? extends JvmModelAssociator> bindJvmModelAssociator() {
-		return IXtendJvmAssociations.Impl.class;
-	}
-
-	public Class<? extends EarlyExitValidator> bindEarlyExitValidator() {
-		return XtendEarlyExitValidator.class;
-	}
+//	public Class<? extends JvmModelAssociator> bindJvmModelAssociator() {
+//		return IXtendJvmAssociations.Impl.class;
+//	}
+//
+//	public Class<? extends EarlyExitValidator> bindEarlyExitValidator() {
+//		return XtendEarlyExitValidator.class;
+//	}
+//	
+//	public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
+//		return XtendOutputConfigurationProvider.class;
+//	}
 	
-	public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
-		return XtendOutputConfigurationProvider.class;
-	}
-	
-	@Override
-	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
-		return XtendLocationInFileProvider.class;
-	}
+//	@Override
+//	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
+//		return XtendLocationInFileProvider.class;
+//	}
 
 	@Override
 	public Class<? extends ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
-		return XtendLinkingDiagnosticMessageProvider.class;
+		return JnarioLinkingDiagnosticMessageProvider.class;
 	}
 	
-	public Class<? extends IBasicFormatter> bindIBasicFormatter() {
-		return SpecFormatter.class;
-	}
-
-	public Class<? extends IImportsConfiguration> bindIImportsConfiguration() {
-		return XtendImportsConfiguration.class;
-	}
-
-	@Override
-	public Class<? extends ConfigurableIssueCodesProvider> bindConfigurableIssueCodesProvider() {
-		return XtendConfigurableIssueCodes.class;
-	}
-	
-	public XtendFactory bindXtendFactory() {
-		return XtendFactory.eINSTANCE;
-	}
-
-	@Override
-	public Class<? extends DefaultBatchTypeResolver> bindDefaultBatchTypeResolver() {
-		return TypeDeclarationAwareBatchTypeResolver.class;
-	}
+//	public Class<? extends IImportsConfiguration> bindIImportsConfiguration() {
+//		return XtendImportsConfiguration.class;
+//	}
+//
+//	@Override
+//	public Class<? extends ConfigurableIssueCodesProvider> bindConfigurableIssueCodesProvider() {
+//		return XtendConfigurableIssueCodes.class;
+//	}
+//	
+//	public XtendFactory bindXtendFactory() {
+//		return XtendFactory.eINSTANCE;
+//	}
+//
+//	@Override
+//	public Class<? extends DefaultBatchTypeResolver> bindDefaultBatchTypeResolver() {
+//		return TypeDeclarationAwareBatchTypeResolver.class;
+//	}
 
 	@Override
 	public Class<? extends DefaultReentrantTypeResolver> bindDefaultReentrantTypeResolver() {
@@ -262,10 +213,10 @@ public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule
 	public Class<? extends XbaseCompiler> bindXbaseCompiler() {
 		return JnarioCompiler.class;
 	}
-	
-	public Class<? extends TraceAwarePostProcessor> bindTraceAwarePostProcessor() {
-		return UnicodeAwarePostProcessor.class;
-	}
+
+//	public Class<? extends TraceAwarePostProcessor> bindTraceAwarePostProcessor() {
+//		return UnicodeAwarePostProcessor.class;
+//	}
 
 	@Override
 	public Class<? extends ITypeComputer> bindITypeComputer() {
@@ -276,20 +227,20 @@ public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule
 		return SpecJvmModelInferrer.class;
 	}
 	
-	@Override
-	public Class<? extends Manager> bindIResourceDescription$Manager() {
-		return XtendResourceDescriptionManager.class;
-	}
+//	@Override
+//	public Class<? extends Manager> bindIResourceDescription$Manager() {
+//		return XtendResourceDescriptionManager.class;
+//	}
+//	
+//	@Override
+//	public Class<? extends IResourceValidator> bindIResourceValidator() {
+//		return org.eclipse.xtend.core.validation.CachingResourceValidatorImpl.class;
+//	}
 	
-	@Override
-	public Class<? extends IResourceValidator> bindIResourceValidator() {
-		return org.eclipse.xtend.core.validation.CachingResourceValidatorImpl.class;
-	}
-	
-	@Override
-	public Class<? extends ILinker> bindILinker() {
-		return SpecLazyLinker.class;
-	}
+//	@Override
+//	public Class<? extends ILinker> bindILinker() {
+//		return SpecLazyLinker.class;
+//	}
 	
 	/**
 	 * @since 2.4.2
@@ -299,14 +250,18 @@ public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule
 		binder.bind(IResourceDescriptions.class).to(EagerResourceSetBasedResourceDescriptions.class);
 	}
 	
+	public Class<? extends IResourceStorageFacade> bindResourceStorageFacade() {
+		return NonStoringBatchLinkableResourceStorageFacade.class;
+	}
+
 	public Class<? extends AbstractFileSystemSupport> bindAbstractFileSystemSupport() {
 		return JavaIOFileSystemSupport.class;
 	}
 	
-	@Override
-	public Class<? extends IGenerator> bindIGenerator() {
-		return XtendGenerator.class;
-	}
+//	@Override
+//	public Class<? extends IGenerator> bindIGenerator() {
+//		return XtendGenerator.class;
+//	}
 	
 	public void configureWorkspaceConfigContribution(Binder binder) {
 		binder.bind(WorkspaceConfig.class).toProvider(RuntimeWorkspaceConfigProvider.class);
@@ -334,27 +289,26 @@ public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule
 	}
 	
 
-	@Override
-	public Class<? extends EObjectAtOffsetHelper> bindEObjectAtOffsetHelper() {
-		return XtendEObjectAtOffsetHelper.class;
-	}
-	
-	public Class<? extends ImplicitReturnFinder> bindImplicitRetrnFinder() {
-		return XtendImplicitReturnFinder.class;
-	}
-	
-	public Class<? extends HumanReadableTypeNames> bindHumanReadableTypeNames() {
-		return LocalClassAwareTypeNames.class;
-	}
-	
-	public Class<? extends ConstructorScopes> bindConstructorScopes() {
-		return AnonymousClassConstructorScopes.class;
-	}
-	
-	
-	public Class<? extends ResourceChangeRegistry> bindResourceChangeRegistry() {
-		return NopResourceChangeRegistry.class;
-	}
-	
+//	@Override
+//	public Class<? extends EObjectAtOffsetHelper> bindEObjectAtOffsetHelper() {
+//		return XtendEObjectAtOffsetHelper.class;
+//	}
+//	
+//	public Class<? extends ImplicitReturnFinder> bindImplicitRetrnFinder() {
+//		return XtendImplicitReturnFinder.class;
+//	}
+//	
+//	public Class<? extends HumanReadableTypeNames> bindHumanReadableTypeNames() {
+//		return LocalClassAwareTypeNames.class;
+//	}
+//	
+//	public Class<? extends ConstructorScopes> bindConstructorScopes() {
+//		return AnonymousClassConstructorScopes.class;
+//	}
+//	
+//	
+//	public Class<? extends ResourceChangeRegistry> bindResourceChangeRegistry() {
+//		return NopResourceChangeRegistry.class;
+//	}
 	
 }

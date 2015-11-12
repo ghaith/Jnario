@@ -9,7 +9,6 @@ package org.jnario.feature.validation;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.filter;
-import static com.google.common.collect.Sets.newHashSet;
 import static org.eclipse.xtext.EcoreUtil2.getContainerOfType;
 
 import java.util.HashSet;
@@ -17,11 +16,6 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendField;
-import org.eclipse.xtend.core.xtend.XtendFunction;
-import org.eclipse.xtend.core.xtend.XtendPackage;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.validation.Check;
@@ -32,6 +26,8 @@ import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.eclipse.xtext.xbase.XVariableDeclaration;
 import org.eclipse.xtext.xbase.validation.IssueCodes;
 import org.jnario.ExampleTable;
+import org.jnario.JnarioField;
+import org.jnario.JnarioPackage;
 import org.jnario.feature.feature.Background;
 import org.jnario.feature.feature.Feature;
 import org.jnario.feature.feature.Scenario;
@@ -52,17 +48,18 @@ public class FeatureJavaValidator extends AbstractFeatureJavaValidator {
 	@Inject StepNameProvider nameProvider;
 	@Inject FeatureClassNameProvider classNameProvider;
 
-	@Check
-	protected void checkModifiers(XtendClass xtendClass) {
-		if (!(xtendClass instanceof Scenario)) {
-			super.checkModifiers(xtendClass);
-		}
-	}
+	// TODO NO_XTEND
+//	@Check
+//	protected void checkModifiers(JnarioClass xtendClass) {
+//		if (!(xtendClass instanceof Scenario)) {
+//			super.checkModifiers(xtendClass);
+//		}
+//	}
 	
 	@Check(CheckType.FAST)
 	public void checkFeaturesHaveAName(Feature feature){
 		if(isNullOrEmpty(feature.getName())){
-			error("Features should have a description", XtendPackage.Literals.XTEND_TYPE_DECLARATION__NAME);
+			error("Features should have a description", JnarioPackage.Literals.JNARIO_TYPE_DECLARATION__NAME);
 		}
 	}
 	
@@ -71,7 +68,7 @@ public class FeatureJavaValidator extends AbstractFeatureJavaValidator {
 //		Set<String> names = newHashSet();
 //		for (Scenario scenario : feature.getScenarios()) {
 //			if(!names.add(classNameProvider.toJavaClassName(scenario))){
-//				error("Duplicate scenario: '" + scenario.getName() + "'", XtendPackage.Literals.XTEND_TYPE_DECLARATION__NAME);
+//				error("Duplicate scenario: '" + scenario.getName() + "'", JnarioPackage.Literals.XTEND_TYPE_DECLARATION__NAME);
 //			}
 //		}
 //	}
@@ -80,7 +77,6 @@ public class FeatureJavaValidator extends AbstractFeatureJavaValidator {
 		return nameProvider.removeKeywords(string).trim();
 	}
 	
-	
 	@Check(CheckType.FAST)
 	public void checkFeaturesHaveAName(Scenario scenario){
 		if (scenario instanceof Background) {
@@ -88,7 +84,7 @@ public class FeatureJavaValidator extends AbstractFeatureJavaValidator {
 		}
 		String name = removeKeywords(scenario.getName());
 		if(isNullOrEmpty(name)){
-			error("Scenarios should have a description", XtendPackage.Literals.XTEND_TYPE_DECLARATION__NAME);
+			error("Scenarios should have a description", JnarioPackage.Literals.JNARIO_TYPE_DECLARATION__NAME);
 		}
 	}
 	
@@ -97,7 +93,7 @@ public class FeatureJavaValidator extends AbstractFeatureJavaValidator {
 		String name = nameProvider.nameOf(step);
 		name = nameProvider.removeKeywords(name);
 		if(isNullOrEmpty(name)){
-			error("Steps should have a description", XtendPackage.Literals.XTEND_FUNCTION__NAME);
+			error("Steps should have a description", JnarioPackage.Literals.JNARIO_FUNCTION__NAME);
 		}
 	}
 	
@@ -121,18 +117,19 @@ public class FeatureJavaValidator extends AbstractFeatureJavaValidator {
 		getMessageAcceptor().acceptWarning(message, source, feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, code, issueData);
 	}
 
-	@Check
-	public void checkAbstract(XtendFunction function) {
-		if (function instanceof Step) {
-			return;
-		}
-		super.checkAbstract(function);
-	}
+	// TODO NO_XTEND
+//	@Check
+//	public void checkAbstract(JnarioFunction function) {
+//		if (function instanceof Step) {
+//			return;
+//		}
+//		super.checkAbstract(function);
+//	}
 	
 	protected void error(String message, EObject source, EStructuralFeature feature, int index, String code, String... issueData) {
 		if(NodeModelUtils.getNode(source) == null){
 			source = EcoreUtil2.getContainerOfType(source, Step.class);
-			feature = XtendPackage.Literals.XTEND_FUNCTION__NAME;
+			feature = JnarioPackage.Literals.JNARIO_FUNCTION__NAME;
 		}
 		getMessageAcceptor().acceptError(message, source, feature, index, code, issueData);
 	}
@@ -141,22 +138,23 @@ public class FeatureJavaValidator extends AbstractFeatureJavaValidator {
 	@Check
 	public void checkConflictingFields(Scenario scenario){
 		
-		Iterable<XtendField> fields = filter(scenario.getMembers(), XtendField.class);
+		Iterable<JnarioField> fields = filter(scenario.getMembers(), JnarioField.class);
 		Set<String> names = new HashSet<String>();
-		for (XtendField xtendField : fields) {
-			if(names.contains(xtendField.getName())){
+		for (JnarioField jnarioField : fields) {
+			if(names.contains(jnarioField.getName())){
 				
 			}else{
-				names.add(xtendField.getName());
+				names.add(jnarioField.getName());
 			}
 		}
 	}
 	
-	@Override
-	@Check
-	public void checkDuplicateAndOverriddenFunctions(
-			XtendTypeDeclaration xtendType) {
-	}
+	// TODO NO_XTEND
+//	@Override
+//	@Check
+//	public void checkDuplicateAndOverriddenFunctions(
+//			JnarioTypeDeclaration jnarioType) {
+//	}
 	
 	@Override
 	protected void addIssue(String message, EObject source, String issueCode) {

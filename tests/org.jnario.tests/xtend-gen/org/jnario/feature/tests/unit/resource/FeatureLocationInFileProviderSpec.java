@@ -29,9 +29,9 @@ public class FeatureLocationInFileProviderSpec {
   
   CharSequence content;
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore _modelStore;
   
   @Test
@@ -43,10 +43,11 @@ public class FeatureLocationInFileProviderSpec {
     _builder.newLine();
     _builder.append("Scenario: My Scenario");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given something");
+    _builder.append("	Given something");
     _builder.newLine();
-    this.parse(_builder);
+    
+    this.parse(
+      _builder.toString());
     Scenario _firstScenario = this._modelStore.firstScenario();
     CharSequence _siginificantRegion = this.siginificantRegion(_firstScenario);
     this.is(_siginificantRegion, "Scenario: My Scenario");
@@ -61,40 +62,37 @@ public class FeatureLocationInFileProviderSpec {
     _builder.newLine();
     _builder.append("Scenario: My Scenario");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("String something");
+    _builder.append("	String something");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given something");
+    _builder.append("	Given something");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("And something else");
+    _builder.append("	And something else");
     _builder.newLine();
-    this.parse(_builder);
+    
+    this.parse(
+      _builder.toString());
     Scenario _firstScenario = this._modelStore.firstScenario();
     CharSequence _region = this.region(_firstScenario);
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("Scenario: My Scenario");
     _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("String something");
+    _builder_1.append("	String something");
     _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("Given something");
+    _builder_1.append("	Given something");
     _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("And something else");
+    _builder_1.append("	And something else");
     _builder_1.newLine();
-    this.is(_region, _builder_1);
+    
+    this.is(_region, _builder_1.toString());
   }
   
-  public void is(final CharSequence actual, final CharSequence expected) {
+  public void is(@Extension final CharSequence actual, @Extension final CharSequence expected) {
     String _string = expected.toString();
     String _string_1 = actual.toString();
     Assert.assertEquals(_string, _string_1);
   }
   
-  public Resource parse(final CharSequence s) {
+  public Resource parse(@Extension final CharSequence s) {
     Resource _xblockexpression = null;
     {
       this.content = s;
@@ -103,19 +101,19 @@ public class FeatureLocationInFileProviderSpec {
     return _xblockexpression;
   }
   
-  public CharSequence siginificantRegion(final EObject object) {
+  public CharSequence siginificantRegion(@Extension final EObject object) {
     Scenario _firstScenario = this._modelStore.firstScenario();
     ITextRegion _significantTextRegion = this.subject.getSignificantTextRegion(_firstScenario);
     return this.toText(_significantTextRegion);
   }
   
-  public CharSequence region(final EObject object) {
+  public CharSequence region(@Extension final EObject object) {
     Scenario _firstScenario = this._modelStore.firstScenario();
     ITextRegion _fullTextRegion = this.subject.getFullTextRegion(_firstScenario);
     return this.toText(_fullTextRegion);
   }
   
-  public CharSequence toText(final ITextRegion region) {
+  public CharSequence toText(@Extension final ITextRegion region) {
     int _offset = region.getOffset();
     int _offset_1 = region.getOffset();
     int _length = region.getLength();

@@ -12,9 +12,9 @@ import com.google.common.io.Files
 import com.google.inject.Inject
 import java.io.File
 import org.eclipse.emf.ecore.resource.ResourceSet
-import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
+import org.jnario.compiler.AbstractBatchCompiler
 import org.jnario.compiler.JnarioStandaloneCompiler
 import org.jnario.jnario.test.util.ExtendedSuiteInjectorProvider
 import org.jnario.jnario.test.util.ModelStore
@@ -24,21 +24,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.eclipse.xtext.util.Files.*
-import static org.junit.Assert.*
-
-import com.google.inject.Inject
-import java.io.File
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
-import org.jnario.jnario.test.util.ExtendedSpecInjectorProvider
-import org.jnario.spec.compiler.SpecBatchCompiler
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
-
-import static org.eclipse.xtext.util.Files.*
-import static org.jnario.standalone.tests.SpecBatchCompilerTest.*
 import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner))
@@ -59,11 +44,12 @@ class JnarioStandaloneCompilerTest {
         new File(OUTPUT_DIRECTORY).mkdir
 	}
  
-	def void compile(XtendBatchCompiler batchCompiler) { 
+	def void compile(AbstractBatchCompiler batchCompiler) { 
         batchCompiler.sourcePath = XTEND_SRC_DIRECTORY
         batchCompiler.outputPath = OUTPUT_DIRECTORY
         batchCompiler.deleteTempDirectory = true
         batchCompiler.useCurrentClassLoaderAsParent = true
+        batchCompiler.currentClassLoader = class.classLoader
 		batchCompiler.setResourceSetProvider([|resourceSet as ResourceSet])
 		batchCompiler.compile()
 	}

@@ -28,9 +28,11 @@ import org.jnario.util.Strings;
 
 @SuppressWarnings("all")
 public class SuiteHighlightingCalculator extends XbaseHighlightingCalculator {
+  @Override
   public void searchAndHighlightElements(final XtextResource resource, final IHighlightedPositionAcceptor acceptor) {
     TreeIterator<EObject> _allContents = resource.getAllContents();
     final Procedure1<EObject> _function = new Procedure1<EObject>() {
+      @Override
       public void apply(final EObject it) {
         SuiteHighlightingCalculator.this.highlight(it, acceptor);
       }

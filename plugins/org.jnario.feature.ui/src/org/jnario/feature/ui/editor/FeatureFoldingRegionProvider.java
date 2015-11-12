@@ -16,8 +16,6 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.xtend.XtendMember;
-import org.eclipse.xtend.core.xtend.XtendPackage;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -27,6 +25,8 @@ import org.eclipse.xtext.ui.editor.folding.DefaultFoldingRegionProvider;
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionAcceptor;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.xtype.XImportSection;
+import org.jnario.JnarioMember;
+import org.jnario.JnarioPackage;
 import org.jnario.feature.feature.Background;
 import org.jnario.feature.feature.FeatureFile;
 import org.jnario.feature.feature.Scenario;
@@ -88,9 +88,9 @@ public class FeatureFoldingRegionProvider extends DefaultFoldingRegionProvider {
 	private void calculateFolding(Scenario scenario,
 			IFoldingRegionAcceptor<ITextRegion> foldingRegionAcceptor) {
 		int begin = getBegin(scenario);
-		EList<XtendMember> members = scenario.getMembers();
-		XtendMember previous = null;
-		for (XtendMember xtendMember : members) {
+		EList<JnarioMember> members = scenario.getMembers();
+		JnarioMember previous = null;
+		for (JnarioMember xtendMember : members) {
 			if (xtendMember instanceof Step) {
 				if (previous != null && getNode(previous) != null) {
 					setFoldingRegion(previous, begin, foldingRegionAcceptor);
@@ -104,8 +104,7 @@ public class FeatureFoldingRegionProvider extends DefaultFoldingRegionProvider {
 
 	private void calculateFolding(Step step,
 			IFoldingRegionAcceptor<ITextRegion> foldingRegionAcceptor) {
-		List<INode> nodes = findNodesForFeature(step,
-				XtendPackage.Literals.XTEND_FUNCTION__NAME);
+		List<INode> nodes = findNodesForFeature(step, JnarioPackage.Literals.JNARIO_FUNCTION__NAME);
 		if (nodes.isEmpty()) {
 			return;
 		}

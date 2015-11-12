@@ -17,8 +17,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtend.core.xtend.XtendFunction;
-import org.eclipse.xtend.core.xtend.XtendMember;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmField;
@@ -35,6 +33,8 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.jnario.JnarioFunction;
+import org.jnario.JnarioMember;
 import org.jnario.jvmmodel.ExtendedJvmTypesBuilder;
 import org.jnario.runner.Subject;
 import org.jnario.spec.jvmmodel.Constants;
@@ -74,6 +74,7 @@ public class ImplicitSubject {
     }
     EList<JvmMember> _members = type.getMembers();
     final Procedure1<JvmField> _function = new Procedure1<JvmField>() {
+      @Override
       public void apply(final JvmField it) {
         boolean _doesNotInitializeSubject = ImplicitSubject.this.doesNotInitializeSubject(exampleGroup);
         if (_doesNotInitializeSubject) {
@@ -112,6 +113,7 @@ public class ImplicitSubject {
     EList<JvmMember> _members = type.getMembers();
     final Iterable<JvmField> fields = Iterables.<JvmField>filter(_members, JvmField.class);
     final Function1<JvmField, Boolean> _function = new Function1<JvmField, Boolean>() {
+      @Override
       public Boolean apply(final JvmField it) {
         String _simpleName = it.getSimpleName();
         return Boolean.valueOf(Objects.equal(_simpleName, Constants.SUBJECT_FIELD_NAME));
@@ -137,17 +139,18 @@ public class ImplicitSubject {
   
   public boolean neverUsesSubject(final ExampleGroup exampleGroup) {
     Iterator<XAbstractFeatureCall> allFeatureCalls = Iterators.<XAbstractFeatureCall>emptyIterator();
-    final EList<XtendMember> members = exampleGroup.getMembers();
-    Iterable<XtendFunction> _filter = Iterables.<XtendFunction>filter(members, XtendFunction.class);
+    final EList<JnarioMember> members = exampleGroup.getMembers();
+    Iterable<JnarioFunction> _filter = Iterables.<JnarioFunction>filter(members, JnarioFunction.class);
     Iterable<TestFunction> _filter_1 = Iterables.<TestFunction>filter(members, TestFunction.class);
-    Iterable<XtendFunction> _plus = Iterables.<XtendFunction>concat(_filter, _filter_1);
-    for (final XtendFunction example : _plus) {
+    Iterable<JnarioFunction> _plus = Iterables.<JnarioFunction>concat(_filter, _filter_1);
+    for (final JnarioFunction example : _plus) {
       TreeIterator<EObject> _eAllContents = example.eAllContents();
       UnmodifiableIterator<XAbstractFeatureCall> _filter_2 = Iterators.<XAbstractFeatureCall>filter(_eAllContents, XAbstractFeatureCall.class);
       Iterator<XAbstractFeatureCall> _concat = Iterators.<XAbstractFeatureCall>concat(allFeatureCalls, _filter_2);
       allFeatureCalls = _concat;
     }
     final Function1<XAbstractFeatureCall, Boolean> _function = new Function1<XAbstractFeatureCall, Boolean>() {
+      @Override
       public Boolean apply(final XAbstractFeatureCall it) {
         String _concreteSyntaxFeatureName = it.getConcreteSyntaxFeatureName();
         return Boolean.valueOf(Objects.equal(_concreteSyntaxFeatureName, Constants.SUBJECT_FIELD_NAME));
@@ -159,17 +162,18 @@ public class ImplicitSubject {
   
   public boolean doesNotInitializeSubject(final ExampleGroup exampleGroup) {
     Iterator<XAssignment> allAssignments = Iterators.<XAssignment>emptyIterator();
-    final EList<XtendMember> members = exampleGroup.getMembers();
-    Iterable<XtendFunction> _filter = Iterables.<XtendFunction>filter(members, XtendFunction.class);
+    final EList<JnarioMember> members = exampleGroup.getMembers();
+    Iterable<JnarioFunction> _filter = Iterables.<JnarioFunction>filter(members, JnarioFunction.class);
     Iterable<TestFunction> _filter_1 = Iterables.<TestFunction>filter(members, TestFunction.class);
-    Iterable<XtendFunction> _plus = Iterables.<XtendFunction>concat(_filter, _filter_1);
-    for (final XtendFunction example : _plus) {
+    Iterable<JnarioFunction> _plus = Iterables.<JnarioFunction>concat(_filter, _filter_1);
+    for (final JnarioFunction example : _plus) {
       TreeIterator<EObject> _eAllContents = example.eAllContents();
       UnmodifiableIterator<XAssignment> _filter_2 = Iterators.<XAssignment>filter(_eAllContents, XAssignment.class);
       Iterator<XAssignment> _concat = Iterators.<XAssignment>concat(allAssignments, _filter_2);
       allAssignments = _concat;
     }
     final Function1<XAssignment, Boolean> _function = new Function1<XAssignment, Boolean>() {
+      @Override
       public Boolean apply(final XAssignment it) {
         EReference _xAbstractFeatureCall_Feature = XbasePackage.eINSTANCE.getXAbstractFeatureCall_Feature();
         final String assignable = Nodes.textForFeature(it, _xAbstractFeatureCall_Feature);

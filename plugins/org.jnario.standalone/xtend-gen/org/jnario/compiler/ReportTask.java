@@ -35,9 +35,11 @@ public class ReportTask extends Task {
   
   private Path sourcePath = null;
   
+  @Override
   public void execute() throws BuildException {
     DocCompilerMain _docCompilerMain = new DocCompilerMain();
     final Procedure1<DocCompilerMain> _function = new Procedure1<DocCompilerMain>() {
+      @Override
       public void apply(final DocCompilerMain it) {
         String _outputPath = ReportTask.this.getOutputPath();
         it.setOutputPath(_outputPath);

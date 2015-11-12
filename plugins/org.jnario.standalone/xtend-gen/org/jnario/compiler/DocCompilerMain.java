@@ -57,6 +57,7 @@ public class DocCompilerMain {
     }
     DocCompilerMain _docCompilerMain = new DocCompilerMain();
     final Procedure1<DocCompilerMain> _function = new Procedure1<DocCompilerMain>() {
+      @Override
       public void apply(final DocCompilerMain it) {
         final Iterator<String> arguments = ((List<String>)Conversions.doWrapArray(args)).iterator();
         while (arguments.hasNext()) {
@@ -206,6 +207,7 @@ public class DocCompilerMain {
     try {
       final SpecResultParser specResultParser = new SpecResultParser();
       final FileFilter _function = new FileFilter() {
+        @Override
         public boolean accept(final File it) {
           String _name = it.getName();
           return _name.endsWith("xml");

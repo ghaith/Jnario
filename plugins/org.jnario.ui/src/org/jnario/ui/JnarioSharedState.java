@@ -6,8 +6,6 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 package org.jnario.ui;
-import org.eclipse.xtend.ide.XtendPreferenceStoreInitializer;
-import org.eclipse.xtend.ide.refactoring.XtendRefactoringPreferences;
 import org.eclipse.xtext.builder.EclipseOutputConfigurationProvider;
 import org.eclipse.xtext.ui.editor.outline.actions.IOutlineContribution;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
@@ -28,11 +26,11 @@ public class JnarioSharedState implements Module {
 	public void configure(Binder binder) {
 		binder.bind(EclipseOutputConfigurationProvider.class).toInstance(injector().getInstance(EclipseOutputConfigurationProvider.class));
 		binder.bind(IPreferenceStoreAccess.class).to(JnarioPreferenceStoreAccess.class).in(Scopes.SINGLETON);
-		binder.bind(IPreferenceStoreInitializer.class)
-				.annotatedWith(Names.named("RefactoringPreferences"))
-				.to(XtendRefactoringPreferences.Initializer.class);
-		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("smartCaretPreferenceInitializer")) //$NON-NLS-1$
-		.to(XtendPreferenceStoreInitializer.class);
+//		binder.bind(IPreferenceStoreInitializer.class)
+//				.annotatedWith(Names.named("RefactoringPreferences"))
+//				.to(XtendRefactoringPreferences.Initializer.class);
+//		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("smartCaretPreferenceInitializer")) //$NON-NLS-1$
+//		.to(XtendPreferenceStoreInitializer.class);
 		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(Names.named("bracketMatcherPrefernceInitializer")) //$NON-NLS-1$
 		.to(org.eclipse.xtext.ui.editor.bracketmatching.BracketMatchingPreferencesInitializer.class);
 		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(IOutlineContribution.All.class)

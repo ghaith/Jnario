@@ -36,14 +36,14 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class ExampleColumnSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore _modelStore;
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ISerializer _iSerializer;
   
   public ExampleTable<ExampleColumnSpecExamples> _initExampleColumnSpecExamples() {
@@ -115,25 +115,22 @@ public class ExampleColumnSpec {
     _builder.newLine();
     _builder.append("describe \"ExampleTable\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("def{");
+    _builder.append("	def{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| a | b |");
+    _builder.append("		| a | b |");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| 1 | 2 |");
+    _builder.append("		| 1 | 2 |");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| 3 | 4 |");
+    _builder.append("		| 3 | 4 |");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._modelStore.parseSpec(_builder);
+    
+    this._modelStore.parseSpec(_builder.toString());
     final Procedure1<ExampleColumnSpecExamples> _function = new Procedure1<ExampleColumnSpecExamples>() {
+      @Override
       public void apply(final ExampleColumnSpecExamples it) {
         Query _query = ExampleColumnSpec.this._modelStore.query();
         org.jnario.ExampleTable _first = _query.<org.jnario.ExampleTable>first(org.jnario.ExampleTable.class);

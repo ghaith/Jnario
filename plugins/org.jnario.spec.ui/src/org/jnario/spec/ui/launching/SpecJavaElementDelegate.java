@@ -11,11 +11,11 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.xtend.XtendClass;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.common.types.JvmIdentifiableElement;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipse.xtext.xbase.ui.launching.JavaElementDelegateJunitLaunch;
+import org.jnario.JnarioClass;
 import org.jnario.spec.spec.SpecFile;
 
 import com.google.inject.Inject;
@@ -44,7 +44,7 @@ public class SpecJavaElementDelegate extends JavaElementDelegateJunitLaunch {
 				element = specFile.getXtendTypes().get(0);
 			}
 		}else{
-			element = EcoreUtil2.getContainerOfType(element, XtendClass.class);
+			element = EcoreUtil2.getContainerOfType(element, JnarioClass.class);
 		}
 		Set<EObject> elements = associations.getJvmElements(element);
 		if (elements.isEmpty()) {

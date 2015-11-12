@@ -57,6 +57,7 @@ public class WhiteSpaceNormalizer {
         ending = "\n";
       }
       final Function1<String, String> _function = new Function1<String, String>() {
+        @Override
         public String apply(final String it) {
           return WhiteSpaceNormalizer.this.remove(it, whitespace);
         }

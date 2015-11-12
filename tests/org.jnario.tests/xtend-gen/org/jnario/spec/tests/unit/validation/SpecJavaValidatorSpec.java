@@ -26,7 +26,7 @@ import org.jnario.runner.ExampleGroupRunner;
 import org.jnario.runner.Named;
 import org.jnario.runner.Order;
 import org.jnario.spec.spec.ExampleGroup;
-import org.jnario.spec.spec.SpecFile;
+import org.jnario.test.tools.JnarioTestTools;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,9 +36,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class SpecJavaValidatorSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore modelStore;
   
   @Test
@@ -60,7 +60,7 @@ public class SpecJavaValidatorSpec {
     this.modelStore.parseSpec(
       "\r\n\t\t\tpackage bootstrap\r\n\r\n\t\t\tdescribe \"Example\"{\r\n\t\t\t\tfact \"a***\" \r\n      \t\t\tfact \"a???\" \r\n\t\t\t} \r\n\t\t");
     final AssertableDiagnostics validationResult = this.validate(ExampleGroup.class);
-    validationResult.assertOK();
+    JnarioTestTools.assertOKWithMessage(validationResult);
   }
   
   @Test
@@ -70,7 +70,7 @@ public class SpecJavaValidatorSpec {
     this.modelStore.parseSpec(
       "\r\n\t\t  package bootstrap\r\n\r\n\t\t  describe \"something\"{\r\n\t\t\t  describe String{\r\n\t\t\t  }\r\n\t\t\t  describe Integer{\r\n\t\t\t  }\t\r\n\t\t  }\r\n\t\t");
     final AssertableDiagnostics validationResult = this.validate(ExampleGroup.class);
-    validationResult.assertOK();
+    JnarioTestTools.assertOKWithMessage(validationResult);
   }
   
   @Test
@@ -78,9 +78,9 @@ public class SpecJavaValidatorSpec {
   @Order(4)
   public void _specsWithDifferentMethodContextsAreOK() throws Exception {
     this.modelStore.parseSpec(
-      "\r\n\t\t\timport java.util.Stack\r\n\t\t  \tdescribe Stack{\r\n\t\t\t\tcontext push(E){\r\n\t\t\t\t}\r\n\t\t\t\tcontext push{\r\n\t\t\t\t}\r\n\t\t\t}  \r\n\t\t");
+      "\r\n\t\t\timport java.util.Stack\r\n\t\t  \tdescribe Stack<E>{\r\n\t\t\t\tcontext push(E){\r\n\t\t\t\t}\r\n\t\t\t\tcontext push{\r\n\t\t\t\t}\r\n\t\t\t}  \r\n\t\t");
     final AssertableDiagnostics validationResult = this.validate(ExampleGroup.class);
-    validationResult.assertOK();
+    JnarioTestTools.assertOKWithMessage(validationResult);
   }
   
   @Test
@@ -123,7 +123,7 @@ public class SpecJavaValidatorSpec {
     this.modelStore.parseSpec(
       "\r\n\t\t\tdescribe \"Example\"{\r\n\t\t\t\tfact 1 => 1\r\n\t\t\t} \r\n\t\t");
     final AssertableDiagnostics validationResult = this.validate(XBinaryOperation.class);
-    validationResult.assertOK();
+    JnarioTestTools.assertOKWithMessage(validationResult);
   }
   
   @Test
@@ -133,7 +133,7 @@ public class SpecJavaValidatorSpec {
     this.modelStore.parseSpec(
       "\r\n\t\t\tdescribe \"Example\"{\r\n\t\t\t\tfact 1 => typeof(int)\r\n\t\t\t} \r\n\t\t");
     final AssertableDiagnostics validationResult = this.validate(XBinaryOperation.class);
-    validationResult.assertOK();
+    JnarioTestTools.assertOKWithMessage(validationResult);
   }
   
   @Test
@@ -143,20 +143,10 @@ public class SpecJavaValidatorSpec {
     this.modelStore.parseSpec(
       "\r\n\t\t\timport static org.hamcrest.CoreMatchers.*\r\n\t\t\tdescribe \"Example\"{\r\n\t\t\t\tfact 1 => notNullValue\r\n\t\t\t} \r\n\t\t");
     final AssertableDiagnostics validationResult = this.validate(XBinaryOperation.class);
-    validationResult.assertOK();
+    JnarioTestTools.assertOKWithMessage(validationResult);
   }
   
-  @Test
-  @Named("should can define two classes in a spec")
-  @Order(11)
-  public void _shouldCanDefineTwoClassesInASpec() throws Exception {
-    this.modelStore.parseSpec(
-      "\r\n      class A {}\r\n      class B {}\r\n      describe \"A\"{\r\n      }\r\n    ");
-    final AssertableDiagnostics validationResult = this.validate(SpecFile.class);
-    validationResult.assertOK();
-  }
-  
-  public AssertableDiagnostics validate(final Class<? extends EObject> type) {
+  public AssertableDiagnostics validate(@Extension final Class<? extends EObject> type) {
     XtextResourceSet _resourceSet = this.modelStore.getResourceSet();
     Resources.addContainerStateAdapter(_resourceSet);
     Query _query = Query.query(this.modelStore);

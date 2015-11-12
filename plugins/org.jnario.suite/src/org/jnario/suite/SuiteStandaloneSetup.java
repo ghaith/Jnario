@@ -21,7 +21,6 @@ import com.google.inject.Injector;
  * Initialization support for running Xtext languages 
  * without equinox extension registry
  */
-@SuppressWarnings("restriction")
 public class SuiteStandaloneSetup extends SuiteStandaloneSetupGenerated{
 
 	public static void doSetup() {

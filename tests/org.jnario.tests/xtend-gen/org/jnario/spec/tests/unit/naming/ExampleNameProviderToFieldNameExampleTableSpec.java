@@ -33,17 +33,16 @@ public class ExampleNameProviderToFieldNameExampleTableSpec extends ExampleNameP
   @Order(1)
   public void _shouldUseTheExampleName() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("describe \'My Context\'{");
+    _builder.append("describe 'My Context'{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("def myExample{");
+    _builder.append("  def myExample{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    Query _parse = this.parse(_builder);
+    
+    Query _parse = this.parse(_builder.toString());
     final ExampleTable exampleTable = _parse.<ExampleTable>first(ExampleTable.class);
     String _fieldName = this.subject.toFieldName(exampleTable);
     Assert.assertTrue("\nExpected subject.toFieldName(exampleTable) => \"myExample\" but"
@@ -58,17 +57,16 @@ public class ExampleNameProviderToFieldNameExampleTableSpec extends ExampleNameP
   @Order(2)
   public void _shouldUseExamplesIfNoNameIsGiven() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("describe \'My Context\'{");
+    _builder.append("describe 'My Context'{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("def{");
+    _builder.append("  def{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    Query _parse = this.parse(_builder);
+    
+    Query _parse = this.parse(_builder.toString());
     final ExampleTable exampleTable = _parse.<ExampleTable>first(ExampleTable.class);
     String _fieldName = this.subject.toFieldName(exampleTable);
     Assert.assertTrue("\nExpected subject.toFieldName(exampleTable) => \"examples\" but"

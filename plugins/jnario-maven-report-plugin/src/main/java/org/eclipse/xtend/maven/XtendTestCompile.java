@@ -11,28 +11,28 @@ import java.util.Set;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.eclipse.emf.common.util.WrappedException;
-import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.jnario.compiler.AbstractBatchCompiler;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 /**
  * Goal which compiles Xtend2 test sources.
- * 
+ *
  * @author Michael Clay - Initial contribution and API
  */
 public class XtendTestCompile extends AbstractXtendCompilerMojo {
 	/**
 	 * Location of the generated test files.
-	 * 
+	 *
 	 * @parameter default-value="${basedir}/src/test/generated-sources/xtend"
 	 * @required
 	 */
 	private String testOutputDirectory;
 	/**
 	 * Location of the temporary compiler directory.
-	 * 
+	 *
 	 * @parameter default-value="${project.build.directory}/xtend-test"
 	 * @required
 	 */
@@ -55,7 +55,7 @@ public class XtendTestCompile extends AbstractXtendCompilerMojo {
 		compileTestSources(xtendBatchCompilerProvider.get());
 	}
 
-	protected void compileTestSources(XtendBatchCompiler xtend2BatchCompiler) throws MojoExecutionException {
+	protected void compileTestSources(AbstractBatchCompiler xtend2BatchCompiler) throws MojoExecutionException {
 		List<String> testCompileSourceRoots = Lists.newArrayList(project.getTestCompileSourceRoots());
 		String testClassPath = concat(File.pathSeparator, getTestClassPath());
 		project.addTestCompileSourceRoot(testOutputDirectory);

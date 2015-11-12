@@ -11,6 +11,7 @@ import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import java.util.Map;
 import org.eclipse.xtext.generator.InMemoryFileSystemAccess;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.doc.DocOutputConfigurationProvider;
 import org.jnario.doc.HtmlAssets;
 import org.jnario.jnario.test.util.SpecTestCreator;
@@ -77,7 +78,7 @@ public class HtmlAssetsSpec {
     
   }
   
-  public String generatedFile(final String name) {
+  public String generatedFile(@Extension final String name) {
     Map<String, CharSequence> _files = this.fsa.getFiles();
     CharSequence _get = _files.get((DocOutputConfigurationProvider.ASSET_OUTPUT + name));
     String _string = null;

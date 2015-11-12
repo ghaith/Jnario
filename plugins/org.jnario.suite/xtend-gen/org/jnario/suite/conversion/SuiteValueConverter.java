@@ -21,6 +21,7 @@ public class SuiteValueConverter implements IValueConverter<String> {
     this.prefix = prefix;
   }
   
+  @Override
   public String toString(final String value) throws ValueConverterException {
     String _xblockexpression = null;
     {
@@ -38,6 +39,7 @@ public class SuiteValueConverter implements IValueConverter<String> {
     return _xblockexpression;
   }
   
+  @Override
   public String toValue(final String string, final INode node) throws ValueConverterException {
     String _xblockexpression = null;
     {

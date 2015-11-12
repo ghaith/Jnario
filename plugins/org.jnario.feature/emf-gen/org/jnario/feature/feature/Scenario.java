@@ -9,9 +9,8 @@ package org.jnario.feature.feature;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.xtend.core.xtend.XtendClass;
-
 import org.jnario.Executable;
+import org.jnario.JnarioClass;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,7 +22,7 @@ import org.jnario.Executable;
  * @model
  * @generated
  */
-public interface Scenario extends XtendClass, Executable
+public interface Scenario extends Executable, JnarioClass
 {
 	/**
 	 * <!-- begin-user-doc -->

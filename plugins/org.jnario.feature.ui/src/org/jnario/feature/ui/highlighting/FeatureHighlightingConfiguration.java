@@ -13,15 +13,15 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.xtend.ide.highlighting.XtendHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfigurationAcceptor;
 import org.eclipse.xtext.ui.editor.utils.TextStyle;
+import org.eclipse.xtext.xbase.ui.highlighting.XbaseHighlightingConfiguration;
 
 /**
  * @author Birgit Engelmann - Initial contribution and API
  * @author Sebastian Benz 
  */
-public class FeatureHighlightingConfiguration extends XtendHighlightingConfiguration {
+public class FeatureHighlightingConfiguration extends XbaseHighlightingConfiguration {
 
 	private static final int DEFAULT_FONT_SIZE = getDefaultFontDescriptor()
 			.getFontData()[0].getHeight();

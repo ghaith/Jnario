@@ -18,11 +18,11 @@ import org.jnario.Executable;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.spec.spec.Example#getExpr <em>Expr</em>}</li>
  *   <li>{@link org.jnario.spec.spec.Example#isPending <em>Pending</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.spec.spec.SpecPackage#getExample()
  * @model

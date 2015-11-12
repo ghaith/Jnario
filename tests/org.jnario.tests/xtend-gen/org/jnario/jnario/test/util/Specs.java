@@ -8,11 +8,11 @@
 package org.jnario.jnario.test.util;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.xtend.core.xtend.XtendMember;
 import org.eclipse.xtext.xbase.XBlockExpression;
 import org.eclipse.xtext.xbase.XBooleanLiteral;
 import org.eclipse.xtext.xbase.XbaseFactory;
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
+import org.jnario.JnarioMember;
 import org.jnario.jnario.test.util.Features;
 import org.jnario.spec.spec.Example;
 import org.jnario.spec.spec.ExampleGroup;
@@ -61,16 +61,16 @@ public class Specs {
     return Specs.exampleGroupWith(_pendingExample);
   }
   
-  public static ExampleGroup exampleGroupWith(final XtendMember... examples) {
+  public static ExampleGroup exampleGroupWith(final JnarioMember... examples) {
     return Specs.exampleGroup("with examples", examples);
   }
   
-  public static ExampleGroup exampleGroup(final String name, final XtendMember... examples) {
+  public static ExampleGroup exampleGroup(final String name, final JnarioMember... examples) {
     ExampleGroup _xblockexpression = null;
     {
       final ExampleGroup group = Specs.exampleGroup(name);
-      EList<XtendMember> _members = group.getMembers();
-      CollectionExtensions.<XtendMember>addAll(_members, examples);
+      EList<JnarioMember> _members = group.getMembers();
+      CollectionExtensions.<JnarioMember>addAll(_members, examples);
       _xblockexpression = group;
     }
     return _xblockexpression;

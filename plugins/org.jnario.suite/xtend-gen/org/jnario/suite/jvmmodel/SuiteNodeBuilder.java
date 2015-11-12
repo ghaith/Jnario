@@ -15,13 +15,13 @@ import java.util.HashMap;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IntegerRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.jnario.JnarioTypeDeclaration;
 import org.jnario.Specification;
 import org.jnario.suite.jvmmodel.SpecResolver;
 import org.jnario.suite.jvmmodel.SuiteNode;
@@ -40,7 +40,7 @@ public class SuiteNodeBuilder {
   public Iterable<SuiteNode> buildNodeModel(final SuiteFile suiteFile) {
     ArrayList<SuiteNode> _xblockexpression = null;
     {
-      EList<XtendTypeDeclaration> _xtendTypes = suiteFile.getXtendTypes();
+      EList<JnarioTypeDeclaration> _xtendTypes = suiteFile.getXtendTypes();
       Iterable<Suite> _filter = Iterables.<Suite>filter(_xtendTypes, Suite.class);
       final List<Suite> suites = IterableExtensions.<Suite>toList(_filter);
       final ArrayList<SuiteNode> result = CollectionLiterals.<SuiteNode>newArrayList();
@@ -73,6 +73,7 @@ public class SuiteNodeBuilder {
   public SuiteNode createNode(final Suite current, final SuiteNode parent) {
     EList<Reference> _elements = current.getElements();
     final Function1<Reference, List<Specification>> _function = new Function1<Reference, List<Specification>>() {
+      @Override
       public List<Specification> apply(final Reference it) {
         return SuiteNodeBuilder.this._specResolver.resolveSpecs(it);
       }

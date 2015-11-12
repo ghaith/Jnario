@@ -7,17 +7,27 @@
  *******************************************************************************/
 package org.jnario.conversion;
 
-import org.eclipse.xtend.core.conversion.AbstractCommentRichTextValueConverter;
+import org.eclipse.xtext.conversion.ValueConverterException;
+import org.eclipse.xtext.conversion.impl.AbstractLexerBasedConverter;
+import org.eclipse.xtext.nodemodel.INode;
+
 
 /**
  * @author Sebastian Zarnekow - Initial contribution and API
  */
-public class JnarioCommentRichTextInBetweenValueConverter extends AbstractCommentRichTextValueConverter {
+public class JnarioCommentRichTextInBetweenValueConverter extends AbstractLexerBasedConverter<String> {
 
-	@Override
-	protected String getTrailingTerminal() {
-		return "\u00AB";
+	public String toValue(String string, INode node)
+			throws ValueConverterException {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	// TODO NO_XTEND
+//	@Override
+//	protected String getTrailingTerminal() {
+//		return "\u00AB";
+//	}
 
 }
 

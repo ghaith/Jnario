@@ -69,28 +69,32 @@ describe SuiteScopeProvider {
   @Inject extension ScopeTestExtension 
   extension SuitePackage = SuitePackage::eINSTANCE
 
-  before '''
-    package test
+  before {
+    '''
+      package test
+      
+      #MySuite
+      
+      - &quot;My Spec Reference&quot;  
     
-    #MySuite
-    
-    - &quot;My Spec Reference&quot;  
-    
-  '''.parseSuite
+    '''.parseSuite
+  }
 
-  before '''
-    package test
-    
-    describe &quot;RootSpec&quot;{
+  before {
+    '''
+      package test
       
-      describe &quot;SubSpec 1&quot;{
+      describe &quot;RootSpec&quot;{
+        
+        describe &quot;SubSpec 1&quot;{
+        }
+        
+        describe &quot;SubSpec 2&quot;{
+        }
+        
       }
-      
-      describe &quot;SubSpec 2&quot;{
-      }
-      
-    }
     '''.parseSpec
+  }
 
   fact &quot;spec references are only root specs&quot;{
     specScope should contain &quot;RootSpec&quot;

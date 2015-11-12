@@ -8,14 +8,13 @@
 package org.jnario.feature.naming
 
 import com.google.common.base.Strings
-import org.eclipse.xtend.core.xtend.XtendPackage
+import org.jnario.JnarioPackage
 import org.jnario.feature.feature.Feature
 import org.jnario.feature.feature.FeaturePackage
 import org.jnario.feature.feature.Scenario
 import org.jnario.feature.feature.Step
 import org.jnario.feature.feature.StepReference
 
-import static org.eclipse.xtext.util.Strings.*
 import static org.jnario.util.Nodes.*
 
 import static extension org.jnario.util.Strings.*
@@ -31,7 +30,7 @@ class StepNameProvider {
 			return null
 		}
 		// restore Given, Then, When keywords
-		textForFeature(step, XtendPackage::eINSTANCE.xtendTypeDeclaration_Name)
+		textForFeature(step, JnarioPackage::eINSTANCE.jnarioTypeDeclaration_Name)
 	}
 	
 	def dispatch nameOf(StepReference ref){

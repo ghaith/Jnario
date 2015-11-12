@@ -14,12 +14,10 @@ import static org.eclipse.xtext.util.Strings.convertFromJavaString;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.xtend.core.jvmmodel.IXtendJvmAssociations;
-import org.eclipse.xtend.ide.labeling.XtendImages;
-import org.eclipse.xtend.ide.labeling.XtendLabelProvider;
 import org.eclipse.xtext.common.types.JvmIdentifiableElement;
 import org.eclipse.xtext.common.types.JvmVisibility;
 import org.eclipse.xtext.xbase.ui.labeling.XbaseImageAdornments;
+import org.eclipse.xtext.xbase.ui.labeling.XbaseLabelProvider;
 import org.jnario.ExampleTable;
 import org.jnario.feature.feature.Background;
 import org.jnario.feature.feature.Feature;
@@ -32,14 +30,15 @@ import com.google.inject.Inject;
 /**
  * @author Birgit Engelmann - Initial contribution and API
  */
-public class FeatureLabelProvider extends XtendLabelProvider {
+public class FeatureLabelProvider extends XbaseLabelProvider {
 
 	@Inject public FeatureLabelProvider(AdapterFactoryLabelProvider delegate) {
 		super(delegate);
 	}
 
-	@Inject
-	private XtendImages images;
+// TODO NO_XTEND
+//	@Inject
+//	private XtendImages images;
 
 	@Inject
 	private StepNameProvider stepNameProvider;
@@ -47,8 +46,9 @@ public class FeatureLabelProvider extends XtendLabelProvider {
 	@Inject
 	private XbaseImageAdornments adornments;
 
-	@Inject
-	private IXtendJvmAssociations associations;
+// TODO NO_XTEND
+//	@Inject
+//	private IXtendJvmAssociations associations;
 	
     protected ImageDescriptor imageDescriptor(final Object operation) {
 		if (operation instanceof Background) {
@@ -69,26 +69,27 @@ public class FeatureLabelProvider extends XtendLabelProvider {
    	    return super.imageDescriptor(operation);
 	}
 
-	
-	public ImageDescriptor _imageDescriptor(Background element) {
-		return images.forClass(JvmVisibility.PUBLIC, adornments.get(associations.getInferredType(element)));
-	}
-	
-	public ImageDescriptor _imageDescriptor(ExampleTable element) {
-		return images.forField(JvmVisibility.PROTECTED, adornments.get((JvmIdentifiableElement) associations.getJvmElements(element).iterator().next()));
-	}
-	
-	public ImageDescriptor _imageDescriptor(Step element) {
-		return images.forOperation(JvmVisibility.PUBLIC, adornments.get(associations.getDirectlyInferredOperation(element)));
-	}
-	
-	public ImageDescriptor _imageDescriptor(Scenario element) {
-		return images.forClass(JvmVisibility.PUBLIC, adornments.get(associations.getInferredType(element)));
-	}
-	
-	public ImageDescriptor _imageDescriptor(Feature element) {
-		return images.forClass(JvmVisibility.PUBLIC, adornments.get(associations.getInferredType(element)));
-	}
+
+// TODO NO_XTEND
+//	public ImageDescriptor _imageDescriptor(Background element) {
+//		return images.forClass(JvmVisibility.PUBLIC, adornments.get(associations.getInferredType(element)));
+//	}
+//	
+//	public ImageDescriptor _imageDescriptor(ExampleTable element) {
+//		return images.forField(JvmVisibility.PROTECTED, adornments.get((JvmIdentifiableElement) associations.getJvmElements(element).iterator().next()));
+//	}
+//	
+//	public ImageDescriptor _imageDescriptor(Step element) {
+//		return images.forOperation(JvmVisibility.PUBLIC, adornments.get(associations.getDirectlyInferredOperation(element)));
+//	}
+//	
+//	public ImageDescriptor _imageDescriptor(Scenario element) {
+//		return images.forClass(JvmVisibility.PUBLIC, adornments.get(associations.getInferredType(element)));
+//	}
+//	
+//	public ImageDescriptor _imageDescriptor(Feature element) {
+//		return images.forClass(JvmVisibility.PUBLIC, adornments.get(associations.getInferredType(element)));
+//	}
 
 	public String text(Background element) {
 		return element.getName().trim();

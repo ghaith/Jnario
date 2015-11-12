@@ -9,6 +9,7 @@ package org.jnario.feature.generator;
 
 import org.jnario.compiler.JnarioCompiler;
 
+
 /**
  * @author Birgit Engelmann - Initial contribution and API
  */

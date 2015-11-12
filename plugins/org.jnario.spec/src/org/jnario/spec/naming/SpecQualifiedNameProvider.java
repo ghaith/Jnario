@@ -9,22 +9,21 @@ package org.jnario.spec.naming;
 
 import static org.eclipse.xtext.util.Strings.isEmpty;
 import static org.jnario.util.Nodes.textForFeature;
+import static org.jnario.util.XtendTypes.packageName;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.naming.XtendQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.xbase.scoping.XbaseQualifiedNameProvider;
 import org.jnario.spec.spec.ExampleGroup;
 import org.jnario.spec.spec.SpecPackage;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import static org.jnario.util.XtendTypes.*;
-
 @SuppressWarnings("restriction")
 @Singleton
-public class SpecQualifiedNameProvider extends XtendQualifiedNameProvider {
+public class SpecQualifiedNameProvider extends XbaseQualifiedNameProvider {
 
 	@Inject
 	private IQualifiedNameConverter qualifiedNameConverter;

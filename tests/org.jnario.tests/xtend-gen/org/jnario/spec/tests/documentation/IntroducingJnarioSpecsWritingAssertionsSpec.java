@@ -94,6 +94,7 @@ public class IntroducingJnarioSpecsWritingAssertionsSpec extends IntroducingJnar
     final int x = 0;
     final int y = 1;
     final Procedure1<Boolean> _function = new Procedure1<Boolean>() {
+      @Override
       public void apply(final Boolean it) {
         Assert.assertTrue("\nExpected x == 1 && y == 0 but"
          + "\n     x == 1 is " + new org.hamcrest.StringDescription().appendValue((x == 1)).toString()
@@ -107,20 +108,18 @@ public class IntroducingJnarioSpecsWritingAssertionsSpec extends IntroducingJnar
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Expected x == 1 && y == 0 but");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("x == 1 is <false>");
+    _builder.append("     x == 1 is <false>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("x is <0>");
+    _builder.append("     x is <0>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("y == 0 is <false>");
+    _builder.append("     y == 0 is <false>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("y is <1>");
-    Helpers.is(_errorMessage, _builder);
+    _builder.append("     y is <1>");
+    
+    Helpers.is(_errorMessage, _builder.toString());
     final String greeting = "hello";
     final Procedure1<Boolean> _function_1 = new Procedure1<Boolean>() {
+      @Override
       public void apply(final Boolean it) {
         String _upperCase = greeting.toUpperCase();
         Assert.assertFalse("\nExpected greeting.toUpperCase should not be \"HELLO\" but"
@@ -133,11 +132,10 @@ public class IntroducingJnarioSpecsWritingAssertionsSpec extends IntroducingJnar
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("Expected greeting.toUpperCase should not be \"HELLO\" but");
     _builder_1.newLine();
-    _builder_1.append("     ");
-    _builder_1.append("greeting.toUpperCase is \"HELLO\"");
+    _builder_1.append("     greeting.toUpperCase is \"HELLO\"");
     _builder_1.newLine();
-    _builder_1.append("     ");
-    _builder_1.append("greeting is \"hello\"");
-    Helpers.is(_errorMessage_1, _builder_1);
+    _builder_1.append("     greeting is \"hello\"");
+    
+    Helpers.is(_errorMessage_1, _builder_1.toString());
   }
 }

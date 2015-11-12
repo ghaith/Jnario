@@ -38,9 +38,9 @@ public class SuiteDocGeneratorSpec {
   @Subject
   public SuiteDocGenerator subject;
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore _modelStore;
   
   @Inject
@@ -67,7 +67,8 @@ public class SuiteDocGeneratorSpec {
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._modelStore.parseSpec(_builder);
+    
+    this._modelStore.parseSpec(_builder.toString());
   }
   
   @Test
@@ -77,6 +78,7 @@ public class SuiteDocGeneratorSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package test");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("#Heading");
     _builder.newLine();
@@ -92,17 +94,16 @@ public class SuiteDocGeneratorSpec {
     _builder.newLine();
     _builder.append("- \\.*G.*\\");
     _builder.newLine();
-    final String actual = this.generateDoc(_builder);
+    
+    final String actual = this.generateDoc(_builder.toString());
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("<p>Heading description.</p>");
     _builder_1.newLine();
     _builder_1.append("<ul>");
     _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("<li><a class=\"specref pending\" href=\"../test/RedSpec.html\">Red</a> <strong class=\"icon pending\">~</strong></li>");
+    _builder_1.append("	<li><a class=\"specref pending\" href=\"../test/RedSpec.html\">Red</a> <strong class=\"icon pending\">~</strong></li>");
     _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("<li><a class=\"specref pending\" href=\"../test/BlueSpec.html\">Blue</a> <strong class=\"icon pending\">~</strong>: with a description</li>");
+    _builder_1.append("	<li><a class=\"specref pending\" href=\"../test/BlueSpec.html\">Blue</a> <strong class=\"icon pending\">~</strong>: with a description</li>");
     _builder_1.newLine();
     _builder_1.append("</ul>");
     _builder_1.newLine();
@@ -112,19 +113,18 @@ public class SuiteDocGeneratorSpec {
     _builder_1.newLine();
     _builder_1.append("<ul>");
     _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("<li><a class=\"specref pending\" href=\"../test/GreenSpec.html\">Green</a> <strong class=\"icon pending\">~</strong></li>");
+    _builder_1.append("	<li><a class=\"specref pending\" href=\"../test/GreenSpec.html\">Green</a> <strong class=\"icon pending\">~</strong></li>");
     _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("<li><a class=\"specref pending\" href=\"../test/GreySpec.html\">Grey</a> <strong class=\"icon pending\">~</strong></li>");
+    _builder_1.append("	<li><a class=\"specref pending\" href=\"../test/GreySpec.html\">Grey</a> <strong class=\"icon pending\">~</strong></li>");
     _builder_1.newLine();
     _builder_1.append("</ul>");
     _builder_1.newLine();
-    final String expected = _builder_1.toString();
+    
+    final String expected = _builder_1.toString().toString();
     Assert.assertEquals(expected, actual);
   }
   
-  public String generateDoc(final CharSequence input) {
+  public String generateDoc(@Extension final CharSequence input) {
     String _xblockexpression = null;
     {
       final Resource resource = this._modelStore.parseSuite(input);

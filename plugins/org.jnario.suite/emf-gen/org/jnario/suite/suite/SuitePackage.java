@@ -12,8 +12,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
-import org.eclipse.xtend.core.xtend.XtendPackage;
-
 import org.jnario.JnarioPackage;
 
 /**
@@ -169,15 +167,6 @@ public interface SuitePackage extends EPackage
 	int SUITE__ANNOTATIONS = JnarioPackage.SPECIFICATION__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUITE__ANNOTATION_INFO = JnarioPackage.SPECIFICATION__ANNOTATION_INFO;
-
-	/**
 	 * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -187,13 +176,13 @@ public interface SuitePackage extends EPackage
 	int SUITE__MODIFIERS = JnarioPackage.SPECIFICATION__MODIFIERS;
 
 	/**
-	 * The feature id for the '<em><b>Declaring Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Annotation Info</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUITE__DECLARING_TYPE = JnarioPackage.SPECIFICATION__DECLARING_TYPE;
+	int SUITE__ANNOTATION_INFO = JnarioPackage.SPECIFICATION__ANNOTATION_INFO;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -221,24 +210,6 @@ public interface SuitePackage extends EPackage
 	 * @ordered
 	 */
 	int SUITE__EXTENDS = JnarioPackage.SPECIFICATION__EXTENDS;
-
-	/**
-	 * The feature id for the '<em><b>Implements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUITE__IMPLEMENTS = JnarioPackage.SPECIFICATION__IMPLEMENTS;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUITE__TYPE_PARAMETERS = JnarioPackage.SPECIFICATION__TYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -275,7 +246,7 @@ public interface SuitePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SUITE_FILE__IMPORT_SECTION = XtendPackage.XTEND_FILE__IMPORT_SECTION;
+	int SUITE_FILE__IMPORT_SECTION = JnarioPackage.JNARIO_FILE__IMPORT_SECTION;
 
 	/**
 	 * The feature id for the '<em><b>Xtend Types</b></em>' containment reference list.
@@ -284,7 +255,7 @@ public interface SuitePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SUITE_FILE__XTEND_TYPES = XtendPackage.XTEND_FILE__XTEND_TYPES;
+	int SUITE_FILE__XTEND_TYPES = JnarioPackage.JNARIO_FILE__XTEND_TYPES;
 
 	/**
 	 * The feature id for the '<em><b>Package</b></em>' attribute.
@@ -293,7 +264,7 @@ public interface SuitePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SUITE_FILE__PACKAGE = XtendPackage.XTEND_FILE__PACKAGE;
+	int SUITE_FILE__PACKAGE = JnarioPackage.JNARIO_FILE__PACKAGE;
 
 	/**
 	 * The number of structural features of the '<em>File</em>' class.
@@ -302,7 +273,7 @@ public interface SuitePackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SUITE_FILE_FEATURE_COUNT = XtendPackage.XTEND_FILE_FEATURE_COUNT + 0;
+	int SUITE_FILE_FEATURE_COUNT = JnarioPackage.JNARIO_FILE_FEATURE_COUNT + 0;
 
 
 	/**

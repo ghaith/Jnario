@@ -24,12 +24,14 @@ public class TextValueConverter extends SuiteValueConverter {
     this.postfix = postfix;
   }
   
+  @Override
   public String toString(final String value) throws ValueConverterException {
     String _string = super.toString(value);
     String _plus = (this.prefix + _string);
     return (_plus + this.postfix);
   }
   
+  @Override
   public String toValue(final String input, final INode node) throws ValueConverterException {
     String string = super.toValue(input, node);
     String result = "";

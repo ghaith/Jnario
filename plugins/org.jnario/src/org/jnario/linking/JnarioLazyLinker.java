@@ -7,8 +7,9 @@
  *******************************************************************************/
 package org.jnario.linking;
 
-import org.eclipse.xtend.core.linking.Linker;
+import org.eclipse.xtext.xbase.linking.XbaseLazyLinker;
 
-public class JnarioLazyLinker extends Linker {
+
+public class JnarioLazyLinker extends XbaseLazyLinker {
 
 }

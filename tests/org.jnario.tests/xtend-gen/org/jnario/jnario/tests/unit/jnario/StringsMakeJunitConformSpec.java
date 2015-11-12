@@ -93,6 +93,7 @@ public class StringsMakeJunitConformSpec extends StringsSpec {
   @Order(1)
   public void _examplesForEachStringMakeJunitConformResult() throws Exception {
     final Procedure1<StringsMakeJunitConformSpecExamples> _function = new Procedure1<StringsMakeJunitConformSpecExamples>() {
+      @Override
       public void apply(final StringsMakeJunitConformSpecExamples it) {
         String _string = it.getString();
         String _makeJunitConform = Strings.makeJunitConform(_string);

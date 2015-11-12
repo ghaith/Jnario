@@ -7,11 +7,10 @@
  */
 package org.jnario.spec.spec;
 
-import org.eclipse.xtend.core.xtend.XtendMember;
-
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
+import org.jnario.JnarioMember;
 import org.jnario.Specification;
 
 /**
@@ -21,19 +20,19 @@ import org.jnario.Specification;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.spec.spec.ExampleGroup#getPreamble <em>Preamble</em>}</li>
  *   <li>{@link org.jnario.spec.spec.ExampleGroup#getTargetType <em>Target Type</em>}</li>
  *   <li>{@link org.jnario.spec.spec.ExampleGroup#getTargetOperation <em>Target Operation</em>}</li>
  *   <li>{@link org.jnario.spec.spec.ExampleGroup#getContract <em>Contract</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.spec.spec.SpecPackage#getExampleGroup()
  * @model
  * @generated
  */
-public interface ExampleGroup extends Specification, XtendMember
+public interface ExampleGroup extends Specification, JnarioMember
 {
 	/**
 	 * Returns the value of the '<em><b>Preamble</b></em>' attribute.

@@ -7,17 +7,18 @@
  *******************************************************************************/
 package org.jnario.conversion;
 
-import org.eclipse.xtend.core.conversion.AbstractCommentRichTextValueConverter;
-
-/**
- * @author Sebastian Zarnekow - Initial contribution and API
- */
-public class JnarioCommentRichTextEndValueConverter extends AbstractCommentRichTextValueConverter {
-
-	@Override
-	protected String getTrailingTerminal() {
-		return "'''";
-	}
-
-}
+// TODO NO_XTEND
+//import org.eclipse.xtend.core.conversion.AbstractCommentRichTextValueConverter;
+//
+///**
+// * @author Sebastian Zarnekow - Initial contribution and API
+// */
+//public class JnarioCommentRichTextEndValueConverter extends AbstractCommentRichTextValueConverter {
+//
+//	@Override
+//	protected String getTrailingTerminal() {
+//		return "'''";
+//	}
+//
+//}
 

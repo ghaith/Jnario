@@ -7,18 +7,17 @@
  *******************************************************************************/
 package org.jnario.feature.tests.unit.linking
 
-import static org.jnario.jnario.test.util.Features.*
-import org.jnario.feature.jvmmodel.StepArgumentsProvider
 import com.google.inject.Inject
-import org.jnario.feature.feature.Step
+import java.io.InputStreamReader
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource
 import org.eclipse.xtext.util.StringInputStream
-import org.jnario.jnario.test.util.Query
-import java.io.InputStreamReader
-import org.jnario.runner.CreateWith
+import org.jnario.feature.feature.Step
+import org.jnario.feature.jvmmodel.StepArgumentsProvider
 import org.jnario.jnario.test.util.FeatureTestCreator
+import org.jnario.jnario.test.util.Query
+import org.jnario.runner.CreateWith
 
-import static org.jnario.lib.JnarioCollectionLiterals.*
+import static org.jnario.jnario.test.util.Features.*
 
 @CreateWith(typeof(FeatureTestCreator))
 describe StepArgumentsProvider {
@@ -58,7 +57,7 @@ describe StepArgumentsProvider {
 		val scenario = '''
 			Feature: dummy
 				Scenario: dummy 
-					«step»
+					''' + step + ''''
 					
 		'''
 		// we have to access the model before linking

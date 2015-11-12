@@ -14,13 +14,9 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.eclipse.xtend.core.xtend.XtendPackage;
-
 import org.eclipse.xtext.common.types.TypesPackage;
 
 import org.eclipse.xtext.xbase.XbasePackage;
-
-import org.eclipse.xtext.xtype.XtypePackage;
 
 import org.jnario.JnarioPackage;
 
@@ -133,7 +129,6 @@ public class SpecPackageImpl extends EPackageImpl implements SpecPackage
 
 		// Initialize simple dependencies
 		JnarioPackage.eINSTANCE.eClass();
-		XtypePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theSpecPackage.createPackageContents();
@@ -344,7 +339,6 @@ public class SpecPackageImpl extends EPackageImpl implements SpecPackage
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		XtendPackage theXtendPackage = (XtendPackage)EPackage.Registry.INSTANCE.getEPackage(XtendPackage.eNS_URI);
 		JnarioPackage theJnarioPackage = (JnarioPackage)EPackage.Registry.INSTANCE.getEPackage(JnarioPackage.eNS_URI);
 		TypesPackage theTypesPackage = (TypesPackage)EPackage.Registry.INSTANCE.getEPackage(TypesPackage.eNS_URI);
 		XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
@@ -354,14 +348,14 @@ public class SpecPackageImpl extends EPackageImpl implements SpecPackage
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		specFileEClass.getESuperTypes().add(theXtendPackage.getXtendFile());
+		specFileEClass.getESuperTypes().add(theJnarioPackage.getJnarioFile());
 		exampleGroupEClass.getESuperTypes().add(theJnarioPackage.getSpecification());
-		exampleGroupEClass.getESuperTypes().add(theXtendPackage.getXtendMember());
+		exampleGroupEClass.getESuperTypes().add(theJnarioPackage.getJnarioMember());
 		exampleEClass.getESuperTypes().add(this.getTestFunction());
 		exampleEClass.getESuperTypes().add(theJnarioPackage.getExecutable());
 		beforeEClass.getESuperTypes().add(this.getTestFunction());
 		afterEClass.getESuperTypes().add(this.getTestFunction());
-		testFunctionEClass.getESuperTypes().add(theXtendPackage.getXtendFunction());
+		testFunctionEClass.getESuperTypes().add(theJnarioPackage.getJnarioFunction());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(specFileEClass, SpecFile.class, "SpecFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

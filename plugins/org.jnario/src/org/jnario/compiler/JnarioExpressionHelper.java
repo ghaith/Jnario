@@ -8,9 +8,7 @@ import static org.jnario.util.EObjects.allParents;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.typing.XtendExpressionHelper;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
-import org.eclipse.xtext.xbase.XBinaryOperation;
 import org.eclipse.xtext.xbase.XBooleanLiteral;
 import org.eclipse.xtext.xbase.XClosure;
 import org.eclipse.xtext.xbase.XExpression;
@@ -19,9 +17,10 @@ import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
 import org.eclipse.xtext.xbase.XTypeLiteral;
 import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotation;
+import org.eclipse.xtext.xbase.util.XExpressionHelper;
 import org.jnario.Assertion;
 
-public class JnarioExpressionHelper extends XtendExpressionHelper {
+public class JnarioExpressionHelper extends XExpressionHelper {
 
 	@Override
 	public boolean isShortCircuitOperation(XAbstractFeatureCall featureCall) {
@@ -32,6 +31,14 @@ public class JnarioExpressionHelper extends XtendExpressionHelper {
 			return false;
 		}
 		return super.isShortCircuitOperation(featureCall);
+	}
+	
+	@Override
+	public boolean hasSideEffects(XExpression expr) {
+		if (expr instanceof Assertion) {
+			return true;
+		}
+		return super.hasSideEffects(expr);
 	}
 
 	protected boolean isInAssertion(XAbstractFeatureCall featureCall) {

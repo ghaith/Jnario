@@ -30,12 +30,12 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class SetupTeardownSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor _behaviorExecutor;
   
-  public void prints(final CharSequence spec, final String expected) {
+  public void prints(@Extension final CharSequence spec, @Extension final String expected) {
     final ConsoleRecorder recording = ConsoleRecorder.start();
     this._behaviorExecutor.executesSuccessfully(spec);
     final String actual = recording.stop();

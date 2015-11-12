@@ -8,8 +8,8 @@
 package org.jnario.doc;
 
 import com.google.common.base.Objects;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtext.generator.IFileSystemAccess;
+import org.jnario.JnarioTypeDeclaration;
 import org.jnario.doc.DocOutputConfigurationProvider;
 import org.jnario.doc.HtmlFile;
 import org.jnario.util.Strings;
@@ -17,7 +17,7 @@ import org.jnario.util.XtendTypes;
 
 @SuppressWarnings("all")
 public class HtmlFileBuilder {
-  public void generate(final XtendTypeDeclaration context, final IFileSystemAccess fsa, final HtmlFile htmlFile) {
+  public void generate(final JnarioTypeDeclaration context, final IFileSystemAccess fsa, final HtmlFile htmlFile) {
     CharSequence _name = htmlFile.getName();
     boolean _equals = Objects.equal(_name, null);
     if (_equals) {
@@ -38,7 +38,7 @@ public class HtmlFileBuilder {
     return (_trim + ".html");
   }
   
-  private String filePath(final XtendTypeDeclaration xtendClass, final HtmlFile htmlFile) {
+  private String filePath(final JnarioTypeDeclaration xtendClass, final HtmlFile htmlFile) {
     CharSequence _name = htmlFile.getName();
     String _htmlFileName = null;
     if (_name!=null) {

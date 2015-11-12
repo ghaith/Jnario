@@ -1,20 +1,18 @@
 package org.jnario.scoping;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.resource.XtendResourceDescriptionStrategy;
-import org.eclipse.xtend.core.xtend.XtendFile;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.util.IAcceptor;
+import org.eclipse.xtext.xbase.resource.XbaseResourceDescriptionStrategy;
 import org.jnario.Executable;
+import org.jnario.JnarioFile;
 import org.jnario.Specification;
 
-public class JnarioResourceDescriptionStrategy extends	XtendResourceDescriptionStrategy {
+public class JnarioResourceDescriptionStrategy extends XbaseResourceDescriptionStrategy {
 	
 	private static final Logger LOG = Logger.getLogger(JnarioResourceDescriptionStrategy.class);
 
@@ -39,7 +37,7 @@ public class JnarioResourceDescriptionStrategy extends	XtendResourceDescriptionS
 	
 	protected boolean isJnarioElement(EObject eObject) {
 		return (eObject instanceof Executable) || 
-		(eObject instanceof XtendFile) || 
+		(eObject instanceof JnarioFile) || 
 		(eObject instanceof Specification);
 	}
 

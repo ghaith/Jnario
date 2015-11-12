@@ -17,9 +17,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class ShouldSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor _behaviorExecutor;
   
   @Test
@@ -29,43 +29,38 @@ public class ShouldSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package demo");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("Feature: Failure messages when reusing steps");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: name");
+    _builder.append("	Scenario: name");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("	");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step");
+    _builder.append("		Given a step");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("try{");
+    _builder.append("			try{");
     _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("1 + 1 => 3");
+    _builder.append("				1 + 1 => 3");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("}catch(AssertionError e){");
+    _builder.append("			}catch(AssertionError e){");
     _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("e.message should contain \"1 + 1 => 3\"");
+    _builder.append("				e.message should contain \"1 + 1 => 3\"");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("}");
+    _builder.append("			}");
     _builder.newLine();
-    _builder.append("\t\t\t");
+    _builder.append("			");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: name 2\t\t");
+    _builder.append("	Scenario: name 2		");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step");
+    _builder.append("		Given a step");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("		");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

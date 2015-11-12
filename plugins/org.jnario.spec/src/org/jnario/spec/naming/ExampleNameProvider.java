@@ -22,12 +22,12 @@ import java.util.List;
 import java.util.Stack;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.xtend.XtendClass;
 import org.eclipse.xtext.common.types.JvmParameterizedTypeReference;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.jnario.ExampleTable;
+import org.jnario.JnarioClass;
 import org.jnario.jvmmodel.JnarioNameProvider;
 import org.jnario.spec.spec.After;
 import org.jnario.spec.spec.Before;
@@ -42,7 +42,6 @@ import com.google.inject.Singleton;
 /**
  * @author Sebastian Benz - Initial contribution and API
  */
-@SuppressWarnings("restriction")
 @Singleton
 public class ExampleNameProvider extends JnarioNameProvider{
 
@@ -93,8 +92,8 @@ public class ExampleNameProvider extends JnarioNameProvider{
 		if (eObject instanceof ExampleTable) {
 			return _toJavaClassName((ExampleTable) eObject);
 		}
-		if (eObject instanceof XtendClass) {
-			return ((XtendClass)eObject).getName();
+		if (eObject instanceof JnarioClass) {
+			return ((JnarioClass)eObject).getName();
 		}
 		ExampleGroup exampleGroup = getContainerOfType(eObject, ExampleGroup.class);
 		if(exampleGroup == null){
@@ -207,11 +206,11 @@ public class ExampleNameProvider extends JnarioNameProvider{
 	}
 
 	private <T extends TestFunction> List<T> allMembers(EObject context, Class<T> type) {
-		XtendClass container = getContainerOfType(context, XtendClass.class);
-		Stack<XtendClass> parents = new Stack<XtendClass>();
+		JnarioClass container = getContainerOfType(context, JnarioClass.class);
+		Stack<JnarioClass> parents = new Stack<JnarioClass>();
 		while(container != null){
 			parents.push(container);
-			container = getContainerOfType(container.eContainer(), XtendClass.class);
+			container = getContainerOfType(container.eContainer(), JnarioClass.class);
 		}
 		List<T> functions = newArrayList();
 		while(!parents.isEmpty()){

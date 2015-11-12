@@ -7,35 +7,23 @@
  *******************************************************************************/
 package org.jnario.spec.validation;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
-import static com.google.common.collect.Sets.newLinkedHashSet;
 
 import java.util.Map;
-import java.util.Set;
 
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.xtend.core.validation.IssueCodes;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendField;
-import org.eclipse.xtend.core.xtend.XtendFile;
-import org.eclipse.xtend.core.xtend.XtendFunction;
-import org.eclipse.xtend.core.xtend.XtendPackage;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.ComposedChecks;
 import org.eclipse.xtext.xbase.XExpression;
-import org.jnario.ExampleColumn;
+import org.jnario.Assertion;
+import org.jnario.JnarioPackage;
+import org.jnario.RichString;
 import org.jnario.spec.naming.ExampleNameProvider;
-import org.jnario.spec.spec.After;
-import org.jnario.spec.spec.Before;
 import org.jnario.spec.spec.Example;
 import org.jnario.spec.spec.ExampleGroup;
-import org.jnario.spec.spec.TestFunction;
 import org.jnario.validation.JnarioJavaValidator;
 
 import com.google.inject.Inject;
@@ -50,98 +38,102 @@ public class SpecJavaValidator extends AbstractSpecJavaValidator {
 	@Inject
 	private ExampleNameProvider exampleNameProvider;
 	
-	private SpecModifierValidator setupModifierValidator = new SpecModifierValidator(newArrayList("all"), this);
-	
+// TODO NO_XTEND
+//	private SpecModifierValidator setupModifierValidator = new SpecModifierValidator(newArrayList("all"), this);
 
-	@Override
-	@Check
-	protected void checkModifiers(XtendClass xtendClass) {
-		EObject eContainer = xtendClass.eContainer();
-		if (!(eContainer instanceof ExampleGroup)) {
-			super.checkModifiers(xtendClass);
-		}
-	}
+// TODO NO_XTEND
+//	@Override
+//	@Check
+//	protected void checkModifiers(JnarioClass xtendClass) {
+//		EObject eContainer = xtendClass.eContainer();
+//		if (!(eContainer instanceof ExampleGroup)) {
+//			super.checkModifiers(xtendClass);
+//		}
+//	}
+//	
+//	@Override
+//	@Check
+//	protected void checkModifiers(JnarioFunction xtendFunction) {
+//		if ((xtendFunction instanceof Before) || (xtendFunction instanceof After)) {
+//			setupModifierValidator.checkModifiers(xtendFunction, exampleNameProvider.toMethodName(xtendFunction));
+//		}else{
+//			super.checkModifiers(xtendFunction);
+//		}
+//	}
+//	
+//	@Check
+//	public void checkClasses(JnarioFile file) {
+//		//TODO this check should not be file local, but instead check for any other sources which might declare a
+//		// java type with the same name. Also this then belongs to Xbase and should be defined on JvmDeclaredType
+//		Set<String> names = newLinkedHashSet();
+//		for (JnarioTypeDeclaration clazz : file.getXtendTypes()) {	
+//			String name = exampleNameProvider.toJavaClassName(clazz);
+//			if (!names.add(name))
+//				error("The type "+clazz.getName()+" is already defined.", clazz, JnarioPackage.Literals.XTEND_TYPE_DECLARATION__NAME, -1, IssueCodes.DUPLICATE_TYPE_NAME);
+//		}
+//	}
+//
+//	@Check
+//	public void checkClasses(ExampleGroup exampleGroup) {
+//		checkClasses(filter(exampleGroup.getMembers(), JnarioClass.class));
+//		if(exampleGroup.getTargetOperation() == null && exampleGroup.getName() == null && exampleGroup.getTargetType() == null){
+//			error("Example groups must have a name", JnarioPackage.Literals.XTEND_TYPE_DECLARATION__NAME);
+//		}
+//	}
+//	
+//
+//	protected void checkClasses(Iterable<JnarioClass> xtendClasses) {
+//		Set<String> names = newLinkedHashSet();
+//		for (JnarioClass clazz : xtendClasses) {	
+//			String name = exampleNameProvider.toJavaClassName(clazz);
+//			if (!names.add(name))
+//				error("The spec '"+exampleNameProvider.describe((ExampleGroup) clazz)+"' is already defined.", clazz, JnarioPackage.Literals.XTEND_TYPE_DECLARATION__NAME, -1, IssueCodes.DUPLICATE_TYPE_NAME);
+//		}
+//	}
+//	
+//	
+//	protected void error(String message, EObject source, EStructuralFeature feature, String code, String... issueData) {
+//		if(issueData.length == 0){
+//			super.error(message, source, feature, code, issueData);
+//		}else if(!IssueCodes.DUPLICATE_METHOD.equals(issueData[0])){
+//			super.error(message, source, feature, code, issueData);
+//		}else if(!(source instanceof Example)){
+//			super.error(message, source, feature, code, issueData);
+//		}
+//	}
+//	
+//	@Override
+//	public void checkLocalUsageOfDeclaredFields(JnarioField field) {
+//		if(!(field instanceof ExampleColumn)){
+//			super.checkLocalUsageOfDeclaredFields(field);
+//		}
+//	}
+//	
+//	@Check
+//	public void checkExamplesHaveNames(TestFunction example){
+//		String methodName = exampleNameProvider.toMethodName(example);
+//		if(isNullOrEmpty(methodName)){
+//			error("Name must not be empty", JnarioPackage.Literals.XTEND_FUNCTION__NAME);
+//		}
+//	}
+//	
+//	protected void mustBeJavaStatementExpression(XExpression expr) {
+//		// disabled as this is the case for example definitions
+//	}
+//	
+//	@Override
+//	protected void checkNoJavaKeyword(EObject obj, EAttribute attribute) {
+//		if (obj instanceof ExampleGroup) {
+//			return;
+//		}
+//		super.checkNoJavaKeyword(obj, attribute);
+//	}
 	
-	@Override
-	@Check
-	protected void checkModifiers(XtendFunction xtendFunction) {
-		if ((xtendFunction instanceof Before) || (xtendFunction instanceof After)) {
-			setupModifierValidator.checkModifiers(xtendFunction, exampleNameProvider.toMethodName(xtendFunction));
-		}else{
-			super.checkModifiers(xtendFunction);
-		}
-	}
-	
-	@Check
-	public void checkClasses(XtendFile file) {
-		//TODO this check should not be file local, but instead check for any other sources which might declare a
-		// java type with the same name. Also this then belongs to Xbase and should be defined on JvmDeclaredType
-		Set<String> names = newLinkedHashSet();
-		for (XtendTypeDeclaration clazz : file.getXtendTypes()) {	
-			String name = exampleNameProvider.toJavaClassName(clazz);
-			if (!names.add(name))
-				error("The type "+clazz.getName()+" is already defined.", clazz, XtendPackage.Literals.XTEND_TYPE_DECLARATION__NAME, -1, IssueCodes.DUPLICATE_TYPE_NAME);
-		}
-	}
-
-	@Check
-	public void checkClasses(ExampleGroup exampleGroup) {
-		checkClasses(filter(exampleGroup.getMembers(), XtendClass.class));
-		if(exampleGroup.getTargetOperation() == null && exampleGroup.getName() == null && exampleGroup.getTargetType() == null){
-			error("Example groups must have a name", XtendPackage.Literals.XTEND_TYPE_DECLARATION__NAME);
-		}
-	}
-	
-
-	protected void checkClasses(Iterable<XtendClass> xtendClasses) {
-		Set<String> names = newLinkedHashSet();
-		for (XtendClass clazz : xtendClasses) {	
-			String name = exampleNameProvider.toJavaClassName(clazz);
-			if (!names.add(name))
-				error("The spec '"+exampleNameProvider.describe((ExampleGroup) clazz)+"' is already defined.", clazz, XtendPackage.Literals.XTEND_TYPE_DECLARATION__NAME, -1, IssueCodes.DUPLICATE_TYPE_NAME);
-		}
-	}
 	
 	
-	protected void error(String message, EObject source, EStructuralFeature feature, String code, String... issueData) {
-		if(issueData.length == 0){
-			super.error(message, source, feature, code, issueData);
-		}else if(!IssueCodes.DUPLICATE_METHOD.equals(issueData[0])){
-			super.error(message, source, feature, code, issueData);
-		}else if(!(source instanceof Example)){
-			super.error(message, source, feature, code, issueData);
-		}
-	}
-	
-	@Override
-	public void checkLocalUsageOfDeclaredFields(XtendField field) {
-		if(!(field instanceof ExampleColumn)){
-			super.checkLocalUsageOfDeclaredFields(field);
-		}
-	}
-	
-	@Check
-	public void checkExamplesHaveNames(TestFunction example){
-		String methodName = exampleNameProvider.toMethodName(example);
-		if(isNullOrEmpty(methodName)){
-			error("Name must not be empty", XtendPackage.Literals.XTEND_FUNCTION__NAME);
-		}
-	}
-	
-	protected void mustBeJavaStatementExpression(XExpression expr) {
-		// disabled as this is the case for example definitions
-	}
-	
-	@Override
-	protected void checkNoJavaKeyword(EObject obj, EAttribute attribute) {
-		if (obj instanceof ExampleGroup) {
-			return;
-		}
-		super.checkNoJavaKeyword(obj, attribute);
-	}
 	
 //	@Check
-//	public void checkImports(XtendFile file) {
+//	public void checkImports(JnarioFile file) {
 //		final Map<JvmType, XImportDeclaration> imports = newHashMap();
 //		final Map<JvmType, XImportDeclaration> staticImports = newHashMap();
 //		final Map<String, JvmType> importedNames = newHashMap();
@@ -179,7 +171,7 @@ public class SpecJavaValidator extends AbstractSpecJavaValidator {
 //			}
 //		}
 //
-//		for (final XtendClass xtendClass : file.getXtendTypes()) {
+//		for (final JnarioClass xtendClass : file.getXtendTypes()) {
 //			String clazzName = exampleNameProvider.toJavaClassName(xtendClass);
 //			if(importedNames.containsKey(clazzName)){
 //				JvmType importedType = importedNames.get(clazzName);
@@ -240,15 +232,25 @@ public class SpecJavaValidator extends AbstractSpecJavaValidator {
 	}
 
 	public void markAsDuplicate(Example duplicate) {
-		error("Duplicate fact", duplicate, XtendPackage.Literals.XTEND_FUNCTION__NAME, -1);
+		error("Duplicate fact", duplicate, JnarioPackage.Literals.JNARIO_FUNCTION__NAME, -1);
 	}
-	
-	@Check
-	public void checkAbstract(XtendFunction function) {
-		if (function instanceof TestFunction) {
-			return;
+
+	// TODO NO_XTEND
+//	@Check
+//	public void checkAbstract(JnarioFunction function) {
+//		if (function instanceof TestFunction) {
+//			return;
+//		}
+//		super.checkAbstract(function);
+//	}
+
+	protected boolean isValueExpectedRecursive(XExpression expr) {
+		EObject container = expr.eContainer();
+		if (container instanceof Assertion
+				|| container instanceof RichString) {
+			return true;
 		}
-		super.checkAbstract(function);
+		return super.isValueExpectedRecursive(expr);
 	}
 
 }

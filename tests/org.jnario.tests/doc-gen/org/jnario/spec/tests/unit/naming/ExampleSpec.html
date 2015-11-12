@@ -187,7 +187,7 @@ describe Example {
   def parse(String content){
     val spec = modelStore.parseSpec('''
       describe &quot;test&quot;{
-        &laquo;content&raquo;
+        ''' + content + '''
       }
     ''')
     return query(spec.allContents).first(typeof(Example))

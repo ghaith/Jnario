@@ -9,7 +9,7 @@ package org.jnario.spec.spec.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.xtend.core.xtend.impl.XtendFileImpl;
+import org.jnario.impl.JnarioFileImpl;
 
 import org.jnario.spec.spec.SpecFile;
 import org.jnario.spec.spec.SpecPackage;
@@ -18,12 +18,10 @@ import org.jnario.spec.spec.SpecPackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>File</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
-public class SpecFileImpl extends XtendFileImpl implements SpecFile
+public class SpecFileImpl extends JnarioFileImpl implements SpecFile
 {
 	/**
 	 * <!-- begin-user-doc -->

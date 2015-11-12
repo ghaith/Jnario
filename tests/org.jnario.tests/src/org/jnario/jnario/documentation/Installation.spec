@@ -60,9 +60,7 @@ describe "Installing Jnario"{
 		 * 
 		 *  @filter(.*)
 		 */
-		fact "Jnario Runtime"{
-			"not yet implemented"
-		}
+		fact "Jnario Runtime"
 		
 		/* You should also configure Surefire to execute specs and features:
 		 * 
@@ -83,9 +81,7 @@ describe "Installing Jnario"{
 		 * 
 		 *  @filter(.*)
 		 */
-		fact "Executing specs"{
-			"not yet implemented"
-		}
+		fact "Executing specs"
 		
 		/*
 		 * You can use the Jnario plugin to compile specs from Maven:
@@ -107,9 +103,7 @@ describe "Installing Jnario"{
 		 * @filter(.*)
 		 * 
 		 */
-		fact "Jnario Compiler"{
-			"not yet implemented"
-		}
+		fact "Jnario Compiler"
 		
 		/*
 		 * The outputDirectory can be specified to match the default of 
@@ -125,9 +119,7 @@ describe "Installing Jnario"{
 		 * @filter(.*)
 		 */
 		 
-		fact "Configuring Eclipse"{
-			"not yet implemented"
-		}
+		fact "Configuring Eclipse"
 		
 	}
 

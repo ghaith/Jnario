@@ -23,12 +23,13 @@ import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler;
 import org.eclipse.xtend.lib.macro.file.Path;
 import org.eclipse.xtext.xbase.file.ProjectConfig;
 import org.eclipse.xtext.xbase.file.RuntimeWorkspaceConfigProvider;
-import org.eclipse.xtext.xbase.file.WorkspaceConfig;
+import org.eclipse.xtext.xbase.file.SimpleWorkspaceConfig;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.jnario.compiler.AbstractBatchCompiler;
+import org.jnario.compiler.JnarioDocCompiler;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -48,25 +49,25 @@ public abstract class AbstractXtendCompilerMojo extends AbstractXtendMojo {
 	};
 
 	@Inject
-	protected Provider<XtendBatchCompiler> xtendBatchCompilerProvider;
+	protected Provider<AbstractBatchCompiler> xtendBatchCompilerProvider;
 
 	/**
 	 * Xtend-File encoding argument for the compiler.
-	 * 
+	 *
 	 * @parameter expression="${encoding}" default-value="${project.build.sourceEncoding}"
 	 */
 	protected String encoding;
 
 	/**
 	 * Set this to false to suppress the creation of *._trace files.
-	 * 
+	 *
 	 * @parameter default-value="true" expression="${writeTraceFiles}"
 	 */
 	protected boolean writeTraceFiles;
 
 	/**
 	 * Location of the Xtend settings file.
-	 * 
+	 *
 	 * @parameter default-value="${basedir}/.settings/org.eclipse.xtend.core.Xtend.prefs"
 	 * @readonly
 	 */
@@ -75,21 +76,19 @@ public abstract class AbstractXtendCompilerMojo extends AbstractXtendMojo {
 	@Inject
 	private RuntimeWorkspaceConfigProvider workspaceConfigProvider;
 
-	protected XtendBatchCompiler createXtendBatchCompiler() {
+	protected AbstractBatchCompiler createXtendBatchCompiler() {
 		Injector injector = new XtendMavenStandaloneSetup().createInjectorAndDoEMFRegistration();
-		XtendBatchCompiler instance = injector.getInstance(XtendBatchCompiler.class);
+		JnarioDocCompiler instance = injector.getInstance(JnarioDocCompiler.class);
 		return instance;
 	}
 
-	protected void compile(XtendBatchCompiler xtend2BatchCompiler, String classPath, List<String> sourceDirectories,
-			String outputPath) throws MojoExecutionException {
+	protected void compile(AbstractBatchCompiler xtend2BatchCompiler, String classPath, List<String> sourceDirectories, String outputPath)
+			throws MojoExecutionException {
 		configureWorkspace(sourceDirectories, outputPath);
 		xtend2BatchCompiler.setResourceSetProvider(new MavenProjectResourceSetProvider(project));
 		Iterable<String> filtered = filter(sourceDirectories, FILE_EXISTS);
 		if (Iterables.isEmpty(filtered)) {
-			getLog().info(
-					"skip compiling sources because the configured directory '" + Iterables.toString(sourceDirectories)
-							+ "' does not exists.");
+			getLog().info("skip compiling sources because the configured directory '" + Iterables.toString(sourceDirectories) + "' does not exists.");
 			return;
 		}
 		getLog().debug("Set temp directory: " + getTempDirectory());
@@ -107,25 +106,22 @@ public abstract class AbstractXtendCompilerMojo extends AbstractXtendMojo {
 		getLog().debug("Set writeTraceFiles: " + writeTraceFiles);
 		xtend2BatchCompiler.setWriteTraceFiles(writeTraceFiles);
 		if (!xtend2BatchCompiler.compile()) {
-			throw new MojoExecutionException("Error compiling xtend sources in '"
-					+ concat(File.pathSeparator, newArrayList(filtered)) + "'.");
+			throw new MojoExecutionException("Error compiling xtend sources in '" + concat(File.pathSeparator, newArrayList(filtered)) + "'.");
 		}
 	}
 
 	private void configureWorkspace(List<String> sourceDirectories, String outputPath) throws MojoExecutionException {
-		WorkspaceConfig workspaceConfig = new WorkspaceConfig(project.getBasedir().getParentFile().getAbsolutePath());
+		SimpleWorkspaceConfig workspaceConfig = new SimpleWorkspaceConfig(project.getBasedir().getParentFile().getAbsolutePath());
 		ProjectConfig projectConfig = new ProjectConfig(project.getBasedir().getName());
 		URI absoluteRootPath = project.getBasedir().getAbsoluteFile().toURI();
 		URI relativizedTarget = absoluteRootPath.relativize(new File(outputPath).toURI());
 		if (relativizedTarget.isAbsolute()) {
-			throw new MojoExecutionException("Output path '" + outputPath
-					+ "' must be a child of the project folder '" + absoluteRootPath + "'");
+			throw new MojoExecutionException("Output path '" + outputPath + "' must be a child of the project folder '" + absoluteRootPath + "'");
 		}
 		for (String source : sourceDirectories) {
 			URI relativizedSrc = absoluteRootPath.relativize(new File(source).toURI());
 			if (relativizedSrc.isAbsolute()) {
-				throw new MojoExecutionException("Source folder " + source
-						+ " must be a child of the project folder " + absoluteRootPath);
+				throw new MojoExecutionException("Source folder " + source + " must be a child of the project folder " + absoluteRootPath);
 			}
 			projectConfig.addSourceFolderMapping(relativizedSrc.getPath(), relativizedTarget.getPath());
 		}
@@ -173,8 +169,7 @@ public abstract class AbstractXtendCompilerMojo extends AbstractXtendMojo {
 					getLog().warn(e);
 				}
 			} else {
-				getLog().info(
-						"Can't find Xtend properties under " + propertiesFileLocation + ", maven defaults are used.");
+				getLog().info("Can't find Xtend properties under " + propertiesFileLocation + ", maven defaults are used.");
 			}
 		}
 	}

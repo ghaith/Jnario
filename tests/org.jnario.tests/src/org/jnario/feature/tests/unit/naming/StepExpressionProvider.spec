@@ -8,16 +8,14 @@
 package org.jnario.feature.tests.unit.naming
 
 import com.google.inject.Inject
-import org.jnario.jnario.test.util.ModelStore
 import org.jnario.feature.feature.Step
+import org.jnario.feature.feature.StepReference
 import org.jnario.feature.jvmmodel.StepExpressionProvider
-import org.junit.Ignore
+import org.jnario.jnario.test.util.FeatureTestCreator
+import org.jnario.jnario.test.util.ModelStore
 import org.jnario.runner.CreateWith
-import org.jnario.jnario.test.util.SpecTestCreator
 
 import static org.jnario.jnario.test.util.Query.*
-import org.jnario.jnario.test.util.FeatureTestCreator
-import org.jnario.feature.feature.StepReference
 
 /**
  * @author Sebastian Benz - Initial contribution and API

@@ -27,9 +27,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class ExampleTableSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore _modelStore;
   
   @Test
@@ -41,24 +41,20 @@ public class ExampleTableSpec {
     _builder.newLine();
     _builder.append("describe \"ExampleTable\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("def{");
+    _builder.append("	def{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| a | b |");
+    _builder.append("		| a | b |");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| 1 | 2 |");
+    _builder.append("		| 1 | 2 |");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| 1 | 3 |");
+    _builder.append("		| 1 | 3 |");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._modelStore.parseSpec(_builder);
+    
+    this._modelStore.parseSpec(_builder.toString());
     Query _query = this._modelStore.query();
     ExampleTable _first = _query.<ExampleTable>first(ExampleTable.class);
     boolean _isValid = _first.isValid();
@@ -77,24 +73,20 @@ public class ExampleTableSpec {
     _builder.newLine();
     _builder.append("describe \"ExampleTable\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("def{");
+    _builder.append("	def{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| a | b |");
+    _builder.append("		| a | b |");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| 1 | 2 |");
+    _builder.append("		| 1 | 2 |");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("| 1 | ");
+    _builder.append("		| 1 | ");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._modelStore.parseSpec(_builder);
+    
+    this._modelStore.parseSpec(_builder.toString());
     Query _query = this._modelStore.query();
     ExampleTable _first = _query.<ExampleTable>first(ExampleTable.class);
     boolean _isValid = _first.isValid();

@@ -94,6 +94,7 @@ public class FeatureClassNameProviderGetClassNameFeatureSpec extends FeatureClas
   @Order(1)
   public void _examplesWork() throws Exception {
     final Procedure1<FeatureClassNameProviderGetClassNameFeatureSpecExamples> _function = new Procedure1<FeatureClassNameProviderGetClassNameFeatureSpecExamples>() {
+      @Override
       public void apply(final FeatureClassNameProviderGetClassNameFeatureSpecExamples it) {
         String _name = it.getName();
         Feature _feature = Features.feature(_name);

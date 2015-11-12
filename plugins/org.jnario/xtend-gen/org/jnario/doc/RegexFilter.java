@@ -27,11 +27,13 @@ public class RegexFilter implements Filter {
     this.pattern = _compile;
   }
   
+  @Override
   public String apply(final String input) {
     Matcher _matcher = this.pattern.matcher(input);
     return _matcher.replaceAll("");
   }
   
+  @Override
   public String toString() {
     return this.regex;
   }

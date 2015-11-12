@@ -59,6 +59,7 @@ public class ScopeTestExtension implements Iterable {
   public Set<String> scope(final IScope scope) {
     Iterable<IEObjectDescription> _allElements = scope.getAllElements();
     final Function1<IEObjectDescription, String> _function = new Function1<IEObjectDescription, String>() {
+      @Override
       public String apply(final IEObjectDescription it) {
         return it.toString();
       }
@@ -67,6 +68,7 @@ public class ScopeTestExtension implements Iterable {
     return IterableExtensions.<String>toSet(_map);
   }
   
+  @Override
   public Iterator iterator() {
     return this.store.iterator();
   }

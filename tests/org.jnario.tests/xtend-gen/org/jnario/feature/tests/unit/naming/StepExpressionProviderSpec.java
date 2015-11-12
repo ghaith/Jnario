@@ -39,9 +39,9 @@ public class StepExpressionProviderSpec {
   @Subject
   public StepExpressionProvider subject;
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore modelStore;
   
   @Test
@@ -51,16 +51,14 @@ public class StepExpressionProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Feature: Example");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: MyScenario");
+    _builder.append("	Scenario: MyScenario");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step with an implementation");
+    _builder.append("		Given a step with an implementation");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("\"the implementation\"");
+    _builder.append("			\"the implementation\"");
     _builder.newLine();
-    this.modelStore.parseScenario(_builder);
+    
+    this.modelStore.parseScenario(_builder.toString());
     Step _step = this.step();
     XExpression _expression = _step.getExpression();
     Step _step_1 = this.step();
@@ -81,24 +79,20 @@ public class StepExpressionProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Feature: Example");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: MyScenario 1");
+    _builder.append("	Scenario: MyScenario 1");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step ");
+    _builder.append("		Given a step ");
     _builder.newLine();
-    _builder.append("\t\t\t");
+    _builder.append("			");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: MyScenario 2");
+    _builder.append("	Scenario: MyScenario 2");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step ");
+    _builder.append("		Given a step ");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("\"the implementation\"");
+    _builder.append("			\"the implementation\"");
     _builder.newLine();
-    this.modelStore.parseScenario(_builder);
+    
+    this.modelStore.parseScenario(_builder.toString());
     Step _step = this.step();
     final XExpression expr = this.subject.expressionOf(_step);
     boolean _notEquals = (!Objects.equal(expr, null));

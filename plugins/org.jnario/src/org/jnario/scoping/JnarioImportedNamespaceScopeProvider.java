@@ -2,12 +2,11 @@ package org.jnario.scoping;
 
 import java.util.List;
 
-import org.eclipse.xtend.core.scoping.XtendImportedNamespaceScopeProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.scoping.impl.ImportNormalizer;
+import org.eclipse.xtext.xbase.scoping.XImportSectionNamespaceScopeProvider;
 
-public class JnarioImportedNamespaceScopeProvider extends
-		XtendImportedNamespaceScopeProvider {
+public class JnarioImportedNamespaceScopeProvider extends XImportSectionNamespaceScopeProvider {
 
 	public static final QualifiedName JNARIO_LIB = QualifiedName.create("org","jnario","lib");
 	

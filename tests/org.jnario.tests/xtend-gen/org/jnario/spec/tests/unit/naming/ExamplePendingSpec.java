@@ -83,6 +83,7 @@ public class ExamplePendingSpec extends ExampleSpec {
   @Order(1)
   public void _examplesForEachPendingStateOfExampleShouldBeExpected() throws Exception {
     final Procedure1<ExamplePendingSpecExamples> _function = new Procedure1<ExamplePendingSpecExamples>() {
+      @Override
       public void apply(final ExamplePendingSpecExamples it) {
         String _example = it.getExample();
         boolean _pendingStateOf = ExamplePendingSpec.this.pendingStateOf(_example);

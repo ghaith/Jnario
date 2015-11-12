@@ -10,10 +10,10 @@ package org.jnario.spec.doc
 import com.google.inject.Inject
 import java.util.List
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtend.core.xtend.XtendClass
-import org.eclipse.xtend.core.xtend.XtendMember
 import org.eclipse.xtend2.lib.StringConcatenation
 import org.jnario.ExampleTable
+import org.jnario.JnarioClass
+import org.jnario.JnarioMember
 import org.jnario.doc.AbstractDocGenerator
 import org.jnario.doc.Filter
 import org.jnario.doc.FilterExtractor
@@ -21,14 +21,16 @@ import org.jnario.doc.HtmlFile
 import org.jnario.spec.naming.ExampleNameProvider
 import org.jnario.spec.spec.Example
 import org.jnario.spec.spec.ExampleGroup
-import static org.eclipse.xtend.core.xtend.XtendPackage$Literals.*
+
+import static org.jnario.JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION
+
 class SpecDocGenerator extends AbstractDocGenerator {
 
 	@Inject extension ExampleNameProvider 
 	
 	@Inject extension FilterExtractor
 
-	override createHtmlFile(XtendClass xtendClass) {
+	override createHtmlFile(JnarioClass xtendClass) {
 		if(!(xtendClass instanceof ExampleGroup)){
 			return HtmlFile::EMPTY_FILE
 		}
@@ -87,7 +89,7 @@ class SpecDocGenerator extends AbstractDocGenerator {
 			«eObject.documentation.markdown2Html»
 		«ENDIF»
 	'''
-	def dispatch generate(XtendMember member, int level)'''
+	def dispatch generate(JnarioMember member, int level)'''
 	'''
 	
 	def dispatch generate(Example example, int level){
@@ -104,7 +106,7 @@ class SpecDocGenerator extends AbstractDocGenerator {
 			<p«id(example.name)» class="example «example.executionStateClass»"><strong>«example.describe.decode»</strong></p>
 			«ENDIF»
 			«docString»
-			«IF !example.pending && example.eIsSet(XTEND_EXECUTABLE__EXPRESSION)»
+			«IF !example.pending && example.eIsSet(JNARIO_FUNCTION__EXPRESSION)»
 			«example.toCodeBlock(filters)»
 			«ENDIF»
 			«example.errorMessage»

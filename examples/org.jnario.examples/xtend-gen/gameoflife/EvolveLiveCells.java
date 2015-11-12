@@ -4,6 +4,7 @@ import gameoflife.Rule;
 
 @SuppressWarnings("all")
 public class EvolveLiveCells implements Rule {
+  @Override
   public boolean becomesAlive(final int neighbourCount) {
     boolean _and = false;
     boolean _underPopulated = this.underPopulated(neighbourCount);

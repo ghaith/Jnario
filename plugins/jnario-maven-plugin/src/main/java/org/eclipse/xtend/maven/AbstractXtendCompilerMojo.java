@@ -23,12 +23,13 @@ import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler;
 import org.eclipse.xtend.lib.macro.file.Path;
 import org.eclipse.xtext.xbase.file.ProjectConfig;
 import org.eclipse.xtext.xbase.file.RuntimeWorkspaceConfigProvider;
-import org.eclipse.xtext.xbase.file.WorkspaceConfig;
+import org.eclipse.xtext.xbase.file.SimpleWorkspaceConfig;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.jnario.compiler.AbstractBatchCompiler;
+import org.jnario.compiler.JnarioStandaloneCompiler;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -48,7 +49,7 @@ public abstract class AbstractXtendCompilerMojo extends AbstractXtendMojo {
 	};
 
 	@Inject
-	protected Provider<XtendBatchCompiler> xtendBatchCompilerProvider;
+	protected Provider<AbstractBatchCompiler> xtendBatchCompilerProvider;
 
 	/**
 	 * Xtend-File encoding argument for the compiler.
@@ -75,13 +76,14 @@ public abstract class AbstractXtendCompilerMojo extends AbstractXtendMojo {
 	@Inject
 	private RuntimeWorkspaceConfigProvider workspaceConfigProvider;
 
-	protected XtendBatchCompiler createXtendBatchCompiler() {
+	protected AbstractBatchCompiler createXtendBatchCompiler() {
 		Injector injector = new XtendMavenStandaloneSetup().createInjectorAndDoEMFRegistration();
-		XtendBatchCompiler instance = injector.getInstance(XtendBatchCompiler.class);
+		JnarioStandaloneCompiler instance = injector.getInstance(JnarioStandaloneCompiler.class);
 		return instance;
 	}
 
-	protected void compile(XtendBatchCompiler xtend2BatchCompiler, String classPath, List<String> sourceDirectories,
+	protected void compile(AbstractBatchCompiler xtend2BatchCompiler, String classPath,
+			List<String> sourceDirectories,
 			String outputPath) throws MojoExecutionException {
 		configureWorkspace(sourceDirectories, outputPath);
 		xtend2BatchCompiler.setResourceSetProvider(new MavenProjectResourceSetProvider(project));
@@ -113,7 +115,8 @@ public abstract class AbstractXtendCompilerMojo extends AbstractXtendMojo {
 	}
 
 	private void configureWorkspace(List<String> sourceDirectories, String outputPath) throws MojoExecutionException {
-		WorkspaceConfig workspaceConfig = new WorkspaceConfig(project.getBasedir().getParentFile().getAbsolutePath());
+		SimpleWorkspaceConfig workspaceConfig = new SimpleWorkspaceConfig(project.getBasedir().getParentFile()
+				.getAbsolutePath());
 		ProjectConfig projectConfig = new ProjectConfig(project.getBasedir().getName());
 		URI absoluteRootPath = project.getBasedir().getAbsoluteFile().toURI();
 		URI relativizedTarget = absoluteRootPath.relativize(new File(outputPath).toURI());

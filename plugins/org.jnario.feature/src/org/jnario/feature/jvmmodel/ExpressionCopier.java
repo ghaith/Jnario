@@ -2,13 +2,12 @@ package org.jnario.feature.jvmmodel;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
-import org.eclipse.xtend.core.xtend.XtendField;
-import org.eclipse.xtext.common.types.JvmIdentifiableElement;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.XFeatureCall;
 import org.eclipse.xtext.xbase.XMemberFeatureCall;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociator;
+import org.jnario.JnarioField;
 import org.jnario.util.SourceAdapter;
 
 import com.google.inject.Inject;
@@ -46,7 +45,7 @@ public class ExpressionCopier{
 				targetFeatureCall.setExplicitOperationCall(sourceFeatureCall.isExplicitOperationCall());
 				targetFeatureCall.setTypeLiteral(sourceFeatureCall.isTypeLiteral());
 			}
-			if(source instanceof XExpression || source instanceof XtendField){
+			if(source instanceof XExpression || source instanceof JnarioField){
 				SourceAdapter.adapt(target, source);
 			}
 			return target;

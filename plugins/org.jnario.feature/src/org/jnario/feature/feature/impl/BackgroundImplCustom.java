@@ -10,9 +10,10 @@ package org.jnario.feature.feature.impl;
 
 public class BackgroundImplCustom extends BackgroundImpl {
 	
-	@Override
-	public boolean isAbstract() {
-		return true;
-	}
+	// TODO NO_XTEND
+//	@Override
+//	public boolean isAbstract() {
+//		return true;
+//	}
 
 }

@@ -11,6 +11,7 @@ import com.google.inject.Inject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.jnario.jnario.test.util.Specs;
 import org.jnario.jnario.test.util.SuiteTestCreator;
 import org.jnario.jnario.test.util.Suites;
@@ -72,7 +73,7 @@ public class ExecutableIsPendingSuiteSpec extends ExecutableIsPendingSpec {
     
   }
   
-  public Suite suiteWith(final String name, final SpecReference... references) {
+  public Suite suiteWith(@Extension final String name, @Extension final SpecReference... references) {
     Suite _xblockexpression = null;
     {
       final Suite result = Suites.suiteWith(name, references);

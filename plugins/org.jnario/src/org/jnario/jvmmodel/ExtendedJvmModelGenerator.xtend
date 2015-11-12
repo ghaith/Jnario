@@ -8,14 +8,9 @@
  *******************************************************************************/
 package org.jnario.jvmmodel
 
-import com.google.inject.Inject
-import org.eclipse.xtext.common.types.JvmIntAnnotationValue
-import org.eclipse.xtext.xbase.compiler.GeneratorConfig
 import org.eclipse.xtext.xbase.compiler.JvmModelGenerator
-import org.eclipse.xtext.xbase.compiler.LoopExtensions
-import org.eclipse.xtext.xbase.compiler.output.ITreeAppendableimport org.eclipse.xtend.core.compiler.XtendGenerator
 
-class ExtendedJvmModelGenerator extends XtendGenerator{
+class ExtendedJvmModelGenerator extends JvmModelGenerator{
 	
 	
 }

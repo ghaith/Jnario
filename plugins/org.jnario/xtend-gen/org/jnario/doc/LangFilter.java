@@ -21,10 +21,12 @@ public class LangFilter implements Filter {
     this.language = language;
   }
   
+  @Override
   public String apply(final String input) {
     return input.replace("<pre class=\"prettyprint lang-spec", ("<pre class=\"prettyprint lang-" + this.language));
   }
   
+  @Override
   public String toString() {
     return ("lang-" + this.language);
   }

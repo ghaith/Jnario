@@ -20,6 +20,7 @@ public class SpecResourceDescriptionStrategy extends JnarioResourceDescriptionSt
   
   public final static String FALSE = "0";
   
+  @Override
   public void createUserData(final EObject eObject, final ImmutableMap.Builder<String, String> userData) {
     super.createUserData(eObject, userData);
     if ((eObject instanceof ExampleGroup)) {
@@ -33,7 +34,8 @@ public class SpecResourceDescriptionStrategy extends JnarioResourceDescriptionSt
   public String isRoot(final ExampleGroup exampleGroup) {
     String _xifexpression = null;
     EObject _eContainer = exampleGroup.eContainer();
-    if ((!(_eContainer instanceof ExampleGroup))) {
+    boolean _not = (!(_eContainer instanceof ExampleGroup));
+    if (_not) {
       _xifexpression = SpecResourceDescriptionStrategy.TRUE;
     } else {
       _xifexpression = SpecResourceDescriptionStrategy.FALSE;

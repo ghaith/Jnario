@@ -344,7 +344,7 @@ describe "20 Facts about Xtend"{
      * a loop:
      */
     fact "Better loops"{
-      list(11, 17, 19).forEach[assert it > 10]
+      list(11, 17, 19).forEach[assert it > 10] 
     }
     
     /*

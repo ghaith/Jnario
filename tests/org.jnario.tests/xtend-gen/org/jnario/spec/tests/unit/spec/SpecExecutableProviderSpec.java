@@ -31,9 +31,9 @@ public class SpecExecutableProviderSpec {
   @Subject
   public SpecExecutableProvider subject;
   
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore _modelStore;
   
   @Test
@@ -43,15 +43,15 @@ public class SpecExecutableProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Something\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"fact 1\"");
+    _builder.append("	fact \"fact 1\"");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("fact \"fact 2\"");
+    _builder.append("	fact \"fact 2\"");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._modelStore.parseSpec(_builder);
+    
+    this._modelStore.parseSpec(
+      _builder.toString());
     ExampleGroup _exampleGroup = this._modelStore.exampleGroup("Something");
     List<Executable> _executables = this.executables(_exampleGroup);
     Example _example = this._modelStore.example("fact 1");
@@ -73,15 +73,15 @@ public class SpecExecutableProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Something\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("describe \"exampleGroup 1\"{}");
+    _builder.append("	describe \"exampleGroup 1\"{}");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("describe \"exampleGroup 2\"{}");
+    _builder.append("	describe \"exampleGroup 2\"{}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._modelStore.parseSpec(_builder);
+    
+    this._modelStore.parseSpec(
+      _builder.toString());
     ExampleGroup _exampleGroup = this._modelStore.exampleGroup("Something");
     List<Executable> _executables = this.executables(_exampleGroup);
     ExampleGroup _exampleGroup_1 = this._modelStore.exampleGroup("exampleGroup 1");
@@ -103,27 +103,23 @@ public class SpecExecutableProviderSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"Something\"{");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("describe \"exampleGroup 1\"{");
+    _builder.append("	describe \"exampleGroup 1\"{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("fact \"fact 1\"");
+    _builder.append("		fact \"fact 1\"");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("describe \"exampleGroup 2\"{");
+    _builder.append("	describe \"exampleGroup 2\"{");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("fact \"fact 2\"");
+    _builder.append("		fact \"fact 2\"");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("}");
+    _builder.append("	}");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._modelStore.parseSpec(_builder);
+    
+    this._modelStore.parseSpec(
+      _builder.toString());
     ExampleGroup _exampleGroup = this._modelStore.exampleGroup("Something");
     List<Executable> _executables = this.executables(_exampleGroup);
     Set<Executable> _set = IterableExtensions.<Executable>toSet(_executables);
@@ -144,7 +140,7 @@ public class SpecExecutableProviderSpec {
     
   }
   
-  public List<Executable> executables(final Executable spec) {
+  public List<Executable> executables(@Extension final Executable spec) {
     return this.subject.getExecutables(spec);
   }
 }

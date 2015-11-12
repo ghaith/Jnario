@@ -13,17 +13,18 @@ import static org.eclipse.xtext.xbase.ui.highlighting.XbaseHighlightingConfigura
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend.core.xtend.XtendField;
-import org.eclipse.xtend.core.xtend.XtendFunction;
-import org.eclipse.xtend.core.xtend.XtendMember;
-import org.eclipse.xtend.core.xtend.XtendPackage;
+import org.eclipse.xtext.TerminalRule;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotation;
 import org.jnario.ExampleTable;
+import org.jnario.JnarioField;
+import org.jnario.JnarioFunction;
+import org.jnario.JnarioMember;
 import org.jnario.JnarioPackage;
+import org.jnario.spec.services.SpecGrammarAccess;
 import org.jnario.spec.spec.Example;
 import org.jnario.spec.spec.ExampleGroup;
 import org.jnario.spec.spec.SpecFile;
@@ -32,6 +33,7 @@ import org.jnario.spec.spec.TestFunction;
 import org.jnario.ui.highlighting.JnarioHighlightingCalculator;
 
 import com.google.common.collect.Iterables;
+import com.google.inject.Inject;
 
 /**
  * @author Sebastian Benz - Initial contribution and API
@@ -39,6 +41,9 @@ import com.google.common.collect.Iterables;
 @SuppressWarnings("restriction")
 public class SpecHighlightingCalculator extends JnarioHighlightingCalculator {
 
+	@Inject
+	private SpecGrammarAccess specGrammarAccess;
+	
 	@Override
 	protected void doProvideHighlightingFor(XtextResource resource, IHighlightedPositionAcceptor acceptor) {
 		EObject root = resource.getContents().get(0);
@@ -48,7 +53,8 @@ public class SpecHighlightingCalculator extends JnarioHighlightingCalculator {
 		SpecFile file = (SpecFile) root;
 		for (ExampleGroup exampleGroup : Iterables.filter(file.getXtendTypes(), ExampleGroup.class)) {
 			for (XAnnotation annotation : exampleGroup.getAnnotations()) {
-				highlightDeprecatedXtendAnnotationTarget(acceptor, exampleGroup, annotation);
+				// TODO NO_XTEND
+				// highlightDeprecatedXtendAnnotationTarget(acceptor, exampleGroup, annotation);
 			}
 			provideHighlightingFor(exampleGroup, acceptor);
 		}
@@ -58,19 +64,22 @@ public class SpecHighlightingCalculator extends JnarioHighlightingCalculator {
 	protected void provideHighlightingFor(ExampleGroup exampleGroup,
 			IHighlightedPositionAcceptor acceptor) {
 		if (exampleGroup != null) {
-			for (XtendMember member : exampleGroup.getMembers()) {
-				if (XtendPackage.Literals.XTEND_FUNCTION.isSuperTypeOf(member.eClass())) {
-					XtendFunction function = (XtendFunction) member;
+			for (JnarioMember member : exampleGroup.getMembers()) {
+				if (JnarioPackage.Literals.JNARIO_FUNCTION.isSuperTypeOf(member.eClass())) {
+					JnarioFunction function = (JnarioFunction) member;
 					XExpression rootExpression = function.getExpression();
-					highlightRichStrings(rootExpression, acceptor);
-				}else if(member.eClass() == XtendPackage.Literals.XTEND_FIELD){
-					XtendField field = (XtendField) member;
-					highlightXtendField(field,acceptor);
-					XExpression initializer = field.getInitialValue();
-					highlightRichStrings(initializer, acceptor);
+					// TODO NO_XTEND
+					// highlightRichStrings(rootExpression, acceptor);
+				}else if(member.eClass() == JnarioPackage.Literals.JNARIO_FIELD){
+					JnarioField field = (JnarioField) member;
+					// TODO NO_XTEND
+					// highlightXtendField(field,acceptor);
+					//XExpression initializer = field.getInitialValue();
+					//highlightRichStrings(initializer, acceptor);
 				}else if(member.eClass() == SpecPackage.Literals.EXAMPLE){
 					Example example = (Example) member;
-					highlightRichStrings(example.getExpression() ,acceptor);
+					// TODO NO_XTEND
+					// highlightRichStrings(example.getExpression() ,acceptor);
 				}else if(member.eClass() == SpecPackage.Literals.EXAMPLE_GROUP){
 					ExampleGroup subExampleGroup = (ExampleGroup) member;
 					provideHighlightingFor(subExampleGroup,acceptor);
@@ -78,10 +87,12 @@ public class SpecHighlightingCalculator extends JnarioHighlightingCalculator {
 					provideHighlightingFor((ExampleTable)member,acceptor);
 				}else if(member.eClass() == SpecPackage.Literals.TEST_FUNCTION){
 					TestFunction function = (TestFunction) member;
-					highlightRichStrings(function.getExpression() ,acceptor);
+					// TODO NO_XTEND
+					// highlightRichStrings(function.getExpression() ,acceptor);
 				}
 				for (XAnnotation annotation : member.getAnnotations()) {
-					highlightDeprecatedXtendAnnotationTarget(acceptor, member, annotation);
+					// TODO NO_XTEND
+					// highlightDeprecatedXtendAnnotationTarget(acceptor, member, annotation);
 				}
 			}
 		}
@@ -104,6 +115,11 @@ public class SpecHighlightingCalculator extends JnarioHighlightingCalculator {
 	private void highlighColumnNode(IHighlightedPositionAcceptor acceptor,
 			INode node) {
 		highlightNode(node, EXTENSION_METHOD_INVOCATION, acceptor);
+	}
+
+	@Override
+	protected TerminalRule getRichStringTerminalRule() {
+		return specGrammarAccess.getSTRINGRule();
 	}
 	
 

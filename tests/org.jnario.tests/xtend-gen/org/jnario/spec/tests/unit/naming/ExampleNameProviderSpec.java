@@ -35,12 +35,12 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class ExampleNameProviderSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public ModelStore modelStore;
   
-  public Query parse(final CharSequence content) {
+  public Query parse(@Extension final CharSequence content) {
     final String contentWithPackage = ("package test\n" + content);
     final Resource spec = this.modelStore.parseSpec(contentWithPackage);
     TreeIterator<EObject> _allContents = spec.getAllContents();

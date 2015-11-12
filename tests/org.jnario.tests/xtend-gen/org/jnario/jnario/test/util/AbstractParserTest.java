@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.diagnostics.Severity;
@@ -24,6 +23,7 @@ import org.eclipse.xtext.validation.Issue;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.jnario.test.util.ClassPathUriProviderBuilder;
 import org.jnario.jnario.test.util.IUriProvider;
 import org.jnario.jnario.test.util.ModelStore;
@@ -64,6 +64,7 @@ public class AbstractParserTest {
     Class<?> _context_1 = this.context();
     ClassPathUriProviderBuilder _startingFrom = ClassPathUriProviderBuilder.startingFrom(_context_1);
     final Predicate<URI> _function = new Predicate<URI>() {
+      @Override
       public boolean apply(final URI it) {
         return AbstractParserTest.this.onlySpecFiles(it);
       }
@@ -72,6 +73,7 @@ public class AbstractParserTest {
     this._modelStore.load(_select);
     List<Resource> _resources = this._modelStore.resources();
     final Function1<Resource, Boolean> _function_1 = new Function1<Resource, Boolean>() {
+      @Override
       public Boolean apply(final Resource it) {
         URI _uRI = it.getURI();
         return Boolean.valueOf(AbstractParserTest.this.onlySpecFiles(_uRI));
@@ -79,12 +81,13 @@ public class AbstractParserTest {
     };
     Iterable<Resource> _filter = IterableExtensions.<Resource>filter(_resources, _function_1);
     final ArrayList<Resource> specs = Lists.<Resource>newArrayList(_filter);
-    final Consumer<Resource> _function_2 = new Consumer<Resource>() {
-      public void accept(final Resource resource) {
+    final Procedure1<Resource> _function_2 = new Procedure1<Resource>() {
+      @Override
+      public void apply(final Resource resource) {
         Resources.checkForParseErrors(resource);
       }
     };
-    specs.forEach(_function_2);
+    IterableExtensions.<Resource>forEach(specs, _function_2);
   }
   
   public Class<?> context() {

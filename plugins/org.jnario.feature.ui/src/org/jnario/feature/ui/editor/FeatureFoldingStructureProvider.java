@@ -9,12 +9,12 @@ package org.jnario.feature.ui.editor;
 
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
-import org.eclipse.xtend.ide.editor.InitiallyCollapsableAwareFoldingStructureProvider;
+import org.eclipse.xtext.ui.editor.folding.DefaultFoldingStructureProvider;
 
 /**
  * @author Birgit Engelmann - Initial contribution and API
  */
-public class FeatureFoldingStructureProvider extends InitiallyCollapsableAwareFoldingStructureProvider {
+public class FeatureFoldingStructureProvider extends DefaultFoldingStructureProvider {
 	
 	@Override
 	protected ProjectionAnnotation createProjectionAnnotation(boolean isCollapsed, Position foldedRegion) {

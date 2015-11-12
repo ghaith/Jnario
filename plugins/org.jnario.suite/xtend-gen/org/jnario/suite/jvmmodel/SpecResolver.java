@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -59,6 +60,7 @@ public class SpecResolver {
   protected List<Specification> _resolveSpecs(final Suite suite) {
     EList<Reference> _elements = suite.getElements();
     final Function1<Reference, List<Specification>> _function = new Function1<Reference, List<Specification>>() {
+      @Override
       public List<Specification> apply(final Reference it) {
         return SpecResolver.this.resolveSpecs(it);
       }
@@ -84,6 +86,7 @@ public class SpecResolver {
       final IScope scope = this.scopeProvider.getScope(specRef, SuitePackage.Literals.SPEC_REFERENCE__SPEC);
       Iterable<IEObjectDescription> _allElements = scope.getAllElements();
       final Function1<IEObjectDescription, Boolean> _function = new Function1<IEObjectDescription, Boolean>() {
+        @Override
         public Boolean apply(final IEObjectDescription it) {
           EClass _eClass = it.getEClass();
           return Boolean.valueOf(JnarioPackage.Literals.SPECIFICATION.isSuperTypeOf(_eClass));
@@ -93,6 +96,7 @@ public class SpecResolver {
       String _pattern_1 = specRef.getPattern();
       final Pattern pattern = Pattern.compile(_pattern_1);
       final Function1<IEObjectDescription, Boolean> _function_1 = new Function1<IEObjectDescription, Boolean>() {
+        @Override
         public Boolean apply(final IEObjectDescription it) {
           QualifiedName _qualifiedName = it.getQualifiedName();
           String _string = SpecResolver.this._iQualifiedNameConverter.toString(_qualifiedName);
@@ -104,6 +108,7 @@ public class SpecResolver {
       specs = _filter;
       final Resource suiteResource = specRef.eResource();
       final Function1<IEObjectDescription, EObject> _function_2 = new Function1<IEObjectDescription, EObject>() {
+        @Override
         public EObject apply(final IEObjectDescription it) {
           EObject _eObjectOrProxy = it.getEObjectOrProxy();
           return EcoreUtil.resolve(_eObjectOrProxy, specRef);
@@ -113,6 +118,7 @@ public class SpecResolver {
       Iterable<Specification> _filter_1 = Iterables.<Specification>filter(_map, Specification.class);
       final Iterable<Specification> resolvedSpecs = IterableExtensions.<Specification>filterNull(_filter_1);
       final Function1<Specification, Boolean> _function_3 = new Function1<Specification, Boolean>() {
+        @Override
         public Boolean apply(final Specification it) {
           Resource _eResource = it.eResource();
           return Boolean.valueOf((!Objects.equal(_eResource, suiteResource)));
@@ -120,6 +126,7 @@ public class SpecResolver {
       };
       final Iterable<Specification> withoutSuites = IterableExtensions.<Specification>filter(resolvedSpecs, _function_3);
       final Function1<Specification, String> _function_4 = new Function1<Specification, String>() {
+        @Override
         public String apply(final Specification it) {
           return SpecResolver.this._suiteClassNameProvider.toQualifiedJavaClassName(it);
         }
@@ -133,12 +140,14 @@ public class SpecResolver {
   
   private List<Specification> sort(final Iterable<Specification> specs) {
     final Function1<Specification, Boolean> _function = new Function1<Specification, Boolean>() {
+      @Override
       public Boolean apply(final Specification it) {
         return Boolean.valueOf((!Objects.equal(it, null)));
       }
     };
     Iterable<Specification> _filter = IterableExtensions.<Specification>filter(specs, _function);
     final Comparator<Specification> _function_1 = new Comparator<Specification>() {
+      @Override
       public int compare(final Specification left, final Specification right) {
         int _xblockexpression = (int) 0;
         {
@@ -163,7 +172,7 @@ public class SpecResolver {
     return IterableExtensions.<Specification>sortWith(_filter, _function_1);
   }
   
-  public List<Specification> resolveSpecs(final EObject suite) {
+  public List<Specification> resolveSpecs(final Notifier suite) {
     if (suite instanceof Suite) {
       return _resolveSpecs((Suite)suite);
     } else if (suite instanceof PatternReference) {

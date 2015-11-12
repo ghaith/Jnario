@@ -55,7 +55,7 @@ describe SuiteNodeBuilder {
 		val input = '''
 		package test
 		
-		«s»
+		''' + s + '''
 		'''
 		m.parseSuite(input)
 	}

@@ -35,9 +35,9 @@ import org.junit.runner.RunWith;
 @RunWith(ExampleGroupRunner.class)
 @SuppressWarnings("all")
 public class UsingTablesSpec {
-  @Inject
   @Extension
   @org.jnario.runner.Extension
+  @Inject
   public BehaviorExecutor _behaviorExecutor;
   
   /**
@@ -55,46 +55,39 @@ public class UsingTablesSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"Example Tables\"{");
     _builder.newLine();
     _builder.append("  ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("def myExamples{");
+    _builder.append("  def myExamples{");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("|    String input      |  String result       |  ");
+    _builder.append("    |    String input      |  String result       |  ");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| \"Hello World\" | \"HELLO WORLD\" | ");
+    _builder.append("    | \"Hello World\" | \"HELLO WORLD\" | ");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| \"Hallo Welt\"  | \"HALLO WELT\"  |");
+    _builder.append("    | \"Hallo Welt\"  | \"HALLO WELT\"  |");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("} ");
+    _builder.append("  } ");
     _builder.newLine();
     _builder.append("  ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"can be accessed via the table name\"{");
+    _builder.append("  fact \"can be accessed via the table name\"{");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("myExamples.forEach[   ");
+    _builder.append("    myExamples.forEach[   ");
     _builder.newLine();
-    _builder.append("      ");
-    _builder.append("input.toUpperCase should be result");
+    _builder.append("      input.toUpperCase should be result");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("] ");
+    _builder.append("    ] ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -108,36 +101,33 @@ public class UsingTablesSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"Example Tables\"{");
     _builder.newLine();
     _builder.append("  ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("def{");
+    _builder.append("  def{");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| a | b | ");
+    _builder.append("    | a | b | ");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| 0 | 1 |");
+    _builder.append("    | 0 | 1 |");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"name is optional\"{    ");
+    _builder.append("  fact \"name is optional\"{    ");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("examples should not be null");
+    _builder.append("    examples should not be null");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}     ");
+    _builder.append("  }     ");
     _builder.newLine();
     _builder.append("} ");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -151,45 +141,39 @@ public class UsingTablesSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"Example Tables\"{");
     _builder.newLine();
     _builder.append("  ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("def myExampleWithClosures{");
+    _builder.append("  def myExampleWithClosures{");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| input |       operation            | result |");
+    _builder.append("    | input |       operation            | result |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("|   \"a\" | [String s | s.toUpperCase] |   \"A\"  |");
+    _builder.append("    |   \"a\" | [String s | s.toUpperCase] |   \"A\"  |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("|   \"B\" | [String s | s.toLowerCase] |   \"b\"  | ");
+    _builder.append("    |   \"B\" | [String s | s.toLowerCase] |   \"b\"  | ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}  ");
+    _builder.append("  }  ");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"supports closures as values\"{   ");
+    _builder.append("  fact \"supports closures as values\"{   ");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("myExampleWithClosures.forEach[");
+    _builder.append("    myExampleWithClosures.forEach[");
     _builder.newLine();
-    _builder.append("      ");
-    _builder.append("operation.apply(input) should be result");
+    _builder.append("      operation.apply(input) should be result");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("]");
+    _builder.append("    ]");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}       ");
+    _builder.append("  }       ");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -203,60 +187,51 @@ public class UsingTablesSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"Example Tables\"{");
     _builder.newLine();
     _builder.append("  ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("String field = \"Hello\"");
+    _builder.append("  String field = \"Hello\"");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("def method(){");
+    _builder.append("  def method(){");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("\"World\"");
+    _builder.append("    \"World\"");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}  ");
+    _builder.append("  }  ");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("def myExampleWithMemberCalls{");
+    _builder.append("  def myExampleWithMemberCalls{");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| input    | result  |");
+    _builder.append("    | input    | result  |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| field    | \"Hello\" |");
+    _builder.append("    | field    | \"Hello\" |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| method() | \"World\" | ");
+    _builder.append("    | method() | \"World\" | ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}       ");
+    _builder.append("  }       ");
     _builder.newLine();
     _builder.append("   ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"supports closures as values\"{   ");
+    _builder.append("  fact \"supports closures as values\"{   ");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("myExampleWithMemberCalls.forEach[");
+    _builder.append("    myExampleWithMemberCalls.forEach[");
     _builder.newLine();
-    _builder.append("      ");
-    _builder.append("input should be result");
+    _builder.append("      input should be result");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("] ");
+    _builder.append("    ] ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}   ");
+    _builder.append("  }   ");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -271,55 +246,47 @@ public class UsingTablesSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package bootstrap");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("import java.util.*");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"Example Tables\"{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("def examplesWithTypeInference{");
+    _builder.append("  def examplesWithTypeInference{");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("|          list            |");
+    _builder.append("    |          list            |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| null                     |");
+    _builder.append("    | null                     |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| new ArrayList<String>()  |");
+    _builder.append("    | new ArrayList<String>()  |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| new LinkedList<String>() |");
+    _builder.append("    | new LinkedList<String>() |");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}     ");
+    _builder.append("  }     ");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"computes the common super type\"{");
+    _builder.append("  fact \"computes the common super type\"{");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("examplesWithTypeInference.forEach[");
+    _builder.append("    examplesWithTypeInference.forEach[");
     _builder.newLine();
-    _builder.append("    \t");
-    _builder.append("if(list != null){");
+    _builder.append("    	if(list != null){");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("assert list.empty // works only if the type of list has been inferred as List<String>");
+    _builder.append("        assert list.empty // works only if the type of list has been inferred as List<String>");
     _builder.newLine();
-    _builder.append("    \t");
-    _builder.append("}");
+    _builder.append("    	}");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("]");
+    _builder.append("    ]");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("}  ");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -335,44 +302,37 @@ public class UsingTablesSpec {
     _builder.newLine();
     _builder.append("import java.util.LinkedList");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("describe \"Example Tables\"{");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("def examplesWithType{");
+    _builder.append("  def examplesWithType{");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| Iterable<String> list    |");
+    _builder.append("    | Iterable<String> list    |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| new ArrayList<String>()  |");
+    _builder.append("    | new ArrayList<String>()  |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("| new LinkedList<String>() |");
+    _builder.append("    | new LinkedList<String>() |");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("    ");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("fact \"computes the common super type\"{");
+    _builder.append("  fact \"computes the common super type\"{");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("examplesWithType.forEach[");
+    _builder.append("    examplesWithType.forEach[");
     _builder.newLine();
-    _builder.append("      ");
-    _builder.append("assert list.empty");
+    _builder.append("      assert list.empty");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("]");
+    _builder.append("    ]");
     _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
+    _builder.append("  }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   public ExampleTable<UsingTablesSpecExample> _initUsingTablesSpecExample() {
@@ -431,8 +391,10 @@ public class UsingTablesSpec {
   @Order(7)
   public void _errorMessage() throws Exception {
     final Procedure1<Boolean> _function = new Procedure1<Boolean>() {
+      @Override
       public void apply(final Boolean it) {
         final Procedure1<UsingTablesSpecExample> _function = new Procedure1<UsingTablesSpecExample>() {
+          @Override
           public void apply(final UsingTablesSpecExample it) {
             int _value1 = it.getValue1();
             int _value2 = it.getValue2();
@@ -453,19 +415,17 @@ public class UsingTablesSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("example failed");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("| value1     | value2     | sum     |");
+    _builder.append("        | value1     | value2     | sum     |");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("| 1          | 2          | 3       | ✓");
+    _builder.append("        | 1          | 2          | 3       | ✓");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("| 4          | 5          | 7       | ✘     (1)");
+    _builder.append("        | 4          | 5          | 7       | ✘     (1)");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("| 7          | 8          | 14      | ✘     (2)");
+    _builder.append("        | 7          | 8          | 14      | ✘     (2)");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("(1) | 4          | 5          | 7       | ✘");
     _builder.newLine();
@@ -473,18 +433,15 @@ public class UsingTablesSpec {
     _builder.newLine();
     _builder.append("Expected value1 + value2 => sum but");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("value1 + value2 is <9>");
+    _builder.append("     value1 + value2 is <9>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("value1 is <4>");
+    _builder.append("     value1 is <4>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("value2 is <5>");
+    _builder.append("     value2 is <5>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("sum is <7>");
+    _builder.append("     sum is <7>");
     _builder.newLine();
+    _builder.append("");
     _builder.newLine();
     _builder.append("(2) | 7          | 8          | 14      | ✘");
     _builder.newLine();
@@ -492,18 +449,15 @@ public class UsingTablesSpec {
     _builder.newLine();
     _builder.append("Expected value1 + value2 => sum but");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("value1 + value2 is <15>");
+    _builder.append("     value1 + value2 is <15>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("value1 is <7>");
+    _builder.append("     value1 is <7>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("value2 is <8>");
+    _builder.append("     value2 is <8>");
     _builder.newLine();
-    _builder.append("     ");
-    _builder.append("sum is <14>");
-    Helpers.is(_errorMessage, _builder);
+    _builder.append("     sum is <14>");
+    
+    Helpers.is(_errorMessage, _builder.toString());
   }
   
   /**
@@ -516,21 +470,19 @@ public class UsingTablesSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"TableBug\" {");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("def gkzData {");
+    _builder.append("    def gkzData {");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("| value |");
+    _builder.append("        | value |");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("| null  |");
+    _builder.append("        | null  |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("}");
+    _builder.append("    }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
   
   /**
@@ -543,23 +495,20 @@ public class UsingTablesSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \"TableBug\" {");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("def gkzData {");
+    _builder.append("    def gkzData {");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("| value |");
+    _builder.append("        | value |");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("| null  |");
+    _builder.append("        | null  |");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("| 1     |");
+    _builder.append("        | 1     |");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("}");
+    _builder.append("    }");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this._behaviorExecutor.executesSuccessfully(_builder);
+    
+    this._behaviorExecutor.executesSuccessfully(
+      _builder.toString());
   }
 }

@@ -1,16 +1,15 @@
 package org.jnario.m2e;
 
-import static org.eclipse.xtext.builder.EclipseOutputConfigurationProvider.*;
-import static org.eclipse.xtext.builder.preferences.BuilderPreferenceAccess.getIgnoreSourceFolderKey;
+import static org.eclipse.xtext.builder.EclipseOutputConfigurationProvider.HIDE_LOCAL_SYNTHETIC_VARIABLES;
+import static org.eclipse.xtext.builder.EclipseOutputConfigurationProvider.INSTALL_DSL_AS_PRIMARY_SOURCE;
+import static org.eclipse.xtext.builder.EclipseOutputConfigurationProvider.USE_OUTPUT_PER_SOURCE_FOLDER;
 import static org.eclipse.xtext.builder.preferences.BuilderPreferenceAccess.getKey;
 import static org.eclipse.xtext.builder.preferences.BuilderPreferenceAccess.getOutputForSourceFolderKey;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Set;
 
 import org.apache.maven.plugin.MojoExecution;
-import org.codehaus.plexus.util.StringUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
@@ -28,7 +27,6 @@ import org.jnario.doc.DocOutputConfigurationProvider;
 import org.osgi.service.prefs.BackingStoreException;
 
 import com.google.common.base.CharMatcher;
-import com.google.common.base.Strings;
 
 public class JnarioProjectConfigurator extends AbstractProjectConfigurator {
 
@@ -61,7 +59,7 @@ public class JnarioProjectConfigurator extends AbstractProjectConfigurator {
 				.getNode("org.jnario.Jnario");
 		for (OutputConfiguration configuration : configurations) {
 			languagePreferences.putBoolean(
-					OptionsConfigurationBlock.IS_PROJECT_SPECIFIC, true);
+					OptionsConfigurationBlock.isProjectSpecificPropertyKey(null), true);
 			if (isJavaOutput(configuration)) {
 				languagePreferences.putBoolean(
 						getKey(configuration, INSTALL_DSL_AS_PRIMARY_SOURCE),
@@ -96,8 +94,11 @@ public class JnarioProjectConfigurator extends AbstractProjectConfigurator {
 				SourceMapping mapping = new SourceMapping(makeProjectRelative(
 						source, request));
 				String docOutputDirectory = getParameterValue(
-						"docOutputDirectory", String.class,
-						request.getMavenSession(), execution);
+						request.getMavenProject(),
+						"docOutputDirectory",
+						String.class,
+						execution,
+						null);
 				mapping.setOutputDirectory(makeProjectRelative(
 						docOutputDirectory, request));
 				config.getSourceMappings().add(mapping);
@@ -114,8 +115,11 @@ public class JnarioProjectConfigurator extends AbstractProjectConfigurator {
 				SourceMapping mapping = new SourceMapping(makeProjectRelative(
 						source, request));
 				String testOutputDirectory = getParameterValue(
-						"testOutputDirectory", String.class,
-						request.getMavenSession(), execution);
+						request.getMavenProject(),
+						"testOutputDirectory",
+						String.class,
+						execution,
+						null);
 				mapping.setOutputDirectory(makeProjectRelative(
 						testOutputDirectory, request));
 				config.getSourceMappings().add(mapping);
@@ -128,11 +132,17 @@ public class JnarioProjectConfigurator extends AbstractProjectConfigurator {
 			throws CoreException {
 		if (isJavaOutput(config)) {
 			config.setHideSyntheticLocalVariables(getParameterValue(
-					"hideSyntheticVariables", Boolean.class,
-					request.getMavenSession(), execution));
+					request.getMavenProject(),
+					"hideSyntheticVariables",
+					Boolean.class,
+					execution,
+					null));
 			config.setInstallDslAsPrimarySource(getParameterValue(
-					"xtendAsPrimaryDebugSource", Boolean.class,
-					request.getMavenSession(), execution));
+					request.getMavenProject(),
+					"xtendAsPrimaryDebugSource",
+					Boolean.class,
+					execution,
+					null));
 		}
 	}
 

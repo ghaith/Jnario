@@ -7,17 +7,19 @@
  *******************************************************************************/
 package org.jnario.conversion;
 
-import org.eclipse.xtend.core.conversion.AbstractRichTextValueConverter;
+import org.eclipse.xtext.conversion.impl.AbstractLexerBasedConverter;
+
 
 /**
  * @author Sebastian Zarnekow - Initial contribution and API
  */
-public abstract class JnarioAbstractCommentRichTextValueConverter extends AbstractRichTextValueConverter {
+public abstract class JnarioAbstractCommentRichTextValueConverter extends AbstractLexerBasedConverter<String> {
 
-	@Override
-	protected String getLeadingTerminal() {
-		return "\u00AB\u00AB";
-	}
+	// TODO NO_XTEND
+//	@Override
+//	protected String getLeadingTerminal() {
+//		return "\u00AB\u00AB";
+//	}
 	
 	@Override
 	protected String toEscapedString(String value) {
@@ -25,13 +27,14 @@ public abstract class JnarioAbstractCommentRichTextValueConverter extends Abstra
 		return super.toEscapedString("\n" + value);
 	}
 	
-	@Override
-	protected String getWithoutLeadingTerminal(String string) {
-		int lineBreak = Math.max(string.indexOf('\n'), string.indexOf('\r'));
-		if (lineBreak == -1 || lineBreak == string.length() - 1)
-			return "";
-		return string.substring(lineBreak + 1);
-	}
+	// TODO NO_XTEND
+//	@Override
+//	protected String getWithoutLeadingTerminal(String string) {
+//		int lineBreak = Math.max(string.indexOf('\n'), string.indexOf('\r'));
+//		if (lineBreak == -1 || lineBreak == string.length() - 1)
+//			return "";
+//		return string.substring(lineBreak + 1);
+//	}
 
 }
 

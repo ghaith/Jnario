@@ -7,68 +7,80 @@ s * Copyright (c) 2012 BMW Car IT and others.
  *******************************************************************************/
 package org.jnario.conversion;
 
-import org.eclipse.xtend.core.conversion.XtendValueConverterService;
 import org.eclipse.xtext.conversion.IValueConverter;
 import org.eclipse.xtext.conversion.ValueConverter;
+import org.eclipse.xtext.xbase.conversion.XbaseValueConverterService;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 @Singleton
-public class JnarioValueConverterService extends XtendValueConverterService {
+public class JnarioValueConverterService extends XbaseValueConverterService {
 	
 	@Inject ShouldValueConverter shouldValueConverter;
+	@Inject RichStringValueConverter richStringValueConverter;
 	
 	@ValueConverter(rule = "Should")
 	public IValueConverter<String> getShouldValueConverter() {
 		return shouldValueConverter;
 	}
 	
-	@Inject
-	private JnarioRichTextEndValueConverter richTextEndValueConverter;
+//	@Inject
+//	private JnarioRichTextEndValueConverter richTextEndValueConverter;
 
-	@ValueConverter(rule = "RICH_TEXT_END")
-	public IValueConverter<String> getRichTextEndValueConverter() {
-		return richTextEndValueConverter;
-	}
+	// TODO NO_XTEND
+//	@ValueConverter(rule = "RICH_TEXT_END")
+//	public IValueConverter<String> getRichTextEndValueConverter() {
+//		return richTextEndValueConverter;
+//	}
 
-	@Inject
-	private JnarioRichTextStartValueConverter richTextStartValueConverter;
+//	@Inject
+//	private JnarioRichTextStartValueConverter richTextStartValueConverter;
 	
-	@ValueConverter(rule = "RICH_TEXT_START")
-	public IValueConverter<String> getRichTextStartValueConverter() {
-		return richTextStartValueConverter;
-	}
+	// TODO NO_XTEND
+//	@ValueConverter(rule = "RICH_TEXT_START")
+//	public IValueConverter<String> getRichTextStartValueConverter() {
+//		return richTextStartValueConverter;
+//	}
 
-	@Inject
-	private JnarioRichTextInBetweenValueConverter richTextInbetweenValueConverter;
+//	@Inject
+//	private JnarioRichTextInBetweenValueConverter richTextInbetweenValueConverter;
 	
-	@ValueConverter(rule = "RICH_TEXT_INBETWEEN")
-	public IValueConverter<String> getRichTextInbetweenValueConverter() {
-		return richTextInbetweenValueConverter;
-	}
+	// TODO NO_XTEND
+//	@ValueConverter(rule = "RICH_TEXT_INBETWEEN")
+//	public IValueConverter<String> getRichTextInbetweenValueConverter() {
+//		return richTextInbetweenValueConverter;
+//	}
 	
-	@Inject
-	private JnarioRichTextValueConverter richTextValueConverter;
+//	@Inject
+//	private JnarioRichTextValueConverter richTextValueConverter;
 	
-	@ValueConverter(rule = "RICH_TEXT")
-	public IValueConverter<String> getRichTextValueConverter() {
-		return richTextValueConverter;
-	}
+	// TODO NO_XTEND
+//	@ValueConverter(rule = "RICH_TEXT")
+//	public IValueConverter<String> getRichTextValueConverter() {
+//		return richTextValueConverter;
+//	}
 	
-	@Inject
-	private JnarioCommentRichTextInBetweenValueConverter commentRichTextInBetweenValueConverter;
+//	@Inject
+//	private JnarioCommentRichTextInBetweenValueConverter commentRichTextInBetweenValueConverter;
 
-	@ValueConverter(rule = "COMMENT_RICH_TEXT_INBETWEEN")
-	public IValueConverter<String> getCommentRichTextInBetweenValueConverter() {
-		return commentRichTextInBetweenValueConverter;
-	}
-	
-	@Inject
-	private JnarioCommentRichTextEndValueConverter commentRichTextEndValueConverter;
+	// TODO NO_XTEND
+//	@ValueConverter(rule = "COMMENT_RICH_TEXT_INBETWEEN")
+//	public IValueConverter<String> getCommentRichTextInBetweenValueConverter() {
+//		return commentRichTextInBetweenValueConverter;
+//	}
 
-	@ValueConverter(rule = "COMMENT_RICH_TEXT_END")
-	public IValueConverter<String> getCommentRichTextEndValueConverter() {
-		return commentRichTextEndValueConverter;
+// TODO NO_XTEND	
+//	@Inject
+//	private JnarioCommentRichTextEndValueConverter commentRichTextEndValueConverter;
+//
+//	@ValueConverter(rule = "COMMENT_RICH_TEXT_END")
+//	public IValueConverter<String> getCommentRichTextEndValueConverter() {
+//		return commentRichTextEndValueConverter;
+//	}
+
+	@ValueConverter(rule = "STRING")
+	public IValueConverter<String> getRichStringValueConverter() {
+		return richStringValueConverter;
 	}
 
 }

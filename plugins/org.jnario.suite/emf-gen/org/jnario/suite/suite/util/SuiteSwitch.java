@@ -12,13 +12,12 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtend.core.xtend.XtendAnnotationTarget;
-import org.eclipse.xtend.core.xtend.XtendClass;
-import org.eclipse.xtend.core.xtend.XtendFile;
-import org.eclipse.xtend.core.xtend.XtendMember;
-import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
-
 import org.jnario.Executable;
+import org.jnario.JnarioAnnotationTarget;
+import org.jnario.JnarioClass;
+import org.jnario.JnarioFile;
+import org.jnario.JnarioMember;
+import org.jnario.JnarioTypeDeclaration;
 import org.jnario.Specification;
 
 import org.jnario.suite.suite.*;
@@ -127,11 +126,11 @@ public class SuiteSwitch<T>
 				Suite suite = (Suite)theEObject;
 				T result = caseSuite(suite);
 				if (result == null) result = caseSpecification(suite);
-				if (result == null) result = caseXtendClass(suite);
 				if (result == null) result = caseExecutable(suite);
-				if (result == null) result = caseXtendTypeDeclaration(suite);
-				if (result == null) result = caseXtendMember(suite);
-				if (result == null) result = caseXtendAnnotationTarget(suite);
+				if (result == null) result = caseJnarioClass(suite);
+				if (result == null) result = caseJnarioTypeDeclaration(suite);
+				if (result == null) result = caseJnarioMember(suite);
+				if (result == null) result = caseJnarioAnnotationTarget(suite);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -139,7 +138,7 @@ public class SuiteSwitch<T>
 			{
 				SuiteFile suiteFile = (SuiteFile)theEObject;
 				T result = caseSuiteFile(suiteFile);
-				if (result == null) result = caseXtendFile(suiteFile);
+				if (result == null) result = caseJnarioFile(suiteFile);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -235,6 +234,22 @@ public class SuiteSwitch<T>
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Executable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Executable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExecutable(Executable object)
+	{
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -245,7 +260,7 @@ public class SuiteSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendAnnotationTarget(XtendAnnotationTarget object)
+	public T caseJnarioAnnotationTarget(JnarioAnnotationTarget object)
 	{
 		return null;
 	}
@@ -261,7 +276,7 @@ public class SuiteSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendMember(XtendMember object)
+	public T caseJnarioMember(JnarioMember object)
 	{
 		return null;
 	}
@@ -277,7 +292,7 @@ public class SuiteSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendTypeDeclaration(XtendTypeDeclaration object)
+	public T caseJnarioTypeDeclaration(JnarioTypeDeclaration object)
 	{
 		return null;
 	}
@@ -293,23 +308,7 @@ public class SuiteSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendClass(XtendClass object)
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Executable</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Executable</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseExecutable(Executable object)
+	public T caseJnarioClass(JnarioClass object)
 	{
 		return null;
 	}
@@ -341,7 +340,7 @@ public class SuiteSwitch<T>
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXtendFile(XtendFile object)
+	public T caseJnarioFile(JnarioFile object)
 	{
 		return null;
 	}

@@ -14,10 +14,10 @@ import java.util.WeakHashMap
 import java.util.regex.Pattern
 import org.apache.log4j.Logger
 import org.eclipse.emf.ecore.resource.ResourceSet
-import org.eclipse.xtend.core.resource.XtendResourceDescriptionManager
 import org.eclipse.xtext.builder.clustering.CurrentDescriptions
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.resource.IResourceDescription
 import org.eclipse.xtext.resource.IResourceDescription.Delta
@@ -32,7 +32,7 @@ import org.jnario.suite.suite.SuitePackage
 import static java.util.Collections.*
 import static org.eclipse.emf.ecore.util.EcoreUtil.resolve
 
-class SuiteResourceDescriptionManager extends XtendResourceDescriptionManager {
+class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDescriptionManager {
 
 	static val Logger logger = Logger.getLogger(SuiteResourceDescriptionManager);
 
@@ -82,7 +82,10 @@ class SuiteResourceDescriptionManager extends XtendResourceDescriptionManager {
 
 			val suites = candidate.getExportedObjectsByType(SuitePackage.Literals.SUITE)
 			val matchers = suites
-				.map[resolve(it.getEObjectOrProxy as Suite, resourceSet) as Suite]
+				.map[
+				    // TODO Check if one of the involved java projects was closed prior to resolve call
+				    resolve(it.getEObjectOrProxy as Suite, resourceSet) as Suite
+				]
 				.filter[!it.eIsProxy]
 				.map [resolvePatternReferences.map[Pattern::compile(pattern)]]
 				.flatten
@@ -148,7 +151,9 @@ class SuiteResourceDescriptionManager extends XtendResourceDescriptionManager {
 		resource.getExportedObjectsByType(JnarioPackage.Literals.SPECIFICATION)
 		.filter[
 			val spec = resolve(it.getEObjectOrProxy, resourceSet) as Specification
-			spec.declaringType == null
+			// TODO NO_XTEND
+			// spec.declaringType == null
+			true
 		]
 	}
 

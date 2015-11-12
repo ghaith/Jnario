@@ -31,6 +31,7 @@ public class HashBasedSpec2ResultMappingStepSpec extends HashBasedSpec2ResultMap
     public Passed apply() {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("Given step with umläuts");
+      
       Passed _passingSpec = Passed.passingSpec("example.SomethingFeatureMyScenario", _builder.toString(), HashBasedSpec2ResultMappingSpec.anyExecutionTime);
       return _passingSpec;
     }
@@ -40,6 +41,7 @@ public class HashBasedSpec2ResultMappingStepSpec extends HashBasedSpec2ResultMap
     public Passed apply() {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("Given step with \"args\"");
+      
       Passed _passingSpec = Passed.passingSpec("example.SomethingFeatureMyScenario", _builder.toString(), HashBasedSpec2ResultMappingSpec.anyExecutionTime);
       return _passingSpec;
     }
@@ -54,16 +56,15 @@ public class HashBasedSpec2ResultMappingStepSpec extends HashBasedSpec2ResultMap
     _builder.newLine();
     _builder.append("Feature: Something");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: MyScenario");
+    _builder.append("	Scenario: MyScenario");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a step");
+    _builder.append("		Given a step");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("1 + 1 => 2");
+    _builder.append("			1 + 1 => 2");
     _builder.newLine();
-    this.m.parseScenario(_builder);
+    
+    this.m.parseScenario(
+      _builder.toString());
     this.subject.accept(this.aResult);
     Step _step = this.step();
     boolean _should_match = this.should_match(_step, this.aResult);
@@ -93,13 +94,13 @@ public class HashBasedSpec2ResultMappingStepSpec extends HashBasedSpec2ResultMap
     _builder.newLine();
     _builder.append("Feature: Something");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: MyScenario");
+    _builder.append("	Scenario: MyScenario");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Given a pending step");
+    _builder.append("		Given a pending step");
     _builder.newLine();
-    this.m.parseScenario(_builder);
+    
+    this.m.parseScenario(
+      _builder.toString());
     this.subject.accept(this.pendingResult);
     Step _step = this.step();
     Assert.assertTrue("\nExpected step should match pendingResult but"
@@ -117,16 +118,15 @@ public class HashBasedSpec2ResultMappingStepSpec extends HashBasedSpec2ResultMap
     _builder.newLine();
     _builder.append("Feature: Something");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: MyScenario");
+    _builder.append("	Scenario: MyScenario");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given step with umläuts");
+    _builder.append("	Given step with umläuts");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("1 =>1");
+    _builder.append("		1 =>1");
     _builder.newLine();
-    this.m.parseScenario(_builder);
+    
+    this.m.parseScenario(
+      _builder.toString());
     this.subject.accept(this.resultWithUnicodeChars);
     Step _step = this.step();
     Assert.assertTrue("\nExpected step should match resultWithUnicodeChars but"
@@ -144,16 +144,15 @@ public class HashBasedSpec2ResultMappingStepSpec extends HashBasedSpec2ResultMap
     _builder.newLine();
     _builder.append("Feature: Something");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Scenario: MyScenario");
+    _builder.append("	Scenario: MyScenario");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("Given step with \"args\"");
+    _builder.append("	Given step with \"args\"");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("1 =>1");
+    _builder.append("		1 =>1");
     _builder.newLine();
-    this.m.parseScenario(_builder);
+    
+    this.m.parseScenario(
+      _builder.toString());
     this.subject.accept(this.resultWithArgs);
     Step _step = this.step();
     Assert.assertTrue("\nExpected step should match resultWithArgs but"

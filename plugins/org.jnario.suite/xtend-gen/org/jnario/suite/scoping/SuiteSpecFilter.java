@@ -20,6 +20,7 @@ public class SuiteSpecFilter implements Predicate<IEObjectDescription> {
   @Extension
   private final SpecPackage _specPackage = SpecPackage.eINSTANCE;
   
+  @Override
   public boolean apply(final IEObjectDescription input) {
     boolean _switchResult = false;
     EClass _eClass = input.getEClass();

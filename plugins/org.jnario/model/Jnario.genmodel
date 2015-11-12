@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2012 BMW Car IT and others.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html"
     modelDirectory="/org.jnario/src" modelPluginID="org.jnario" modelName="Jnario"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
-    runtimeVersion="2.5" usedGenPackages="../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types ../../org.eclipse.xtext.xbase/model/Xbase.genmodel#//xAnnotations ../../org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase ../../org.eclipse.xtend.core/model/Xtend.genmodel#//xtend">
+    tableProviders="true" runtimeVersion="2.5" usedGenPackages="../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types ../../org.eclipse.xtext.xbase/model/Xbase.genmodel#//xAnnotations ../../org.eclipse.xtext.xbase/model/Xbase.genmodel#//xtype ../../org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase">
   <foreignModel>Jnario.ecore</foreignModel>
   <genPackages prefix="Jnario" basePackage="org" disposableProviderFactory="true"
       ecorePackage="Jnario.ecore#/">
@@ -23,6 +23,8 @@
     <genClasses ecoreClass="Jnario.ecore#//ExampleColumn">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Jnario.ecore#//ExampleColumn/table"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Jnario.ecore#//ExampleColumn/cells"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jnario.ecore#//ExampleColumn/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//ExampleColumn/type"/>
     </genClasses>
     <genClasses ecoreClass="Jnario.ecore#//Should">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jnario.ecore#//Should/not"/>
@@ -34,6 +36,47 @@
     <genClasses image="false" ecoreClass="Jnario.ecore#//Specification"/>
     <genClasses image="false" ecoreClass="Jnario.ecore#//Executable">
       <genOperations ecoreOperation="Jnario.ecore#//Executable/isPending"/>
+    </genClasses>
+    <genClasses ecoreClass="Jnario.ecore#//MockLiteral"/>
+    <genClasses ecoreClass="Jnario.ecore#//ExampleCell"/>
+    <genClasses ecoreClass="Jnario.ecore#//JnarioFile">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioFile/importSection"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioFile/xtendTypes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jnario.ecore#//JnarioFile/package"/>
+    </genClasses>
+    <genClasses ecoreClass="Jnario.ecore#//JnarioClass">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioClass/extends"/>
+    </genClasses>
+    <genClasses ecoreClass="Jnario.ecore#//JnarioMember">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jnario.ecore#//JnarioMember/modifiers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioMember/annotationInfo"/>
+      <genOperations ecoreOperation="Jnario.ecore#//JnarioMember/isStatic"/>
+    </genClasses>
+    <genClasses ecoreClass="Jnario.ecore#//JnarioFunction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jnario.ecore#//JnarioFunction/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioFunction/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioFunction/typeParameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioFunction/returnType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioFunction/exceptions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioFunction/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="Jnario.ecore#//JnarioField">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioField/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jnario.ecore#//JnarioField/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioField/initialValue"/>
+    </genClasses>
+    <genClasses ecoreClass="Jnario.ecore#//JnarioTypeDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jnario.ecore#//JnarioTypeDeclaration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioTypeDeclaration/members"/>
+    </genClasses>
+    <genClasses ecoreClass="Jnario.ecore#//JnarioAnnotationTarget">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioAnnotationTarget/annotations"/>
+    </genClasses>
+    <genClasses ecoreClass="Jnario.ecore#//JnarioParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jnario.ecore#//JnarioParameter/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jnario.ecore#//JnarioParameter/parameterType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jnario.ecore#//JnarioParameter/varArg"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jnario.ecore#//JnarioParameter/extension"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

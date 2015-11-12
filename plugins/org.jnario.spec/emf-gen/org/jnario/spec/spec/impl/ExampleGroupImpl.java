@@ -29,13 +29,13 @@ import org.jnario.spec.spec.SpecPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.spec.spec.impl.ExampleGroupImpl#getPreamble <em>Preamble</em>}</li>
  *   <li>{@link org.jnario.spec.spec.impl.ExampleGroupImpl#getTargetType <em>Target Type</em>}</li>
  *   <li>{@link org.jnario.spec.spec.impl.ExampleGroupImpl#getTargetOperation <em>Target Operation</em>}</li>
  *   <li>{@link org.jnario.spec.spec.impl.ExampleGroupImpl#getContract <em>Contract</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
