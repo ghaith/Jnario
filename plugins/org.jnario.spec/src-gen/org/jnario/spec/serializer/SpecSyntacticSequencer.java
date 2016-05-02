@@ -58,9 +58,9 @@ public class SpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if(ruleCall.getRule() == grammarAccess.getArrayBracketsRule())
+		if (ruleCall.getRule() == grammarAccess.getArrayBracketsRule())
 			return getArrayBracketsToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getOpSingleAssignRule())
+		else if (ruleCall.getRule() == grammarAccess.getOpSingleAssignRule())
 			return getOpSingleAssignToken(semanticObject, ruleCall, node);
 		return "";
 	}
@@ -93,33 +93,33 @@ public class SpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_Member_EachKeyword_2_2_1_1_1_q.equals(syntax))
+			if (match_Member_EachKeyword_2_2_1_1_1_q.equals(syntax))
 				emit_Member_EachKeyword_2_2_1_1_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Member_EachKeyword_2_3_1_1_1_q.equals(syntax))
+			else if (match_Member_EachKeyword_2_3_1_1_1_q.equals(syntax))
 				emit_Member_EachKeyword_2_3_1_1_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Member_FactKeyword_2_0_1_1_0_or_FactsKeyword_2_0_1_1_1.equals(syntax))
+			else if (match_Member_FactKeyword_2_0_1_1_0_or_FactsKeyword_2_0_1_1_1.equals(syntax))
 				emit_Member_FactKeyword_2_0_1_1_0_or_FactsKeyword_2_0_1_1_1(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Member_SemicolonKeyword_2_6_4_q.equals(syntax))
+			else if (match_Member_SemicolonKeyword_2_6_4_q.equals(syntax))
 				emit_Member_SemicolonKeyword_2_6_4_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Member_SemicolonKeyword_2_7_9_2_q.equals(syntax))
+			else if (match_Member_SemicolonKeyword_2_7_9_2_q.equals(syntax))
 				emit_Member_SemicolonKeyword_2_7_9_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Member_VerticalLineKeyword_2_5_1_3_0_q.equals(syntax))
+			else if (match_Member_VerticalLineKeyword_2_5_1_3_0_q.equals(syntax))
 				emit_Member_VerticalLineKeyword_2_5_1_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XAnnotation___LeftParenthesisKeyword_3_0_RightParenthesisKeyword_3_2__q.equals(syntax))
+			else if (match_XAnnotation___LeftParenthesisKeyword_3_0_RightParenthesisKeyword_3_2__q.equals(syntax))
 				emit_XAnnotation___LeftParenthesisKeyword_3_0_RightParenthesisKeyword_3_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XBlockExpression_SemicolonKeyword_2_1_q.equals(syntax))
+			else if (match_XBlockExpression_SemicolonKeyword_2_1_q.equals(syntax))
 				emit_XBlockExpression_SemicolonKeyword_2_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XExpressionInClosure_SemicolonKeyword_1_1_q.equals(syntax))
+			else if (match_XExpressionInClosure_SemicolonKeyword_1_1_q.equals(syntax))
 				emit_XExpressionInClosure_SemicolonKeyword_1_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q.equals(syntax))
+			else if (match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q.equals(syntax))
 				emit_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XImportDeclaration_SemicolonKeyword_2_q.equals(syntax))
+			else if (match_XImportDeclaration_SemicolonKeyword_2_q.equals(syntax))
 				emit_XImportDeclaration_SemicolonKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
+			else if (match_XParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
 				emit_XParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
+			else if (match_XParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
 				emit_XParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XRelationalExpression_ThrowsKeyword_1_1_0_0_1_1_or___ShouldKeyword_1_1_0_0_1_0_0_ThrowKeyword_1_1_0_0_1_0_1__.equals(syntax))
+			else if (match_XRelationalExpression_ThrowsKeyword_1_1_0_0_1_1_or___ShouldKeyword_1_1_0_0_1_0_0_ThrowKeyword_1_1_0_0_1_0_1__.equals(syntax))
 				emit_XRelationalExpression_ThrowsKeyword_1_1_0_0_1_1_or___ShouldKeyword_1_1_0_0_1_0_0_ThrowKeyword_1_1_0_0_1_0_1__(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}

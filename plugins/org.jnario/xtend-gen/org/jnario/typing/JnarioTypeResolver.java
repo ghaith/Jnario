@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmConstructor;
@@ -21,7 +22,6 @@ import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.scoping.batch.IFeatureScopeSession;
 import org.eclipse.xtext.xbase.typesystem.InferredTypeIndicator;
 import org.eclipse.xtext.xbase.typesystem.conformance.TypeConformanceComputer;
@@ -49,16 +49,16 @@ public class JnarioTypeResolver extends LogicalContainerAwareReentrantTypeResolv
     final EObject source = this._iJvmModelAssociations.getPrimarySourceElement(constructor);
     if ((source instanceof ExampleTable)) {
       EList<JvmFormalParameter> _parameters = constructor.getParameters();
-      final Procedure1<JvmFormalParameter> _function = new Procedure1<JvmFormalParameter>() {
+      final Consumer<JvmFormalParameter> _function = new Consumer<JvmFormalParameter>() {
         @Override
-        public void apply(final JvmFormalParameter param) {
+        public void accept(final JvmFormalParameter param) {
           EObject _primarySourceElement = JnarioTypeResolver.this._iJvmModelAssociations.getPrimarySourceElement(param);
           final ExampleColumn column = ((ExampleColumn) _primarySourceElement);
           JvmTypeReference _parameterType = param.getParameterType();
           JnarioTypeResolver.this.setColumnTypeProvider(_parameterType, constructor, resolvedTypes, session, column, resolvedTypesByContext);
         }
       };
-      IterableExtensions.<JvmFormalParameter>forEach(_parameters, _function);
+      _parameters.forEach(_function);
     }
   }
   

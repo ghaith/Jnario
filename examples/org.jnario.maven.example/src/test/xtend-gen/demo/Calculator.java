@@ -9,7 +9,8 @@ package demo;
 
 @SuppressWarnings("all")
 public class Calculator {
-  public int add(final int a, final int b) {
-    return (a + b);
+  public Object add(final int a, final int b) {
+    throw new Error("Unresolved compilation problems:"
+      + "\n+ cannot be resolved.");
   }
 }

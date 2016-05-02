@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -185,15 +186,15 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
   
   public ArrayList<JvmGenericType> toClass(final List<Scenario> scenarios, final IJvmDeclaredTypeAcceptor acceptor, final JvmGenericType backgroundType, final List<Runnable> doLater, final boolean preIndexingPhase) {
     final ArrayList<JvmGenericType> result = CollectionLiterals.<JvmGenericType>newArrayList();
-    final Procedure1<Scenario> _function = new Procedure1<Scenario>() {
+    final Consumer<Scenario> _function = new Consumer<Scenario>() {
       @Override
-      public void apply(final Scenario it) {
+      public void accept(final Scenario it) {
         List<JvmGenericType> _emptyList = CollectionLiterals.<JvmGenericType>emptyList();
         final JvmGenericType inferredJvmType = FeatureJvmModelInferrer.this.toClass(it, _emptyList, acceptor, doLater, preIndexingPhase);
         result.add(inferredJvmType);
       }
     };
-    IterableExtensions.<Scenario>forEach(scenarios, _function);
+    scenarios.forEach(_function);
     return result;
   }
   
@@ -202,28 +203,28 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
     final JvmGenericType inferredJvmType = this.toClass(feature, scenarios, acceptor, doLater, preIndexingPhase);
     boolean _equals = Objects.equal(background, null);
     if (_equals) {
-      final Procedure1<JvmGenericType> _function = new Procedure1<JvmGenericType>() {
+      final Consumer<JvmGenericType> _function = new Consumer<JvmGenericType>() {
         @Override
-        public void apply(final JvmGenericType it) {
+        public void accept(final JvmGenericType it) {
           EList<JvmTypeReference> _superTypes = it.getSuperTypes();
           JvmParameterizedTypeReference _createTypeRef = FeatureJvmModelInferrer.this._typeReferences.createTypeRef(inferredJvmType);
           FeatureJvmModelInferrer.this._extendedJvmTypesBuilder.<JvmParameterizedTypeReference>operator_add(_superTypes, _createTypeRef);
         }
       };
-      IterableExtensions.<JvmGenericType>forEach(scenarios, _function);
+      scenarios.forEach(_function);
     } else {
       EList<JvmTypeReference> _superTypes = background.getSuperTypes();
       JvmParameterizedTypeReference _createTypeRef = this._typeReferences.createTypeRef(inferredJvmType);
       this._extendedJvmTypesBuilder.<JvmParameterizedTypeReference>operator_add(_superTypes, _createTypeRef);
-      final Procedure1<JvmGenericType> _function_1 = new Procedure1<JvmGenericType>() {
+      final Consumer<JvmGenericType> _function_1 = new Consumer<JvmGenericType>() {
         @Override
-        public void apply(final JvmGenericType it) {
+        public void accept(final JvmGenericType it) {
           EList<JvmTypeReference> _superTypes = it.getSuperTypes();
           JvmParameterizedTypeReference _createTypeRef = FeatureJvmModelInferrer.this._typeReferences.createTypeRef(background);
           FeatureJvmModelInferrer.this._extendedJvmTypesBuilder.<JvmParameterizedTypeReference>operator_add(_superTypes, _createTypeRef);
         }
       };
-      IterableExtensions.<JvmGenericType>forEach(scenarios, _function_1);
+      scenarios.forEach(_function_1);
     }
   }
   
@@ -310,13 +311,13 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
     this._stepReferenceFieldCreator.copyJnarioMemberForReferences(scenario);
     EList<JnarioMember> _members = scenario.getMembers();
     Iterable<JnarioField> _filter = Iterables.<JnarioField>filter(_members, JnarioField.class);
-    final Procedure1<JnarioField> _function = new Procedure1<JnarioField>() {
+    final Consumer<JnarioField> _function = new Consumer<JnarioField>() {
       @Override
-      public void apply(final JnarioField it) {
+      public void accept(final JnarioField it) {
         FeatureJvmModelInferrer.this.transform(it, inferredJvmType);
       }
     };
-    IterableExtensions.<JnarioField>forEach(_filter, _function);
+    _filter.forEach(_function);
     final EList<JvmAnnotationReference> annotations = inferredJvmType.getAnnotations();
     TestRuntimeSupport _testRuntime = this.getTestRuntime();
     _testRuntime.updateScenario(scenario, inferredJvmType);
@@ -345,9 +346,9 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
     this.generateSteps(_steps_1, inferredJvmType, start, scenario);
     EList<Step> _steps_2 = scenario.getSteps();
     Iterable<StepReference> _filter_1 = Iterables.<StepReference>filter(_steps_2, StepReference.class);
-    final Procedure1<StepReference> _function_1 = new Procedure1<StepReference>() {
+    final Consumer<StepReference> _function_1 = new Consumer<StepReference>() {
       @Override
-      public void apply(final StepReference it) {
+      public void accept(final StepReference it) {
         StepImplementation _reference = it.getReference();
         boolean _equals = Objects.equal(_reference, null);
         if (_equals) {
@@ -363,7 +364,7 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
         FeatureJvmModelInferrer.this.updateReferences(original, expr, inferredJvmType);
       }
     };
-    IterableExtensions.<StepReference>forEach(_filter_1, _function_1);
+    _filter_1.forEach(_function_1);
     EList<JnarioMember> _members_1 = scenario.getMembers();
     Iterable<JnarioField> _filter_2 = Iterables.<JnarioField>filter(_members_1, JnarioField.class);
     final Function1<JnarioField, Boolean> _function_2 = new Function1<JnarioField, Boolean>() {
@@ -374,9 +375,9 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
       }
     };
     Iterable<JnarioField> _filter_3 = IterableExtensions.<JnarioField>filter(_filter_2, _function_2);
-    final Procedure1<JnarioField> _function_3 = new Procedure1<JnarioField>() {
+    final Consumer<JnarioField> _function_3 = new Consumer<JnarioField>() {
       @Override
-      public void apply(final JnarioField it) {
+      public void accept(final JnarioField it) {
         final EObject source = SourceAdapter.find(it);
         boolean _equals = Objects.equal(source, null);
         if (_equals) {
@@ -387,7 +388,7 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
         FeatureJvmModelInferrer.this.updateReferences(original, _initialValue, inferredJvmType);
       }
     };
-    IterableExtensions.<JnarioField>forEach(_filter_3, _function_3);
+    _filter_3.forEach(_function_3);
   }
   
   public void updateReferences(final Scenario original, final XExpression expr, final JvmGenericType inferredJvmType) {
@@ -442,16 +443,16 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
     final XConstructorCall argsConstructor = IteratorExtensions.<XConstructorCall>head(calls);
     EList<XExpression> _arguments = argsConstructor.getArguments();
     _arguments.clear();
-    final Procedure1<String> _function_1 = new Procedure1<String>() {
+    final Consumer<String> _function_1 = new Consumer<String>() {
       @Override
-      public void apply(final String it) {
+      public void accept(final String it) {
         final XStringLiteral arg = XbaseFactory.eINSTANCE.createXStringLiteral();
         arg.setValue(it);
         EList<XExpression> _arguments = argsConstructor.getArguments();
         FeatureJvmModelInferrer.this._extendedJvmTypesBuilder.<XStringLiteral>operator_add(_arguments, arg);
       }
     };
-    IterableExtensions.<String>forEach(arguments, _function_1);
+    arguments.forEach(_function_1);
   }
   
   public void setStepValueType(final XVariableDeclaration variableDec, final Step step) {

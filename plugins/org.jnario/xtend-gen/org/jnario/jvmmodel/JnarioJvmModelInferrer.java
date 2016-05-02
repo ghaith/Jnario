@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.function.Consumer;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -604,13 +605,13 @@ public abstract class JnarioJvmModelInferrer extends AbstractModelInferrer {
           boolean _isEmpty = associatedElements.isEmpty();
           boolean _not = (!_isEmpty);
           if (_not) {
-            final Procedure1<EObject> _function_2 = new Procedure1<EObject>() {
+            final Consumer<EObject> _function_2 = new Consumer<EObject>() {
               @Override
-              public void apply(final EObject assoc) {
+              public void accept(final EObject assoc) {
                 JnarioJvmModelInferrer.this.modelAssociator.removeAllAssociation(assoc);
               }
             };
-            IterableExtensions.<EObject>forEach(associatedElements, _function_2);
+            associatedElements.forEach(_function_2);
           }
           EList<JvmAnnotationReference> _annotations = target.getAnnotations();
           this._jvmTypesBuilder.<JvmAnnotationReference>operator_add(_annotations, annotationReference);

@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.eclipse.emf.common.util.EList;
@@ -13,7 +14,6 @@ import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2;
 import org.jnario.RichString;
 import org.jnario.RichStringLiteral;
@@ -181,13 +181,13 @@ public class RichStringProcessor {
     }
     
     public void appendTo(final ITreeAppendable appendable, final String variableName) {
-      final Procedure1<Procedure2<ITreeAppendable, String>> _function = new Procedure1<Procedure2<ITreeAppendable, String>>() {
+      final Consumer<Procedure2<ITreeAppendable, String>> _function = new Consumer<Procedure2<ITreeAppendable, String>>() {
         @Override
-        public void apply(final Procedure2<ITreeAppendable, String> it) {
+        public void accept(final Procedure2<ITreeAppendable, String> it) {
           it.apply(appendable, variableName);
         }
       };
-      IterableExtensions.<Procedure2<ITreeAppendable, String>>forEach(this.toBeAppended, _function);
+      this.toBeAppended.forEach(_function);
     }
     
     public String correctIndentation(final String string) {

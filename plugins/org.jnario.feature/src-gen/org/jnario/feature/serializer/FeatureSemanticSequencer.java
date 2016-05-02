@@ -665,11 +665,7 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 	 *     (
 	 *         name=BACKGROUND_TEXT 
 	 *         members+=Member* 
-	 *         (
-	 *             (members+=Given | members+=GivenReference) 
-	 *             members+=ButReference? 
-	 *             ((members+=And | members+=AndReference | members+=But)? members+=ButReference?)*
-	 *         )?
+	 *         ((members+=Given | members+=GivenReference) members+=And? ((members+=AndReference | members+=But | members+=ButReference)? members+=And?)*)?
 	 *     )
 	 */
 	protected void sequence_Background(ISerializationContext context, Background semanticObject) {
@@ -852,17 +848,9 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 	 *     (
 	 *         name=SCENARIO_TEXT 
 	 *         members+=Member* 
-	 *         (
-	 *             (members+=Given | members+=GivenReference) 
-	 *             members+=ButReference? 
-	 *             ((members+=And | members+=AndReference | members+=But)? members+=ButReference?)*
-	 *         )? 
-	 *         (
-	 *             (members+=When | members+=WhenReference) 
-	 *             members+=ButReference? 
-	 *             ((members+=And | members+=AndReference | members+=But)? members+=ButReference?)*
-	 *         )? 
-	 *         ((members+=Then | members+=ThenReference) members+=And? ((members+=AndReference | members+=But | members+=ButReference)? members+=And?)*)?
+	 *         ((members+=Given | members+=GivenReference) members+=And? ((members+=AndReference | members+=But | members+=ButReference)? members+=And?)*)? 
+	 *         ((members+=When | members+=WhenReference) (members+=And | members+=AndReference | members+=But | members+=ButReference)*)? 
+	 *         ((members+=Then | members+=ThenReference) (members+=And | members+=AndReference | members+=But | members+=ButReference)*)?
 	 *     )
 	 */
 	protected void sequence_Scenario(ISerializationContext context, Scenario semanticObject) {

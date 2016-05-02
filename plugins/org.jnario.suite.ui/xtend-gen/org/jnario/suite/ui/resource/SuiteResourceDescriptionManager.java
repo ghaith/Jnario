@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
@@ -41,7 +42,6 @@ import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.jnario.JnarioPackage;
 import org.jnario.Specification;
@@ -84,13 +84,13 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
       boolean _isTraceEnabled = SuiteResourceDescriptionManager.logger.isTraceEnabled();
       if (_isTraceEnabled) {
         SuiteResourceDescriptionManager.logger.debug(" Deltas to check: ");
-        final Procedure1<IResourceDescription.Delta> _function = new Procedure1<IResourceDescription.Delta>() {
+        final Consumer<IResourceDescription.Delta> _function = new Consumer<IResourceDescription.Delta>() {
           @Override
-          public void apply(final IResourceDescription.Delta it) {
+          public void accept(final IResourceDescription.Delta it) {
             SuiteResourceDescriptionManager.logger.debug(("  " + it));
           }
         };
-        IterableExtensions.<IResourceDescription.Delta>forEach(deltas, _function);
+        deltas.forEach(_function);
       }
       ResourceSet _xifexpression = null;
       if ((context instanceof CurrentDescriptions)) {
@@ -132,15 +132,15 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
       boolean _isDebugEnabled = SuiteResourceDescriptionManager.logger.isDebugEnabled();
       if (_isDebugEnabled) {
         SuiteResourceDescriptionManager.logger.debug(" Changed specs: ");
-        final Procedure1<QualifiedName> _function_3 = new Procedure1<QualifiedName>() {
+        final Consumer<QualifiedName> _function_3 = new Consumer<QualifiedName>() {
           @Override
-          public void apply(final QualifiedName it) {
+          public void accept(final QualifiedName it) {
             String _string = SuiteResourceDescriptionManager.this._iQualifiedNameConverter.toString(it);
             String _plus = ("  " + _string);
             SuiteResourceDescriptionManager.logger.debug(_plus);
           }
         };
-        IterableExtensions.<QualifiedName>forEach(changedSpecs, _function_3);
+        changedSpecs.forEach(_function_3);
       }
       final Iterable<IEObjectDescription> suites = candidate.getExportedObjectsByType(SuitePackage.Literals.SUITE);
       final Function1<IEObjectDescription, Suite> _function_4 = new Function1<IEObjectDescription, Suite>() {
@@ -183,15 +183,15 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
       SuiteResourceDescriptionManager.logger.debug(_plus_2);
       boolean _isTraceEnabled_1 = SuiteResourceDescriptionManager.logger.isTraceEnabled();
       if (_isTraceEnabled_1) {
-        final Procedure1<Pattern> _function_7 = new Procedure1<Pattern>() {
+        final Consumer<Pattern> _function_7 = new Consumer<Pattern>() {
           @Override
-          public void apply(final Pattern it) {
+          public void accept(final Pattern it) {
             String _pattern = it.pattern();
             String _plus = ("  " + _pattern);
             SuiteResourceDescriptionManager.logger.trace(_plus);
           }
         };
-        IterableExtensions.<Pattern>forEach(matchers, _function_7);
+        matchers.forEach(_function_7);
       }
       final Function1<QualifiedName, Boolean> _function_8 = new Function1<QualifiedName, Boolean>() {
         @Override
