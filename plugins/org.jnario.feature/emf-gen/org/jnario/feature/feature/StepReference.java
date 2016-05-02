@@ -15,11 +15,11 @@ package org.jnario.feature.feature;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.feature.feature.StepReference#getReference <em>Reference</em>}</li>
  *   <li>{@link org.jnario.feature.feature.StepReference#getSyntheticStepReference <em>Synthetic Step Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.feature.feature.FeaturePackage#getStepReference()
  * @model

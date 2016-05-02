@@ -72,6 +72,7 @@ public class RulesEvolveLiveCellsSpec extends RulesSpec {
   @Order(1)
   public void _liveCellsForEachSubjectBecomesAliveLiveNeighbourCountResult() throws Exception {
     final Procedure1<RulesEvolveLiveCellsSpecLiveCells> _function = new Procedure1<RulesEvolveLiveCellsSpecLiveCells>() {
+      @Override
       public void apply(final RulesEvolveLiveCellsSpecLiveCells it) {
         int _liveNeighbourCount = it.getLiveNeighbourCount();
         boolean _becomesAlive = RulesEvolveLiveCellsSpec.this.subject.becomesAlive(_liveNeighbourCount);

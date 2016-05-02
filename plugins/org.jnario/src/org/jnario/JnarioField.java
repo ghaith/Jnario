@@ -18,12 +18,12 @@ import org.eclipse.xtext.xbase.XExpression;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.JnarioField#getType <em>Type</em>}</li>
  *   <li>{@link org.jnario.JnarioField#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.JnarioField#getInitialValue <em>Initial Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getJnarioField()
  * @model

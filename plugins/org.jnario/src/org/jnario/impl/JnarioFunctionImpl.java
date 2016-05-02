@@ -30,6 +30,7 @@ import org.jnario.JnarioParameter;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.impl.JnarioFunctionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.impl.JnarioFunctionImpl#getExpression <em>Expression</em>}</li>
@@ -38,7 +39,6 @@ import org.jnario.JnarioParameter;
  *   <li>{@link org.jnario.impl.JnarioFunctionImpl#getExceptions <em>Exceptions</em>}</li>
  *   <li>{@link org.jnario.impl.JnarioFunctionImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

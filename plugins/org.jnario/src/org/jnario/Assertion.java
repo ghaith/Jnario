@@ -16,10 +16,10 @@ import org.eclipse.xtext.xbase.XExpression;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.Assertion#getExpression <em>Expression</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getAssertion()
  * @model

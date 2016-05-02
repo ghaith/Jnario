@@ -26,12 +26,12 @@ import org.jnario.JnarioPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.impl.JnarioFieldImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.jnario.impl.JnarioFieldImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.impl.JnarioFieldImpl#getInitialValue <em>Initial Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

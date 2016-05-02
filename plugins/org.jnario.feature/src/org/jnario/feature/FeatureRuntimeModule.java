@@ -35,10 +35,6 @@ import org.eclipse.xtext.xbase.compiler.JvmModelGenerator;
 import org.eclipse.xtext.xbase.compiler.XbaseCompiler;
 import org.eclipse.xtext.xbase.compiler.output.TraceAwarePostProcessor;
 import org.eclipse.xtext.xbase.featurecalls.IdentifiableSimpleNameProvider;
-import org.eclipse.xtext.xbase.file.AbstractFileSystemSupport;
-import org.eclipse.xtext.xbase.file.JavaIOFileSystemSupport;
-import org.eclipse.xtext.xbase.file.RuntimeWorkspaceConfigProvider;
-import org.eclipse.xtext.xbase.file.WorkspaceConfig;
 import org.eclipse.xtext.xbase.formatting.NodeModelAccess;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelInferrer;
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder;
@@ -268,20 +264,12 @@ public class FeatureRuntimeModule extends
 		return NonStoringBatchLinkableResourceStorageFacade.class;
 	}
 
-	public Class<? extends AbstractFileSystemSupport> bindAbstractFileSystemSupport() {
-		return JavaIOFileSystemSupport.class;
-	}
-	
 	// TODO NO_XTEND
 //	@Override
 //	public Class<? extends IGenerator> bindIGenerator() {
 //		return XtendGenerator.class;
 //	}
 	
-	public void configureWorkspaceConfigContribution(Binder binder) {
-		binder.bind(WorkspaceConfig.class).toProvider(RuntimeWorkspaceConfigProvider.class);
-	}
-
 // TODO NO_XTEND	
 //	public Class<? extends FileLocations> bindFileLocations() {
 //		return FileLocationsImpl.class;

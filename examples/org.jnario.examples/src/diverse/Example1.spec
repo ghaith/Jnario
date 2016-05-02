@@ -3,7 +3,7 @@ package diverse
 import java.util.Stack
 import java.util.EmptyStackException
 
-describe Stack{
+describe "MyStack" {
   
   context "empty"{
     val emptyStack = new Stack<String>

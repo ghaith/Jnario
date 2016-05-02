@@ -27,6 +27,7 @@ public class EvolutionSpec {
   final World worldWithLiveCell = World.worldWith(JnarioCollectionLiterals.<CellLocation>list(this.livingCell));
   
   final Rule dontCare = new Rule() {
+    @Override
     public boolean becomesAlive(final int it) {
       return false;
     }

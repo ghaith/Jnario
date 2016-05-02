@@ -26,11 +26,11 @@ import org.jnario.suite.suite.SuitePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.suite.suite.impl.SpecReferenceImpl#getSpec <em>Spec</em>}</li>
  *   <li>{@link org.jnario.suite.suite.impl.SpecReferenceImpl#getText <em>Text</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

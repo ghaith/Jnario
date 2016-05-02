@@ -16,8 +16,6 @@ import org.jnario.feature.feature.GivenReference;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Given Reference</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

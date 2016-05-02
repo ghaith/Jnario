@@ -16,7 +16,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="target/classes" path="Users/sebastian/Projects/Jnario/plugins/org.jnario.lib/src">
+	<classpathentry kind="src" output="target/classes" path="EntwicklungSG453/OpenSource/Jnario/plugins/org.jnario.lib/src">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>

@@ -20,10 +20,10 @@ import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotation;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.JnarioAnnotationTarget#getAnnotations <em>Annotations</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getJnarioAnnotationTarget()
  * @model

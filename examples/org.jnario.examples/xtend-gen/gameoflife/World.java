@@ -5,19 +5,19 @@ import com.google.common.collect.Iterables;
 import gameoflife.CellLocation;
 import java.util.ArrayList;
 import java.util.Set;
-import org.eclipse.xtend.lib.Data;
+import org.eclipse.xtend.lib.annotations.Data;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2;
 import org.eclipse.xtext.xbase.lib.Pure;
-import org.eclipse.xtext.xbase.lib.util.ToStringHelper;
+import org.eclipse.xtext.xbase.lib.util.ToStringBuilder;
 
 @Data
 @SuppressWarnings("all")
 public class World {
-  private final Set<CellLocation> _livingCells;
+  private final Set<CellLocation> livingCells;
   
   public static World parseWorld(final CharSequence grid) {
     World _xblockexpression = null;
@@ -55,20 +55,18 @@ public class World {
   }
   
   public Set<CellLocation> deadCells() {
-    Set<CellLocation> _livingCells = this.getLivingCells();
     final Function1<CellLocation, Set<CellLocation>> _function = new Function1<CellLocation, Set<CellLocation>>() {
       @Override
       public Set<CellLocation> apply(final CellLocation it) {
         return it.neighbours();
       }
     };
-    Iterable<Set<CellLocation>> _map = IterableExtensions.<CellLocation, Set<CellLocation>>map(_livingCells, _function);
+    Iterable<Set<CellLocation>> _map = IterableExtensions.<CellLocation, Set<CellLocation>>map(this.livingCells, _function);
     Iterable<CellLocation> _flatten = Iterables.<CellLocation>concat(_map);
     final Function1<CellLocation, Boolean> _function_1 = new Function1<CellLocation, Boolean>() {
       @Override
       public Boolean apply(final CellLocation it) {
-        Set<CellLocation> _livingCells = World.this.getLivingCells();
-        boolean _contains = _livingCells.contains(it);
+        boolean _contains = World.this.livingCells.contains(it);
         return Boolean.valueOf((!_contains));
       }
     };
@@ -81,8 +79,7 @@ public class World {
     final Function1<CellLocation, Boolean> _function = new Function1<CellLocation, Boolean>() {
       @Override
       public Boolean apply(final CellLocation it) {
-        Set<CellLocation> _livingCells = World.this.getLivingCells();
-        return Boolean.valueOf(_livingCells.contains(it));
+        return Boolean.valueOf(World.this.livingCells.contains(it));
       }
     };
     Iterable<CellLocation> _filter = IterableExtensions.<CellLocation>filter(_neighbours, _function);
@@ -91,7 +88,7 @@ public class World {
   
   public World(final Set<CellLocation> livingCells) {
     super();
-    this._livingCells = livingCells;
+    this.livingCells = livingCells;
   }
   
   @Override
@@ -99,7 +96,7 @@ public class World {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((this._livingCells== null) ? 0 : this._livingCells.hashCode());
+    result = prime * result + ((this.livingCells== null) ? 0 : this.livingCells.hashCode());
     return result;
   }
   
@@ -113,10 +110,10 @@ public class World {
     if (getClass() != obj.getClass())
       return false;
     World other = (World) obj;
-    if (this._livingCells == null) {
-      if (other._livingCells != null)
+    if (this.livingCells == null) {
+      if (other.livingCells != null)
         return false;
-    } else if (!this._livingCells.equals(other._livingCells))
+    } else if (!this.livingCells.equals(other.livingCells))
       return false;
     return true;
   }
@@ -124,12 +121,13 @@ public class World {
   @Override
   @Pure
   public String toString() {
-    String result = new ToStringHelper().toString(this);
-    return result;
+    ToStringBuilder b = new ToStringBuilder(this);
+    b.add("livingCells", this.livingCells);
+    return b.toString();
   }
   
   @Pure
   public Set<CellLocation> getLivingCells() {
-    return this._livingCells;
+    return this.livingCells;
   }
 }

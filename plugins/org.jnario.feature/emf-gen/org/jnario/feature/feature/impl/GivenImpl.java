@@ -16,8 +16,6 @@ import org.jnario.feature.feature.Given;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Given</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

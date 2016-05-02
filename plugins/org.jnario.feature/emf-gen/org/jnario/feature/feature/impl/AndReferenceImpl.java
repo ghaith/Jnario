@@ -16,8 +16,6 @@ import org.jnario.feature.feature.FeaturePackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>And Reference</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

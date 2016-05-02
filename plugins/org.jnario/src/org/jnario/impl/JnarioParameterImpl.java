@@ -26,13 +26,13 @@ import org.jnario.JnarioParameter;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.impl.JnarioParameterImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.impl.JnarioParameterImpl#getParameterType <em>Parameter Type</em>}</li>
  *   <li>{@link org.jnario.impl.JnarioParameterImpl#isVarArg <em>Var Arg</em>}</li>
  *   <li>{@link org.jnario.impl.JnarioParameterImpl#isExtension <em>Extension</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

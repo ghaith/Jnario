@@ -17,10 +17,10 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.JnarioClass#getExtends <em>Extends</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getJnarioClass()
  * @model

@@ -17,12 +17,12 @@ import org.eclipse.xtext.xbase.XExpression;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.ExampleTable#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.ExampleTable#getRows <em>Rows</em>}</li>
  *   <li>{@link org.jnario.ExampleTable#getColumns <em>Columns</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getExampleTable()
  * @model

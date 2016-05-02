@@ -6,12 +6,12 @@ Bundle-Version: 1.1.0.qualifier
 Bundle-Localization: plugin
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.xtext;bundle-version="[2.8.0,2.9.0)",
+Require-Bundle: org.eclipse.xtext;bundle-version="[2.9.0,2.10.0)",
  org.eclipse.jdt.core,
  org.jnario.feature;bundle-version="1.0.0",
  org.jnario;bundle-version="1.0.0",
  org.jnario.spec;bundle-version="1.0.0",
- org.eclipse.xtext.xbase.lib;bundle-version="[2.8.0,2.9.0)",
+ org.eclipse.xtext.xbase.lib;bundle-version="[2.9.0,2.10.0)",
  org.jnario.lib;bundle-version="1.0.0",
  org.jnario.suite;bundle-version="1.0.0",
  org.apache.ant;bundle-version="1.8.3";resolution:=optional

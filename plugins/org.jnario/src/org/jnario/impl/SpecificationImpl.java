@@ -39,6 +39,7 @@ import org.jnario.Specification;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.impl.SpecificationImpl#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link org.jnario.impl.SpecificationImpl#getModifiers <em>Modifiers</em>}</li>
@@ -47,7 +48,6 @@ import org.jnario.Specification;
  *   <li>{@link org.jnario.impl.SpecificationImpl#getMembers <em>Members</em>}</li>
  *   <li>{@link org.jnario.impl.SpecificationImpl#getExtends <em>Extends</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -31,12 +31,12 @@ import org.jnario.impl.SpecificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.feature.feature.impl.FeatureImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.jnario.feature.feature.impl.FeatureImpl#getScenarios <em>Scenarios</em>}</li>
  *   <li>{@link org.jnario.feature.feature.impl.FeatureImpl#getBackground <em>Background</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

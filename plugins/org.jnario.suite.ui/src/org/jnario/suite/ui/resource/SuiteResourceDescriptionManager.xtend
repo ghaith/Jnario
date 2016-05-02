@@ -31,6 +31,8 @@ import org.jnario.suite.suite.SuitePackage
 
 import static java.util.Collections.*
 import static org.eclipse.emf.ecore.util.EcoreUtil.resolve
+import org.jnario.spec.spec.SpecPackage
+import org.jnario.feature.feature.FeaturePackage
 
 class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDescriptionManager {
 
@@ -150,10 +152,12 @@ class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDescripti
 	def topLevelSpecs(IResourceDescription resource, ResourceSet resourceSet) {
 		resource.getExportedObjectsByType(JnarioPackage.Literals.SPECIFICATION)
 		.filter[
-			val spec = resolve(it.getEObjectOrProxy, resourceSet) as Specification
-			// TODO NO_XTEND
-			// spec.declaringType == null
-			true
+			val object = resolve(it.getEObjectOrProxy, resourceSet)
+			object instanceof Specification && (
+				object.eContainer.eClass == SpecPackage.Literals.SPEC_FILE
+				||
+				object.eContainer.eClass == FeaturePackage.Literals.FEATURE_FILE
+			)
 		]
 	}
 

@@ -17,11 +17,11 @@ import org.eclipse.xtext.common.types.JvmVisibility;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.JnarioMember#getModifiers <em>Modifiers</em>}</li>
  *   <li>{@link org.jnario.JnarioMember#getAnnotationInfo <em>Annotation Info</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getJnarioMember()
  * @model

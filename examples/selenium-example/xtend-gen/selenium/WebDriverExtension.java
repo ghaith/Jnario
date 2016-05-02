@@ -1,9 +1,6 @@
 package selenium;
 
-import com.google.common.base.Function;
 import org.junit.After;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Wait;
 
 @SuppressWarnings("all")
 public class WebDriverExtension {
@@ -28,16 +25,19 @@ public class WebDriverExtension {
   
   public Object findElement(final String name) {
     throw new Error("Unresolved compilation problems:"
-      + "\nfindElement cannot be resolved");
+      + "\nThe method or field By is undefined"
+      + "\nfindElement cannot be resolved"
+      + "\nname cannot be resolved");
   }
   
-  public Object findElement(final By by) {
+  public Object findElement(final /* By */Object by) {
     throw new Error("Unresolved compilation problems:"
       + "\nfindElement cannot be resolved");
   }
   
-  public Boolean waitUntil(final /* Function<WebDriver, Boolean> */Object predicate) {
-    return this.wait.<Boolean>until(predicate);
+  public Object waitUntil(final /* Function<WebDriver, Boolean> */Object predicate) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nuntil cannot be resolved");
   }
   
   @After

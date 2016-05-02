@@ -23,10 +23,10 @@ import org.jnario.suite.suite.SuitePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.suite.suite.impl.PatternReferenceImpl#getPattern <em>Pattern</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

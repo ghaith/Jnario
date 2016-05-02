@@ -16,11 +16,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.JnarioTypeDeclaration#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.JnarioTypeDeclaration#getMembers <em>Members</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getJnarioTypeDeclaration()
  * @model

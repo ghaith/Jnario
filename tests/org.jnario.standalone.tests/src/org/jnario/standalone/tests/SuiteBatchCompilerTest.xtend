@@ -10,6 +10,7 @@ package org.jnario.standalone.tests
 import com.google.common.base.Charsets
 import com.google.common.io.Files
 import com.google.inject.Inject
+import com.google.inject.Provider
 import java.io.File
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.xtext.junit4.InjectWith
@@ -28,12 +29,14 @@ import org.junit.runner.RunWith
 
 import static org.eclipse.xtext.util.Files.*
 import static org.junit.Assert.*
+import org.junit.Ignore
+import org.jnario.compiler.JnarioStandaloneCompiler
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ExtendedSuiteInjectorProvider))
 class SuiteBatchCompilerTest {
 
-	@Inject extension ModelStore modelStore
+	@Inject Provider<ModelStore> modelStoreProvider
 	
     static String OUTPUT_DIRECTORY = "test-result"
     static String XTEND_SRC_DIRECTORY = "testdata"
@@ -53,7 +56,9 @@ class SuiteBatchCompilerTest {
         batchCompiler.deleteTempDirectory = true
         batchCompiler.useCurrentClassLoaderAsParent = true
         batchCompiler.currentClassLoader = class.classLoader
-		batchCompiler.setResourceSetProvider([|resourceSet as ResourceSet])
+		batchCompiler.setResourceSetProvider([|
+			modelStoreProvider.get.resourceSet
+		])
 		batchCompiler.compile()
 	}
 	
@@ -65,10 +70,7 @@ class SuiteBatchCompilerTest {
  
 	@Test
 	def void testCompileTestData() {
-		#[new FeatureStandaloneSetup, new SpecStandaloneSetup, new SuiteStandaloneSetup].forEach[
-			val compiler = it.createInjectorAndDoEMFRegistration.getInstance(JnarioBatchCompiler)
-			compile(compiler)
-		]
+		compile(JnarioStandaloneCompiler.create)
 
 		val outputDir = new File(OUTPUT_DIRECTORY+"/test")
 		assertEquals(7, outputDir.list[dir, name | name.endsWith(".java")].size)

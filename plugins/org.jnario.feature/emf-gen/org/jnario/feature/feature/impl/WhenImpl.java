@@ -16,8 +16,6 @@ import org.jnario.feature.feature.When;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>When</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

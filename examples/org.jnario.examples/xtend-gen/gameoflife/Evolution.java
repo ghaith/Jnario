@@ -7,11 +7,11 @@ import gameoflife.EvolveLiveCells;
 import gameoflife.Rule;
 import gameoflife.World;
 import java.util.Set;
-import org.eclipse.xtend.lib.Data;
+import org.eclipse.xtend.lib.annotations.Data;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
-import org.eclipse.xtext.xbase.lib.util.ToStringHelper;
+import org.eclipse.xtext.xbase.lib.util.ToStringBuilder;
 
 @Data
 @SuppressWarnings("all")
@@ -22,9 +22,9 @@ public class Evolution {
     return new Evolution(_evolveLiveCells, _evolveDeadCells);
   }
   
-  private final Rule _staysAlive;
+  private final Rule staysAlive;
   
-  private final Rule _becomesAlive;
+  private final Rule becomesAlive;
   
   public World evolve(final World world) {
     Set<CellLocation> _livingCells = world.getLivingCells();
@@ -56,8 +56,8 @@ public class Evolution {
   
   public Evolution(final Rule staysAlive, final Rule becomesAlive) {
     super();
-    this._staysAlive = staysAlive;
-    this._becomesAlive = becomesAlive;
+    this.staysAlive = staysAlive;
+    this.becomesAlive = becomesAlive;
   }
   
   @Override
@@ -65,8 +65,8 @@ public class Evolution {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((this._staysAlive== null) ? 0 : this._staysAlive.hashCode());
-    result = prime * result + ((this._becomesAlive== null) ? 0 : this._becomesAlive.hashCode());
+    result = prime * result + ((this.staysAlive== null) ? 0 : this.staysAlive.hashCode());
+    result = prime * result + ((this.becomesAlive== null) ? 0 : this.becomesAlive.hashCode());
     return result;
   }
   
@@ -80,15 +80,15 @@ public class Evolution {
     if (getClass() != obj.getClass())
       return false;
     Evolution other = (Evolution) obj;
-    if (this._staysAlive == null) {
-      if (other._staysAlive != null)
+    if (this.staysAlive == null) {
+      if (other.staysAlive != null)
         return false;
-    } else if (!this._staysAlive.equals(other._staysAlive))
+    } else if (!this.staysAlive.equals(other.staysAlive))
       return false;
-    if (this._becomesAlive == null) {
-      if (other._becomesAlive != null)
+    if (this.becomesAlive == null) {
+      if (other.becomesAlive != null)
         return false;
-    } else if (!this._becomesAlive.equals(other._becomesAlive))
+    } else if (!this.becomesAlive.equals(other.becomesAlive))
       return false;
     return true;
   }
@@ -96,17 +96,19 @@ public class Evolution {
   @Override
   @Pure
   public String toString() {
-    String result = new ToStringHelper().toString(this);
-    return result;
+    ToStringBuilder b = new ToStringBuilder(this);
+    b.add("staysAlive", this.staysAlive);
+    b.add("becomesAlive", this.becomesAlive);
+    return b.toString();
   }
   
   @Pure
   public Rule getStaysAlive() {
-    return this._staysAlive;
+    return this.staysAlive;
   }
   
   @Pure
   public Rule getBecomesAlive() {
-    return this._becomesAlive;
+    return this.becomesAlive;
   }
 }

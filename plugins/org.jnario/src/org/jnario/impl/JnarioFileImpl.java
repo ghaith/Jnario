@@ -35,12 +35,12 @@ import org.jnario.JnarioTypeDeclaration;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.impl.JnarioFileImpl#getImportSection <em>Import Section</em>}</li>
  *   <li>{@link org.jnario.impl.JnarioFileImpl#getXtendTypes <em>Xtend Types</em>}</li>
  *   <li>{@link org.jnario.impl.JnarioFileImpl#getPackage <em>Package</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -4,8 +4,12 @@
 package org.jnario.feature.serializer;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.Action;
+import org.eclipse.xtext.Parameter;
+import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmGenericArrayTypeReference;
 import org.eclipse.xtext.common.types.JvmInnerTypeReference;
@@ -15,14 +19,8 @@ import org.eclipse.xtext.common.types.JvmTypeParameter;
 import org.eclipse.xtext.common.types.JvmUpperBound;
 import org.eclipse.xtext.common.types.JvmWildcardTypeReference;
 import org.eclipse.xtext.common.types.TypesPackage;
-import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.xtext.serializer.ISerializationContext;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
-import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
-import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
-import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.eclipse.xtext.xbase.XAssignment;
 import org.eclipse.xtext.xbase.XBasicForLoopExpression;
@@ -96,8 +94,13 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 	private FeatureGrammarAccess grammarAccess;
 	
 	@Override
-	public void createSequence(EObject context, EObject semanticObject) {
-		if(semanticObject.eClass().getEPackage() == FeaturePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+	public void sequence(ISerializationContext context, EObject semanticObject) {
+		EPackage epackage = semanticObject.eClass().getEPackage();
+		ParserRule rule = context.getParserRule();
+		Action action = context.getAssignedAction();
+		Set<Parameter> parameters = context.getEnabledBooleanParameters();
+		if (epackage == FeaturePackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case FeaturePackage.AND:
 				sequence_And(context, (And) semanticObject); 
 				return; 
@@ -141,16 +144,17 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_WhenReference(context, (WhenReference) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == JnarioPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == JnarioPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case JnarioPackage.ASSERTION:
 				sequence_Assertion(context, (Assertion) semanticObject); 
 				return; 
 			case JnarioPackage.JNARIO_FIELD:
-				if(context == grammarAccess.getAnonymousMemberRule()) {
+				if (rule == grammarAccess.getAnonymousMemberRule()) {
 					sequence_AnonymousMember(context, (JnarioField) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getMemberRule()) {
+				else if (rule == grammarAccess.getMemberRule()) {
 					sequence_Member(context, (JnarioField) semanticObject); 
 					return; 
 				}
@@ -159,12 +163,12 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_AnonymousMember(context, (JnarioFunction) semanticObject); 
 				return; 
 			case JnarioPackage.JNARIO_MEMBER:
-				if(context == grammarAccess.getAnonymousMemberAccess().getJnarioFieldAnnotationInfoAction_2_0_0() ||
-				   context == grammarAccess.getAnonymousMemberAccess().getJnarioFunctionAnnotationInfoAction_2_1_0()) {
+				if (action == grammarAccess.getAnonymousMemberAccess().getJnarioFieldAnnotationInfoAction_2_0_0()
+						|| action == grammarAccess.getAnonymousMemberAccess().getJnarioFunctionAnnotationInfoAction_2_1_0()) {
 					sequence_AnonymousMember_JnarioField_2_0_0_JnarioFunction_2_1_0(context, (JnarioMember) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getMemberAccess().getJnarioFieldAnnotationInfoAction_2_0()) {
+				else if (action == grammarAccess.getMemberAccess().getJnarioFieldAnnotationInfoAction_2_0()) {
 					sequence_Member_JnarioField_2_0(context, (JnarioMember) semanticObject); 
 					return; 
 				}
@@ -179,13 +183,14 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_XRelationalExpression(context, (ShouldThrow) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == TypesPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == TypesPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case TypesPackage.JVM_FORMAL_PARAMETER:
-				if(context == grammarAccess.getFullJvmFormalParameterRule()) {
+				if (rule == grammarAccess.getFullJvmFormalParameterRule()) {
 					sequence_FullJvmFormalParameter(context, (JvmFormalParameter) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getJvmFormalParameterRule()) {
+				else if (rule == grammarAccess.getJvmFormalParameterRule()) {
 					sequence_JvmFormalParameter(context, (JvmFormalParameter) semanticObject); 
 					return; 
 				}
@@ -197,25 +202,28 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_JvmParameterizedTypeReference(context, (JvmInnerTypeReference) semanticObject); 
 				return; 
 			case TypesPackage.JVM_LOWER_BOUND:
-				if(context == grammarAccess.getJvmLowerBoundAndedRule()) {
+				if (rule == grammarAccess.getJvmLowerBoundAndedRule()) {
 					sequence_JvmLowerBoundAnded(context, (JvmLowerBound) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getJvmLowerBoundRule()) {
+				else if (rule == grammarAccess.getJvmLowerBoundRule()) {
 					sequence_JvmLowerBound(context, (JvmLowerBound) semanticObject); 
 					return; 
 				}
 				else break;
 			case TypesPackage.JVM_PARAMETERIZED_TYPE_REFERENCE:
-				if(context == grammarAccess.getJvmArgumentTypeReferenceRule() ||
-				   context == grammarAccess.getJvmParameterizedTypeReferenceRule() ||
-				   context == grammarAccess.getJvmParameterizedTypeReferenceAccess().getJvmInnerTypeReferenceOuterAction_1_4_0_0_0() ||
-				   context == grammarAccess.getJvmTypeReferenceRule() ||
-				   context == grammarAccess.getJvmTypeReferenceAccess().getJvmGenericArrayTypeReferenceComponentTypeAction_0_1_0_0()) {
+				if (action == grammarAccess.getJvmParameterizedTypeReferenceAccess().getJvmInnerTypeReferenceOuterAction_1_4_0_0_0()) {
+					sequence_JvmParameterizedTypeReference_JvmInnerTypeReference_1_4_0_0_0(context, (JvmParameterizedTypeReference) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getJvmTypeReferenceRule()
+						|| action == grammarAccess.getJvmTypeReferenceAccess().getJvmGenericArrayTypeReferenceComponentTypeAction_0_1_0_0()
+						|| rule == grammarAccess.getJvmParameterizedTypeReferenceRule()
+						|| rule == grammarAccess.getJvmArgumentTypeReferenceRule()) {
 					sequence_JvmParameterizedTypeReference(context, (JvmParameterizedTypeReference) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getTypeReferenceNoTypeArgsRule()) {
+				else if (rule == grammarAccess.getTypeReferenceNoTypeArgsRule()) {
 					sequence_TypeReferenceNoTypeArgs(context, (JvmParameterizedTypeReference) semanticObject); 
 					return; 
 				}
@@ -224,11 +232,11 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_JvmTypeParameter(context, (JvmTypeParameter) semanticObject); 
 				return; 
 			case TypesPackage.JVM_UPPER_BOUND:
-				if(context == grammarAccess.getJvmUpperBoundAndedRule()) {
+				if (rule == grammarAccess.getJvmUpperBoundAndedRule()) {
 					sequence_JvmUpperBoundAnded(context, (JvmUpperBound) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getJvmUpperBoundRule()) {
+				else if (rule == grammarAccess.getJvmUpperBoundRule()) {
 					sequence_JvmUpperBound(context, (JvmUpperBound) semanticObject); 
 					return; 
 				}
@@ -237,7 +245,8 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_JvmWildcardTypeReference(context, (JvmWildcardTypeReference) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == XAnnotationsPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == XAnnotationsPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case XAnnotationsPackage.XANNOTATION:
 				sequence_XAnnotation(context, (XAnnotation) semanticObject); 
 				return; 
@@ -245,7 +254,8 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_XAnnotationElementValuePair(context, (XAnnotationElementValuePair) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == XbasePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == XbasePackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case XbasePackage.XASSIGNMENT:
 				sequence_XAssignment_XMemberFeatureCall(context, (XAssignment) semanticObject); 
 				return; 
@@ -256,50 +266,50 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_XAdditiveExpression_XAndExpression_XAssignment_XEqualityExpression_XMultiplicativeExpression_XOrExpression_XOtherOperatorExpression_XRelationalExpression(context, (XBinaryOperation) semanticObject); 
 				return; 
 			case XbasePackage.XBLOCK_EXPRESSION:
-				if(context == grammarAccess.getBlockExpressionRule()) {
+				if (rule == grammarAccess.getBlockExpressionRule()) {
 					sequence_BlockExpression(context, (XBlockExpression) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getXAdditiveExpressionRule() ||
-				   context == grammarAccess.getXAdditiveExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXAndExpressionRule() ||
-				   context == grammarAccess.getXAndExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXAnnotationElementValueRule() ||
-				   context == grammarAccess.getXAnnotationElementValueOrCommaListRule() ||
-				   context == grammarAccess.getXAnnotationElementValueOrCommaListAccess().getXListLiteralElementsAction_1_1_0() ||
-				   context == grammarAccess.getXAnnotationOrExpressionRule() ||
-				   context == grammarAccess.getXAssignmentRule() ||
-				   context == grammarAccess.getXAssignmentAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0() ||
-				   context == grammarAccess.getXBlockExpressionRule() ||
-				   context == grammarAccess.getXCastedExpressionRule() ||
-				   context == grammarAccess.getXCastedExpressionAccess().getXCastedExpressionTargetAction_1_0_0_0() ||
-				   context == grammarAccess.getXEqualityExpressionRule() ||
-				   context == grammarAccess.getXEqualityExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXExpressionRule() ||
-				   context == grammarAccess.getXExpressionOrVarDeclarationRule() ||
-				   context == grammarAccess.getXMemberFeatureCallRule() ||
-				   context == grammarAccess.getXMemberFeatureCallAccess().getXAssignmentAssignableAction_1_0_0_0_0() ||
-				   context == grammarAccess.getXMemberFeatureCallAccess().getXMemberFeatureCallMemberCallTargetAction_1_1_0_0_0() ||
-				   context == grammarAccess.getXMultiplicativeExpressionRule() ||
-				   context == grammarAccess.getXMultiplicativeExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXOrExpressionRule() ||
-				   context == grammarAccess.getXOrExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXOtherOperatorExpressionRule() ||
-				   context == grammarAccess.getXOtherOperatorExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXParenthesizedExpressionRule() ||
-				   context == grammarAccess.getXPostfixOperationRule() ||
-				   context == grammarAccess.getXPostfixOperationAccess().getXPostfixOperationOperandAction_1_0_0() ||
-				   context == grammarAccess.getXPrimaryExpressionRule() ||
-				   context == grammarAccess.getXRelationalExpressionRule() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getShouldThrowExpressionAction_1_1_0_0_0() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getShouldLeftOperandAction_1_0_0_0_0() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getXBinaryOperationLeftOperandAction_1_3_0_0_0() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_2_0_0_0() ||
-				   context == grammarAccess.getXUnaryOperationRule()) {
+				else if (rule == grammarAccess.getXPrimaryExpressionRule()
+						|| rule == grammarAccess.getXRelationalExpressionRule()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getShouldLeftOperandAction_1_0_0_0_0()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getShouldThrowExpressionAction_1_1_0_0_0()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_2_0_0_0()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getXBinaryOperationLeftOperandAction_1_3_0_0_0()
+						|| rule == grammarAccess.getXAnnotationElementValueOrCommaListRule()
+						|| action == grammarAccess.getXAnnotationElementValueOrCommaListAccess().getXListLiteralElementsAction_1_1_0()
+						|| rule == grammarAccess.getXAnnotationElementValueRule()
+						|| rule == grammarAccess.getXAnnotationOrExpressionRule()
+						|| rule == grammarAccess.getXExpressionRule()
+						|| rule == grammarAccess.getXAssignmentRule()
+						|| action == grammarAccess.getXAssignmentAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0()
+						|| rule == grammarAccess.getXOrExpressionRule()
+						|| action == grammarAccess.getXOrExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXAndExpressionRule()
+						|| action == grammarAccess.getXAndExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXEqualityExpressionRule()
+						|| action == grammarAccess.getXEqualityExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXOtherOperatorExpressionRule()
+						|| action == grammarAccess.getXOtherOperatorExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXAdditiveExpressionRule()
+						|| action == grammarAccess.getXAdditiveExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXMultiplicativeExpressionRule()
+						|| action == grammarAccess.getXMultiplicativeExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXUnaryOperationRule()
+						|| rule == grammarAccess.getXCastedExpressionRule()
+						|| action == grammarAccess.getXCastedExpressionAccess().getXCastedExpressionTargetAction_1_0_0_0()
+						|| rule == grammarAccess.getXPostfixOperationRule()
+						|| action == grammarAccess.getXPostfixOperationAccess().getXPostfixOperationOperandAction_1_0_0()
+						|| rule == grammarAccess.getXMemberFeatureCallRule()
+						|| action == grammarAccess.getXMemberFeatureCallAccess().getXAssignmentAssignableAction_1_0_0_0_0()
+						|| action == grammarAccess.getXMemberFeatureCallAccess().getXMemberFeatureCallMemberCallTargetAction_1_1_0_0_0()
+						|| rule == grammarAccess.getXParenthesizedExpressionRule()
+						|| rule == grammarAccess.getXBlockExpressionRule()
+						|| rule == grammarAccess.getXExpressionOrVarDeclarationRule()) {
 					sequence_XBlockExpression(context, (XBlockExpression) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getXExpressionInClosureRule()) {
+				else if (rule == grammarAccess.getXExpressionInClosureRule()) {
 					sequence_XExpressionInClosure(context, (XBlockExpression) semanticObject); 
 					return; 
 				}
@@ -317,47 +327,47 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_XCatchClause(context, (XCatchClause) semanticObject); 
 				return; 
 			case XbasePackage.XCLOSURE:
-				if(context == grammarAccess.getXAdditiveExpressionRule() ||
-				   context == grammarAccess.getXAdditiveExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXAndExpressionRule() ||
-				   context == grammarAccess.getXAndExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXAnnotationElementValueRule() ||
-				   context == grammarAccess.getXAnnotationElementValueOrCommaListRule() ||
-				   context == grammarAccess.getXAnnotationElementValueOrCommaListAccess().getXListLiteralElementsAction_1_1_0() ||
-				   context == grammarAccess.getXAnnotationOrExpressionRule() ||
-				   context == grammarAccess.getXAssignmentRule() ||
-				   context == grammarAccess.getXAssignmentAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0() ||
-				   context == grammarAccess.getXCastedExpressionRule() ||
-				   context == grammarAccess.getXCastedExpressionAccess().getXCastedExpressionTargetAction_1_0_0_0() ||
-				   context == grammarAccess.getXClosureRule() ||
-				   context == grammarAccess.getXEqualityExpressionRule() ||
-				   context == grammarAccess.getXEqualityExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXExpressionRule() ||
-				   context == grammarAccess.getXExpressionOrVarDeclarationRule() ||
-				   context == grammarAccess.getXLiteralRule() ||
-				   context == grammarAccess.getXMemberFeatureCallRule() ||
-				   context == grammarAccess.getXMemberFeatureCallAccess().getXAssignmentAssignableAction_1_0_0_0_0() ||
-				   context == grammarAccess.getXMemberFeatureCallAccess().getXMemberFeatureCallMemberCallTargetAction_1_1_0_0_0() ||
-				   context == grammarAccess.getXMultiplicativeExpressionRule() ||
-				   context == grammarAccess.getXMultiplicativeExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXOrExpressionRule() ||
-				   context == grammarAccess.getXOrExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXOtherOperatorExpressionRule() ||
-				   context == grammarAccess.getXOtherOperatorExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXParenthesizedExpressionRule() ||
-				   context == grammarAccess.getXPostfixOperationRule() ||
-				   context == grammarAccess.getXPostfixOperationAccess().getXPostfixOperationOperandAction_1_0_0() ||
-				   context == grammarAccess.getXPrimaryExpressionRule() ||
-				   context == grammarAccess.getXRelationalExpressionRule() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getShouldThrowExpressionAction_1_1_0_0_0() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getShouldLeftOperandAction_1_0_0_0_0() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getXBinaryOperationLeftOperandAction_1_3_0_0_0() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_2_0_0_0() ||
-				   context == grammarAccess.getXUnaryOperationRule()) {
+				if (rule == grammarAccess.getXPrimaryExpressionRule()
+						|| rule == grammarAccess.getXRelationalExpressionRule()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getShouldLeftOperandAction_1_0_0_0_0()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getShouldThrowExpressionAction_1_1_0_0_0()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_2_0_0_0()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getXBinaryOperationLeftOperandAction_1_3_0_0_0()
+						|| rule == grammarAccess.getXAnnotationElementValueOrCommaListRule()
+						|| action == grammarAccess.getXAnnotationElementValueOrCommaListAccess().getXListLiteralElementsAction_1_1_0()
+						|| rule == grammarAccess.getXAnnotationElementValueRule()
+						|| rule == grammarAccess.getXAnnotationOrExpressionRule()
+						|| rule == grammarAccess.getXExpressionRule()
+						|| rule == grammarAccess.getXAssignmentRule()
+						|| action == grammarAccess.getXAssignmentAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0()
+						|| rule == grammarAccess.getXOrExpressionRule()
+						|| action == grammarAccess.getXOrExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXAndExpressionRule()
+						|| action == grammarAccess.getXAndExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXEqualityExpressionRule()
+						|| action == grammarAccess.getXEqualityExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXOtherOperatorExpressionRule()
+						|| action == grammarAccess.getXOtherOperatorExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXAdditiveExpressionRule()
+						|| action == grammarAccess.getXAdditiveExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXMultiplicativeExpressionRule()
+						|| action == grammarAccess.getXMultiplicativeExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXUnaryOperationRule()
+						|| rule == grammarAccess.getXCastedExpressionRule()
+						|| action == grammarAccess.getXCastedExpressionAccess().getXCastedExpressionTargetAction_1_0_0_0()
+						|| rule == grammarAccess.getXPostfixOperationRule()
+						|| action == grammarAccess.getXPostfixOperationAccess().getXPostfixOperationOperandAction_1_0_0()
+						|| rule == grammarAccess.getXMemberFeatureCallRule()
+						|| action == grammarAccess.getXMemberFeatureCallAccess().getXAssignmentAssignableAction_1_0_0_0_0()
+						|| action == grammarAccess.getXMemberFeatureCallAccess().getXMemberFeatureCallMemberCallTargetAction_1_1_0_0_0()
+						|| rule == grammarAccess.getXLiteralRule()
+						|| rule == grammarAccess.getXClosureRule()
+						|| rule == grammarAccess.getXParenthesizedExpressionRule()
+						|| rule == grammarAccess.getXExpressionOrVarDeclarationRule()) {
 					sequence_XClosure(context, (XClosure) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getXShortClosureRule()) {
+				else if (rule == grammarAccess.getXShortClosureRule()) {
 					sequence_XShortClosure(context, (XClosure) semanticObject); 
 					return; 
 				}
@@ -381,50 +391,50 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_XRelationalExpression(context, (XInstanceOfExpression) semanticObject); 
 				return; 
 			case XbasePackage.XLIST_LITERAL:
-				if(context == grammarAccess.getXAnnotationElementValueOrCommaListRule()) {
+				if (rule == grammarAccess.getXAnnotationElementValueOrCommaListRule()) {
 					sequence_XAnnotationElementValueOrCommaList_XListLiteral(context, (XListLiteral) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getXAnnotationElementValueRule()) {
+				else if (rule == grammarAccess.getXAnnotationElementValueRule()) {
 					sequence_XAnnotationElementValue_XListLiteral(context, (XListLiteral) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getXAdditiveExpressionRule() ||
-				   context == grammarAccess.getXAdditiveExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXAndExpressionRule() ||
-				   context == grammarAccess.getXAndExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXAnnotationElementValueOrCommaListAccess().getXListLiteralElementsAction_1_1_0() ||
-				   context == grammarAccess.getXAnnotationOrExpressionRule() ||
-				   context == grammarAccess.getXAssignmentRule() ||
-				   context == grammarAccess.getXAssignmentAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0() ||
-				   context == grammarAccess.getXCastedExpressionRule() ||
-				   context == grammarAccess.getXCastedExpressionAccess().getXCastedExpressionTargetAction_1_0_0_0() ||
-				   context == grammarAccess.getXCollectionLiteralRule() ||
-				   context == grammarAccess.getXEqualityExpressionRule() ||
-				   context == grammarAccess.getXEqualityExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXExpressionRule() ||
-				   context == grammarAccess.getXExpressionOrVarDeclarationRule() ||
-				   context == grammarAccess.getXListLiteralRule() ||
-				   context == grammarAccess.getXLiteralRule() ||
-				   context == grammarAccess.getXMemberFeatureCallRule() ||
-				   context == grammarAccess.getXMemberFeatureCallAccess().getXAssignmentAssignableAction_1_0_0_0_0() ||
-				   context == grammarAccess.getXMemberFeatureCallAccess().getXMemberFeatureCallMemberCallTargetAction_1_1_0_0_0() ||
-				   context == grammarAccess.getXMultiplicativeExpressionRule() ||
-				   context == grammarAccess.getXMultiplicativeExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXOrExpressionRule() ||
-				   context == grammarAccess.getXOrExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXOtherOperatorExpressionRule() ||
-				   context == grammarAccess.getXOtherOperatorExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getXParenthesizedExpressionRule() ||
-				   context == grammarAccess.getXPostfixOperationRule() ||
-				   context == grammarAccess.getXPostfixOperationAccess().getXPostfixOperationOperandAction_1_0_0() ||
-				   context == grammarAccess.getXPrimaryExpressionRule() ||
-				   context == grammarAccess.getXRelationalExpressionRule() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getShouldThrowExpressionAction_1_1_0_0_0() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getShouldLeftOperandAction_1_0_0_0_0() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getXBinaryOperationLeftOperandAction_1_3_0_0_0() ||
-				   context == grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_2_0_0_0() ||
-				   context == grammarAccess.getXUnaryOperationRule()) {
+				else if (rule == grammarAccess.getXPrimaryExpressionRule()
+						|| rule == grammarAccess.getXRelationalExpressionRule()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getShouldLeftOperandAction_1_0_0_0_0()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getShouldThrowExpressionAction_1_1_0_0_0()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_2_0_0_0()
+						|| action == grammarAccess.getXRelationalExpressionAccess().getXBinaryOperationLeftOperandAction_1_3_0_0_0()
+						|| action == grammarAccess.getXAnnotationElementValueOrCommaListAccess().getXListLiteralElementsAction_1_1_0()
+						|| rule == grammarAccess.getXAnnotationOrExpressionRule()
+						|| rule == grammarAccess.getXExpressionRule()
+						|| rule == grammarAccess.getXAssignmentRule()
+						|| action == grammarAccess.getXAssignmentAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0()
+						|| rule == grammarAccess.getXOrExpressionRule()
+						|| action == grammarAccess.getXOrExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXAndExpressionRule()
+						|| action == grammarAccess.getXAndExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXEqualityExpressionRule()
+						|| action == grammarAccess.getXEqualityExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXOtherOperatorExpressionRule()
+						|| action == grammarAccess.getXOtherOperatorExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXAdditiveExpressionRule()
+						|| action == grammarAccess.getXAdditiveExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXMultiplicativeExpressionRule()
+						|| action == grammarAccess.getXMultiplicativeExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0()
+						|| rule == grammarAccess.getXUnaryOperationRule()
+						|| rule == grammarAccess.getXCastedExpressionRule()
+						|| action == grammarAccess.getXCastedExpressionAccess().getXCastedExpressionTargetAction_1_0_0_0()
+						|| rule == grammarAccess.getXPostfixOperationRule()
+						|| action == grammarAccess.getXPostfixOperationAccess().getXPostfixOperationOperandAction_1_0_0()
+						|| rule == grammarAccess.getXMemberFeatureCallRule()
+						|| action == grammarAccess.getXMemberFeatureCallAccess().getXAssignmentAssignableAction_1_0_0_0_0()
+						|| action == grammarAccess.getXMemberFeatureCallAccess().getXMemberFeatureCallMemberCallTargetAction_1_1_0_0_0()
+						|| rule == grammarAccess.getXLiteralRule()
+						|| rule == grammarAccess.getXCollectionLiteralRule()
+						|| rule == grammarAccess.getXListLiteralRule()
+						|| rule == grammarAccess.getXParenthesizedExpressionRule()
+						|| rule == grammarAccess.getXExpressionOrVarDeclarationRule()) {
 					sequence_XListLiteral(context, (XListLiteral) semanticObject); 
 					return; 
 				}
@@ -475,7 +485,8 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_XWhileExpression(context, (XWhileExpression) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == XtypePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == XtypePackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case XtypePackage.XFUNCTION_TYPE_REF:
 				sequence_XFunctionTypeRef(context, (XFunctionTypeRef) semanticObject); 
 				return; 
@@ -486,89 +497,100 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 				sequence_XImportSection(context, (XImportSection) semanticObject); 
 				return; 
 			}
-		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
+		if (errorAcceptor != null)
+			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
 	
 	/**
+	 * Contexts:
+	 *     AndReference returns AndReference
+	 *
 	 * Constraint:
 	 *     reference=[And|AND_TEXT]
 	 */
-	protected void sequence_AndReference(EObject context, AndReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_AndReference(ISerializationContext context, AndReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, FeaturePackage.Literals.STEP_REFERENCE__REFERENCE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, FeaturePackage.Literals.STEP_REFERENCE__REFERENCE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAndReferenceAccess().getReferenceAndAND_TEXTTerminalRuleCall_1_0_1(), semanticObject.getReference());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     And returns And
+	 *
 	 * Constraint:
 	 *     (name=AND_TEXT expression=BlockExpression)
 	 */
-	protected void sequence_And(EObject context, And semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_And(ISerializationContext context, And semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__NAME));
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAndAccess().getNameAND_TEXTTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getAndAccess().getExpressionBlockExpressionParserRuleCall_2_0(), semanticObject.getExpression());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     AnonymousMember returns JnarioField
+	 *
 	 * Constraint:
 	 *     (
+	 *         annotationInfo=AnonymousMember_JnarioField_2_0_0 
+	 *         modifiers+=CommonModifier* 
 	 *         (
+	 *             (modifiers+=FieldModifier modifiers+=CommonModifier* type=JvmTypeReference? name=ValidID) | 
+	 *             (modifiers+='extension' (modifiers+=FieldModifier | modifiers+=CommonModifier)* type=JvmTypeReference name=ValidID?) | 
 	 *             (
-	 *                 annotationInfo=AnonymousMember_JnarioField_2_0_0 
+	 *                 modifiers+=FieldModifier 
 	 *                 modifiers+=CommonModifier* 
-	 *                 (
-	 *                     (modifiers+=FieldModifier modifiers+=CommonModifier* type=JvmTypeReference? name=ValidID) | 
-	 *                     (modifiers+='extension' (modifiers+=FieldModifier | modifiers+=CommonModifier)* type=JvmTypeReference name=ValidID?) | 
-	 *                     (
-	 *                         modifiers+=FieldModifier 
-	 *                         modifiers+=CommonModifier* 
-	 *                         modifiers+='extension' 
-	 *                         modifiers+=CommonModifier* 
-	 *                         type=JvmTypeReference 
-	 *                         name=ValidID?
-	 *                     ) | 
-	 *                     (type=JvmTypeReference name=ValidID)
-	 *                 )
+	 *                 modifiers+='extension' 
+	 *                 modifiers+=CommonModifier* 
+	 *                 type=JvmTypeReference 
+	 *                 name=ValidID?
 	 *             ) | 
-	 *             (
-	 *                 annotationInfo=AnonymousMember_JnarioField_2_0_0 
-	 *                 (
-	 *                     (modifiers+=FieldModifier modifiers+=CommonModifier* type=JvmTypeReference? name=ValidID) | 
-	 *                     (modifiers+='extension' (modifiers+=FieldModifier | modifiers+=CommonModifier)* type=JvmTypeReference name=ValidID?) | 
-	 *                     (
-	 *                         modifiers+=FieldModifier 
-	 *                         modifiers+=CommonModifier* 
-	 *                         modifiers+='extension' 
-	 *                         modifiers+=CommonModifier* 
-	 *                         type=JvmTypeReference 
-	 *                         name=ValidID?
-	 *                     ) | 
-	 *                     (type=JvmTypeReference name=ValidID)
-	 *                 )
-	 *             )
+	 *             (type=JvmTypeReference name=ValidID)
 	 *         ) 
 	 *         initialValue=XExpression?
 	 *     )
 	 */
-	protected void sequence_AnonymousMember(EObject context, JnarioField semanticObject) {
+	protected void sequence_AnonymousMember(ISerializationContext context, JnarioField semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     AnonymousMember.JnarioField_2_0_0 returns JnarioMember
+	 *     AnonymousMember.JnarioFunction_2_1_0 returns JnarioMember
+	 *
 	 * Constraint:
-	 *     annotations+=XAnnotation+
+	 *     annotations+=XAnnotation*
 	 */
-	protected void sequence_AnonymousMember_JnarioField_2_0_0_JnarioFunction_2_1_0(EObject context, JnarioMember semanticObject) {
+	protected void sequence_AnonymousMember_JnarioField_2_0_0_JnarioFunction_2_1_0(ISerializationContext context, JnarioMember semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     AnonymousMember returns JnarioFunction
+	 *
 	 * Constraint:
 	 *     (
-	 *         (
-	 *             (annotationInfo=AnonymousMember_JnarioFunction_2_1_0 modifiers+=CommonModifier* modifiers+=MethodModifier) | 
-	 *             (annotationInfo=AnonymousMember_JnarioFunction_2_1_0 modifiers+=MethodModifier)
-	 *         ) 
+	 *         annotationInfo=AnonymousMember_JnarioFunction_2_1_0 
+	 *         modifiers+=CommonModifier* 
+	 *         modifiers+=MethodModifier 
 	 *         (modifiers+=CommonModifier | modifiers+=MethodModifier)* 
 	 *         (typeParameters+=JvmTypeParameter typeParameters+=JvmTypeParameter*)? 
 	 *         ((returnType=JvmTypeReference name=FunctionID) | (returnType=TypeReferenceNoTypeArgs name=FunctionID) | name=FunctionID) 
@@ -577,267 +599,535 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 	 *         expression=XBlockExpression?
 	 *     )
 	 */
-	protected void sequence_AnonymousMember(EObject context, JnarioFunction semanticObject) {
+	protected void sequence_AnonymousMember(ISerializationContext context, JnarioFunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     XPrimaryExpression returns Assertion
+	 *     XRelationalExpression returns Assertion
+	 *     XRelationalExpression.Should_1_0_0_0_0 returns Assertion
+	 *     XRelationalExpression.ShouldThrow_1_1_0_0_0 returns Assertion
+	 *     XRelationalExpression.XInstanceOfExpression_1_2_0_0_0 returns Assertion
+	 *     XRelationalExpression.XBinaryOperation_1_3_0_0_0 returns Assertion
+	 *     Assertion returns Assertion
+	 *     XAnnotationElementValueOrCommaList returns Assertion
+	 *     XAnnotationElementValueOrCommaList.XListLiteral_1_1_0 returns Assertion
+	 *     XAnnotationElementValue returns Assertion
+	 *     XAnnotationOrExpression returns Assertion
+	 *     XExpression returns Assertion
+	 *     XAssignment returns Assertion
+	 *     XAssignment.XBinaryOperation_1_1_0_0_0 returns Assertion
+	 *     XOrExpression returns Assertion
+	 *     XOrExpression.XBinaryOperation_1_0_0_0 returns Assertion
+	 *     XAndExpression returns Assertion
+	 *     XAndExpression.XBinaryOperation_1_0_0_0 returns Assertion
+	 *     XEqualityExpression returns Assertion
+	 *     XEqualityExpression.XBinaryOperation_1_0_0_0 returns Assertion
+	 *     XOtherOperatorExpression returns Assertion
+	 *     XOtherOperatorExpression.XBinaryOperation_1_0_0_0 returns Assertion
+	 *     XAdditiveExpression returns Assertion
+	 *     XAdditiveExpression.XBinaryOperation_1_0_0_0 returns Assertion
+	 *     XMultiplicativeExpression returns Assertion
+	 *     XMultiplicativeExpression.XBinaryOperation_1_0_0_0 returns Assertion
+	 *     XUnaryOperation returns Assertion
+	 *     XCastedExpression returns Assertion
+	 *     XCastedExpression.XCastedExpression_1_0_0_0 returns Assertion
+	 *     XPostfixOperation returns Assertion
+	 *     XPostfixOperation.XPostfixOperation_1_0_0 returns Assertion
+	 *     XMemberFeatureCall returns Assertion
+	 *     XMemberFeatureCall.XAssignment_1_0_0_0_0 returns Assertion
+	 *     XMemberFeatureCall.XMemberFeatureCall_1_1_0_0_0 returns Assertion
+	 *     XParenthesizedExpression returns Assertion
+	 *     XExpressionOrVarDeclaration returns Assertion
+	 *
 	 * Constraint:
 	 *     expression=XExpression
 	 */
-	protected void sequence_Assertion(EObject context, Assertion semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.ASSERTION__EXPRESSION) == ValueTransient.YES)
+	protected void sequence_Assertion(ISerializationContext context, Assertion semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.ASSERTION__EXPRESSION) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.ASSERTION__EXPRESSION));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getAssertionAccess().getExpressionXExpressionParserRuleCall_2_0(), semanticObject.getExpression());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Background returns Background
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=BACKGROUND_TEXT 
 	 *         members+=Member* 
-	 *         ((members+=Given | members+=GivenReference) (members+=And | members+=AndReference | members+=But | members+=ButReference)*)?
+	 *         (
+	 *             (members+=Given | members+=GivenReference) 
+	 *             members+=ButReference? 
+	 *             ((members+=And | members+=AndReference | members+=But)? members+=ButReference?)*
+	 *         )?
 	 *     )
 	 */
-	protected void sequence_Background(EObject context, Background semanticObject) {
+	protected void sequence_Background(ISerializationContext context, Background semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     BlockExpression returns XBlockExpression
+	 *
 	 * Constraint:
 	 *     expressions+=XExpressionOrVarDeclaration+
 	 */
-	protected void sequence_BlockExpression(EObject context, XBlockExpression semanticObject) {
+	protected void sequence_BlockExpression(ISerializationContext context, XBlockExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ButReference returns ButReference
+	 *
 	 * Constraint:
 	 *     reference=[But|BUT_TEXT]
 	 */
-	protected void sequence_ButReference(EObject context, ButReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_ButReference(ISerializationContext context, ButReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, FeaturePackage.Literals.STEP_REFERENCE__REFERENCE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, FeaturePackage.Literals.STEP_REFERENCE__REFERENCE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getButReferenceAccess().getReferenceButBUT_TEXTTerminalRuleCall_1_0_1(), semanticObject.getReference());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     But returns But
+	 *
 	 * Constraint:
 	 *     (name=BUT_TEXT expression=BlockExpression)
 	 */
-	protected void sequence_But(EObject context, But semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_But(ISerializationContext context, But semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__NAME));
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getButAccess().getNameBUT_TEXTTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getButAccess().getExpressionBlockExpressionParserRuleCall_2_0(), semanticObject.getExpression());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     FeatureFile returns FeatureFile
+	 *
 	 * Constraint:
 	 *     (package=QualifiedName? importSection=XImportSection? xtendTypes+=Feature?)
 	 */
-	protected void sequence_FeatureFile(EObject context, FeatureFile semanticObject) {
+	protected void sequence_FeatureFile(ISerializationContext context, FeatureFile semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Feature returns Feature
+	 *
 	 * Constraint:
 	 *     (annotations+=XAnnotation* name=FEATURE_TEXT description=TEXT? members+=Background? members+=Scenario*)
 	 */
-	protected void sequence_Feature(EObject context, Feature semanticObject) {
+	protected void sequence_Feature(ISerializationContext context, Feature semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     GivenReference returns GivenReference
+	 *
 	 * Constraint:
 	 *     reference=[Given|GIVEN_TEXT]
 	 */
-	protected void sequence_GivenReference(EObject context, GivenReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_GivenReference(ISerializationContext context, GivenReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, FeaturePackage.Literals.STEP_REFERENCE__REFERENCE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, FeaturePackage.Literals.STEP_REFERENCE__REFERENCE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getGivenReferenceAccess().getReferenceGivenGIVEN_TEXTTerminalRuleCall_1_0_1(), semanticObject.getReference());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Given returns Given
+	 *
 	 * Constraint:
 	 *     (name=GIVEN_TEXT expression=BlockExpression)
 	 */
-	protected void sequence_Given(EObject context, Given semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_Given(ISerializationContext context, Given semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__NAME));
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getGivenAccess().getNameGIVEN_TEXTTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getGivenAccess().getExpressionBlockExpressionParserRuleCall_2_0(), semanticObject.getExpression());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Member returns JnarioField
+	 *
 	 * Constraint:
 	 *     (
+	 *         annotationInfo=Member_JnarioField_2_0 
+	 *         modifiers+=CommonModifier* 
 	 *         (
+	 *             (modifiers+=FieldModifier modifiers+=CommonModifier* type=JvmTypeReference? name=ValidID) | 
+	 *             (modifiers+='extension' (modifiers+=FieldModifier | modifiers+=CommonModifier)* type=JvmTypeReference name=ValidID?) | 
 	 *             (
-	 *                 annotationInfo=Member_JnarioField_2_0 
+	 *                 modifiers+=FieldModifier 
 	 *                 modifiers+=CommonModifier* 
-	 *                 (
-	 *                     (modifiers+=FieldModifier modifiers+=CommonModifier* type=JvmTypeReference? name=ValidID) | 
-	 *                     (modifiers+='extension' (modifiers+=FieldModifier | modifiers+=CommonModifier)* type=JvmTypeReference name=ValidID?) | 
-	 *                     (
-	 *                         modifiers+=FieldModifier 
-	 *                         modifiers+=CommonModifier* 
-	 *                         modifiers+='extension' 
-	 *                         modifiers+=CommonModifier* 
-	 *                         type=JvmTypeReference 
-	 *                         name=ValidID?
-	 *                     ) | 
-	 *                     (type=JvmTypeReference name=ValidID)
-	 *                 )
+	 *                 modifiers+='extension' 
+	 *                 modifiers+=CommonModifier* 
+	 *                 type=JvmTypeReference 
+	 *                 name=ValidID?
 	 *             ) | 
-	 *             (
-	 *                 annotationInfo=Member_JnarioField_2_0 
-	 *                 (
-	 *                     (modifiers+=FieldModifier modifiers+=CommonModifier* type=JvmTypeReference? name=ValidID) | 
-	 *                     (modifiers+='extension' (modifiers+=FieldModifier | modifiers+=CommonModifier)* type=JvmTypeReference name=ValidID?) | 
-	 *                     (
-	 *                         modifiers+=FieldModifier 
-	 *                         modifiers+=CommonModifier* 
-	 *                         modifiers+='extension' 
-	 *                         modifiers+=CommonModifier* 
-	 *                         type=JvmTypeReference 
-	 *                         name=ValidID?
-	 *                     ) | 
-	 *                     (type=JvmTypeReference name=ValidID)
-	 *                 )
-	 *             )
+	 *             (type=JvmTypeReference name=ValidID)
 	 *         ) 
 	 *         initialValue=XExpression?
 	 *     )
 	 */
-	protected void sequence_Member(EObject context, JnarioField semanticObject) {
+	protected void sequence_Member(ISerializationContext context, JnarioField semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Member.JnarioField_2_0 returns JnarioMember
+	 *
 	 * Constraint:
-	 *     annotations+=XAnnotation+
+	 *     annotations+=XAnnotation*
 	 */
-	protected void sequence_Member_JnarioField_2_0(EObject context, JnarioMember semanticObject) {
+	protected void sequence_Member_JnarioField_2_0(ISerializationContext context, JnarioMember semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Parameter returns JnarioParameter
+	 *
 	 * Constraint:
 	 *     (annotations+=XAnnotation* (extension?='extension' annotations+=XAnnotation*)? parameterType=JvmTypeReference varArg?='...'? name=ValidID)
 	 */
-	protected void sequence_Parameter(EObject context, JnarioParameter semanticObject) {
+	protected void sequence_Parameter(ISerializationContext context, JnarioParameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Scenario returns Scenario
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=SCENARIO_TEXT 
 	 *         members+=Member* 
-	 *         ((members+=Given | members+=GivenReference) (members+=And | members+=AndReference | members+=But | members+=ButReference)*)? 
-	 *         ((members+=When | members+=WhenReference) (members+=And | members+=AndReference | members+=But | members+=ButReference)*)? 
-	 *         ((members+=Then | members+=ThenReference) (members+=And | members+=AndReference | members+=But | members+=ButReference)*)?
+	 *         (
+	 *             (members+=Given | members+=GivenReference) 
+	 *             members+=ButReference? 
+	 *             ((members+=And | members+=AndReference | members+=But)? members+=ButReference?)*
+	 *         )? 
+	 *         (
+	 *             (members+=When | members+=WhenReference) 
+	 *             members+=ButReference? 
+	 *             ((members+=And | members+=AndReference | members+=But)? members+=ButReference?)*
+	 *         )? 
+	 *         ((members+=Then | members+=ThenReference) members+=And? ((members+=AndReference | members+=But | members+=ButReference)? members+=And?)*)?
 	 *     )
 	 */
-	protected void sequence_Scenario(EObject context, Scenario semanticObject) {
+	protected void sequence_Scenario(ISerializationContext context, Scenario semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ThenReference returns ThenReference
+	 *
 	 * Constraint:
 	 *     reference=[Then|THEN_TEXT]
 	 */
-	protected void sequence_ThenReference(EObject context, ThenReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_ThenReference(ISerializationContext context, ThenReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, FeaturePackage.Literals.STEP_REFERENCE__REFERENCE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, FeaturePackage.Literals.STEP_REFERENCE__REFERENCE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getThenReferenceAccess().getReferenceThenTHEN_TEXTTerminalRuleCall_1_0_1(), semanticObject.getReference());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Then returns Then
+	 *
 	 * Constraint:
 	 *     (name=THEN_TEXT expression=BlockExpression)
 	 */
-	protected void sequence_Then(EObject context, Then semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_Then(ISerializationContext context, Then semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__NAME));
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getThenAccess().getNameTHEN_TEXTTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getThenAccess().getExpressionBlockExpressionParserRuleCall_2_0(), semanticObject.getExpression());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     TypeReferenceNoTypeArgs returns JvmParameterizedTypeReference
+	 *
 	 * Constraint:
 	 *     type=[JvmType|QualifiedName]
 	 */
-	protected void sequence_TypeReferenceNoTypeArgs(EObject context, JvmParameterizedTypeReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_TypeReferenceNoTypeArgs(ISerializationContext context, JvmParameterizedTypeReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTypeReferenceNoTypeArgsAccess().getTypeJvmTypeQualifiedNameParserRuleCall_0_1(), semanticObject.getType());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     WhenReference returns WhenReference
+	 *
 	 * Constraint:
 	 *     reference=[When|WHEN_TEXT]
 	 */
-	protected void sequence_WhenReference(EObject context, WhenReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_WhenReference(ISerializationContext context, WhenReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, FeaturePackage.Literals.STEP_REFERENCE__REFERENCE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, FeaturePackage.Literals.STEP_REFERENCE__REFERENCE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getWhenReferenceAccess().getReferenceWhenWHEN_TEXTTerminalRuleCall_1_0_1(), semanticObject.getReference());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     When returns When
+	 *
 	 * Constraint:
 	 *     (name=WHEN_TEXT expression=BlockExpression)
 	 */
-	protected void sequence_When(EObject context, When semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_When(ISerializationContext context, When semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__NAME));
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getWhenAccess().getNameWHEN_TEXTTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getWhenAccess().getExpressionBlockExpressionParserRuleCall_2_0(), semanticObject.getExpression());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     XPrimaryExpression returns XBinaryOperation
+	 *     XRelationalExpression returns XBinaryOperation
+	 *     XRelationalExpression.Should_1_0_0_0_0 returns XBinaryOperation
+	 *     XRelationalExpression.ShouldThrow_1_1_0_0_0 returns XBinaryOperation
+	 *     XRelationalExpression.XInstanceOfExpression_1_2_0_0_0 returns XBinaryOperation
+	 *     XRelationalExpression.XBinaryOperation_1_3_0_0_0 returns XBinaryOperation
+	 *     XAnnotationElementValueOrCommaList returns XBinaryOperation
+	 *     XAnnotationElementValueOrCommaList.XListLiteral_1_1_0 returns XBinaryOperation
+	 *     XAnnotationElementValue returns XBinaryOperation
+	 *     XAnnotationOrExpression returns XBinaryOperation
+	 *     XExpression returns XBinaryOperation
+	 *     XAssignment returns XBinaryOperation
+	 *     XAssignment.XBinaryOperation_1_1_0_0_0 returns XBinaryOperation
+	 *     XOrExpression returns XBinaryOperation
+	 *     XOrExpression.XBinaryOperation_1_0_0_0 returns XBinaryOperation
+	 *     XAndExpression returns XBinaryOperation
+	 *     XAndExpression.XBinaryOperation_1_0_0_0 returns XBinaryOperation
+	 *     XEqualityExpression returns XBinaryOperation
+	 *     XEqualityExpression.XBinaryOperation_1_0_0_0 returns XBinaryOperation
+	 *     XOtherOperatorExpression returns XBinaryOperation
+	 *     XOtherOperatorExpression.XBinaryOperation_1_0_0_0 returns XBinaryOperation
+	 *     XAdditiveExpression returns XBinaryOperation
+	 *     XAdditiveExpression.XBinaryOperation_1_0_0_0 returns XBinaryOperation
+	 *     XMultiplicativeExpression returns XBinaryOperation
+	 *     XMultiplicativeExpression.XBinaryOperation_1_0_0_0 returns XBinaryOperation
+	 *     XUnaryOperation returns XBinaryOperation
+	 *     XCastedExpression returns XBinaryOperation
+	 *     XCastedExpression.XCastedExpression_1_0_0_0 returns XBinaryOperation
+	 *     XPostfixOperation returns XBinaryOperation
+	 *     XPostfixOperation.XPostfixOperation_1_0_0 returns XBinaryOperation
+	 *     XMemberFeatureCall returns XBinaryOperation
+	 *     XMemberFeatureCall.XAssignment_1_0_0_0_0 returns XBinaryOperation
+	 *     XMemberFeatureCall.XMemberFeatureCall_1_1_0_0_0 returns XBinaryOperation
+	 *     XParenthesizedExpression returns XBinaryOperation
+	 *     XExpressionOrVarDeclaration returns XBinaryOperation
+	 *
 	 * Constraint:
 	 *     (
-	 *         (leftOperand=XAdditiveExpression_XBinaryOperation_1_0_0_0 feature=[JvmIdentifiableElement|OpAdd] rightOperand=XMultiplicativeExpression) | 
-	 *         (leftOperand=XMultiplicativeExpression_XBinaryOperation_1_0_0_0 feature=[JvmIdentifiableElement|OpMulti] rightOperand=XUnaryOperation) | 
-	 *         (leftOperand=XOtherOperatorExpression_XBinaryOperation_1_0_0_0 feature=[JvmIdentifiableElement|OpOther] rightOperand=XAdditiveExpression) | 
 	 *         (leftOperand=XRelationalExpression_XBinaryOperation_1_3_0_0_0 feature=[JvmIdentifiableElement|OpCompare] rightOperand=XOtherOperatorExpression) | 
-	 *         (leftOperand=XEqualityExpression_XBinaryOperation_1_0_0_0 feature=[JvmIdentifiableElement|OpEquality] rightOperand=XRelationalExpression) | 
-	 *         (leftOperand=XAndExpression_XBinaryOperation_1_0_0_0 feature=[JvmIdentifiableElement|OpAnd] rightOperand=XEqualityExpression) | 
+	 *         (leftOperand=XAssignment_XBinaryOperation_1_1_0_0_0 feature=[JvmIdentifiableElement|OpMultiAssign] rightOperand=XAssignment) | 
 	 *         (leftOperand=XOrExpression_XBinaryOperation_1_0_0_0 feature=[JvmIdentifiableElement|OpOr] rightOperand=XAndExpression) | 
-	 *         (leftOperand=XAssignment_XBinaryOperation_1_1_0_0_0 feature=[JvmIdentifiableElement|OpMultiAssign] rightOperand=XAssignment)
+	 *         (leftOperand=XAndExpression_XBinaryOperation_1_0_0_0 feature=[JvmIdentifiableElement|OpAnd] rightOperand=XEqualityExpression) | 
+	 *         (leftOperand=XEqualityExpression_XBinaryOperation_1_0_0_0 feature=[JvmIdentifiableElement|OpEquality] rightOperand=XRelationalExpression) | 
+	 *         (leftOperand=XOtherOperatorExpression_XBinaryOperation_1_0_0_0 feature=[JvmIdentifiableElement|OpOther] rightOperand=XAdditiveExpression) | 
+	 *         (leftOperand=XAdditiveExpression_XBinaryOperation_1_0_0_0 feature=[JvmIdentifiableElement|OpAdd] rightOperand=XMultiplicativeExpression) | 
+	 *         (leftOperand=XMultiplicativeExpression_XBinaryOperation_1_0_0_0 feature=[JvmIdentifiableElement|OpMulti] rightOperand=XUnaryOperation)
 	 *     )
 	 */
-	protected void sequence_XAdditiveExpression_XAndExpression_XAssignment_XEqualityExpression_XMultiplicativeExpression_XOrExpression_XOtherOperatorExpression_XRelationalExpression(EObject context, XBinaryOperation semanticObject) {
+	protected void sequence_XAdditiveExpression_XAndExpression_XAssignment_XEqualityExpression_XMultiplicativeExpression_XOrExpression_XOtherOperatorExpression_XRelationalExpression(ISerializationContext context, XBinaryOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     XPrimaryExpression returns Should
+	 *     XRelationalExpression returns Should
+	 *     XRelationalExpression.Should_1_0_0_0_0 returns Should
+	 *     XRelationalExpression.ShouldThrow_1_1_0_0_0 returns Should
+	 *     XRelationalExpression.XInstanceOfExpression_1_2_0_0_0 returns Should
+	 *     XRelationalExpression.XBinaryOperation_1_3_0_0_0 returns Should
+	 *     XAnnotationElementValueOrCommaList returns Should
+	 *     XAnnotationElementValueOrCommaList.XListLiteral_1_1_0 returns Should
+	 *     XAnnotationElementValue returns Should
+	 *     XAnnotationOrExpression returns Should
+	 *     XExpression returns Should
+	 *     XAssignment returns Should
+	 *     XAssignment.XBinaryOperation_1_1_0_0_0 returns Should
+	 *     XOrExpression returns Should
+	 *     XOrExpression.XBinaryOperation_1_0_0_0 returns Should
+	 *     XAndExpression returns Should
+	 *     XAndExpression.XBinaryOperation_1_0_0_0 returns Should
+	 *     XEqualityExpression returns Should
+	 *     XEqualityExpression.XBinaryOperation_1_0_0_0 returns Should
+	 *     XOtherOperatorExpression returns Should
+	 *     XOtherOperatorExpression.XBinaryOperation_1_0_0_0 returns Should
+	 *     XAdditiveExpression returns Should
+	 *     XAdditiveExpression.XBinaryOperation_1_0_0_0 returns Should
+	 *     XMultiplicativeExpression returns Should
+	 *     XMultiplicativeExpression.XBinaryOperation_1_0_0_0 returns Should
+	 *     XUnaryOperation returns Should
+	 *     XCastedExpression returns Should
+	 *     XCastedExpression.XCastedExpression_1_0_0_0 returns Should
+	 *     XPostfixOperation returns Should
+	 *     XPostfixOperation.XPostfixOperation_1_0_0 returns Should
+	 *     XMemberFeatureCall returns Should
+	 *     XMemberFeatureCall.XAssignment_1_0_0_0_0 returns Should
+	 *     XMemberFeatureCall.XMemberFeatureCall_1_1_0_0_0 returns Should
+	 *     XParenthesizedExpression returns Should
+	 *     XExpressionOrVarDeclaration returns Should
+	 *
 	 * Constraint:
 	 *     (leftOperand=XRelationalExpression_Should_1_0_0_0_0 feature=[JvmIdentifiableElement|Should] rightOperand=XOtherOperatorExpression)
 	 */
-	protected void sequence_XRelationalExpression(EObject context, Should semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_XRelationalExpression(ISerializationContext context, Should semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, XbasePackage.Literals.XBINARY_OPERATION__LEFT_OPERAND) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XbasePackage.Literals.XBINARY_OPERATION__LEFT_OPERAND));
+			if (transientValues.isValueTransient(semanticObject, XbasePackage.Literals.XABSTRACT_FEATURE_CALL__FEATURE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XbasePackage.Literals.XABSTRACT_FEATURE_CALL__FEATURE));
+			if (transientValues.isValueTransient(semanticObject, XbasePackage.Literals.XBINARY_OPERATION__RIGHT_OPERAND) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XbasePackage.Literals.XBINARY_OPERATION__RIGHT_OPERAND));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getXRelationalExpressionAccess().getShouldLeftOperandAction_1_0_0_0_0(), semanticObject.getLeftOperand());
+		feeder.accept(grammarAccess.getXRelationalExpressionAccess().getFeatureJvmIdentifiableElementShouldParserRuleCall_1_0_0_0_1_0_1(), semanticObject.getFeature());
+		feeder.accept(grammarAccess.getXRelationalExpressionAccess().getRightOperandXOtherOperatorExpressionParserRuleCall_1_0_1_0(), semanticObject.getRightOperand());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     XPrimaryExpression returns ShouldThrow
+	 *     XRelationalExpression returns ShouldThrow
+	 *     XRelationalExpression.Should_1_0_0_0_0 returns ShouldThrow
+	 *     XRelationalExpression.ShouldThrow_1_1_0_0_0 returns ShouldThrow
+	 *     XRelationalExpression.XInstanceOfExpression_1_2_0_0_0 returns ShouldThrow
+	 *     XRelationalExpression.XBinaryOperation_1_3_0_0_0 returns ShouldThrow
+	 *     XAnnotationElementValueOrCommaList returns ShouldThrow
+	 *     XAnnotationElementValueOrCommaList.XListLiteral_1_1_0 returns ShouldThrow
+	 *     XAnnotationElementValue returns ShouldThrow
+	 *     XAnnotationOrExpression returns ShouldThrow
+	 *     XExpression returns ShouldThrow
+	 *     XAssignment returns ShouldThrow
+	 *     XAssignment.XBinaryOperation_1_1_0_0_0 returns ShouldThrow
+	 *     XOrExpression returns ShouldThrow
+	 *     XOrExpression.XBinaryOperation_1_0_0_0 returns ShouldThrow
+	 *     XAndExpression returns ShouldThrow
+	 *     XAndExpression.XBinaryOperation_1_0_0_0 returns ShouldThrow
+	 *     XEqualityExpression returns ShouldThrow
+	 *     XEqualityExpression.XBinaryOperation_1_0_0_0 returns ShouldThrow
+	 *     XOtherOperatorExpression returns ShouldThrow
+	 *     XOtherOperatorExpression.XBinaryOperation_1_0_0_0 returns ShouldThrow
+	 *     XAdditiveExpression returns ShouldThrow
+	 *     XAdditiveExpression.XBinaryOperation_1_0_0_0 returns ShouldThrow
+	 *     XMultiplicativeExpression returns ShouldThrow
+	 *     XMultiplicativeExpression.XBinaryOperation_1_0_0_0 returns ShouldThrow
+	 *     XUnaryOperation returns ShouldThrow
+	 *     XCastedExpression returns ShouldThrow
+	 *     XCastedExpression.XCastedExpression_1_0_0_0 returns ShouldThrow
+	 *     XPostfixOperation returns ShouldThrow
+	 *     XPostfixOperation.XPostfixOperation_1_0_0 returns ShouldThrow
+	 *     XMemberFeatureCall returns ShouldThrow
+	 *     XMemberFeatureCall.XAssignment_1_0_0_0_0 returns ShouldThrow
+	 *     XMemberFeatureCall.XMemberFeatureCall_1_1_0_0_0 returns ShouldThrow
+	 *     XParenthesizedExpression returns ShouldThrow
+	 *     XExpressionOrVarDeclaration returns ShouldThrow
+	 *
 	 * Constraint:
 	 *     (expression=XRelationalExpression_ShouldThrow_1_1_0_0_0 type=JvmTypeReference)
 	 */
-	protected void sequence_XRelationalExpression(EObject context, ShouldThrow semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.SHOULD_THROW__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.SHOULD_THROW__TYPE));
-			if(transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.SHOULD_THROW__EXPRESSION) == ValueTransient.YES)
+	protected void sequence_XRelationalExpression(ISerializationContext context, ShouldThrow semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.SHOULD_THROW__EXPRESSION) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.SHOULD_THROW__EXPRESSION));
+			if (transientValues.isValueTransient(semanticObject, JnarioPackage.Literals.SHOULD_THROW__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JnarioPackage.Literals.SHOULD_THROW__TYPE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getXRelationalExpressionAccess().getShouldThrowExpressionAction_1_1_0_0_0(), semanticObject.getExpression());
 		feeder.accept(grammarAccess.getXRelationalExpressionAccess().getTypeJvmTypeReferenceParserRuleCall_1_1_1_0(), semanticObject.getType());
 		feeder.finish();
@@ -845,20 +1135,58 @@ public class FeatureSemanticSequencer extends XbaseWithAnnotationsSemanticSequen
 	
 	
 	/**
+	 * Contexts:
+	 *     XPrimaryExpression returns XInstanceOfExpression
+	 *     XRelationalExpression returns XInstanceOfExpression
+	 *     XRelationalExpression.Should_1_0_0_0_0 returns XInstanceOfExpression
+	 *     XRelationalExpression.ShouldThrow_1_1_0_0_0 returns XInstanceOfExpression
+	 *     XRelationalExpression.XInstanceOfExpression_1_2_0_0_0 returns XInstanceOfExpression
+	 *     XRelationalExpression.XBinaryOperation_1_3_0_0_0 returns XInstanceOfExpression
+	 *     XAnnotationElementValueOrCommaList returns XInstanceOfExpression
+	 *     XAnnotationElementValueOrCommaList.XListLiteral_1_1_0 returns XInstanceOfExpression
+	 *     XAnnotationElementValue returns XInstanceOfExpression
+	 *     XAnnotationOrExpression returns XInstanceOfExpression
+	 *     XExpression returns XInstanceOfExpression
+	 *     XAssignment returns XInstanceOfExpression
+	 *     XAssignment.XBinaryOperation_1_1_0_0_0 returns XInstanceOfExpression
+	 *     XOrExpression returns XInstanceOfExpression
+	 *     XOrExpression.XBinaryOperation_1_0_0_0 returns XInstanceOfExpression
+	 *     XAndExpression returns XInstanceOfExpression
+	 *     XAndExpression.XBinaryOperation_1_0_0_0 returns XInstanceOfExpression
+	 *     XEqualityExpression returns XInstanceOfExpression
+	 *     XEqualityExpression.XBinaryOperation_1_0_0_0 returns XInstanceOfExpression
+	 *     XOtherOperatorExpression returns XInstanceOfExpression
+	 *     XOtherOperatorExpression.XBinaryOperation_1_0_0_0 returns XInstanceOfExpression
+	 *     XAdditiveExpression returns XInstanceOfExpression
+	 *     XAdditiveExpression.XBinaryOperation_1_0_0_0 returns XInstanceOfExpression
+	 *     XMultiplicativeExpression returns XInstanceOfExpression
+	 *     XMultiplicativeExpression.XBinaryOperation_1_0_0_0 returns XInstanceOfExpression
+	 *     XUnaryOperation returns XInstanceOfExpression
+	 *     XCastedExpression returns XInstanceOfExpression
+	 *     XCastedExpression.XCastedExpression_1_0_0_0 returns XInstanceOfExpression
+	 *     XPostfixOperation returns XInstanceOfExpression
+	 *     XPostfixOperation.XPostfixOperation_1_0_0 returns XInstanceOfExpression
+	 *     XMemberFeatureCall returns XInstanceOfExpression
+	 *     XMemberFeatureCall.XAssignment_1_0_0_0_0 returns XInstanceOfExpression
+	 *     XMemberFeatureCall.XMemberFeatureCall_1_1_0_0_0 returns XInstanceOfExpression
+	 *     XParenthesizedExpression returns XInstanceOfExpression
+	 *     XExpressionOrVarDeclaration returns XInstanceOfExpression
+	 *
 	 * Constraint:
 	 *     (expression=XRelationalExpression_XInstanceOfExpression_1_2_0_0_0 type=JvmTypeReference)
 	 */
-	protected void sequence_XRelationalExpression(EObject context, XInstanceOfExpression semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, XbasePackage.Literals.XINSTANCE_OF_EXPRESSION__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XbasePackage.Literals.XINSTANCE_OF_EXPRESSION__TYPE));
-			if(transientValues.isValueTransient(semanticObject, XbasePackage.Literals.XINSTANCE_OF_EXPRESSION__EXPRESSION) == ValueTransient.YES)
+	protected void sequence_XRelationalExpression(ISerializationContext context, XInstanceOfExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, XbasePackage.Literals.XINSTANCE_OF_EXPRESSION__EXPRESSION) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XbasePackage.Literals.XINSTANCE_OF_EXPRESSION__EXPRESSION));
+			if (transientValues.isValueTransient(semanticObject, XbasePackage.Literals.XINSTANCE_OF_EXPRESSION__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XbasePackage.Literals.XINSTANCE_OF_EXPRESSION__TYPE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_2_0_0_0(), semanticObject.getExpression());
 		feeder.accept(grammarAccess.getXRelationalExpressionAccess().getTypeJvmTypeReferenceParserRuleCall_1_2_1_0(), semanticObject.getType());
 		feeder.finish();
 	}
+	
+	
 }

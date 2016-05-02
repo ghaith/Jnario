@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
 @SuppressWarnings("all")
 public class StackEmptySpec extends StackSpec {
   @Subject
-  public Stack subject;
+  public Stack<String> subject;
   
   @Test
   @Named("subject.empty[] should be true")

@@ -1,7 +1,7 @@
 package gameoflife
 
 import java.util.Set
-import org.eclipse.xtend.lib.Data
+import org.eclipse.xtend.lib.annotations.Data
 
 import static gameoflife.CellLocation.*
 import static gameoflife.World.*

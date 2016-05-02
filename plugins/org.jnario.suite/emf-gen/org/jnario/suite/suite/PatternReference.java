@@ -15,10 +15,10 @@ package org.jnario.suite.suite;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.suite.suite.PatternReference#getPattern <em>Pattern</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.suite.suite.SuitePackage#getPatternReference()
  * @model

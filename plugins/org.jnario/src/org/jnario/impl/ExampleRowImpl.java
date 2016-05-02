@@ -31,11 +31,11 @@ import org.jnario.JnarioPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.impl.ExampleRowImpl#getCells <em>Cells</em>}</li>
  *   <li>{@link org.jnario.impl.ExampleRowImpl#getTable <em>Table</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

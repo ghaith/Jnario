@@ -9,7 +9,6 @@ package org.jnario.conversion;
 
 import java.util.List;
 
-import org.apache.commons.lang.text.StrBuilder;
 import org.eclipse.xtext.conversion.IValueConverter;
 import org.eclipse.xtext.conversion.ValueConverterException;
 import org.eclipse.xtext.conversion.impl.STRINGValueConverter;
@@ -28,6 +27,10 @@ public class RichStringValueConverter extends STRINGValueConverter implements IV
 		
 		List<TextRegion> regions = jnarioRichStringProcessor.process(string);
 		if (regions != null) {
+			if (string.contains("«") || string.contains("»")) {
+				throw new ValueConverterException("Jnario doesn't yet support rich string placeholders: '''..«value»..'''", node, null);
+			}
+			
 			StringBuilder stringBuilder = new StringBuilder();
 			for (TextRegion textRegion : regions) {
 				stringBuilder.append(string.substring(textRegion.getOffset(), textRegion.getOffset() + textRegion.getLength()));

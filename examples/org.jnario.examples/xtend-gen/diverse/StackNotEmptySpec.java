@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
 @SuppressWarnings("all")
 public class StackNotEmptySpec extends StackSpec {
   @Subject
-  public Stack subject;
+  public Stack<String> subject;
   
   @Test
   @Named("increases size when pushing")

@@ -10,8 +10,17 @@
 */
 package org.jnario.feature.ui.outline;
 
+import org.eclipse.jdt.ui.ISharedImages;
+import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
+import org.jnario.JnarioTypeDeclaration;
+import org.jnario.feature.feature.FeatureFile;
 import org.jnario.feature.feature.Scenario;
+import org.jnario.feature.feature.StepImplementation;
+import org.jnario.feature.feature.StepReference;
 
 /**
  * @author Sebastian Benz - Initial contribution and API
@@ -50,10 +59,29 @@ public class FeatureOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	protected boolean _isLeaf(Scenario element) {
 		return element.getMembers().isEmpty() && element.getSteps().isEmpty();
 	}
-	
+
+	protected boolean _isLeaf(StepImplementation element) {
+		return true;
+	}
+
 	protected boolean _isLeaf(org.jnario.feature.feature.Background element) {
 		return element.getMembers().isEmpty() && element.getSteps().isEmpty();
 	}
-	
-	
+
+	protected void _createChildren(DocumentRootNode parentNode, FeatureFile featureFile) {
+		for (JnarioTypeDeclaration jnarioTypeDeclaration : featureFile.getXtendTypes()) {
+			createNode(parentNode, jnarioTypeDeclaration);
+		}
+	}
+
+	protected Image _image(JnarioTypeDeclaration modelElement) {
+		ISharedImages images = JavaUI.getSharedImages();
+		return  images.getImage(ISharedImages.IMG_OBJS_PUBLIC);
+	}
+	protected Image _image(StepImplementation modelElement) {
+		return PlatformUI.getWorkbench().getSharedImages().getImage(org.eclipse.ui.ISharedImages.IMG_TOOL_FORWARD);
+	}
+	protected Image _image(StepReference modelElement) {
+		return PlatformUI.getWorkbench().getSharedImages().getImage(org.eclipse.ui.ISharedImages.IMG_TOOL_FORWARD);
+	}
 }

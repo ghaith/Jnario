@@ -10,6 +10,7 @@ import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.diagnostics.DiagnosticMessage;
 import org.eclipse.xtext.diagnostics.Severity;
+import org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XAssignment;
@@ -17,7 +18,7 @@ import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.XFeatureCall;
 import org.eclipse.xtext.xbase.XMemberFeatureCall;
 import org.eclipse.xtext.xbase.XbasePackage;
-import org.eclipse.xtext.xbase.annotations.validation.UnresolvedAnnotationTypeAwareMessageProducer;
+import org.eclipse.xtext.xbase.annotations.validation.UnresolvedAnnotationTypeAwareMessageProvider;
 import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotationsPackage;
 import org.eclipse.xtext.xbase.util.FeatureCallAsTypeLiteralHelper;
 import org.jnario.JnarioTypeDeclaration;
@@ -25,7 +26,7 @@ import org.jnario.validation.IssueCodes;
 
 import com.google.inject.Inject;
 
-public class JnarioLinkingDiagnosticMessageProvider extends UnresolvedAnnotationTypeAwareMessageProducer {
+public class JnarioLinkingDiagnosticMessageProvider extends UnresolvedAnnotationTypeAwareMessageProvider {
 
 	/**
 	 * A user data entry that indicates a broken feature link which could also be
@@ -37,7 +38,7 @@ public class JnarioLinkingDiagnosticMessageProvider extends UnresolvedAnnotation
 	private FeatureCallAsTypeLiteralHelper typeLiteralHelper;
 	
 	@Override
-	public DiagnosticMessage getUnresolvedProxyMessage(ILinkingDiagnosticContext context) {
+	public DiagnosticMessage getUnresolvedProxyMessage(ILinkingDiagnosticMessageProvider.ILinkingDiagnosticContext context) {
 		if (isPropertyOfUnresolvedAnnotation(context))
 			return null;
 		String linkText = "";

@@ -18,13 +18,13 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.ExampleColumn#getTable <em>Table</em>}</li>
  *   <li>{@link org.jnario.ExampleColumn#getCells <em>Cells</em>}</li>
  *   <li>{@link org.jnario.ExampleColumn#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.ExampleColumn#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getExampleColumn()
  * @model

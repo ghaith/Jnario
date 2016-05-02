@@ -128,7 +128,7 @@
               <groupId>org.jnario</groupId>
               <artifactId>org.jnario.target</artifactId>
               <version>${project.version}</version>
-              <classifier>mars</classifier>
+              <classifier>mars-xtext2.9</classifier>
             </artifact>
           </target>
           <ignoreTychoRepositories>true</ignoreTychoRepositories>

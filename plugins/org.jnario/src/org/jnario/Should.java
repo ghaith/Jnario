@@ -18,10 +18,10 @@ import org.eclipse.xtext.xbase.XBinaryOperation;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.Should#isNot <em>Not</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getShould()
  * @model

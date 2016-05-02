@@ -41,9 +41,11 @@ public class JnarioProjectConfigurator extends AbstractProjectConfigurator {
 				String goal = execution.getGoal();
 				if (goal.equals("generate")) {
 					readDocGenerateSettings(configuration, request, execution);
-				} else if (goal.equals("testCompile")) {
+				} else if (goal.equals("compile")) {
 					readCompileSettings(configuration, request, execution);
-				} else if (goal.equals("xtend-test-install-debug-info")) {
+				} else if (goal.equals("testCompile")) {
+					readTestCompileSettings(configuration, request, execution);
+				} else if (goal.equals("jnario-install-debug-info") || goal.equals("jnario-test-install-debug-info")) {
 					readEnhanceSettings(configuration, request, execution);
 				}
 			}
@@ -106,7 +108,7 @@ public class JnarioProjectConfigurator extends AbstractProjectConfigurator {
 		}
 	}
 
-	private void readCompileSettings(OutputConfiguration config,
+	private void readTestCompileSettings(OutputConfiguration config,
 			ProjectConfigurationRequest request, MojoExecution execution)
 			throws CoreException {
 		if (isJavaOutput(config)) {
@@ -127,6 +129,26 @@ public class JnarioProjectConfigurator extends AbstractProjectConfigurator {
 		}
 	}
 
+	private void readCompileSettings(OutputConfiguration config,
+			ProjectConfigurationRequest request, MojoExecution execution)
+					throws CoreException {
+		if (isJavaOutput(config)) {
+			for (String source : request.getMavenProject().getCompileSourceRoots()) {
+				SourceMapping mapping = new SourceMapping(makeProjectRelative(
+						source, request));
+				String outputDirectory = getParameterValue(
+						request.getMavenProject(),
+						"outputDirectory",
+						String.class,
+						execution,
+						null);
+				mapping.setOutputDirectory(makeProjectRelative(
+						outputDirectory, request));
+				config.getSourceMappings().add(mapping);
+			}
+		}
+	}
+	
 	private void readEnhanceSettings(OutputConfiguration config,
 			ProjectConfigurationRequest request, MojoExecution execution)
 			throws CoreException {
@@ -139,7 +161,7 @@ public class JnarioProjectConfigurator extends AbstractProjectConfigurator {
 					null));
 			config.setInstallDslAsPrimarySource(getParameterValue(
 					request.getMavenProject(),
-					"xtendAsPrimaryDebugSource",
+					"jnarioAsPrimaryDebugSource",
 					Boolean.class,
 					execution,
 					null));

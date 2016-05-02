@@ -10,7 +10,7 @@ Describe your test suite in plain **formatted** text.
 
 Reference existing specs.
 
-- "Stack": this is a reference to our Stack specification.
+- "Stack<String>": this is a reference to our Stack specification.
 
 ##Select multiple specs 
 

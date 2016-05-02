@@ -31,9 +31,9 @@ xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLS
 					<configuration>
 						<artifacts>
 							<artifact>
-								<file>mars.target</file>
+								<file>mars-xtext2.9.target</file>
 								<type>target</type>
-								<classifier>mars</classifier>
+								<classifier>mars-xtext2.9</classifier>
 							</artifact>
 						</artifacts>
 					</configuration>

@@ -23,11 +23,11 @@ import org.jnario.ShouldThrow;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.impl.ShouldThrowImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.jnario.impl.ShouldThrowImpl#getExpression <em>Expression</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

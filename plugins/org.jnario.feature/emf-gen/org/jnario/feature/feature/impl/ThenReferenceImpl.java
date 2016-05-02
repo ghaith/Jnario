@@ -16,8 +16,6 @@ import org.jnario.feature.feature.ThenReference;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Then Reference</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -1,8 +1,8 @@
 package gameoflife.specs
 
-import static gameoflife.CellLocation.*
-import static gameoflife.World.*
 import gameoflife.CellLocation
+
+import static gameoflife.CellLocation.*
 
 describe CellLocation{
   describe "Calculating relative cell locations"{

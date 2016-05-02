@@ -18,12 +18,12 @@ import org.jnario.Specification;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.feature.feature.Feature#getDescription <em>Description</em>}</li>
  *   <li>{@link org.jnario.feature.feature.Feature#getScenarios <em>Scenarios</em>}</li>
  *   <li>{@link org.jnario.feature.feature.Feature#getBackground <em>Background</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.feature.feature.FeaturePackage#getFeature()
  * @model

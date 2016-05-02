@@ -8,7 +8,8 @@
 				<goals>
 					<goal>compile</goal>
 					<goal>testCompile</goal>
-					<goal>xtend-test-install-debug-info</goal>
+					<goal>jnario-install-debug-info</goal>
+					<goal>jnario-test-install-debug-info</goal>
 				</goals>
 			</pluginExecutionFilter>
 			<action>

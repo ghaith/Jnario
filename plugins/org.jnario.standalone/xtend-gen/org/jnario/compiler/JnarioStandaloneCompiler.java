@@ -56,6 +56,7 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.compiler.AbstractBatchCompiler;
@@ -68,9 +69,6 @@ public class JnarioStandaloneCompiler extends AbstractBatchCompiler {
   private final static Logger log = Logger.getLogger(JnarioStandaloneCompiler.class.getName());
   
   @Inject
-  private IEncodingProvider.Runtime encodingProvider;
-  
-  @Inject
   private IStubGenerator stubGenerator;
   
   private List<Injector> injectors;
@@ -78,44 +76,79 @@ public class JnarioStandaloneCompiler extends AbstractBatchCompiler {
   private Map<String, Injector> injectorMap;
   
   public static JnarioStandaloneCompiler create() {
-    FeatureStandaloneSetup _featureStandaloneSetup = new FeatureStandaloneSetup();
-    SpecStandaloneSetup _specStandaloneSetup = new SpecStandaloneSetup();
-    SuiteStandaloneSetup _suiteStandaloneSetup = new SuiteStandaloneSetup();
-    final List<? extends ISetup> setups = Collections.<ISetup>unmodifiableList(CollectionLiterals.<ISetup>newArrayList(_featureStandaloneSetup, _specStandaloneSetup, _suiteStandaloneSetup));
-    return new JnarioStandaloneCompiler(setups);
+    JnarioStandaloneCompiler _xblockexpression = null;
+    {
+      FeatureStandaloneSetup _featureStandaloneSetup = new FeatureStandaloneSetup();
+      SpecStandaloneSetup _specStandaloneSetup = new SpecStandaloneSetup();
+      SuiteStandaloneSetup _suiteStandaloneSetup = new SuiteStandaloneSetup();
+      final List<? extends ISetup> setups = Collections.<ISetup>unmodifiableList(CollectionLiterals.<ISetup>newArrayList(_featureStandaloneSetup, _specStandaloneSetup, _suiteStandaloneSetup));
+      _xblockexpression = JnarioStandaloneCompiler.fromSetups(setups);
+    }
+    return _xblockexpression;
   }
   
-  public JnarioStandaloneCompiler(final List<? extends ISetup> setups) {
-    final Function1<ISetup, Injector> _function = new Function1<ISetup, Injector>() {
-      @Override
-      public Injector apply(final ISetup it) {
-        return it.createInjectorAndDoEMFRegistration();
-      }
-    };
-    List<Injector> _eagerMap = JnarioStandaloneCompiler.eagerMap(setups, _function);
-    List<Injector> _list = IterableExtensions.<Injector>toList(_eagerMap);
-    this.injectors = _list;
-    Injector _head = IterableExtensions.<Injector>head(this.injectors);
-    _head.injectMembers(this);
-    final Function1<Injector, Pair<String, Injector>> _function_1 = new Function1<Injector, Pair<String, Injector>>() {
-      @Override
-      public Pair<String, Injector> apply(final Injector it) {
-        Pair<String, Injector> _xblockexpression = null;
-        {
-          FileExtensionProvider _instance = it.<FileExtensionProvider>getInstance(FileExtensionProvider.class);
-          final String fileExtension = _instance.getPrimaryFileExtension();
-          _xblockexpression = Pair.<String, Injector>of(fileExtension, it);
+  public Map<String, Injector> initWithInjectors(final List<Injector> injectors) {
+    Map<String, Injector> _xblockexpression = null;
+    {
+      this.injectors = injectors;
+      final Function1<Injector, Pair<String, Injector>> _function = new Function1<Injector, Pair<String, Injector>>() {
+        @Override
+        public Pair<String, Injector> apply(final Injector it) {
+          Pair<String, Injector> _xblockexpression = null;
+          {
+            FileExtensionProvider _instance = it.<FileExtensionProvider>getInstance(FileExtensionProvider.class);
+            final String fileExtension = _instance.getPrimaryFileExtension();
+            _xblockexpression = Pair.<String, Injector>of(fileExtension, it);
+          }
+          return _xblockexpression;
         }
-        return _xblockexpression;
+      };
+      List<Pair<String, Injector>> _map = ListExtensions.<Injector, Pair<String, Injector>>map(injectors, _function);
+      HashMap<String, Injector> _newHashMap = CollectionLiterals.<String, Injector>newHashMap(((Pair<? extends String, ? extends Injector>[])Conversions.unwrapArray(_map, Pair.class)));
+      _xblockexpression = this.injectorMap = _newHashMap;
+    }
+    return _xblockexpression;
+  }
+  
+  public static JnarioStandaloneCompiler fromSetups(final List<? extends ISetup> setups) {
+    JnarioStandaloneCompiler _jnarioStandaloneCompiler = new JnarioStandaloneCompiler();
+    final Procedure1<JnarioStandaloneCompiler> _function = new Procedure1<JnarioStandaloneCompiler>() {
+      @Override
+      public void apply(final JnarioStandaloneCompiler it) {
+        final Function1<ISetup, Injector> _function = new Function1<ISetup, Injector>() {
+          @Override
+          public Injector apply(final ISetup it) {
+            return it.createInjectorAndDoEMFRegistration();
+          }
+        };
+        List<Injector> _eagerMap = JnarioStandaloneCompiler.eagerMap(setups, _function);
+        List<Injector> _list = IterableExtensions.<Injector>toList(_eagerMap);
+        it.injectors = _list;
+        Injector _head = IterableExtensions.<Injector>head(it.injectors);
+        _head.injectMembers(it);
+        final Function1<Injector, Pair<String, Injector>> _function_1 = new Function1<Injector, Pair<String, Injector>>() {
+          @Override
+          public Pair<String, Injector> apply(final Injector it) {
+            Pair<String, Injector> _xblockexpression = null;
+            {
+              FileExtensionProvider _instance = it.<FileExtensionProvider>getInstance(FileExtensionProvider.class);
+              final String fileExtension = _instance.getPrimaryFileExtension();
+              _xblockexpression = Pair.<String, Injector>of(fileExtension, it);
+            }
+            return _xblockexpression;
+          }
+        };
+        List<Pair<String, Injector>> _map = ListExtensions.<Injector, Pair<String, Injector>>map(it.injectors, _function_1);
+        HashMap<String, Injector> _newHashMap = CollectionLiterals.<String, Injector>newHashMap(((Pair<? extends String, ? extends Injector>[])Conversions.unwrapArray(_map, Pair.class)));
+        it.injectorMap = _newHashMap;
       }
     };
-    List<Pair<String, Injector>> _map = ListExtensions.<Injector, Pair<String, Injector>>map(this.injectors, _function_1);
-    HashMap<String, Injector> _newHashMap = CollectionLiterals.<String, Injector>newHashMap(((Pair<? extends String, ? extends Injector>[])Conversions.unwrapArray(_map, Pair.class)));
-    this.injectorMap = _newHashMap;
+    return ObjectExtensions.<JnarioStandaloneCompiler>operator_doubleArrow(_jnarioStandaloneCompiler, _function);
   }
   
   @Override
   protected ResourceSet loadXtendFiles(final ResourceSet resourceSet) {
+    this.applyEncoding();
     EList<Adapter> _eAdapters = resourceSet.eAdapters();
     _eAdapters.add(
       new FlatResourceSetBasedAllContainersState(resourceSet) {
@@ -134,8 +167,6 @@ public class JnarioStandaloneCompiler extends AbstractBatchCompiler {
           return uris;
         }
       });
-    String _fileEncoding = this.getFileEncoding();
-    this.encodingProvider.setDefaultEncoding(_fileEncoding);
     final List<NameBasedFilter> nameBasedFilter = this.getNameBasedFilters();
     final PathTraverser pathTraverser = new PathTraverser();
     final List<String> sourcePathDirectories = this.getSourcePathDirectories();
@@ -179,6 +210,18 @@ public class JnarioStandaloneCompiler extends AbstractBatchCompiler {
     };
     IterableExtensions.<String>forEach(_keySet, _function_1);
     return resourceSet;
+  }
+  
+  public void applyEncoding() {
+    final Procedure1<Injector> _function = new Procedure1<Injector>() {
+      @Override
+      public void apply(final Injector it) {
+        IEncodingProvider.Runtime _instance = it.<IEncodingProvider.Runtime>getInstance(IEncodingProvider.Runtime.class);
+        String _fileEncoding = JnarioStandaloneCompiler.this.getFileEncoding();
+        _instance.setDefaultEncoding(_fileEncoding);
+      }
+    };
+    IterableExtensions.<Injector>forEach(this.injectors, _function);
   }
   
   public List<NameBasedFilter> getNameBasedFilters() {

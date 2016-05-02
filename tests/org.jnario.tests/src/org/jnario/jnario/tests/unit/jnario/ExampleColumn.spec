@@ -19,16 +19,18 @@ import static extension org.jnario.lib.ExampleTableIterators.*
 
 @CreateWith(typeof(SpecTestCreator))
 describe ExampleColumn{
-	
-	@Inject extension ModelStore 
-	@Inject extension ISerializer 
+
+	@Inject
+	extension ModelStore 
+	@Inject
+	extension ISerializer 
 	
 	def {
 		| columnIndex | cellIndex | value |
-		|      0      |     0     |   "1" |
-		|      0      |     1     |   "3" |
-		|      1      |     0     |   "2" |
-		|      1      |     1     |   "4" |
+		| 0           | 0         | "1"   |
+		| 0           | 1         | "3"   |
+		| 1           | 0         | "2"   |
+		| 1           | 1         | "4"   |
 	}
 	
 	fact "calculates cells based on table"{
@@ -42,14 +44,13 @@ describe ExampleColumn{
 				}
 			}
 		''')
-		
-		examples.forEach[
+
+		examples.forEach [
 			val columns = query.first(typeof(ExampleTable)).columns
 			val column = columns.get(columnIndex)
 			val cell = column.cells.get(cellIndex)
 			cell.serialize.trim => value
 		]
-		
+
 	}
-	
 } 

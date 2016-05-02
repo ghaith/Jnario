@@ -16,8 +16,6 @@ import org.jnario.MockLiteral;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Mock Literal</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -67,7 +67,7 @@ package diverse
 import java.util.EmptyStackException
 import java.util.Stack
 
-describe Stack{
+describe Stack&lt;String&gt;{
   context &quot;empty&quot;{
     fact subject.empty() should be true
     fact subject.pop() throws EmptyStackException

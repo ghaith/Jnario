@@ -16,34 +16,35 @@ import org.jnario.util.FileExtensions;
 
 import com.google.inject.Inject;
 
-public class JnarioDebugSourceInstallingCompilationParticipant extends
-		DebugSourceInstallingCompilationParticipant {
-
-	@Inject
-	private IResourceServiceProvider.Registry serviceProviderRegistry;
-	
-	@Override
-	protected OutputConfiguration findOutputConfiguration(URI dslSourceFile,
-			IFile generatedJavaFile) {
-		if(!FileExtensions.isJnarioSpec(dslSourceFile)){
-			return super.findOutputConfiguration(dslSourceFile, generatedJavaFile);
-		}
-		IResourceServiceProvider serviceProvider = serviceProviderRegistry.getResourceServiceProvider(dslSourceFile);
-		if (serviceProvider == null)
-			return null;
-		EclipseOutputConfigurationProvider cfgProvider = serviceProvider.get(EclipseOutputConfigurationProvider.class);
-		IProject project = generatedJavaFile.getProject();
-		Set<OutputConfiguration> configurations = cfgProvider.getOutputConfigurations(project);
-		if (!configurations.isEmpty()) {
-			if (configurations.size() == 1)
-				return configurations.iterator().next();
-			for (OutputConfiguration out : configurations) {
-				if(IFileSystemAccess.DEFAULT_OUTPUT.equals(out.getName())){
-					return out;
-				}
-			}
-		}
-		return null;
-	}
-
-}
+// TODO NO_XTEND
+//public class JnarioDebugSourceInstallingCompilationParticipant extends
+//		DebugSourceInstallingCompilationParticipant {
+//
+//	@Inject
+//	private IResourceServiceProvider.Registry serviceProviderRegistry;
+//	
+//	@Override
+//	protected OutputConfiguration findOutputConfiguration(URI dslSourceFile,
+//			IFile generatedJavaFile) {
+//		if(!FileExtensions.isJnarioSpec(dslSourceFile)){
+//			return super.findOutputConfiguration(dslSourceFile, generatedJavaFile);
+//		}
+//		IResourceServiceProvider serviceProvider = serviceProviderRegistry.getResourceServiceProvider(dslSourceFile);
+//		if (serviceProvider == null)
+//			return null;
+//		EclipseOutputConfigurationProvider cfgProvider = serviceProvider.get(EclipseOutputConfigurationProvider.class);
+//		IProject project = generatedJavaFile.getProject();
+//		Set<OutputConfiguration> configurations = cfgProvider.getOutputConfigurations(project);
+//		if (!configurations.isEmpty()) {
+//			if (configurations.size() == 1)
+//				return configurations.iterator().next();
+//			for (OutputConfiguration out : configurations) {
+//				if(IFileSystemAccess.DEFAULT_OUTPUT.equals(out.getName())){
+//					return out;
+//				}
+//			}
+//		}
+//		return null;
+//	}
+//
+//}

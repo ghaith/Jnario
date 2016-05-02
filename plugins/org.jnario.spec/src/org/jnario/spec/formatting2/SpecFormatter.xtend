@@ -36,7 +36,7 @@ class SpecFormatter extends JnarioFormatter {
 		}
 	}
 
-// TODO NO_XTEND Remove it not needed
+// TODO NO_XTEND
 //	def dispatch void format(JnarioTypeDeclaration jnariotypedeclaration, extension IFormattableDocument document) {
 //		jnariotypedeclaration.regionForKeyword("{").append[
 //		    increaseIndentation
@@ -52,14 +52,11 @@ class SpecFormatter extends JnarioFormatter {
 //	}
 
 	def dispatch void format(ExampleGroup examplegroup, extension IFormattableDocument document) {
-        examplegroup.regionForKeyword("{").append[
-            increaseIndentation
-            setNewLines(1, 1, 2)
-        ]
-        examplegroup.regionForKeyword("}").prepend[
-            decreaseIndentation
-            newLine
-        ]
+        val open = examplegroup.regionFor.keyword("{").append[setNewLines(1, 1, 2)]
+        val close = examplegroup.regionFor.keyword("}").prepend[newLine]
+
+        interior(open, close)[indent]
+
 		format(examplegroup.getTargetType(), document);
 		for (JnarioMember members : examplegroup.getMembers()) {
 			format(members, document);

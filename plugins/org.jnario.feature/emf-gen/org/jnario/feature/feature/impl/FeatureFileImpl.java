@@ -18,8 +18,6 @@ import org.jnario.impl.JnarioFileImpl;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>File</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

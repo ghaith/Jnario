@@ -7,65 +7,78 @@
  *******************************************************************************/
 package org.jnario.spec.ui.outline;
 
-import java.util.List;
-
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.jdt.ui.ISharedImages;
+import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
-import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
-import org.eclipse.xtext.ui.editor.outline.impl.OutlineMode;
-import org.eclipse.xtext.xbase.jvmmodel.JvmTypeExtensions;
+import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
+import org.eclipse.xtext.xbase.annotations.ui.outline.XbaseWithAnnotationsOutlineTreeProvider;
 import org.jnario.ExampleTable;
+import org.jnario.JnarioField;
+import org.jnario.JnarioFunction;
+import org.jnario.JnarioMember;
+import org.jnario.JnarioTypeDeclaration;
+import org.jnario.spec.spec.After;
+import org.jnario.spec.spec.Before;
 import org.jnario.spec.spec.ExampleGroup;
-
-import com.google.inject.Inject;
+import org.jnario.spec.spec.SpecFile;
+import org.jnario.spec.spec.TestFunction;
 
 /**
  * @author Sebastian Benz - Initial contribution and API
  */
-public class SpecOutlineTreeProvider extends DefaultOutlineTreeProvider {
+public class SpecOutlineTreeProvider extends XbaseWithAnnotationsOutlineTreeProvider {
+	protected boolean _isLeaf(JnarioMember m) {
+		return true;
+	}
+	
+	protected boolean _isLeaf(ExampleTable element) {
+		return true;
+	}
 
-// TODO NO_XTEND
-//	@Inject
-//	private IXtendJvmAssociations associations;
+	protected boolean _isLeaf(ExampleGroup element) {
+		return element.getMembers().isEmpty();
+	}
 	
-	@Inject
-	private JvmTypeExtensions typeExtensions;
+	protected Image _image(ExampleTable modelElement) {
+		return PlatformUI.getWorkbench().getSharedImages().getImage(org.eclipse.ui.ISharedImages.IMG_OBJ_FILE);
+	}
+	protected Image _image(JnarioFunction modelElement) {
+		ISharedImages images = JavaUI.getSharedImages();
+		return  images.getImage(ISharedImages.IMG_OBJS_PUBLIC);
+	}
+	protected Image _image(JnarioField modelElement) {
+		ISharedImages images = JavaUI.getSharedImages();
+		return  images.getImage(ISharedImages.IMG_FIELD_PRIVATE);
+	}
 	
-// TODO NO_XTEND
-//	@Inject
-//	private XtendOutlineNodeFactory factory;
 	
+	protected Image _image(ExampleGroup modelElement) {
+		ISharedImages images = JavaUI.getSharedImages();
+		return  images.getImage(ISharedImages.IMG_OBJS_CLASS);
+	}
+	protected Image _image(TestFunction modelElement) {
+		return PlatformUI.getWorkbench().getSharedImages().getImage(org.eclipse.ui.ISharedImages.IMG_TOOL_FORWARD);
+	}
+	protected Image _image(Before modelElement) {
+		ISharedImages images = JavaUI.getSharedImages();
+		return  images.getImage(ISharedImages.IMG_OBJS_PUBLIC);
+	}
+	protected Image _image(After modelElement) {
+		ISharedImages images = JavaUI.getSharedImages();
+		return  images.getImage(ISharedImages.IMG_OBJS_PUBLIC);
+	}
 	
-//	
-//	@Override
-//	protected XtendFeatureNode createNodeForFeature(IOutlineNode parentNode,
-//			JvmDeclaredType inferredType, JvmFeature jvmFeature,
-//			EObject semanticFeature, int inheritanceDepth) {
-//		if(jvmFeature instanceof JvmConstructor){
-//			return null;
-//		}
-//		EObject sourceElement = associations.getPrimarySourceElement(jvmFeature);
-//		if(sourceElement instanceof ExampleTable && jvmFeature instanceof JvmOperation){
-//			return null;
-//		}
-//		if(sourceElement instanceof ExampleCell){
-//			return null;
-//		}
-//		if(sourceElement instanceof ExampleRow){
-//			return null;
-//		}
-//		final boolean synthetic = typeExtensions.isSynthetic(jvmFeature);
-//		Object text = getText(synthetic ? jvmFeature : semanticFeature);
-//		ImageDescriptor image = getImageDescriptor(synthetic ? jvmFeature : semanticFeature);
-//	   return factory.createXtendFeatureNode(parentNode, semanticFeature, image, text, true, synthetic, inheritanceDepth);
-//	}
-//	
-//	protected boolean _isLeaf(ExampleTable element) {
-//		return true;
-//	}
-//
-//	protected boolean _isLeaf(ExampleGroup element) {
-//		return element.getMembers().isEmpty();
-//	}
+	protected void _createChildren(IOutlineNode parentNode, ExampleGroup exampleGroup) {
+		for (JnarioMember jnarioMember : exampleGroup.getMembers()) {
+			createNode(parentNode, jnarioMember);
+		}
+	}
+	
+	protected void _createChildren(DocumentRootNode parentNode, SpecFile specFile) {
+		for (JnarioTypeDeclaration jnarioTypeDeclaration : specFile.getXtendTypes()) {
+			createNode(parentNode, jnarioTypeDeclaration);
+		}
+	}
 }

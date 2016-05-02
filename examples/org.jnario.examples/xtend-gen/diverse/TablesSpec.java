@@ -82,6 +82,7 @@ public class TablesSpec {
   @Order(1)
   public void _additionsForEachABSum() throws Exception {
     final Procedure1<TablesSpecAdditions> _function = new Procedure1<TablesSpecAdditions>() {
+      @Override
       public void apply(final TablesSpecAdditions it) {
         int _a = it.getA();
         int _b = it.getB();

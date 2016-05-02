@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 @SuppressWarnings("all")
 public class EvolutionDeadCellsSpec extends EvolutionSpec {
   final Rule allDeadLive = new Rule() {
+    @Override
     public boolean becomesAlive(final int it) {
       return true;
     }

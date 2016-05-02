@@ -16,8 +16,6 @@ import org.jnario.feature.feature.Then;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Then</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

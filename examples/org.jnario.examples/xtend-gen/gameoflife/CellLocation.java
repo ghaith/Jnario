@@ -2,12 +2,12 @@ package gameoflife;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.eclipse.xtend.lib.Data;
+import org.eclipse.xtend.lib.annotations.Data;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
-import org.eclipse.xtext.xbase.lib.util.ToStringHelper;
+import org.eclipse.xtext.xbase.lib.util.ToStringBuilder;
 
 @Data
 @SuppressWarnings("all")
@@ -19,9 +19,9 @@ public class CellLocation {
     return new CellLocation(x, y);
   }
   
-  private final int _x;
+  private final int x;
   
-  private final int _y;
+  private final int y;
   
   public Set<CellLocation> neighbours() {
     final Function1<CellLocation, CellLocation> _function = new Function1<CellLocation, CellLocation>() {
@@ -35,19 +35,13 @@ public class CellLocation {
   }
   
   public CellLocation plus(final CellLocation other) {
-    int _x = this.getX();
-    int _x_1 = other.getX();
-    int _plus = (_x + _x_1);
-    int _y = this.getY();
-    int _y_1 = other.getY();
-    int _plus_1 = (_y + _y_1);
-    return CellLocation.cell(_plus, _plus_1);
+    return CellLocation.cell((this.x + other.x), (this.y + other.y));
   }
   
   public CellLocation(final int x, final int y) {
     super();
-    this._x = x;
-    this._y = y;
+    this.x = x;
+    this.y = y;
   }
   
   @Override
@@ -55,8 +49,8 @@ public class CellLocation {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + this._x;
-    result = prime * result + this._y;
+    result = prime * result + this.x;
+    result = prime * result + this.y;
     return result;
   }
   
@@ -70,9 +64,9 @@ public class CellLocation {
     if (getClass() != obj.getClass())
       return false;
     CellLocation other = (CellLocation) obj;
-    if (other._x != this._x)
+    if (other.x != this.x)
       return false;
-    if (other._y != this._y)
+    if (other.y != this.y)
       return false;
     return true;
   }
@@ -80,17 +74,19 @@ public class CellLocation {
   @Override
   @Pure
   public String toString() {
-    String result = new ToStringHelper().toString(this);
-    return result;
+    ToStringBuilder b = new ToStringBuilder(this);
+    b.add("x", this.x);
+    b.add("y", this.y);
+    return b.toString();
   }
   
   @Pure
   public int getX() {
-    return this._x;
+    return this.x;
   }
   
   @Pure
   public int getY() {
-    return this._y;
+    return this.y;
   }
 }

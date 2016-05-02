@@ -28,12 +28,12 @@ import org.jnario.JnarioPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.impl.ExampleTableImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.impl.ExampleTableImpl#getRows <em>Rows</em>}</li>
  *   <li>{@link org.jnario.impl.ExampleTableImpl#getColumns <em>Columns</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

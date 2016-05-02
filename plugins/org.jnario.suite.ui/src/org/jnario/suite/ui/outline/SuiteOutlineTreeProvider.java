@@ -10,13 +10,47 @@
 */
 package org.jnario.suite.ui.outline;
 
+import org.eclipse.jdt.ui.ISharedImages;
+import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.xbase.ui.outline.XbaseOutlineTreeProvider;
+import org.jnario.JnarioTypeDeclaration;
+import org.jnario.Specification;
+import org.jnario.suite.suite.PatternReference;
+import org.jnario.suite.suite.SpecReference;
+import org.jnario.suite.suite.SuiteFile;
 
 /**
  * customization of the default outline structure
  * 
  */
-@SuppressWarnings("restriction")
 public class SuiteOutlineTreeProvider extends XbaseOutlineTreeProvider {
+	protected void _createChildren(DocumentRootNode parentNode, SuiteFile suiteFile) {
+		for (JnarioTypeDeclaration jnarioTypeDeclaration : suiteFile.getXtendTypes()) {
+			createNode(parentNode, jnarioTypeDeclaration);
+		}
+	}
+
+	protected Image _image(SpecReference modelElement) {
+		return PlatformUI.getWorkbench().getSharedImages().getImage(org.eclipse.ui.ISharedImages.IMG_TOOL_FORWARD);
+	}
+
+	protected Image _image(JnarioTypeDeclaration modelElement) {
+		ISharedImages images = JavaUI.getSharedImages();
+		return  images.getImage(ISharedImages.IMG_OBJS_PUBLIC);
+	}
 	
+	protected String _text(SpecReference modelElement) {
+		Specification spec = modelElement.getSpec();
+		if (spec != null) {
+			return spec.getName();
+		}
+		return null;
+	}
+	protected Image _image(PatternReference modelElement) {
+		return PlatformUI.getWorkbench().getSharedImages().getImage(org.eclipse.ui.ISharedImages.IMG_TOOL_FORWARD);
+	}
+
 }

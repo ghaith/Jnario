@@ -45,6 +45,8 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.jnario.JnarioPackage;
 import org.jnario.Specification;
+import org.jnario.feature.feature.FeaturePackage;
+import org.jnario.spec.spec.SpecPackage;
 import org.jnario.suite.suite.PatternReference;
 import org.jnario.suite.suite.Reference;
 import org.jnario.suite.suite.SpecReference;
@@ -356,9 +358,26 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
         boolean _xblockexpression = false;
         {
           EObject _eObjectOrProxy = it.getEObjectOrProxy();
-          EObject _resolve = EcoreUtil.resolve(_eObjectOrProxy, resourceSet);
-          final Specification spec = ((Specification) _resolve);
-          _xblockexpression = true;
+          final EObject object = EcoreUtil.resolve(_eObjectOrProxy, resourceSet);
+          boolean _and = false;
+          if (!(object instanceof Specification)) {
+            _and = false;
+          } else {
+            boolean _or = false;
+            EObject _eContainer = object.eContainer();
+            EClass _eClass = _eContainer.eClass();
+            boolean _equals = Objects.equal(_eClass, SpecPackage.Literals.SPEC_FILE);
+            if (_equals) {
+              _or = true;
+            } else {
+              EObject _eContainer_1 = object.eContainer();
+              EClass _eClass_1 = _eContainer_1.eClass();
+              boolean _equals_1 = Objects.equal(_eClass_1, FeaturePackage.Literals.FEATURE_FILE);
+              _or = _equals_1;
+            }
+            _and = _or;
+          }
+          _xblockexpression = _and;
         }
         return Boolean.valueOf(_xblockexpression);
       }

@@ -1,6 +1,7 @@
-//outlet.DEFAULT_OUTPUT.sourceFolder.src/test/java.directory=src/test/generated-sources/xtend
+//outlet.DEFAULT_OUTPUT.sourceFolder.src/test/java.directory=src/test/generated-sources/jnario
 eclipse.preferences.version=1
 is_project_specific=true
+null.is_project_specific=true
 outlet.ASSET_OUTPUT.userOutputPerSourceFolder=true
 outlet.DEFAULT_OUTPUT.hideLocalSyntheticVariables=true
 outlet.DEFAULT_OUTPUT.installDslAsPrimarySource=false

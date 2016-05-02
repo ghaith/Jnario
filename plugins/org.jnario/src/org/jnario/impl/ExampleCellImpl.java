@@ -16,8 +16,6 @@ import org.jnario.JnarioPackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Example Cell</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

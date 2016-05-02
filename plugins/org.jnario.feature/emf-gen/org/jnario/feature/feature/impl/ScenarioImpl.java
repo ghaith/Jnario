@@ -45,6 +45,7 @@ import org.jnario.feature.feature.Step;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.feature.feature.impl.ScenarioImpl#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link org.jnario.feature.feature.impl.ScenarioImpl#getModifiers <em>Modifiers</em>}</li>
@@ -53,7 +54,6 @@ import org.jnario.feature.feature.Step;
  *   <li>{@link org.jnario.feature.feature.impl.ScenarioImpl#getMembers <em>Members</em>}</li>
  *   <li>{@link org.jnario.feature.feature.impl.ScenarioImpl#getExtends <em>Extends</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

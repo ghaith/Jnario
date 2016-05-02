@@ -18,11 +18,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.builder.EclipseSourceFolderProvider;
 import org.eclipse.xtext.builder.IXtextBuilderParticipant;
 import org.eclipse.xtext.builder.JDTAwareSourceFolderProvider;
-import org.eclipse.xtext.builder.trace.TraceForStorageProvider;
 import org.eclipse.xtext.common.types.ui.navigation.IDerivedMemberAwareEditorOpener;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.generator.IGenerator;
-import org.eclipse.xtext.generator.trace.ITraceForStorageProvider;
 import org.eclipse.xtext.ui.LanguageSpecific;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 import org.eclipse.xtext.ui.editor.XtextEditor;
@@ -38,16 +36,14 @@ import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
+import org.eclipse.xtext.ui.generator.trace.ITraceForStorageProvider;
+import org.eclipse.xtext.ui.generator.trace.TraceForStorageProvider;
 import org.eclipse.xtext.ui.resource.IResourceUIServiceProvider;
 import org.eclipse.xtext.validation.IssueSeveritiesProvider;
-import org.eclipse.xtext.xbase.file.AbstractFileSystemSupport;
-import org.eclipse.xtext.xbase.file.WorkspaceConfig;
 import org.eclipse.xtext.xbase.ui.contentassist.ParameterContextInformationProvider;
 import org.eclipse.xtext.xbase.ui.contentassist.XbaseContentProposalPriorities;
 import org.eclipse.xtext.xbase.ui.editor.XbaseEditor;
 import org.eclipse.xtext.xbase.ui.editor.XbaseResourceForEditorInputFactory;
-import org.eclipse.xtext.xbase.ui.file.EclipseFileSystemSupportImpl;
-import org.eclipse.xtext.xbase.ui.file.EclipseWorkspaceConfigProvider;
 import org.eclipse.xtext.xbase.ui.jvmmodel.navigation.DerivedMemberAwareEditorOpener;
 import org.eclipse.xtext.xbase.ui.launching.JavaElementDelegate;
 import org.eclipse.xtext.xbase.ui.validation.XbaseIssueSeveritiesProvider;
@@ -391,14 +387,6 @@ public class SpecUiModule extends org.jnario.spec.ui.AbstractSpecUiModule {
 //	public Class<? extends MutableFileSystemSupport> bindFileSystemSupport() {
 //		return AbstractFileSystemSupport.class;
 //	}
-	
-	public Class<? extends AbstractFileSystemSupport> bindAbstractFileSystemSupport() {
-		return EclipseFileSystemSupportImpl.class;
-	}
-	
-	public void configureWorkspaceConfigContribution(Binder binder) {
-		binder.bind(WorkspaceConfig.class).toProvider(EclipseWorkspaceConfigProvider.class);
-	}
 	
 	@Override
 	public Class<? extends CopyQualifiedNameService> bindCopyQualifiedNameService() {

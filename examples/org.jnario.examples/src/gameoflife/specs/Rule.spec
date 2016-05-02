@@ -1,9 +1,8 @@
 package gameoflife.specs
 
-import static gameoflife.CellLocation.*
-import gameoflife.EvolveLiveCells
 import gameoflife.EvolveDeadCells
-  
+import gameoflife.EvolveLiveCells
+
 describe "Rules"{
   describe EvolveLiveCells{
     def liveCells{

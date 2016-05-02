@@ -16,13 +16,13 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.JnarioParameter#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.JnarioParameter#getParameterType <em>Parameter Type</em>}</li>
  *   <li>{@link org.jnario.JnarioParameter#isVarArg <em>Var Arg</em>}</li>
  *   <li>{@link org.jnario.JnarioParameter#isExtension <em>Extension</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getJnarioParameter()
  * @model

@@ -27,11 +27,11 @@ import org.jnario.JnarioTypeDeclaration;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.impl.JnarioTypeDeclarationImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.impl.JnarioTypeDeclarationImpl#getMembers <em>Members</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

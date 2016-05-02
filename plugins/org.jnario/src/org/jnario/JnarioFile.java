@@ -20,12 +20,12 @@ import org.eclipse.xtext.xtype.XImportSection;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.JnarioFile#getImportSection <em>Import Section</em>}</li>
  *   <li>{@link org.jnario.JnarioFile#getXtendTypes <em>Xtend Types</em>}</li>
  *   <li>{@link org.jnario.JnarioFile#getPackage <em>Package</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getJnarioFile()
  * @model

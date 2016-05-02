@@ -18,10 +18,10 @@ import org.jnario.Specification;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.suite.suite.Suite#getElements <em>Elements</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.suite.suite.SuitePackage#getSuite()
  * @model

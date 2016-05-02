@@ -17,11 +17,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.ExampleRow#getCells <em>Cells</em>}</li>
  *   <li>{@link org.jnario.ExampleRow#getTable <em>Table</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getExampleRow()
  * @model

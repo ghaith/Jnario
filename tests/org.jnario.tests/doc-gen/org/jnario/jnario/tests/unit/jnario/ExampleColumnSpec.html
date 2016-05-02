@@ -80,7 +80,7 @@ parseSpec('''
   }
 ''')
 
-examples.forEach[
+examples.forEach [
   val columns = query.first(typeof(ExampleTable)).columns
   val column = columns.get(columnIndex)
   val cell = column.cells.get(cellIndex)
@@ -113,16 +113,18 @@ import static extension org.jnario.lib.ExampleTableIterators.*
 
 @CreateWith(typeof(SpecTestCreator))
 describe ExampleColumn{
-  
-  @Inject extension ModelStore 
-  @Inject extension ISerializer 
+
+  @Inject
+  extension ModelStore 
+  @Inject
+  extension ISerializer 
   
   def {
     | columnIndex | cellIndex | value |
-    |      0      |     0     |   &quot;1&quot; |
-    |      0      |     1     |   &quot;3&quot; |
-    |      1      |     0     |   &quot;2&quot; |
-    |      1      |     1     |   &quot;4&quot; |
+    | 0           | 0         | &quot;1&quot;   |
+    | 0           | 1         | &quot;3&quot;   |
+    | 1           | 0         | &quot;2&quot;   |
+    | 1           | 1         | &quot;4&quot;   |
   }
   
   fact &quot;calculates cells based on table&quot;{
@@ -136,16 +138,15 @@ describe ExampleColumn{
         }
       }
     ''')
-    
-    examples.forEach[
+
+    examples.forEach [
       val columns = query.first(typeof(ExampleTable)).columns
       val column = columns.get(columnIndex)
       val cell = column.cells.get(cellIndex)
       cell.serialize.trim =&gt; value
     ]
-    
+
   }
-  
 }
 </pre>
 						    </p></div>

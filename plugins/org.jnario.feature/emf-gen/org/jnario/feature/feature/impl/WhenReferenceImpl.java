@@ -16,8 +16,6 @@ import org.jnario.feature.feature.WhenReference;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>When Reference</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -32,13 +32,13 @@ import org.jnario.JnarioPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.impl.ExampleColumnImpl#getTable <em>Table</em>}</li>
  *   <li>{@link org.jnario.impl.ExampleColumnImpl#getCells <em>Cells</em>}</li>
  *   <li>{@link org.jnario.impl.ExampleColumnImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.impl.ExampleColumnImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

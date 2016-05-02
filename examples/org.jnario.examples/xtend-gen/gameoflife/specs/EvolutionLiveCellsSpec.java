@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 @SuppressWarnings("all")
 public class EvolutionLiveCellsSpec extends EvolutionSpec {
   final Rule allLiveStayAlive = new Rule() {
+    @Override
     public boolean becomesAlive(final int it) {
       return true;
     }

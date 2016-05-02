@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="mars" sequenceNumber="2">
+<?pde version="3.8"?><target name="mars-xtext2.9" sequenceNumber="3">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.m2e.feature.feature.group" version="0.0.0"/>
@@ -7,8 +7,8 @@
 <repository location="http://download.eclipse.org/releases/mars/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.xtext.sdk.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.xtext.redist.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.9.0.v201512010527"/>
+<unit id="org.eclipse.xtext.redist.feature.group" version="2.9.0.v201512010527"/>
 <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">

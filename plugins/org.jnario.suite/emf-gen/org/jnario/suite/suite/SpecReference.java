@@ -16,11 +16,11 @@ import org.jnario.Specification;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.suite.suite.SpecReference#getSpec <em>Spec</em>}</li>
  *   <li>{@link org.jnario.suite.suite.SpecReference#getText <em>Text</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.suite.suite.SuitePackage#getSpecReference()
  * @model

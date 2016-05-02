@@ -25,11 +25,11 @@ import org.jnario.feature.feature.StepReference;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.feature.feature.impl.StepReferenceImpl#getReference <em>Reference</em>}</li>
  *   <li>{@link org.jnario.feature.feature.impl.StepReferenceImpl#getSyntheticStepReference <em>Synthetic Step Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

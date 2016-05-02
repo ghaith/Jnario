@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import java.util.Arrays;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmGenericArrayTypeReference;
 import org.eclipse.xtext.common.types.JvmParameterizedTypeReference;
@@ -13,8 +14,10 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.JvmWildcardTypeReference;
 import org.eclipse.xtext.formatting2.IFormattableDocument;
 import org.eclipse.xtext.formatting2.IHiddenRegionFormatter;
-import org.eclipse.xtext.formatting2.ITextSegment;
+import org.eclipse.xtext.formatting2.regionaccess.IEObjectRegion;
 import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion;
+import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegionsFinder;
+import org.eclipse.xtext.formatting2.regionaccess.ITextSegment;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
@@ -23,7 +26,6 @@ import org.eclipse.xtext.xbase.XBasicForLoopExpression;
 import org.eclipse.xtext.xbase.XBinaryOperation;
 import org.eclipse.xtext.xbase.XBlockExpression;
 import org.eclipse.xtext.xbase.XCastedExpression;
-import org.eclipse.xtext.xbase.XCatchClause;
 import org.eclipse.xtext.xbase.XClosure;
 import org.eclipse.xtext.xbase.XCollectionLiteral;
 import org.eclipse.xtext.xbase.XConstructorCall;
@@ -59,7 +61,6 @@ import org.eclipse.xtext.xtype.XImportSection;
 import org.jnario.ExampleCell;
 import org.jnario.ExampleColumn;
 import org.jnario.ExampleRow;
-import org.jnario.ExampleTable;
 import org.jnario.JnarioPackage;
 
 /**
@@ -88,7 +89,8 @@ public class JnarioFormatter extends XbaseWithAnnotationsFormatter {
     final Procedure1<ExampleColumn> _function = new Procedure1<ExampleColumn>() {
       @Override
       public void apply(final ExampleColumn it) {
-        final ISemanticRegion nameNode = JnarioFormatter.this.regionAccess.regionForFeature(it, JnarioPackage.Literals.EXAMPLE_COLUMN__NAME);
+        ISemanticRegionsFinder _regionFor = JnarioFormatter.this.textRegionExtensions.regionFor(it);
+        final ISemanticRegion nameNode = _regionFor.feature(JnarioPackage.Literals.EXAMPLE_COLUMN__NAME);
         final JvmTypeReference typeNode = it.getType();
         int _xifexpression = (int) 0;
         boolean _equals = Objects.equal(typeNode, null);
@@ -98,7 +100,7 @@ public class JnarioFormatter extends XbaseWithAnnotationsFormatter {
           int _offset = nameNode.getOffset();
           int _length = nameNode.getLength();
           int _plus = (_offset + _length);
-          ITextSegment _regionForEObject = JnarioFormatter.this.regionAccess.regionForEObject(typeNode);
+          IEObjectRegion _regionForEObject = JnarioFormatter.this.textRegionExtensions.regionForEObject(typeNode);
           int _offset_1 = _regionForEObject.getOffset();
           _xifexpression = (_plus - _offset_1);
         }
@@ -109,7 +111,7 @@ public class JnarioFormatter extends XbaseWithAnnotationsFormatter {
           @Override
           public Integer apply(final ExampleCell it) {
             XExpression _expression = it.getExpression();
-            ITextSegment _regionForEObject = JnarioFormatter.this.regionAccess.regionForEObject(_expression);
+            IEObjectRegion _regionForEObject = JnarioFormatter.this.textRegionExtensions.regionForEObject(_expression);
             return JnarioFormatter.this.getMultilineLength(format, _regionForEObject);
           }
         };
@@ -136,14 +138,15 @@ public class JnarioFormatter extends XbaseWithAnnotationsFormatter {
           }
         };
         format.<ExampleColumn>prepend(it, _function_2);
-        ISemanticRegion _regionForKeyword = JnarioFormatter.this.regionAccess.regionForKeyword(it, "|");
+        ISemanticRegionsFinder _regionFor_1 = JnarioFormatter.this.textRegionExtensions.regionFor(it);
+        ISemanticRegion _keyword = _regionFor_1.keyword("|");
         final Procedure1<IHiddenRegionFormatter> _function_3 = new Procedure1<IHiddenRegionFormatter>() {
           @Override
           public void apply(final IHiddenRegionFormatter it) {
             JnarioFormatter.this.spaces(it, columnLength);
           }
         };
-        format.prepend(_regionForKeyword, _function_3);
+        format.prepend(_keyword, _function_3);
         EList<ExampleCell> _cells_1 = it.getCells();
         final Procedure1<ExampleCell> _function_4 = new Procedure1<ExampleCell>() {
           @Override
@@ -157,7 +160,7 @@ public class JnarioFormatter extends XbaseWithAnnotationsFormatter {
             };
             format.<XExpression>prepend(_expression, _function);
             XExpression _expression_1 = it.getExpression();
-            ITextSegment _regionForEObject = JnarioFormatter.this.regionAccess.regionForEObject(_expression_1);
+            IEObjectRegion _regionForEObject = JnarioFormatter.this.textRegionExtensions.regionForEObject(_expression_1);
             int _multilineLastSegmentLength = JnarioFormatter.this.getMultilineLastSegmentLength(format, _regionForEObject);
             final int length = ((1 + maxLength) - _multilineLastSegmentLength);
             XExpression _expression_2 = it.getExpression();
@@ -239,36 +242,11 @@ public class JnarioFormatter extends XbaseWithAnnotationsFormatter {
     return IterableExtensions.<Integer>reduce(_map, _function_1);
   }
   
-  protected void _format(final ExampleTable table, @Extension final IFormattableDocument format) {
-    ISemanticRegion _regionForKeyword = this.regionAccess.regionForKeyword(table, "{");
-    final Procedure1<IHiddenRegionFormatter> _function = new Procedure1<IHiddenRegionFormatter>() {
-      @Override
-      public void apply(final IHiddenRegionFormatter it) {
-        it.increaseIndentation();
-        it.newLine();
-      }
-    };
-    format.append(_regionForKeyword, _function);
-    ISemanticRegion _regionForKeyword_1 = this.regionAccess.regionForKeyword(table, "}");
-    final Procedure1<IHiddenRegionFormatter> _function_1 = new Procedure1<IHiddenRegionFormatter>() {
-      @Override
-      public void apply(final IHiddenRegionFormatter it) {
-        it.decreaseIndentation();
-        it.newLine();
-      }
-    };
-    format.prepend(_regionForKeyword_1, _function_1);
-    EList<ExampleRow> _rows = table.getRows();
-    this.formatRows(_rows, format);
-    EList<ExampleColumn> _columns = table.getColumns();
-    this.formatColumns(_columns, format);
-  }
-  
   /**
    * Hack: No node for type Void - prevent NullPointerException
    */
   @Override
-  protected void _format(final JvmParameterizedTypeReference type, final IFormattableDocument format) {
+  public void _format(final JvmParameterizedTypeReference type, final IFormattableDocument format) {
     ICompositeNode _findActualNodeFor = NodeModelUtils.findActualNodeFor(type);
     boolean _notEquals = (!Objects.equal(_findActualNodeFor, null));
     if (_notEquals) {
@@ -276,127 +254,124 @@ public class JnarioFormatter extends XbaseWithAnnotationsFormatter {
     }
   }
   
-  public void format(final Object table, final IFormattableDocument format) {
-    if (table instanceof JvmTypeParameter) {
-      _format((JvmTypeParameter)table, format);
+  public void format(final Object type, final IFormattableDocument format) {
+    if (type instanceof JvmTypeParameter) {
+      _format((JvmTypeParameter)type, format);
       return;
-    } else if (table instanceof JvmFormalParameter) {
-      _format((JvmFormalParameter)table, format);
+    } else if (type instanceof JvmFormalParameter) {
+      _format((JvmFormalParameter)type, format);
       return;
-    } else if (table instanceof XtextResource) {
-      _format((XtextResource)table, format);
+    } else if (type instanceof XtextResource) {
+      _format((XtextResource)type, format);
       return;
-    } else if (table instanceof XAssignment) {
-      _format((XAssignment)table, format);
+    } else if (type instanceof XAssignment) {
+      _format((XAssignment)type, format);
       return;
-    } else if (table instanceof XBinaryOperation) {
-      _format((XBinaryOperation)table, format);
+    } else if (type instanceof XBinaryOperation) {
+      _format((XBinaryOperation)type, format);
       return;
-    } else if (table instanceof XDoWhileExpression) {
-      _format((XDoWhileExpression)table, format);
+    } else if (type instanceof XDoWhileExpression) {
+      _format((XDoWhileExpression)type, format);
       return;
-    } else if (table instanceof XFeatureCall) {
-      _format((XFeatureCall)table, format);
+    } else if (type instanceof XFeatureCall) {
+      _format((XFeatureCall)type, format);
       return;
-    } else if (table instanceof XMemberFeatureCall) {
-      _format((XMemberFeatureCall)table, format);
+    } else if (type instanceof XMemberFeatureCall) {
+      _format((XMemberFeatureCall)type, format);
       return;
-    } else if (table instanceof XPostfixOperation) {
-      _format((XPostfixOperation)table, format);
+    } else if (type instanceof XPostfixOperation) {
+      _format((XPostfixOperation)type, format);
       return;
-    } else if (table instanceof XWhileExpression) {
-      _format((XWhileExpression)table, format);
+    } else if (type instanceof XWhileExpression) {
+      _format((XWhileExpression)type, format);
       return;
-    } else if (table instanceof XFunctionTypeRef) {
-      _format((XFunctionTypeRef)table, format);
+    } else if (type instanceof XFunctionTypeRef) {
+      _format((XFunctionTypeRef)type, format);
       return;
-    } else if (table instanceof ExampleTable) {
-      _format((ExampleTable)table, format);
+    } else if (type instanceof JvmGenericArrayTypeReference) {
+      _format((JvmGenericArrayTypeReference)type, format);
       return;
-    } else if (table instanceof JvmGenericArrayTypeReference) {
-      _format((JvmGenericArrayTypeReference)table, format);
+    } else if (type instanceof JvmParameterizedTypeReference) {
+      _format((JvmParameterizedTypeReference)type, format);
       return;
-    } else if (table instanceof JvmParameterizedTypeReference) {
-      _format((JvmParameterizedTypeReference)table, format);
+    } else if (type instanceof JvmWildcardTypeReference) {
+      _format((JvmWildcardTypeReference)type, format);
       return;
-    } else if (table instanceof JvmWildcardTypeReference) {
-      _format((JvmWildcardTypeReference)table, format);
+    } else if (type instanceof XBasicForLoopExpression) {
+      _format((XBasicForLoopExpression)type, format);
       return;
-    } else if (table instanceof XBasicForLoopExpression) {
-      _format((XBasicForLoopExpression)table, format);
+    } else if (type instanceof XBlockExpression) {
+      _format((XBlockExpression)type, format);
       return;
-    } else if (table instanceof XBlockExpression) {
-      _format((XBlockExpression)table, format);
+    } else if (type instanceof XCastedExpression) {
+      _format((XCastedExpression)type, format);
       return;
-    } else if (table instanceof XCastedExpression) {
-      _format((XCastedExpression)table, format);
+    } else if (type instanceof XClosure) {
+      _format((XClosure)type, format);
       return;
-    } else if (table instanceof XClosure) {
-      _format((XClosure)table, format);
+    } else if (type instanceof XCollectionLiteral) {
+      _format((XCollectionLiteral)type, format);
       return;
-    } else if (table instanceof XCollectionLiteral) {
-      _format((XCollectionLiteral)table, format);
+    } else if (type instanceof XConstructorCall) {
+      _format((XConstructorCall)type, format);
       return;
-    } else if (table instanceof XConstructorCall) {
-      _format((XConstructorCall)table, format);
+    } else if (type instanceof XForLoopExpression) {
+      _format((XForLoopExpression)type, format);
       return;
-    } else if (table instanceof XForLoopExpression) {
-      _format((XForLoopExpression)table, format);
+    } else if (type instanceof XIfExpression) {
+      _format((XIfExpression)type, format);
       return;
-    } else if (table instanceof XIfExpression) {
-      _format((XIfExpression)table, format);
+    } else if (type instanceof XInstanceOfExpression) {
+      _format((XInstanceOfExpression)type, format);
       return;
-    } else if (table instanceof XInstanceOfExpression) {
-      _format((XInstanceOfExpression)table, format);
+    } else if (type instanceof XReturnExpression) {
+      _format((XReturnExpression)type, format);
       return;
-    } else if (table instanceof XReturnExpression) {
-      _format((XReturnExpression)table, format);
+    } else if (type instanceof XSwitchExpression) {
+      _format((XSwitchExpression)type, format);
       return;
-    } else if (table instanceof XSwitchExpression) {
-      _format((XSwitchExpression)table, format);
+    } else if (type instanceof XSynchronizedExpression) {
+      _format((XSynchronizedExpression)type, format);
       return;
-    } else if (table instanceof XSynchronizedExpression) {
-      _format((XSynchronizedExpression)table, format);
+    } else if (type instanceof XThrowExpression) {
+      _format((XThrowExpression)type, format);
       return;
-    } else if (table instanceof XThrowExpression) {
-      _format((XThrowExpression)table, format);
+    } else if (type instanceof XTryCatchFinallyExpression) {
+      _format((XTryCatchFinallyExpression)type, format);
       return;
-    } else if (table instanceof XTryCatchFinallyExpression) {
-      _format((XTryCatchFinallyExpression)table, format);
+    } else if (type instanceof XTypeLiteral) {
+      _format((XTypeLiteral)type, format);
       return;
-    } else if (table instanceof XTypeLiteral) {
-      _format((XTypeLiteral)table, format);
+    } else if (type instanceof XVariableDeclaration) {
+      _format((XVariableDeclaration)type, format);
       return;
-    } else if (table instanceof XVariableDeclaration) {
-      _format((XVariableDeclaration)table, format);
+    } else if (type instanceof XAnnotation) {
+      _format((XAnnotation)type, format);
       return;
-    } else if (table instanceof XAnnotation) {
-      _format((XAnnotation)table, format);
+    } else if (type instanceof JvmTypeConstraint) {
+      _format((JvmTypeConstraint)type, format);
       return;
-    } else if (table instanceof JvmTypeConstraint) {
-      _format((JvmTypeConstraint)table, format);
+    } else if (type instanceof XExpression) {
+      _format((XExpression)type, format);
       return;
-    } else if (table instanceof XCatchClause) {
-      _format((XCatchClause)table, format);
+    } else if (type instanceof XImportDeclaration) {
+      _format((XImportDeclaration)type, format);
       return;
-    } else if (table instanceof XExpression) {
-      _format((XExpression)table, format);
+    } else if (type instanceof XImportSection) {
+      _format((XImportSection)type, format);
       return;
-    } else if (table instanceof XImportDeclaration) {
-      _format((XImportDeclaration)table, format);
+    } else if (type instanceof EObject) {
+      _format((EObject)type, format);
       return;
-    } else if (table instanceof XImportSection) {
-      _format((XImportSection)table, format);
-      return;
-    } else if (table == null) {
+    } else if (type == null) {
       _format((Void)null, format);
       return;
-    } else if (table != null) {
-      _format(table, format);
+    } else if (type != null) {
+      _format(type, format);
       return;
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(table, format).toString());
+        Arrays.<Object>asList(type, format).toString());
     }
   }
 }

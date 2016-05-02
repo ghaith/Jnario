@@ -21,6 +21,7 @@ import org.eclipse.xtext.xbase.XExpression;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.jnario.JnarioFunction#getName <em>Name</em>}</li>
  *   <li>{@link org.jnario.JnarioFunction#getExpression <em>Expression</em>}</li>
@@ -29,7 +30,6 @@ import org.eclipse.xtext.xbase.XExpression;
  *   <li>{@link org.jnario.JnarioFunction#getExceptions <em>Exceptions</em>}</li>
  *   <li>{@link org.jnario.JnarioFunction#getParameters <em>Parameters</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.jnario.JnarioPackage#getJnarioFunction()
  * @model
