@@ -15,9 +15,9 @@
 <unit id="org.aopalliance" version="0.0.0"/>
 <unit id="org.antlr.runtime" version="0.0.0"/>
 <unit id="javax.inject" version="0.0.0"/>
-<unit id="org.objectweb.asm" version="5.0.1.v201404251740"/>
-<unit id="org.objectweb.asm.tree" version="5.0.1.v201404251740"/>
-<unit id="org.objectweb.asm.analysis" version="5.0.1.v201404251740"/>
+<unit id="org.objectweb.asm" version="0.0.0"/>
+<unit id="org.objectweb.asm.tree" version="0.0.0"/>
+<unit id="org.objectweb.asm.analysis" version="0.0.0"/>
 <unit id="javax.inject" version="0.0.0"/>
 <unit id="org.hamcrest.core" version="0.0.0"/>
 <unit id="org.hamcrest.core.source" version="0.0.0"/>
