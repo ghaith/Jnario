@@ -17,11 +17,8 @@ public class SimpleCalculator {
   }
   
   public int add() {
-    final Function2<Integer, Integer, Integer> _function = new Function2<Integer, Integer, Integer>() {
-      @Override
-      public Integer apply(final Integer a, final Integer b) {
-        return Integer.valueOf(((a).intValue() + (b).intValue()));
-      }
+    final Function2<Integer, Integer, Integer> _function = (Integer a, Integer b) -> {
+      return Integer.valueOf(((a).intValue() + (b).intValue()));
     };
     Integer _fold = IterableExtensions.<Integer, Integer>fold(this.values, Integer.valueOf(0), _function);
     return this.result = (_fold).intValue();

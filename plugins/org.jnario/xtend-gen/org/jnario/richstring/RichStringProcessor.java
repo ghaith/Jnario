@@ -33,20 +33,17 @@ public class RichStringProcessor {
     }
     
     protected Boolean _accept(final XBlockExpression block) {
-      final Procedure2<ITreeAppendable, String> _function = new Procedure2<ITreeAppendable, String>() {
-        @Override
-        public void apply(final ITreeAppendable appendable, final String variableName) {
-          final String blockName = RichStringAcceptor.this.compileBlock(block, appendable);
-          boolean _notEquals = (!Objects.equal(blockName, null));
-          if (_notEquals) {
-            StringConcatenation _builder = new StringConcatenation();
-            _builder.append(variableName, "");
-            _builder.append(".append(");
-            _builder.append(blockName, "");
-            _builder.append(");");
-            appendable.append(_builder);
-            appendable.newLine();
-          }
+      final Procedure2<ITreeAppendable, String> _function = (ITreeAppendable appendable, String variableName) -> {
+        final String blockName = this.compileBlock(block, appendable);
+        boolean _notEquals = (!Objects.equal(blockName, null));
+        if (_notEquals) {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append(variableName, "");
+          _builder.append(".append(");
+          _builder.append(blockName, "");
+          _builder.append(");");
+          appendable.append(_builder);
+          appendable.newLine();
         }
       };
       return Boolean.valueOf(this.toBeAppended.add(_function));
@@ -76,19 +73,16 @@ public class RichStringProcessor {
     }
     
     protected Boolean _accept(final XExpression literal) {
-      final Procedure2<ITreeAppendable, String> _function = new Procedure2<ITreeAppendable, String>() {
-        @Override
-        public void apply(final ITreeAppendable appendable, final String name) {
-          StringConcatenation _builder = new StringConcatenation();
-          _builder.append(name, "");
-          _builder.append(".append(");
-          appendable.append(_builder);
-          RichStringAcceptor.this.compiler.toJavaExpression(literal, appendable);
-          StringConcatenation _builder_1 = new StringConcatenation();
-          _builder_1.append(");");
-          appendable.append(_builder_1);
-          appendable.newLine();
-        }
+      final Procedure2<ITreeAppendable, String> _function = (ITreeAppendable appendable, String name) -> {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(name, "");
+        _builder.append(".append(");
+        appendable.append(_builder);
+        this.compiler.toJavaExpression(literal, appendable);
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append(");");
+        appendable.append(_builder_1);
+        appendable.newLine();
       };
       return Boolean.valueOf(this.toBeAppended.add(_function));
     }
@@ -122,70 +116,61 @@ public class RichStringProcessor {
       Pattern _compile = Pattern.compile("\r?\n");
       Splitter _on = Splitter.on(_compile);
       final Iterable<String> lines = _on.split(value);
-      final Procedure2<String, Integer> _function = new Procedure2<String, Integer>() {
-        @Override
-        public void apply(final String it, final Integer index) {
-          boolean _and = false;
-          boolean _equals = Objects.equal(RichStringAcceptor.this.indentation, null);
-          if (!_equals) {
-            _and = false;
-          } else {
-            boolean _isEmpty = it.isEmpty();
-            _and = _isEmpty;
-          }
-          if (_and) {
-            return;
-          }
-          final String currentIndentation = RichStringProcessor.getIndentation(it);
-          boolean _or = false;
-          boolean _equals_1 = Objects.equal(RichStringAcceptor.this.indentation, null);
-          if (_equals_1) {
-            _or = true;
-          } else {
-            int _length = currentIndentation.length();
-            int _length_1 = RichStringAcceptor.this.indentation.length();
-            boolean _lessThan = (_length < _length_1);
-            _or = _lessThan;
-          }
-          if (_or) {
-            RichStringAcceptor.this.indentation = currentIndentation;
-          }
-          final Procedure2<ITreeAppendable, String> _function = new Procedure2<ITreeAppendable, String>() {
-            @Override
-            public void apply(final ITreeAppendable appendable, final String variableName) {
-              StringConcatenation _builder = new StringConcatenation();
-              _builder.append(variableName, "");
-              _builder.append(".append(\"");
-              String _correctIndentation = RichStringAcceptor.this.correctIndentation(it);
-              _builder.append(_correctIndentation, "");
-              _builder.append("\");");
-              appendable.append(_builder);
-              appendable.newLine();
-              int _size = IterableExtensions.size(lines);
-              int _minus = (_size - 1);
-              boolean _lessThan = ((index).intValue() < _minus);
-              if (_lessThan) {
-                StringConcatenation _builder_1 = new StringConcatenation();
-                _builder_1.append(variableName, "");
-                _builder_1.append(".newLine();");
-                appendable.append(_builder_1);
-                appendable.newLine();
-              }
-            }
-          };
-          RichStringAcceptor.this.toBeAppended.add(_function);
+      final Procedure2<String, Integer> _function = (String it, Integer index) -> {
+        boolean _and = false;
+        boolean _equals = Objects.equal(this.indentation, null);
+        if (!_equals) {
+          _and = false;
+        } else {
+          boolean _isEmpty = it.isEmpty();
+          _and = _isEmpty;
         }
+        if (_and) {
+          return;
+        }
+        final String currentIndentation = RichStringProcessor.getIndentation(it);
+        boolean _or = false;
+        boolean _equals_1 = Objects.equal(this.indentation, null);
+        if (_equals_1) {
+          _or = true;
+        } else {
+          int _length_2 = currentIndentation.length();
+          int _length_3 = this.indentation.length();
+          boolean _lessThan = (_length_2 < _length_3);
+          _or = _lessThan;
+        }
+        if (_or) {
+          this.indentation = currentIndentation;
+        }
+        final Procedure2<ITreeAppendable, String> _function_1 = (ITreeAppendable appendable, String variableName) -> {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append(variableName, "");
+          _builder.append(".append(\"");
+          String _correctIndentation = this.correctIndentation(it);
+          _builder.append(_correctIndentation, "");
+          _builder.append("\");");
+          appendable.append(_builder);
+          appendable.newLine();
+          int _size = IterableExtensions.size(lines);
+          int _minus_2 = (_size - 1);
+          boolean _lessThan_1 = ((index).intValue() < _minus_2);
+          if (_lessThan_1) {
+            StringConcatenation _builder_1 = new StringConcatenation();
+            _builder_1.append(variableName, "");
+            _builder_1.append(".newLine();");
+            appendable.append(_builder_1);
+            appendable.newLine();
+          }
+        };
+        this.toBeAppended.add(_function_1);
       };
       IterableExtensions.<String>forEach(lines, _function);
       return null;
     }
     
     public void appendTo(final ITreeAppendable appendable, final String variableName) {
-      final Consumer<Procedure2<ITreeAppendable, String>> _function = new Consumer<Procedure2<ITreeAppendable, String>>() {
-        @Override
-        public void accept(final Procedure2<ITreeAppendable, String> it) {
-          it.apply(appendable, variableName);
-        }
+      final Consumer<Procedure2<ITreeAppendable, String>> _function = (Procedure2<ITreeAppendable, String> it) -> {
+        it.apply(appendable, variableName);
       };
       this.toBeAppended.forEach(_function);
     }
@@ -222,11 +207,8 @@ public class RichStringProcessor {
   public void process(final RichString richString, final ITreeAppendable appendable, final String variableName, final JnarioCompiler compiler) {
     final RichStringProcessor.RichStringAcceptor acceptor = new RichStringProcessor.RichStringAcceptor(compiler);
     EList<XExpression> _expressions = richString.getExpressions();
-    final Procedure2<XExpression, Integer> _function = new Procedure2<XExpression, Integer>() {
-      @Override
-      public void apply(final XExpression it, final Integer index) {
-        acceptor.accept(it);
-      }
+    final Procedure2<XExpression, Integer> _function = (XExpression it, Integer index) -> {
+      acceptor.accept(it);
     };
     IterableExtensions.<XExpression>forEach(_expressions, _function);
     acceptor.appendTo(appendable, variableName);

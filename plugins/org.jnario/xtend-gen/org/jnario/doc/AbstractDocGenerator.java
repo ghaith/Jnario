@@ -90,20 +90,14 @@ public abstract class AbstractDocGenerator implements IGenerator {
     this.initResultMapping(spec2ResultMapping);
     EList<EObject> _contents = input.getContents();
     Iterable<JnarioFile> _filter = Iterables.<JnarioFile>filter(_contents, JnarioFile.class);
-    final Consumer<JnarioFile> _function = new Consumer<JnarioFile>() {
-      @Override
-      public void accept(final JnarioFile it) {
-        EList<JnarioTypeDeclaration> _xtendTypes = it.getXtendTypes();
-        Iterable<JnarioClass> _filter = Iterables.<JnarioClass>filter(_xtendTypes, JnarioClass.class);
-        final Consumer<JnarioClass> _function = new Consumer<JnarioClass>() {
-          @Override
-          public void accept(final JnarioClass it) {
-            HtmlFile _createHtmlFile = AbstractDocGenerator.this.createHtmlFile(it);
-            AbstractDocGenerator.this._htmlFileBuilder.generate(it, fsa, _createHtmlFile);
-          }
-        };
-        _filter.forEach(_function);
-      }
+    final Consumer<JnarioFile> _function = (JnarioFile it) -> {
+      EList<JnarioTypeDeclaration> _xtendTypes = it.getXtendTypes();
+      Iterable<JnarioClass> _filter_1 = Iterables.<JnarioClass>filter(_xtendTypes, JnarioClass.class);
+      final Consumer<JnarioClass> _function_1 = (JnarioClass it_1) -> {
+        HtmlFile _createHtmlFile = this.createHtmlFile(it_1);
+        this._htmlFileBuilder.generate(it_1, fsa, _createHtmlFile);
+      };
+      _filter_1.forEach(_function_1);
     };
     _filter.forEach(_function);
   }
@@ -231,11 +225,8 @@ public abstract class AbstractDocGenerator implements IGenerator {
       return "";
     }
     final String[] fragments = packageName.split("\\.");
-    final Function1<String, String> _function = new Function1<String, String>() {
-      @Override
-      public String apply(final String s) {
-        return "../";
-      }
+    final Function1<String, String> _function = (String s) -> {
+      return "../";
     };
     final List<String> path = ListExtensions.<String, String>map(((List<String>)Conversions.doWrapArray(fragments)), _function);
     return IterableExtensions.join(path, "");

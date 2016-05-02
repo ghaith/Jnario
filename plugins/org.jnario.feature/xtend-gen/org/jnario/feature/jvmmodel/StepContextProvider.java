@@ -42,22 +42,19 @@ public class StepContextProvider {
       final XExpression expr = this._stepExpressionProvider.expressionOf(step);
       Iterable<JnarioMember> _allVisibleMembers = this._visibleMembersCalculator.allVisibleMembers(step);
       Iterable<JnarioField> _filter = Iterables.<JnarioField>filter(_allVisibleMembers, JnarioField.class);
-      final Function1<JnarioField, Boolean> _function = new Function1<JnarioField, Boolean>() {
-        @Override
-        public Boolean apply(final JnarioField it) {
-          boolean _xblockexpression = false;
-          {
-            Set<EObject> _jvmElements = StepContextProvider.this._iJvmModelAssociations.getJvmElements(it);
-            Iterable<JvmField> _filter = Iterables.<JvmField>filter(_jvmElements, JvmField.class);
-            Iterator<JvmField> _iterator = _filter.iterator();
-            final JvmField field = _iterator.next();
-            ArrayList<XExpression> _newArrayList = CollectionLiterals.<XExpression>newArrayList(expr);
-            final Collection<EStructuralFeature.Setting> usages = XbaseUsageCrossReferencer.find(field, _newArrayList);
-            boolean _isEmpty = usages.isEmpty();
-            _xblockexpression = (!_isEmpty);
-          }
-          return Boolean.valueOf(_xblockexpression);
+      final Function1<JnarioField, Boolean> _function = (JnarioField it) -> {
+        boolean _xblockexpression_1 = false;
+        {
+          Set<EObject> _jvmElements = this._iJvmModelAssociations.getJvmElements(it);
+          Iterable<JvmField> _filter_1 = Iterables.<JvmField>filter(_jvmElements, JvmField.class);
+          Iterator<JvmField> _iterator = _filter_1.iterator();
+          final JvmField field = _iterator.next();
+          ArrayList<XExpression> _newArrayList = CollectionLiterals.<XExpression>newArrayList(expr);
+          final Collection<EStructuralFeature.Setting> usages = XbaseUsageCrossReferencer.find(field, _newArrayList);
+          boolean _isEmpty = usages.isEmpty();
+          _xblockexpression_1 = (!_isEmpty);
         }
+        return Boolean.valueOf(_xblockexpression_1);
       };
       Iterable<JnarioField> _filter_1 = IterableExtensions.<JnarioField>filter(_filter, _function);
       _xblockexpression = IterableExtensions.<JnarioField>toSet(_filter_1);

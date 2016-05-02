@@ -21,11 +21,8 @@ public class CellLocation {
   private int y;
   
   public Set<CellLocation> neighbours() {
-    final Function1<CellLocation, CellLocation> _function = new Function1<CellLocation, CellLocation>() {
-      @Override
-      public CellLocation apply(final CellLocation it) {
-        return CellLocation.this.plus(it);
-      }
+    final Function1<CellLocation, CellLocation> _function = (CellLocation it) -> {
+      return this.plus(it);
     };
     Iterable<CellLocation> _map = IterableExtensions.<CellLocation, CellLocation>map(CellLocation.NEIGHBOUR_OFFSETS, _function);
     return IterableExtensions.<CellLocation>toSet(_map);

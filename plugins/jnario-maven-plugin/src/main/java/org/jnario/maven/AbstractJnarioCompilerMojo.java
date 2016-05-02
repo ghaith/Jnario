@@ -50,7 +50,7 @@ public abstract class AbstractJnarioCompilerMojo extends AbstractJnarioMojo {
 	 * 
 	 * Supported values: 1.5, 1.6, 1.7, and 1.8
 	 */
-	@Parameter(property = "maven.compiler.source", defaultValue = "1.6")
+	@Parameter(property = "maven.compiler.source", defaultValue = "1.8")
 	private String javaSourceVersion;
 
 	@Component

@@ -92,17 +92,14 @@ public class JnarioStandaloneCompiler extends AbstractBatchCompiler {
     Map<String, Injector> _xblockexpression = null;
     {
       this.injectors = injectors;
-      final Function1<Injector, Pair<String, Injector>> _function = new Function1<Injector, Pair<String, Injector>>() {
-        @Override
-        public Pair<String, Injector> apply(final Injector it) {
-          Pair<String, Injector> _xblockexpression = null;
-          {
-            FileExtensionProvider _instance = it.<FileExtensionProvider>getInstance(FileExtensionProvider.class);
-            final String fileExtension = _instance.getPrimaryFileExtension();
-            _xblockexpression = Pair.<String, Injector>of(fileExtension, it);
-          }
-          return _xblockexpression;
+      final Function1<Injector, Pair<String, Injector>> _function = (Injector it) -> {
+        Pair<String, Injector> _xblockexpression_1 = null;
+        {
+          FileExtensionProvider _instance = it.<FileExtensionProvider>getInstance(FileExtensionProvider.class);
+          final String fileExtension = _instance.getPrimaryFileExtension();
+          _xblockexpression_1 = Pair.<String, Injector>of(fileExtension, it);
         }
+        return _xblockexpression_1;
       };
       List<Pair<String, Injector>> _map = ListExtensions.<Injector, Pair<String, Injector>>map(injectors, _function);
       HashMap<String, Injector> _newHashMap = CollectionLiterals.<String, Injector>newHashMap(((Pair<? extends String, ? extends Injector>[])Conversions.unwrapArray(_map, Pair.class)));
@@ -113,36 +110,27 @@ public class JnarioStandaloneCompiler extends AbstractBatchCompiler {
   
   public static JnarioStandaloneCompiler fromSetups(final List<? extends ISetup> setups) {
     JnarioStandaloneCompiler _jnarioStandaloneCompiler = new JnarioStandaloneCompiler();
-    final Procedure1<JnarioStandaloneCompiler> _function = new Procedure1<JnarioStandaloneCompiler>() {
-      @Override
-      public void apply(final JnarioStandaloneCompiler it) {
-        final Function1<ISetup, Injector> _function = new Function1<ISetup, Injector>() {
-          @Override
-          public Injector apply(final ISetup it) {
-            return it.createInjectorAndDoEMFRegistration();
-          }
-        };
-        List<Injector> _eagerMap = JnarioStandaloneCompiler.eagerMap(setups, _function);
-        List<Injector> _list = IterableExtensions.<Injector>toList(_eagerMap);
-        it.injectors = _list;
-        Injector _head = IterableExtensions.<Injector>head(it.injectors);
-        _head.injectMembers(it);
-        final Function1<Injector, Pair<String, Injector>> _function_1 = new Function1<Injector, Pair<String, Injector>>() {
-          @Override
-          public Pair<String, Injector> apply(final Injector it) {
-            Pair<String, Injector> _xblockexpression = null;
-            {
-              FileExtensionProvider _instance = it.<FileExtensionProvider>getInstance(FileExtensionProvider.class);
-              final String fileExtension = _instance.getPrimaryFileExtension();
-              _xblockexpression = Pair.<String, Injector>of(fileExtension, it);
-            }
-            return _xblockexpression;
-          }
-        };
-        List<Pair<String, Injector>> _map = ListExtensions.<Injector, Pair<String, Injector>>map(it.injectors, _function_1);
-        HashMap<String, Injector> _newHashMap = CollectionLiterals.<String, Injector>newHashMap(((Pair<? extends String, ? extends Injector>[])Conversions.unwrapArray(_map, Pair.class)));
-        it.injectorMap = _newHashMap;
-      }
+    final Procedure1<JnarioStandaloneCompiler> _function = (JnarioStandaloneCompiler it) -> {
+      final Function1<ISetup, Injector> _function_1 = (ISetup it_1) -> {
+        return it_1.createInjectorAndDoEMFRegistration();
+      };
+      List<Injector> _eagerMap = JnarioStandaloneCompiler.eagerMap(setups, _function_1);
+      List<Injector> _list = IterableExtensions.<Injector>toList(_eagerMap);
+      it.injectors = _list;
+      Injector _head = IterableExtensions.<Injector>head(it.injectors);
+      _head.injectMembers(it);
+      final Function1<Injector, Pair<String, Injector>> _function_2 = (Injector it_1) -> {
+        Pair<String, Injector> _xblockexpression = null;
+        {
+          FileExtensionProvider _instance = it_1.<FileExtensionProvider>getInstance(FileExtensionProvider.class);
+          final String fileExtension = _instance.getPrimaryFileExtension();
+          _xblockexpression = Pair.<String, Injector>of(fileExtension, it_1);
+        }
+        return _xblockexpression;
+      };
+      List<Pair<String, Injector>> _map = ListExtensions.<Injector, Pair<String, Injector>>map(it.injectors, _function_2);
+      HashMap<String, Injector> _newHashMap = CollectionLiterals.<String, Injector>newHashMap(((Pair<? extends String, ? extends Injector>[])Conversions.unwrapArray(_map, Pair.class)));
+      it.injectorMap = _newHashMap;
     };
     return ObjectExtensions.<JnarioStandaloneCompiler>operator_doubleArrow(_jnarioStandaloneCompiler, _function);
   }
@@ -171,41 +159,32 @@ public class JnarioStandaloneCompiler extends AbstractBatchCompiler {
     final List<NameBasedFilter> nameBasedFilter = this.getNameBasedFilters();
     final PathTraverser pathTraverser = new PathTraverser();
     final List<String> sourcePathDirectories = this.getSourcePathDirectories();
-    final Predicate<URI> _function = new Predicate<URI>() {
-      @Override
-      public boolean apply(final URI src) {
-        final Function1<NameBasedFilter, Boolean> _function = new Function1<NameBasedFilter, Boolean>() {
-          @Override
-          public Boolean apply(final NameBasedFilter it) {
-            return Boolean.valueOf(it.matches(src));
-          }
-        };
-        return IterableExtensions.<NameBasedFilter>exists(nameBasedFilter, _function);
-      }
+    final Predicate<URI> _function = (URI src) -> {
+      final Function1<NameBasedFilter, Boolean> _function_1 = (NameBasedFilter it) -> {
+        return Boolean.valueOf(it.matches(src));
+      };
+      return IterableExtensions.<NameBasedFilter>exists(nameBasedFilter, _function_1);
     };
     final Multimap<String, URI> pathes = pathTraverser.resolvePathes(sourcePathDirectories, _function);
     Set<String> _keySet = pathes.keySet();
-    final Consumer<String> _function_1 = new Consumer<String>() {
-      @Override
-      public void accept(final String src) {
-        final URI baseDir = URI.createFileURI((src + "/"));
-        Joiner _on = Joiner.on("_");
-        String[] _segments = baseDir.segments();
-        final String identifier = _on.join(_segments);
-        final URI platformResourceURI = URI.createPlatformResourceURI((identifier + "/"), true);
-        URIConverter _uRIConverter = resourceSet.getURIConverter();
-        Map<URI, URI> _uRIMap = _uRIConverter.getURIMap();
-        _uRIMap.put(platformResourceURI, baseDir);
-        Collection<URI> _get = pathes.get(src);
-        for (final URI uri : _get) {
-          {
-            boolean _isDebugEnabled = JnarioStandaloneCompiler.log.isDebugEnabled();
-            if (_isDebugEnabled) {
-              JnarioStandaloneCompiler.log.debug((("load xtend file \'" + uri) + "\'"));
-            }
-            final URI uriToUse = uri.replacePrefix(baseDir, platformResourceURI);
-            resourceSet.getResource(uriToUse, true);
+    final Consumer<String> _function_1 = (String src) -> {
+      final URI baseDir = URI.createFileURI((src + "/"));
+      Joiner _on = Joiner.on("_");
+      String[] _segments = baseDir.segments();
+      final String identifier = _on.join(_segments);
+      final URI platformResourceURI = URI.createPlatformResourceURI((identifier + "/"), true);
+      URIConverter _uRIConverter = resourceSet.getURIConverter();
+      Map<URI, URI> _uRIMap = _uRIConverter.getURIMap();
+      _uRIMap.put(platformResourceURI, baseDir);
+      Collection<URI> _get = pathes.get(src);
+      for (final URI uri : _get) {
+        {
+          boolean _isDebugEnabled = JnarioStandaloneCompiler.log.isDebugEnabled();
+          if (_isDebugEnabled) {
+            JnarioStandaloneCompiler.log.debug((("load xtend file \'" + uri) + "\'"));
           }
+          final URI uriToUse = uri.replacePrefix(baseDir, platformResourceURI);
+          resourceSet.getResource(uriToUse, true);
         }
       }
     };
@@ -214,31 +193,25 @@ public class JnarioStandaloneCompiler extends AbstractBatchCompiler {
   }
   
   public void applyEncoding() {
-    final Consumer<Injector> _function = new Consumer<Injector>() {
-      @Override
-      public void accept(final Injector it) {
-        IEncodingProvider.Runtime _instance = it.<IEncodingProvider.Runtime>getInstance(IEncodingProvider.Runtime.class);
-        String _fileEncoding = JnarioStandaloneCompiler.this.getFileEncoding();
-        _instance.setDefaultEncoding(_fileEncoding);
-      }
+    final Consumer<Injector> _function = (Injector it) -> {
+      IEncodingProvider.Runtime _instance = it.<IEncodingProvider.Runtime>getInstance(IEncodingProvider.Runtime.class);
+      String _fileEncoding = this.getFileEncoding();
+      _instance.setDefaultEncoding(_fileEncoding);
     };
     this.injectors.forEach(_function);
   }
   
   public List<NameBasedFilter> getNameBasedFilters() {
-    final Function1<Injector, NameBasedFilter> _function = new Function1<Injector, NameBasedFilter>() {
-      @Override
-      public NameBasedFilter apply(final Injector it) {
-        NameBasedFilter _xblockexpression = null;
-        {
-          final NameBasedFilter filter = new NameBasedFilter();
-          FileExtensionProvider _instance = it.<FileExtensionProvider>getInstance(FileExtensionProvider.class);
-          String _primaryFileExtension = _instance.getPrimaryFileExtension();
-          filter.setExtension(_primaryFileExtension);
-          _xblockexpression = filter;
-        }
-        return _xblockexpression;
+    final Function1<Injector, NameBasedFilter> _function = (Injector it) -> {
+      NameBasedFilter _xblockexpression = null;
+      {
+        final NameBasedFilter filter = new NameBasedFilter();
+        FileExtensionProvider _instance = it.<FileExtensionProvider>getInstance(FileExtensionProvider.class);
+        String _primaryFileExtension = _instance.getPrimaryFileExtension();
+        filter.setExtension(_primaryFileExtension);
+        _xblockexpression = filter;
       }
+      return _xblockexpression;
     };
     return JnarioStandaloneCompiler.<Injector, NameBasedFilter>eagerMap(this.injectors, _function);
   }
@@ -251,19 +224,16 @@ public class JnarioStandaloneCompiler extends AbstractBatchCompiler {
     fileSystemAccess.setOutputPath(_string);
     EList<Resource> _resources = resourceSet.getResources();
     ArrayList<Resource> _newArrayList = Lists.<Resource>newArrayList(_resources);
-    final Consumer<Resource> _function = new Consumer<Resource>() {
-      @Override
-      public void accept(final Resource it) {
-        IResourceDescription.Manager _findResourceDescriptionManager = JnarioStandaloneCompiler.this.findResourceDescriptionManager(it);
-        IResourceDescription _resourceDescription = null;
-        if (_findResourceDescriptionManager!=null) {
-          _resourceDescription=_findResourceDescriptionManager.getResourceDescription(it);
-        }
-        final IResourceDescription description = _resourceDescription;
-        boolean _notEquals = (!Objects.equal(description, null));
-        if (_notEquals) {
-          JnarioStandaloneCompiler.this.stubGenerator.doGenerateStubs(fileSystemAccess, description);
-        }
+    final Consumer<Resource> _function = (Resource it) -> {
+      IResourceDescription.Manager _findResourceDescriptionManager = this.findResourceDescriptionManager(it);
+      IResourceDescription _resourceDescription = null;
+      if (_findResourceDescriptionManager!=null) {
+        _resourceDescription=_findResourceDescriptionManager.getResourceDescription(it);
+      }
+      final IResourceDescription description = _resourceDescription;
+      boolean _notEquals = (!Objects.equal(description, null));
+      if (_notEquals) {
+        this.stubGenerator.doGenerateStubs(fileSystemAccess, description);
       }
     };
     _newArrayList.forEach(_function);
@@ -312,38 +282,32 @@ public class JnarioStandaloneCompiler extends AbstractBatchCompiler {
         JnarioStandaloneCompiler.log.info(_plus_2);
       }
     }
-    final Function1<IEObjectDescription, Boolean> _function = new Function1<IEObjectDescription, Boolean>() {
-      @Override
-      public Boolean apply(final IEObjectDescription it) {
-        String _userData = it.getUserData(JvmTypesResourceDescriptionStrategy.IS_NESTED_TYPE);
-        return Boolean.valueOf(Objects.equal(_userData, null));
-      }
+    final Function1<IEObjectDescription, Boolean> _function = (IEObjectDescription it) -> {
+      String _userData = it.getUserData(JvmTypesResourceDescriptionStrategy.IS_NESTED_TYPE);
+      return Boolean.valueOf(Objects.equal(_userData, null));
     };
     Iterable<IEObjectDescription> _filter = IterableExtensions.<IEObjectDescription>filter(exportedObjectsByType, _function);
-    final Consumer<IEObjectDescription> _function_1 = new Consumer<IEObjectDescription>() {
-      @Override
-      public void accept(final IEObjectDescription eObjectDescription) {
-        EObject _eObjectOrProxy = eObjectDescription.getEObjectOrProxy();
-        final JvmDeclaredType jvmGenericType = ((JvmDeclaredType) _eObjectOrProxy);
-        Resource _eResource = jvmGenericType.eResource();
-        final JvmModelGenerator generator = JnarioStandaloneCompiler.this.<JvmModelGenerator>getInstance(_eResource, JvmModelGenerator.class);
-        Resource _eResource_1 = jvmGenericType.eResource();
-        final IGeneratorConfigProvider generatorConfig = JnarioStandaloneCompiler.this.<IGeneratorConfigProvider>getInstance(_eResource_1, IGeneratorConfigProvider.class);
-        Resource _eResource_2 = jvmGenericType.eResource();
-        final IQualifiedNameProvider nameProvider = JnarioStandaloneCompiler.this.<IQualifiedNameProvider>getInstance(_eResource_2, IQualifiedNameProvider.class);
-        GeneratorConfig _get = generatorConfig.get(jvmGenericType);
-        final CharSequence generatedType = generator.generateType(jvmGenericType, _get);
-        final QualifiedName qualifiedName = nameProvider.getFullyQualifiedName(jvmGenericType);
-        boolean _isDebugEnabled = JnarioStandaloneCompiler.log.isDebugEnabled();
-        if (_isDebugEnabled) {
-          String _javaFileName = JnarioStandaloneCompiler.this.getJavaFileName(qualifiedName);
-          String _plus = ((("write \'" + outputPath) + File.separator) + _javaFileName);
-          String _plus_1 = (_plus + "\'");
-          JnarioStandaloneCompiler.log.debug(_plus_1);
-        }
-        String _javaFileName_1 = JnarioStandaloneCompiler.this.getJavaFileName(qualifiedName);
-        javaIoFileSystemAccess.generateFile(_javaFileName_1, generatedType);
+    final Consumer<IEObjectDescription> _function_1 = (IEObjectDescription eObjectDescription) -> {
+      EObject _eObjectOrProxy = eObjectDescription.getEObjectOrProxy();
+      final JvmDeclaredType jvmGenericType = ((JvmDeclaredType) _eObjectOrProxy);
+      Resource _eResource = jvmGenericType.eResource();
+      final JvmModelGenerator generator = this.<JvmModelGenerator>getInstance(_eResource, JvmModelGenerator.class);
+      Resource _eResource_1 = jvmGenericType.eResource();
+      final IGeneratorConfigProvider generatorConfig = this.<IGeneratorConfigProvider>getInstance(_eResource_1, IGeneratorConfigProvider.class);
+      Resource _eResource_2 = jvmGenericType.eResource();
+      final IQualifiedNameProvider nameProvider = this.<IQualifiedNameProvider>getInstance(_eResource_2, IQualifiedNameProvider.class);
+      GeneratorConfig _get = generatorConfig.get(jvmGenericType);
+      final CharSequence generatedType = generator.generateType(jvmGenericType, _get);
+      final QualifiedName qualifiedName = nameProvider.getFullyQualifiedName(jvmGenericType);
+      boolean _isDebugEnabled = JnarioStandaloneCompiler.log.isDebugEnabled();
+      if (_isDebugEnabled) {
+        String _javaFileName = this.getJavaFileName(qualifiedName);
+        String _plus_3 = ((("write \'" + outputPath) + File.separator) + _javaFileName);
+        String _plus_4 = (_plus_3 + "\'");
+        JnarioStandaloneCompiler.log.debug(_plus_4);
       }
+      String _javaFileName_1 = this.getJavaFileName(qualifiedName);
+      javaIoFileSystemAccess.generateFile(_javaFileName_1, generatedType);
     };
     _filter.forEach(_function_1);
   }

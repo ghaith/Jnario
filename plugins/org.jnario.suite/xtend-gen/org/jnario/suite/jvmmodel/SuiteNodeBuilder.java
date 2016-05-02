@@ -72,11 +72,8 @@ public class SuiteNodeBuilder {
   
   public SuiteNode createNode(final Suite current, final SuiteNode parent) {
     EList<Reference> _elements = current.getElements();
-    final Function1<Reference, List<Specification>> _function = new Function1<Reference, List<Specification>>() {
-      @Override
-      public List<Specification> apply(final Reference it) {
-        return SuiteNodeBuilder.this._specResolver.resolveSpecs(it);
-      }
+    final Function1<Reference, List<Specification>> _function = (Reference it) -> {
+      return this._specResolver.resolveSpecs(it);
     };
     List<List<Specification>> _map = ListExtensions.<Reference, List<Specification>>map(_elements, _function);
     final Iterable<Specification> specs = Iterables.<Specification>concat(_map);

@@ -39,20 +39,17 @@ public class CompileTask extends Task {
   @Override
   public void execute() throws BuildException {
     CompilerMain _compilerMain = new CompilerMain();
-    final Procedure1<CompilerMain> _function = new Procedure1<CompilerMain>() {
-      @Override
-      public void apply(final CompilerMain it) {
-        String _outputPath = CompileTask.this.getOutputPath();
-        it.setOutputPath(_outputPath);
-        String _string = CompileTask.this.classPath.toString();
-        it.setClassPath(_string);
-        String _tempDirectory = CompileTask.this.getTempDirectory();
-        it.setTempDirectory(_tempDirectory);
-        String _fileEncoding = CompileTask.this.getFileEncoding();
-        it.setFileEncoding(_fileEncoding);
-        String _string_1 = CompileTask.this.sourcePath.toString();
-        it.setSourcePath(_string_1);
-      }
+    final Procedure1<CompilerMain> _function = (CompilerMain it) -> {
+      String _outputPath = this.getOutputPath();
+      it.setOutputPath(_outputPath);
+      String _string = this.classPath.toString();
+      it.setClassPath(_string);
+      String _tempDirectory = this.getTempDirectory();
+      it.setTempDirectory(_tempDirectory);
+      String _fileEncoding = this.getFileEncoding();
+      it.setFileEncoding(_fileEncoding);
+      String _string_1 = this.sourcePath.toString();
+      it.setSourcePath(_string_1);
     };
     final CompilerMain compiler = ObjectExtensions.<CompilerMain>operator_doubleArrow(_compilerMain, _function);
     int _compile = compiler.compile();

@@ -73,11 +73,8 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
     String _name = _eClass.getName();
     boolean _equals = Objects.equal(_name, "Suite");
     if (_equals) {
-      final Function1<JvmTypeReference, String> _function = new Function1<JvmTypeReference, String>() {
-        @Override
-        public String apply(final JvmTypeReference it) {
-          return it.getSimpleName();
-        }
+      final Function1<JvmTypeReference, String> _function = (JvmTypeReference it) -> {
+        return it.getSimpleName();
       };
       Iterable<String> _map = IterableExtensions.<JvmTypeReference, String>map(children, _function);
       List<Executable> _emptyList = CollectionLiterals.<Executable>emptyList();
@@ -103,34 +100,28 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
     {
       final JvmTypeReference voidType = this._typeReferences.getTypeForName(Void.TYPE, exampleGroup);
       EList<JvmMember> _members = type.getMembers();
-      final Procedure1<JvmOperation> _function = new Procedure1<JvmOperation>() {
-        @Override
-        public void apply(final JvmOperation it) {
-          it.setVisibility(JvmVisibility.PUBLIC);
-          EList<JvmTypeReference> _exceptions = it.getExceptions();
-          JvmTypeReference _typeForName = JUnit3RuntimeSupport.this._typeReferences.getTypeForName(Exception.class, exampleGroup);
-          JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.<JvmTypeReference>operator_add(_exceptions, _typeForName);
-          final Procedure1<ITreeAppendable> _function = new Procedure1<ITreeAppendable>() {
-            @Override
-            public void apply(final ITreeAppendable it) {
-              StringConcatenation _builder = new StringConcatenation();
-              _builder.append("super.");
-              _builder.append(methodName, "");
+      final Procedure1<JvmOperation> _function = (JvmOperation it) -> {
+        it.setVisibility(JvmVisibility.PUBLIC);
+        EList<JvmTypeReference> _exceptions = it.getExceptions();
+        JvmTypeReference _typeForName = this._typeReferences.getTypeForName(Exception.class, exampleGroup);
+        this._extendedJvmTypesBuilder.<JvmTypeReference>operator_add(_exceptions, _typeForName);
+        final Procedure1<ITreeAppendable> _function_1 = (ITreeAppendable it_1) -> {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append("super.");
+          _builder.append(methodName, "");
+          _builder.append("();");
+          _builder.newLineIfNotEmpty();
+          {
+            for(final JnarioFunction executable : executables) {
+              String _methodName = this._jnarioNameProvider.toMethodName(executable);
+              _builder.append(_methodName, "");
               _builder.append("();");
               _builder.newLineIfNotEmpty();
-              {
-                for(final JnarioFunction executable : executables) {
-                  String _methodName = JUnit3RuntimeSupport.this._jnarioNameProvider.toMethodName(executable);
-                  _builder.append(_methodName, "");
-                  _builder.append("();");
-                  _builder.newLineIfNotEmpty();
-                }
-              }
-              it.append(_builder);
             }
-          };
-          JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.setBody(it, _function);
-        }
+          }
+          it_1.append(_builder);
+        };
+        this._extendedJvmTypesBuilder.setBody(it, _function_1);
       };
       JvmOperation _method = this._extendedJvmTypesBuilder.toMethod(exampleGroup, methodName, voidType, _function);
       _xblockexpression = this._extendedJvmTypesBuilder.<JvmOperation>operator_add(_members, _method);
@@ -141,13 +132,10 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
   private Iterable<JnarioFunction> befores(final JnarioClass exampleGroup) {
     EList<JnarioMember> _members = exampleGroup.getMembers();
     Iterable<JnarioFunction> _filter = Iterables.<JnarioFunction>filter(_members, JnarioFunction.class);
-    final Function1<JnarioFunction, Boolean> _function = new Function1<JnarioFunction, Boolean>() {
-      @Override
-      public Boolean apply(final JnarioFunction it) {
-        EClass _eClass = it.eClass();
-        String _name = _eClass.getName();
-        return Boolean.valueOf(Objects.equal(_name, "Before"));
-      }
+    final Function1<JnarioFunction, Boolean> _function = (JnarioFunction it) -> {
+      EClass _eClass = it.eClass();
+      String _name = _eClass.getName();
+      return Boolean.valueOf(Objects.equal(_name, "Before"));
     };
     return IterableExtensions.<JnarioFunction>filter(_filter, _function);
   }
@@ -155,13 +143,10 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
   private Iterable<JnarioFunction> afters(final JnarioClass exampleGroup) {
     EList<JnarioMember> _members = exampleGroup.getMembers();
     Iterable<JnarioFunction> _filter = Iterables.<JnarioFunction>filter(_members, JnarioFunction.class);
-    final Function1<JnarioFunction, Boolean> _function = new Function1<JnarioFunction, Boolean>() {
-      @Override
-      public Boolean apply(final JnarioFunction it) {
-        EClass _eClass = it.eClass();
-        String _name = _eClass.getName();
-        return Boolean.valueOf(Objects.equal(_name, "After"));
-      }
+    final Function1<JnarioFunction, Boolean> _function = (JnarioFunction it) -> {
+      EClass _eClass = it.eClass();
+      String _name = _eClass.getName();
+      return Boolean.valueOf(Objects.equal(_name, "After"));
     };
     return IterableExtensions.<JnarioFunction>filter(_filter, _function);
   }
@@ -171,46 +156,40 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
     {
       final JvmTypeReference testType = this._typeReferences.getTypeForName("junit.framework.Test", context);
       EList<JvmMember> _members = it.getMembers();
-      final Procedure1<JvmOperation> _function = new Procedure1<JvmOperation>() {
-        @Override
-        public void apply(final JvmOperation it) {
-          it.setStatic(true);
-          final Procedure1<ITreeAppendable> _function = new Procedure1<ITreeAppendable>() {
-            @Override
-            public void apply(final ITreeAppendable it) {
-              StringConcatenation _builder = new StringConcatenation();
-              _builder.append("org.jnario.junit3.JnarioTestSuite suite = new org.jnario.junit3.JnarioTestSuite(\"");
-              String _describe = JUnit3RuntimeSupport.this._jnarioNameProvider.describe(context);
-              _builder.append(_describe, "");
-              _builder.append("\");");
+      final Procedure1<JvmOperation> _function = (JvmOperation it_1) -> {
+        it_1.setStatic(true);
+        final Procedure1<ITreeAppendable> _function_1 = (ITreeAppendable it_2) -> {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append("org.jnario.junit3.JnarioTestSuite suite = new org.jnario.junit3.JnarioTestSuite(\"");
+          String _describe = this._jnarioNameProvider.describe(context);
+          _builder.append(_describe, "");
+          _builder.append("\");");
+          _builder.newLineIfNotEmpty();
+          {
+            for(final Executable test : tests) {
+              _builder.append("suite.addTest(new ");
+              String _javaClassName = this._jnarioNameProvider.toJavaClassName(context);
+              _builder.append(_javaClassName, "");
+              _builder.append("(\"");
+              String _testName = this.testName(test);
+              _builder.append(_testName, "");
+              _builder.append("\"));");
               _builder.newLineIfNotEmpty();
-              {
-                for(final Executable test : tests) {
-                  _builder.append("suite.addTest(new ");
-                  String _javaClassName = JUnit3RuntimeSupport.this._jnarioNameProvider.toJavaClassName(context);
-                  _builder.append(_javaClassName, "");
-                  _builder.append("(\"");
-                  String _testName = JUnit3RuntimeSupport.this.testName(test);
-                  _builder.append(_testName, "");
-                  _builder.append("\"));");
-                  _builder.newLineIfNotEmpty();
-                }
-              }
-              {
-                for(final String child : children) {
-                  _builder.append("suite.addTest(");
-                  _builder.append(child, "");
-                  _builder.append(".suite());");
-                  _builder.newLineIfNotEmpty();
-                }
-              }
-              _builder.append("return suite;");
-              _builder.newLine();
-              it.append(_builder);
             }
-          };
-          JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.setBody(it, _function);
-        }
+          }
+          {
+            for(final String child : children) {
+              _builder.append("suite.addTest(");
+              _builder.append(child, "");
+              _builder.append(".suite());");
+              _builder.newLineIfNotEmpty();
+            }
+          }
+          _builder.append("return suite;");
+          _builder.newLine();
+          it_2.append(_builder);
+        };
+        this._extendedJvmTypesBuilder.setBody(it_1, _function_1);
       };
       JvmOperation _method = this._extendedJvmTypesBuilder.toMethod(context, "suite", testType, _function);
       _xblockexpression = this._extendedJvmTypesBuilder.<JvmOperation>operator_add(_members, _method);
@@ -226,41 +205,29 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
       JvmField _field = this._extendedJvmTypesBuilder.toField(exampleGroup, "__name", stringType);
       this._extendedJvmTypesBuilder.<JvmField>operator_add(_members, _field);
       EList<JvmMember> _members_1 = inferredType.getMembers();
-      final Procedure1<JvmConstructor> _function = new Procedure1<JvmConstructor>() {
-        @Override
-        public void apply(final JvmConstructor it) {
-          EList<JvmFormalParameter> _parameters = it.getParameters();
-          JvmFormalParameter _parameter = JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.toParameter(exampleGroup, "name", stringType);
-          JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.<JvmFormalParameter>operator_add(_parameters, _parameter);
-          final Procedure1<ITreeAppendable> _function = new Procedure1<ITreeAppendable>() {
-            @Override
-            public void apply(final ITreeAppendable it) {
-              StringConcatenation _builder = new StringConcatenation();
-              _builder.append("setName(name);");
-              _builder.newLine();
-              _builder.append("this.__name = name;");
-              it.append(_builder);
-            }
-          };
-          JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.setBody(it, _function);
-        }
+      final Procedure1<JvmConstructor> _function = (JvmConstructor it) -> {
+        EList<JvmFormalParameter> _parameters = it.getParameters();
+        JvmFormalParameter _parameter = this._extendedJvmTypesBuilder.toParameter(exampleGroup, "name", stringType);
+        this._extendedJvmTypesBuilder.<JvmFormalParameter>operator_add(_parameters, _parameter);
+        final Procedure1<ITreeAppendable> _function_1 = (ITreeAppendable it_1) -> {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append("setName(name);");
+          _builder.newLine();
+          _builder.append("this.__name = name;");
+          it_1.append(_builder);
+        };
+        this._extendedJvmTypesBuilder.setBody(it, _function_1);
       };
       JvmConstructor _constructor = this._extendedJvmTypesBuilder.toConstructor(exampleGroup, _function);
       this._extendedJvmTypesBuilder.<JvmConstructor>operator_add(_members_1, _constructor);
       EList<JvmMember> _members_2 = inferredType.getMembers();
-      final Procedure1<JvmOperation> _function_1 = new Procedure1<JvmOperation>() {
-        @Override
-        public void apply(final JvmOperation it) {
-          final Procedure1<ITreeAppendable> _function = new Procedure1<ITreeAppendable>() {
-            @Override
-            public void apply(final ITreeAppendable it) {
-              StringConcatenation _builder = new StringConcatenation();
-              _builder.append("return org.jnario.runner.NameProvider.create().nameOf(getClass(), __name);");
-              it.append(_builder);
-            }
-          };
-          JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.setBody(it, _function);
-        }
+      final Procedure1<JvmOperation> _function_1 = (JvmOperation it) -> {
+        final Procedure1<ITreeAppendable> _function_2 = (ITreeAppendable it_1) -> {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append("return org.jnario.runner.NameProvider.create().nameOf(getClass(), __name);");
+          it_1.append(_builder);
+        };
+        this._extendedJvmTypesBuilder.setBody(it, _function_2);
       };
       JvmOperation _method = this._extendedJvmTypesBuilder.toMethod(exampleGroup, "getName", stringType, _function_1);
       _xblockexpression = this._extendedJvmTypesBuilder.<JvmOperation>operator_add(_members_2, _method);
@@ -295,11 +262,8 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
   private Iterable<String> children(final JnarioClass exampleGroup) {
     EList<JnarioMember> _members = exampleGroup.getMembers();
     Iterable<Specification> _filter = Iterables.<Specification>filter(_members, Specification.class);
-    final Function1<Specification, String> _function = new Function1<Specification, String>() {
-      @Override
-      public String apply(final Specification it) {
-        return JUnit3RuntimeSupport.this._jnarioNameProvider.toJavaClassName(it);
-      }
+    final Function1<Specification, String> _function = (Specification it) -> {
+      return this._jnarioNameProvider.toJavaClassName(it);
     };
     return IterableExtensions.<Specification, String>map(_filter, _function);
   }
@@ -307,11 +271,8 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
   private Iterable<Executable> examples(final JnarioClass exampleGroup) {
     EList<JnarioMember> _members = exampleGroup.getMembers();
     Iterable<Executable> _filter = Iterables.<Executable>filter(_members, Executable.class);
-    final Function1<Executable, Boolean> _function = new Function1<Executable, Boolean>() {
-      @Override
-      public Boolean apply(final Executable it) {
-        return Boolean.valueOf((!(it instanceof Specification)));
-      }
+    final Function1<Executable, Boolean> _function = (Executable it) -> {
+      return Boolean.valueOf((!(it instanceof Specification)));
     };
     return IterableExtensions.<Executable>filter(_filter, _function);
   }
@@ -330,11 +291,8 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
   @Override
   public void updateFeature(final JnarioClass feature, final JvmGenericType inferredType, final List<JvmTypeReference> scenarios) {
     this.addTestCase(inferredType, feature);
-    final Function1<JvmTypeReference, String> _function = new Function1<JvmTypeReference, String>() {
-      @Override
-      public String apply(final JvmTypeReference it) {
-        return it.getSimpleName();
-      }
+    final Function1<JvmTypeReference, String> _function = (JvmTypeReference it) -> {
+      return it.getSimpleName();
     };
     List<String> _map = ListExtensions.<JvmTypeReference, String>map(scenarios, _function);
     List<Executable> _emptyList = CollectionLiterals.<Executable>emptyList();
@@ -346,60 +304,54 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
     final JvmTypeReference testType = this._typeReferences.getTypeForName("junit.framework.Test", scenario);
     final Iterable<Executable> tests = this.examples(scenario);
     EList<JvmMember> _members = inferredType.getMembers();
-    final Procedure1<JvmOperation> _function = new Procedure1<JvmOperation>() {
-      @Override
-      public void apply(final JvmOperation it) {
-        it.setStatic(true);
-        final Procedure1<ITreeAppendable> _function = new Procedure1<ITreeAppendable>() {
-          @Override
-          public void apply(final ITreeAppendable it) {
-            StringConcatenation _builder = new StringConcatenation();
-            _builder.append("org.jnario.junit3.JnarioTestSuite suite = new org.jnario.junit3.JnarioTestSuite(\"");
-            String _describe = JUnit3RuntimeSupport.this._jnarioNameProvider.describe(scenario);
-            _builder.append(_describe, "");
-            _builder.append("\");");
-            _builder.newLineIfNotEmpty();
-            String _javaClassName = JUnit3RuntimeSupport.this._jnarioNameProvider.toJavaClassName(scenario);
-            _builder.append(_javaClassName, "");
-            _builder.append(" scenario = new ");
-            String _javaClassName_1 = JUnit3RuntimeSupport.this._jnarioNameProvider.toJavaClassName(scenario);
-            _builder.append(_javaClassName_1, "");
-            _builder.append("(");
-            _builder.newLineIfNotEmpty();
-            _builder.append("new org.jnario.junit3.TestQueue(");
-            _builder.newLine();
-            {
-              boolean _hasElements = false;
-              for(final Executable test : tests) {
-                if (!_hasElements) {
-                  _hasElements = true;
-                } else {
-                  _builder.appendImmediate(", ", "");
-                }
-                _builder.append("\"");
-                String _testName = JUnit3RuntimeSupport.this.testName(test);
-                _builder.append(_testName, "");
-                _builder.append("\"");
-              }
+    final Procedure1<JvmOperation> _function = (JvmOperation it) -> {
+      it.setStatic(true);
+      final Procedure1<ITreeAppendable> _function_1 = (ITreeAppendable it_1) -> {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("org.jnario.junit3.JnarioTestSuite suite = new org.jnario.junit3.JnarioTestSuite(\"");
+        String _describe = this._jnarioNameProvider.describe(scenario);
+        _builder.append(_describe, "");
+        _builder.append("\");");
+        _builder.newLineIfNotEmpty();
+        String _javaClassName = this._jnarioNameProvider.toJavaClassName(scenario);
+        _builder.append(_javaClassName, "");
+        _builder.append(" scenario = new ");
+        String _javaClassName_1 = this._jnarioNameProvider.toJavaClassName(scenario);
+        _builder.append(_javaClassName_1, "");
+        _builder.append("(");
+        _builder.newLineIfNotEmpty();
+        _builder.append("new org.jnario.junit3.TestQueue(");
+        _builder.newLine();
+        {
+          boolean _hasElements = false;
+          for(final Executable test : tests) {
+            if (!_hasElements) {
+              _hasElements = true;
+            } else {
+              _builder.appendImmediate(", ", "");
             }
-            _builder.append("));");
-            _builder.newLineIfNotEmpty();
-            {
-              for(final Executable test_1 : tests) {
-                _builder.append("suite.addTest(new org.jnario.junit3.DelegatingTestCase(\"");
-                String _describe_1 = JUnit3RuntimeSupport.this._jnarioNameProvider.describe(test_1);
-                _builder.append(_describe_1, "");
-                _builder.append("\", scenario));");
-                _builder.newLineIfNotEmpty();
-              }
-            }
-            _builder.append("return suite;");
-            _builder.newLine();
-            it.append(_builder);
+            _builder.append("\"");
+            String _testName = this.testName(test);
+            _builder.append(_testName, "");
+            _builder.append("\"");
           }
-        };
-        JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.setBody(it, _function);
-      }
+        }
+        _builder.append("));");
+        _builder.newLineIfNotEmpty();
+        {
+          for(final Executable test_1 : tests) {
+            _builder.append("suite.addTest(new org.jnario.junit3.DelegatingTestCase(\"");
+            String _describe_1 = this._jnarioNameProvider.describe(test_1);
+            _builder.append(_describe_1, "");
+            _builder.append("\", scenario));");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("return suite;");
+        _builder.newLine();
+        it_1.append(_builder);
+      };
+      this._extendedJvmTypesBuilder.setBody(it, _function_1);
     };
     JvmOperation _method = this._extendedJvmTypesBuilder.toMethod(scenario, "suite", testType, _function);
     this._extendedJvmTypesBuilder.<JvmOperation>operator_add(_members, _method);
@@ -408,89 +360,71 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
     JvmField _field = this._extendedJvmTypesBuilder.toField(scenario, "testQueue", queueType);
     this._extendedJvmTypesBuilder.<JvmField>operator_add(_members_1, _field);
     EList<JvmMember> _members_2 = inferredType.getMembers();
-    final Procedure1<JvmConstructor> _function_1 = new Procedure1<JvmConstructor>() {
-      @Override
-      public void apply(final JvmConstructor it) {
-        EList<JvmFormalParameter> _parameters = it.getParameters();
-        JvmFormalParameter _parameter = JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.toParameter(scenario, "testQueue", queueType);
-        JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.<JvmFormalParameter>operator_add(_parameters, _parameter);
-        final Procedure1<ITreeAppendable> _function = new Procedure1<ITreeAppendable>() {
-          @Override
-          public void apply(final ITreeAppendable it) {
-            StringConcatenation _builder = new StringConcatenation();
-            _builder.append("setName(testQueue.next());");
-            _builder.newLine();
-            _builder.append("this.testQueue = testQueue;");
-            it.append(_builder);
-          }
-        };
-        JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.setBody(it, _function);
-      }
+    final Procedure1<JvmConstructor> _function_1 = (JvmConstructor it) -> {
+      EList<JvmFormalParameter> _parameters = it.getParameters();
+      JvmFormalParameter _parameter = this._extendedJvmTypesBuilder.toParameter(scenario, "testQueue", queueType);
+      this._extendedJvmTypesBuilder.<JvmFormalParameter>operator_add(_parameters, _parameter);
+      final Procedure1<ITreeAppendable> _function_2 = (ITreeAppendable it_1) -> {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("setName(testQueue.next());");
+        _builder.newLine();
+        _builder.append("this.testQueue = testQueue;");
+        it_1.append(_builder);
+      };
+      this._extendedJvmTypesBuilder.setBody(it, _function_2);
     };
     JvmConstructor _constructor = this._extendedJvmTypesBuilder.toConstructor(scenario, _function_1);
     this._extendedJvmTypesBuilder.<JvmConstructor>operator_add(_members_2, _constructor);
     final JvmTypeReference voidType = this._typeReferences.getTypeForName(Void.TYPE, scenario);
     EList<JvmMember> _members_3 = inferredType.getMembers();
-    final Procedure1<JvmOperation> _function_2 = new Procedure1<JvmOperation>() {
-      @Override
-      public void apply(final JvmOperation it) {
-        it.setVisibility(JvmVisibility.PUBLIC);
-        EList<JvmTypeReference> _exceptions = it.getExceptions();
-        JvmTypeReference _typeForName = JUnit3RuntimeSupport.this._typeReferences.getTypeForName(Exception.class, scenario);
-        JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.<JvmTypeReference>operator_add(_exceptions, _typeForName);
-        final Procedure1<ITreeAppendable> _function = new Procedure1<ITreeAppendable>() {
-          @Override
-          public void apply(final ITreeAppendable it) {
-            StringConcatenation _builder = new StringConcatenation();
-            _builder.append("if(testQueue.isRunning()){");
-            _builder.newLine();
-            _builder.append("\t");
-            _builder.append("return;");
-            _builder.newLine();
-            _builder.append("}");
-            _builder.newLine();
-            _builder.append("super.");
-            _builder.append("setUp", "");
-            _builder.append("();");
-            it.append(_builder);
-          }
-        };
-        JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.setBody(it, _function);
-      }
+    final Procedure1<JvmOperation> _function_2 = (JvmOperation it) -> {
+      it.setVisibility(JvmVisibility.PUBLIC);
+      EList<JvmTypeReference> _exceptions = it.getExceptions();
+      JvmTypeReference _typeForName = this._typeReferences.getTypeForName(Exception.class, scenario);
+      this._extendedJvmTypesBuilder.<JvmTypeReference>operator_add(_exceptions, _typeForName);
+      final Procedure1<ITreeAppendable> _function_3 = (ITreeAppendable it_1) -> {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("if(testQueue.isRunning()){");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("return;");
+        _builder.newLine();
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("super.");
+        _builder.append("setUp", "");
+        _builder.append("();");
+        it_1.append(_builder);
+      };
+      this._extendedJvmTypesBuilder.setBody(it, _function_3);
     };
     JvmOperation _method_1 = this._extendedJvmTypesBuilder.toMethod(scenario, "setUp", voidType, _function_2);
     this._extendedJvmTypesBuilder.<JvmOperation>operator_add(_members_3, _method_1);
     EList<JvmMember> _members_4 = inferredType.getMembers();
-    final Procedure1<JvmOperation> _function_3 = new Procedure1<JvmOperation>() {
-      @Override
-      public void apply(final JvmOperation it) {
-        it.setVisibility(JvmVisibility.PUBLIC);
-        EList<JvmTypeReference> _exceptions = it.getExceptions();
-        JvmTypeReference _typeForName = JUnit3RuntimeSupport.this._typeReferences.getTypeForName(Exception.class, scenario);
-        JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.<JvmTypeReference>operator_add(_exceptions, _typeForName);
-        final Procedure1<ITreeAppendable> _function = new Procedure1<ITreeAppendable>() {
-          @Override
-          public void apply(final ITreeAppendable it) {
-            StringConcatenation _builder = new StringConcatenation();
-            _builder.append("if(testQueue.isDone()){");
-            _builder.newLine();
-            _builder.append("\t");
-            _builder.append("super.");
-            _builder.append("tearDown", "\t");
-            _builder.append("();");
-            _builder.newLineIfNotEmpty();
-            _builder.append("}else{");
-            _builder.newLine();
-            _builder.append("\t");
-            _builder.append("setName(testQueue.next());");
-            _builder.newLine();
-            _builder.append("}");
-            _builder.newLine();
-            it.append(_builder);
-          }
-        };
-        JUnit3RuntimeSupport.this._extendedJvmTypesBuilder.setBody(it, _function);
-      }
+    final Procedure1<JvmOperation> _function_3 = (JvmOperation it) -> {
+      it.setVisibility(JvmVisibility.PUBLIC);
+      EList<JvmTypeReference> _exceptions = it.getExceptions();
+      JvmTypeReference _typeForName = this._typeReferences.getTypeForName(Exception.class, scenario);
+      this._extendedJvmTypesBuilder.<JvmTypeReference>operator_add(_exceptions, _typeForName);
+      final Procedure1<ITreeAppendable> _function_4 = (ITreeAppendable it_1) -> {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("if(testQueue.isDone()){");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("super.");
+        _builder.append("tearDown", "\t");
+        _builder.append("();");
+        _builder.newLineIfNotEmpty();
+        _builder.append("}else{");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("setName(testQueue.next());");
+        _builder.newLine();
+        _builder.append("}");
+        _builder.newLine();
+        it_1.append(_builder);
+      };
+      this._extendedJvmTypesBuilder.setBody(it, _function_4);
     };
     JvmOperation _method_2 = this._extendedJvmTypesBuilder.toMethod(scenario, "tearDown", voidType, _function_3);
     this._extendedJvmTypesBuilder.<JvmOperation>operator_add(_members_4, _method_2);

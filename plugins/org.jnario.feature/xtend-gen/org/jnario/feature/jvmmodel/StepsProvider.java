@@ -30,40 +30,31 @@ public class StepsProvider {
       Resource _eResource_1 = context.eResource();
       EList<EObject> _contents = _eResource_1.getContents();
       final Iterable<FeatureFile> featureFiles = Iterables.<FeatureFile>filter(_contents, FeatureFile.class);
-      final Function1<FeatureFile, EList<JnarioTypeDeclaration>> _function = new Function1<FeatureFile, EList<JnarioTypeDeclaration>>() {
-        @Override
-        public EList<JnarioTypeDeclaration> apply(final FeatureFile it) {
-          return it.getXtendTypes();
-        }
+      final Function1<FeatureFile, EList<JnarioTypeDeclaration>> _function = (FeatureFile it) -> {
+        return it.getXtendTypes();
       };
       Iterable<EList<JnarioTypeDeclaration>> _map = IterableExtensions.<FeatureFile, EList<JnarioTypeDeclaration>>map(featureFiles, _function);
       Iterable<JnarioTypeDeclaration> _flatten = Iterables.<JnarioTypeDeclaration>concat(_map);
       final Iterable<Feature> features = Iterables.<Feature>filter(_flatten, Feature.class);
-      final Function1<Feature, Iterable<Scenario>> _function_1 = new Function1<Feature, Iterable<Scenario>>() {
-        @Override
-        public Iterable<Scenario> apply(final Feature it) {
-          Iterable<Scenario> _xblockexpression = null;
-          {
-            Background _background = it.getBackground();
-            boolean _equals = Objects.equal(_background, null);
-            if (_equals) {
-              return it.getScenarios();
-            }
-            EList<Scenario> _scenarios = it.getScenarios();
-            Background _background_1 = it.getBackground();
-            _xblockexpression = Iterables.<Scenario>concat(_scenarios, Collections.<Background>unmodifiableList(CollectionLiterals.<Background>newArrayList(_background_1)));
+      final Function1<Feature, Iterable<Scenario>> _function_1 = (Feature it) -> {
+        Iterable<Scenario> _xblockexpression_1 = null;
+        {
+          Background _background = it.getBackground();
+          boolean _equals_1 = Objects.equal(_background, null);
+          if (_equals_1) {
+            return it.getScenarios();
           }
-          return _xblockexpression;
+          EList<Scenario> _scenarios = it.getScenarios();
+          Background _background_1 = it.getBackground();
+          _xblockexpression_1 = Iterables.<Scenario>concat(_scenarios, Collections.<Background>unmodifiableList(CollectionLiterals.<Background>newArrayList(_background_1)));
         }
+        return _xblockexpression_1;
       };
       Iterable<Iterable<Scenario>> _map_1 = IterableExtensions.<Feature, Iterable<Scenario>>map(features, _function_1);
       Iterable<Scenario> _flatten_1 = Iterables.<Scenario>concat(_map_1);
       final Iterable<Scenario> scenarios = IterableExtensions.<Scenario>filterNull(_flatten_1);
-      final Function1<Scenario, EList<Step>> _function_2 = new Function1<Scenario, EList<Step>>() {
-        @Override
-        public EList<Step> apply(final Scenario it) {
-          return it.getSteps();
-        }
+      final Function1<Scenario, EList<Step>> _function_2 = (Scenario it) -> {
+        return it.getSteps();
       };
       Iterable<EList<Step>> _map_2 = IterableExtensions.<Scenario, EList<Step>>map(scenarios, _function_2);
       Iterable<Step> _flatten_2 = Iterables.<Step>concat(_map_2);

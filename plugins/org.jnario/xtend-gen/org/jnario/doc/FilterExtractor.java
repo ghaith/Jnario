@@ -27,18 +27,12 @@ public class FilterExtractor {
   private static Pattern TAG_PATTERN = Pattern.compile(FilterExtractor.TAG, Pattern.DOTALL);
   
   private Map<String, Function1<String, Filter>> filterRegistry = CollectionLiterals.<String, Function1<String, Filter>>newHashMap(
-    Pair.<String, Function1<String, Filter>>of("filter", new Function1<String, Filter>() {
-      @Override
-      public Filter apply(final String s) {
-        return RegexFilter.create(s);
-      }
-    }), 
-    Pair.<String, Function1<String, Filter>>of("lang", new Function1<String, Filter>() {
-      @Override
-      public Filter apply(final String s) {
-        return LangFilter.create(s);
-      }
-    }));
+    Pair.<String, Function1<String, Filter>>of("filter", ((Function1<String, Filter>) (String s) -> {
+      return RegexFilter.create(s);
+    })), 
+    Pair.<String, Function1<String, Filter>>of("lang", ((Function1<String, Filter>) (String s) -> {
+      return LangFilter.create(s);
+    })));
   
   public FilteringResult apply(final String input) {
     boolean _equals = Objects.equal(input, null);

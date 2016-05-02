@@ -51,25 +51,22 @@ public class SpecDocGenerator extends AbstractDocGenerator {
         return HtmlFile.EMPTY_FILE;
       }
       final ExampleGroup exampleGroup = ((ExampleGroup) xtendClass);
-      final Procedure1<HtmlFile> _function = new Procedure1<HtmlFile>() {
-        @Override
-        public void apply(final HtmlFile it) {
-          String _javaClassName = SpecDocGenerator.this._exampleNameProvider.toJavaClassName(exampleGroup);
-          it.setName(_javaClassName);
-          String _asTitle = SpecDocGenerator.this.asTitle(exampleGroup);
-          it.setTitle(_asTitle);
-          CharSequence _generateContent = SpecDocGenerator.this.generateContent(exampleGroup);
-          it.setContent(_generateContent);
-          String _root = SpecDocGenerator.this.root(exampleGroup);
-          it.setRootFolder(_root);
-          EObject _eContainer = xtendClass.eContainer();
-          CharSequence _pre = SpecDocGenerator.this.pre(_eContainer, "lang-spec");
-          it.setSourceCode(_pre);
-          String _fileName = SpecDocGenerator.this.fileName(xtendClass);
-          it.setFileName(_fileName);
-          String _executionStateClass = SpecDocGenerator.this.executionStateClass(exampleGroup);
-          it.setExecutionStatus(_executionStateClass);
-        }
+      final Procedure1<HtmlFile> _function = (HtmlFile it) -> {
+        String _javaClassName = this._exampleNameProvider.toJavaClassName(exampleGroup);
+        it.setName(_javaClassName);
+        String _asTitle = this.asTitle(exampleGroup);
+        it.setTitle(_asTitle);
+        CharSequence _generateContent = this.generateContent(exampleGroup);
+        it.setContent(_generateContent);
+        String _root = this.root(exampleGroup);
+        it.setRootFolder(_root);
+        EObject _eContainer = xtendClass.eContainer();
+        CharSequence _pre = this.pre(_eContainer, "lang-spec");
+        it.setSourceCode(_pre);
+        String _fileName = this.fileName(xtendClass);
+        it.setFileName(_fileName);
+        String _executionStateClass = this.executionStateClass(exampleGroup);
+        it.setExecutionStatus(_executionStateClass);
       };
       _xblockexpression = HtmlFile.newHtmlFile(_function);
     }
@@ -91,17 +88,14 @@ public class SpecDocGenerator extends AbstractDocGenerator {
     final StringConcatenation result = new StringConcatenation();
     boolean inList = false;
     EList<JnarioMember> _members = exampleGroup.getMembers();
-    final Function1<JnarioMember, Boolean> _function = new Function1<JnarioMember, Boolean>() {
-      @Override
-      public Boolean apply(final JnarioMember it) {
-        boolean _or = false;
-        if (((it instanceof Example) || (it instanceof ExampleGroup))) {
-          _or = true;
-        } else {
-          _or = (it instanceof ExampleTable);
-        }
-        return Boolean.valueOf(_or);
+    final Function1<JnarioMember, Boolean> _function = (JnarioMember it) -> {
+      boolean _or = false;
+      if (((it instanceof Example) || (it instanceof ExampleGroup))) {
+        _or = true;
+      } else {
+        _or = (it instanceof ExampleTable);
       }
+      return Boolean.valueOf(_or);
     };
     final Iterable<JnarioMember> members = IterableExtensions.<JnarioMember>filter(_members, _function);
     for (final JnarioMember member : members) {

@@ -27,28 +27,25 @@ public class JnarioNodeModelAccess extends NodeModelAccess {
         return Collections.<ILeafNode>unmodifiableList(CollectionLiterals.<ILeafNode>newArrayList());
       }
       BidiTreeIterable<INode> _asTreeIterable = node.getAsTreeIterable();
-      final Function1<INode, Boolean> _function = new Function1<INode, Boolean>() {
-        @Override
-        public Boolean apply(final INode it) {
-          boolean _and = false;
-          boolean _and_1 = false;
-          EObject _semanticElement = it.getSemanticElement();
-          boolean _equals = Objects.equal(_semanticElement, obj);
-          if (!_equals) {
-            _and_1 = false;
-          } else {
-            EObject _grammarElement = it.getGrammarElement();
-            _and_1 = (_grammarElement instanceof Keyword);
-          }
-          if (!_and_1) {
-            _and = false;
-          } else {
-            String _text = it.getText();
-            boolean _equals_1 = Objects.equal(_text, kw);
-            _and = _equals_1;
-          }
-          return Boolean.valueOf(_and);
+      final Function1<INode, Boolean> _function = (INode it) -> {
+        boolean _and = false;
+        boolean _and_1 = false;
+        EObject _semanticElement = it.getSemanticElement();
+        boolean _equals_1 = Objects.equal(_semanticElement, obj);
+        if (!_equals_1) {
+          _and_1 = false;
+        } else {
+          EObject _grammarElement = it.getGrammarElement();
+          _and_1 = (_grammarElement instanceof Keyword);
         }
+        if (!_and_1) {
+          _and = false;
+        } else {
+          String _text = it.getText();
+          boolean _equals_2 = Objects.equal(_text, kw);
+          _and = _equals_2;
+        }
+        return Boolean.valueOf(_and);
       };
       INode _findFirst = IterableExtensions.<INode>findFirst(_asTreeIterable, _function);
       final ILeafNode leafNode = ((ILeafNode) _findFirst);

@@ -4,7 +4,7 @@ Bundle-Name: Jnario UI Tests
 Bundle-SymbolicName: org.jnario.ui.tests
 Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: Sebastian Benz
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.jnario;bundle-version="1.0.0",
  org.jnario.feature;bundle-version="1.0.0",
  org.jnario.feature.ui;bundle-version="1.0.0",

@@ -81,27 +81,18 @@ public class SpecFormatter extends JnarioFormatter {
   protected void _format(final ExampleGroup examplegroup, @Extension final IFormattableDocument document) {
     ISemanticRegionsFinder _regionFor = this.textRegionExtensions.regionFor(examplegroup);
     ISemanticRegion _keyword = _regionFor.keyword("{");
-    final Procedure1<IHiddenRegionFormatter> _function = new Procedure1<IHiddenRegionFormatter>() {
-      @Override
-      public void apply(final IHiddenRegionFormatter it) {
-        it.setNewLines(1, 1, 2);
-      }
+    final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
+      it.setNewLines(1, 1, 2);
     };
     final ISemanticRegion open = document.append(_keyword, _function);
     ISemanticRegionsFinder _regionFor_1 = this.textRegionExtensions.regionFor(examplegroup);
     ISemanticRegion _keyword_1 = _regionFor_1.keyword("}");
-    final Procedure1<IHiddenRegionFormatter> _function_1 = new Procedure1<IHiddenRegionFormatter>() {
-      @Override
-      public void apply(final IHiddenRegionFormatter it) {
-        it.newLine();
-      }
+    final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
+      it.newLine();
     };
     final ISemanticRegion close = document.prepend(_keyword_1, _function_1);
-    final Procedure1<IHiddenRegionFormatter> _function_2 = new Procedure1<IHiddenRegionFormatter>() {
-      @Override
-      public void apply(final IHiddenRegionFormatter it) {
-        it.indent();
-      }
+    final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it) -> {
+      it.indent();
     };
     document.<ISemanticRegion, ISemanticRegion>interior(open, close, _function_2);
     JvmTypeReference _targetType = examplegroup.getTargetType();

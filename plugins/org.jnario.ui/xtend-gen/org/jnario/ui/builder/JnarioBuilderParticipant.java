@@ -46,24 +46,18 @@ public class JnarioBuilderParticipant extends BuilderParticipant {
     super.build(context, monitor);
     IProject _builtProject = context.getBuiltProject();
     List<? extends IContainer> _sourceFolders = this.sourceFolders.getSourceFolders(_builtProject);
-    final Consumer<IContainer> _function = new Consumer<IContainer>() {
-      @Override
-      public void accept(final IContainer source) {
-        List<IResourceDescription.Delta> _relevantDeltas = JnarioBuilderParticipant.this.getRelevantDeltas(context);
-        final Function1<IResourceDescription.Delta, Boolean> _function = new Function1<IResourceDescription.Delta, Boolean>() {
-          @Override
-          public Boolean apply(final IResourceDescription.Delta it) {
-            URI _uri = it.getUri();
-            String _string = _uri.toString();
-            String _makeProjectRelative = JnarioBuilderParticipant.this.makeProjectRelative(source);
-            return Boolean.valueOf(_string.contains(_makeProjectRelative));
-          }
-        };
-        boolean _exists = IterableExtensions.<IResourceDescription.Delta>exists(_relevantDeltas, _function);
-        if (_exists) {
-          EclipseResourceFileSystemAccess2 _createFsa = JnarioBuilderParticipant.this.createFsa(context, source);
-          JnarioBuilderParticipant.this.htmlAssets.generate(_createFsa);
-        }
+    final Consumer<IContainer> _function = (IContainer source) -> {
+      List<IResourceDescription.Delta> _relevantDeltas = this.getRelevantDeltas(context);
+      final Function1<IResourceDescription.Delta, Boolean> _function_1 = (IResourceDescription.Delta it) -> {
+        URI _uri = it.getUri();
+        String _string = _uri.toString();
+        String _makeProjectRelative = this.makeProjectRelative(source);
+        return Boolean.valueOf(_string.contains(_makeProjectRelative));
+      };
+      boolean _exists = IterableExtensions.<IResourceDescription.Delta>exists(_relevantDeltas, _function_1);
+      if (_exists) {
+        EclipseResourceFileSystemAccess2 _createFsa = this.createFsa(context, source);
+        this.htmlAssets.generate(_createFsa);
       }
     };
     _sourceFolders.forEach(_function);

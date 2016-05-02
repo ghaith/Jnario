@@ -56,54 +56,51 @@ public class DocCompilerMain {
       return;
     }
     DocCompilerMain _docCompilerMain = new DocCompilerMain();
-    final Procedure1<DocCompilerMain> _function = new Procedure1<DocCompilerMain>() {
-      @Override
-      public void apply(final DocCompilerMain it) {
-        final Iterator<String> arguments = ((List<String>)Conversions.doWrapArray(args)).iterator();
-        while (arguments.hasNext()) {
-          {
-            String _next = arguments.next();
-            final String argument = _next.trim();
-            boolean _matched = false;
-            if (!_matched) {
-              boolean _or = false;
-              boolean _equals = Objects.equal(argument, "-cp");
-              if (_equals) {
-                _or = true;
-              } else {
-                boolean _equals_1 = Objects.equal(argument, "-classpath");
-                _or = _equals_1;
-              }
-              if (_or) {
-                _matched=true;
-                String _next_1 = arguments.next();
-                it.setClassPath(_next_1);
-              }
+    final Procedure1<DocCompilerMain> _function = (DocCompilerMain it) -> {
+      final Iterator<String> arguments = ((List<String>)Conversions.doWrapArray(args)).iterator();
+      while (arguments.hasNext()) {
+        {
+          String _next = arguments.next();
+          final String argument = _next.trim();
+          boolean _matched = false;
+          if (!_matched) {
+            boolean _or_1 = false;
+            boolean _equals_2 = Objects.equal(argument, "-cp");
+            if (_equals_2) {
+              _or_1 = true;
+            } else {
+              boolean _equals_3 = Objects.equal(argument, "-classpath");
+              _or_1 = _equals_3;
             }
-            if (!_matched) {
-              if (Objects.equal(argument, "-d")) {
-                _matched=true;
-                String _next_2 = arguments.next();
-                it.setOutputPath(_next_2);
-              }
+            if (_or_1) {
+              _matched=true;
+              String _next_1 = arguments.next();
+              it.setClassPath(_next_1);
             }
-            if (!_matched) {
-              if (Objects.equal(argument, "-results")) {
-                _matched=true;
-                String _next_3 = arguments.next();
-                it.setResultFolder(_next_3);
-              }
+          }
+          if (!_matched) {
+            if (Objects.equal(argument, "-d")) {
+              _matched=true;
+              String _next_2 = arguments.next();
+              it.setOutputPath(_next_2);
             }
-            if (!_matched) {
-              if (Objects.equal(argument, "-encoding")) {
-                _matched=true;
-                String _next_4 = arguments.next();
-                it.setFileEncoding(_next_4);
-              }
+          }
+          if (!_matched) {
+            if (Objects.equal(argument, "-results")) {
+              _matched=true;
+              String _next_3 = arguments.next();
+              it.setResultFolder(_next_3);
             }
-            if (!_matched) {
-              it.setSourcePath(argument);
+          }
+          if (!_matched) {
+            if (Objects.equal(argument, "-encoding")) {
+              _matched=true;
+              String _next_4 = arguments.next();
+              it.setFileEncoding(_next_4);
             }
+          }
+          if (!_matched) {
+            it.setSourcePath(argument);
           }
         }
       }
@@ -206,12 +203,9 @@ public class DocCompilerMain {
   public void addExecutionResults(final HashBasedSpec2ResultMapping resultMapping, final File reportFolder) {
     try {
       final SpecResultParser specResultParser = new SpecResultParser();
-      final FileFilter _function = new FileFilter() {
-        @Override
-        public boolean accept(final File it) {
-          String _name = it.getName();
-          return _name.endsWith("xml");
-        }
+      final FileFilter _function = (File it) -> {
+        String _name = it.getName();
+        return _name.endsWith("xml");
       };
       File[] _listFiles = reportFolder.listFiles(_function);
       for (final File file : _listFiles) {

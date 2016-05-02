@@ -171,19 +171,13 @@ public abstract class JnarioJvmModelInferrer extends AbstractModelInferrer {
       {
         final JnarioClass current = ((JnarioClass) xtendType);
         EList<XAnnotation> _annotations = current.getAnnotations();
-        final Function1<XAnnotation, Boolean> _function = new Function1<XAnnotation, Boolean>() {
-          @Override
-          public Boolean apply(final XAnnotation it) {
-            return Boolean.valueOf(JnarioJvmModelInferrer.this.hasExtendsAnnotation(it));
-          }
+        final Function1<XAnnotation, Boolean> _function = (XAnnotation it) -> {
+          return Boolean.valueOf(this.hasExtendsAnnotation(it));
         };
         Iterable<XAnnotation> _filter = IterableExtensions.<XAnnotation>filter(_annotations, _function);
-        final Function1<XAnnotation, XTypeLiteral> _function_1 = new Function1<XAnnotation, XTypeLiteral>() {
-          @Override
-          public XTypeLiteral apply(final XAnnotation it) {
-            XExpression _value = it.getValue();
-            return ((XTypeLiteral) _value);
-          }
+        final Function1<XAnnotation, XTypeLiteral> _function_1 = (XAnnotation it) -> {
+          XExpression _value = it.getValue();
+          return ((XTypeLiteral) _value);
         };
         Iterable<XTypeLiteral> _map = IterableExtensions.<XAnnotation, XTypeLiteral>map(_filter, _function_1);
         for (final XTypeLiteral extendedType : _map) {
@@ -237,13 +231,10 @@ public abstract class JnarioJvmModelInferrer extends AbstractModelInferrer {
   }
   
   protected void initialize(final JnarioClass source, final JvmGenericType inferredJvmType) {
-    final Procedure1<JvmGenericType> _function = new Procedure1<JvmGenericType>() {
-      @Override
-      public void apply(final JvmGenericType it) {
-        it.setVisibility(JvmVisibility.PUBLIC);
-        boolean _isStatic = source.isStatic();
-        it.setStatic(_isStatic);
-      }
+    final Procedure1<JvmGenericType> _function = (JvmGenericType it) -> {
+      it.setVisibility(JvmVisibility.PUBLIC);
+      boolean _isStatic = source.isStatic();
+      it.setStatic(_isStatic);
     };
     ObjectExtensions.<JvmGenericType>operator_doubleArrow(inferredJvmType, _function);
     EList<XAnnotation> _annotations = source.getAnnotations();
@@ -310,58 +301,55 @@ public abstract class JnarioJvmModelInferrer extends AbstractModelInferrer {
     }
     if (_or) {
       JvmField _createJvmField = this.typesFactory.createJvmField();
-      final Procedure1<JvmField> _function = new Procedure1<JvmField>() {
-        @Override
-        public void apply(final JvmField it) {
-          String _computeFieldName = JnarioJvmModelInferrer.this.computeFieldName(source);
-          it.setSimpleName(_computeFieldName);
-          JvmVisibility _visibility = source.getVisibility();
-          it.setVisibility(_visibility);
-          boolean _isStatic = source.isStatic();
-          it.setStatic(_isStatic);
-          boolean _isTransient = source.isTransient();
-          it.setTransient(_isTransient);
-          boolean _isVolatile = source.isVolatile();
-          it.setVolatile(_isVolatile);
-          boolean _isFinal = source.isFinal();
-          it.setFinal(_isFinal);
-          EList<JvmMember> _members = container.getMembers();
-          JnarioJvmModelInferrer.this._jvmTypesBuilder.<JvmField>operator_add(_members, it);
-          JvmTypeReference _type = source.getType();
-          boolean _notEquals = (!Objects.equal(_type, null));
-          if (_notEquals) {
-            JvmTypeReference _type_1 = source.getType();
-            JvmTypeReference _cloneWithProxies = JnarioJvmModelInferrer.this._jvmTypesBuilder.cloneWithProxies(_type_1);
-            it.setType(_cloneWithProxies);
-          } else {
-            XExpression _initialValue = source.getInitialValue();
-            boolean _notEquals_1 = (!Objects.equal(_initialValue, null));
-            if (_notEquals_1) {
-              XExpression _initialValue_1 = source.getInitialValue();
-              JvmTypeReference _inferredType = JnarioJvmModelInferrer.this._jvmTypesBuilder.inferredType(_initialValue_1);
-              it.setType(_inferredType);
-            }
+      final Procedure1<JvmField> _function = (JvmField it) -> {
+        String _computeFieldName = this.computeFieldName(source);
+        it.setSimpleName(_computeFieldName);
+        JvmVisibility _visibility = source.getVisibility();
+        it.setVisibility(_visibility);
+        boolean _isStatic = source.isStatic();
+        it.setStatic(_isStatic);
+        boolean _isTransient = source.isTransient();
+        it.setTransient(_isTransient);
+        boolean _isVolatile = source.isVolatile();
+        it.setVolatile(_isVolatile);
+        boolean _isFinal = source.isFinal();
+        it.setFinal(_isFinal);
+        EList<JvmMember> _members = container.getMembers();
+        this._jvmTypesBuilder.<JvmField>operator_add(_members, it);
+        JvmTypeReference _type_1 = source.getType();
+        boolean _notEquals_2 = (!Objects.equal(_type_1, null));
+        if (_notEquals_2) {
+          JvmTypeReference _type_2 = source.getType();
+          JvmTypeReference _cloneWithProxies = this._jvmTypesBuilder.cloneWithProxies(_type_2);
+          it.setType(_cloneWithProxies);
+        } else {
+          XExpression _initialValue = source.getInitialValue();
+          boolean _notEquals_3 = (!Objects.equal(_initialValue, null));
+          if (_notEquals_3) {
+            XExpression _initialValue_1 = source.getInitialValue();
+            JvmTypeReference _inferredType = this._jvmTypesBuilder.inferredType(_initialValue_1);
+            it.setType(_inferredType);
           }
-          JvmVisibility _visibility_1 = it.getVisibility();
-          boolean _equals = Objects.equal(_visibility_1, JvmVisibility.PRIVATE);
-          if (_equals) {
-            it.setVisibility(JvmVisibility.DEFAULT);
-          }
-          boolean _isExtension = source.isExtension();
-          if (_isExtension) {
-            it.setVisibility(JvmVisibility.PUBLIC);
-            EList<JvmAnnotationReference> _annotations = it.getAnnotations();
-            JnarioJvmModelInferrer.this.addAnnotationIfFound(_annotations, Extension.class, source);
-            EList<JvmAnnotationReference> _annotations_1 = it.getAnnotations();
-            JnarioJvmModelInferrer.this.addAnnotationIfFound(_annotations_1, org.jnario.runner.Extension.class, source);
-          }
-          EList<XAnnotation> _annotations_2 = source.getAnnotations();
-          JnarioJvmModelInferrer.this.translateAnnotations(it, _annotations_2);
-          JnarioJvmModelInferrer.this.modelAssociator.associatePrimary(source, it);
-          JnarioJvmModelInferrer.this._jvmTypesBuilder.copyDocumentationTo(source, it);
-          XExpression _initialValue_2 = source.getInitialValue();
-          JnarioJvmModelInferrer.this._jvmTypesBuilder.setInitializer(it, _initialValue_2);
         }
+        JvmVisibility _visibility_1 = it.getVisibility();
+        boolean _equals = Objects.equal(_visibility_1, JvmVisibility.PRIVATE);
+        if (_equals) {
+          it.setVisibility(JvmVisibility.DEFAULT);
+        }
+        boolean _isExtension_1 = source.isExtension();
+        if (_isExtension_1) {
+          it.setVisibility(JvmVisibility.PUBLIC);
+          EList<JvmAnnotationReference> _annotations = it.getAnnotations();
+          this.addAnnotationIfFound(_annotations, Extension.class, source);
+          EList<JvmAnnotationReference> _annotations_1 = it.getAnnotations();
+          this.addAnnotationIfFound(_annotations_1, org.jnario.runner.Extension.class, source);
+        }
+        EList<XAnnotation> _annotations_2 = source.getAnnotations();
+        this.translateAnnotations(it, _annotations_2);
+        this.modelAssociator.associatePrimary(source, it);
+        this._jvmTypesBuilder.copyDocumentationTo(source, it);
+        XExpression _initialValue_2 = source.getInitialValue();
+        this._jvmTypesBuilder.setInitializer(it, _initialValue_2);
       };
       ObjectExtensions.<JvmField>operator_doubleArrow(_createJvmField, _function);
     }
@@ -577,15 +565,12 @@ public abstract class JnarioJvmModelInferrer extends AbstractModelInferrer {
    * Thank you very much!
    */
   protected void translateAnnotations(final JvmAnnotationTarget target, final List<XAnnotation> annotations) {
-    final Function1<XAnnotation, Boolean> _function = new Function1<XAnnotation, Boolean>() {
-      @Override
-      public Boolean apply(final XAnnotation it) {
-        JvmType _annotationType = null;
-        if (it!=null) {
-          _annotationType=it.getAnnotationType();
-        }
-        return Boolean.valueOf((!Objects.equal(_annotationType, null)));
+    final Function1<XAnnotation, Boolean> _function = (XAnnotation it) -> {
+      JvmType _annotationType = null;
+      if (it!=null) {
+        _annotationType=it.getAnnotationType();
       }
+      return Boolean.valueOf((!Objects.equal(_annotationType, null)));
     };
     Iterable<XAnnotation> annotationsToAdd = IterableExtensions.<XAnnotation>filter(annotations, _function);
     for (final XAnnotation a : annotationsToAdd) {
@@ -594,22 +579,16 @@ public abstract class JnarioJvmModelInferrer extends AbstractModelInferrer {
         boolean _notEquals = (!Objects.equal(annotationReference, null));
         if (_notEquals) {
           Set<EObject> _jvmElements = this._iJvmModelAssociations.getJvmElements(a);
-          final Function1<EObject, Boolean> _function_1 = new Function1<EObject, Boolean>() {
-            @Override
-            public Boolean apply(final EObject it) {
-              return Boolean.valueOf((it != annotationReference));
-            }
+          final Function1<EObject, Boolean> _function_1 = (EObject it) -> {
+            return Boolean.valueOf((it != annotationReference));
           };
           Iterable<EObject> _filter = IterableExtensions.<EObject>filter(_jvmElements, _function_1);
           final List<EObject> associatedElements = IterableExtensions.<EObject>toList(_filter);
           boolean _isEmpty = associatedElements.isEmpty();
           boolean _not = (!_isEmpty);
           if (_not) {
-            final Consumer<EObject> _function_2 = new Consumer<EObject>() {
-              @Override
-              public void accept(final EObject assoc) {
-                JnarioJvmModelInferrer.this.modelAssociator.removeAllAssociation(assoc);
-              }
+            final Consumer<EObject> _function_2 = (EObject assoc) -> {
+              this.modelAssociator.removeAllAssociation(assoc);
             };
             associatedElements.forEach(_function_2);
           }

@@ -49,14 +49,11 @@ public class JnarioTypeResolver extends LogicalContainerAwareReentrantTypeResolv
     final EObject source = this._iJvmModelAssociations.getPrimarySourceElement(constructor);
     if ((source instanceof ExampleTable)) {
       EList<JvmFormalParameter> _parameters = constructor.getParameters();
-      final Consumer<JvmFormalParameter> _function = new Consumer<JvmFormalParameter>() {
-        @Override
-        public void accept(final JvmFormalParameter param) {
-          EObject _primarySourceElement = JnarioTypeResolver.this._iJvmModelAssociations.getPrimarySourceElement(param);
-          final ExampleColumn column = ((ExampleColumn) _primarySourceElement);
-          JvmTypeReference _parameterType = param.getParameterType();
-          JnarioTypeResolver.this.setColumnTypeProvider(_parameterType, constructor, resolvedTypes, session, column, resolvedTypesByContext);
-        }
+      final Consumer<JvmFormalParameter> _function = (JvmFormalParameter param) -> {
+        EObject _primarySourceElement = this._iJvmModelAssociations.getPrimarySourceElement(param);
+        final ExampleColumn column = ((ExampleColumn) _primarySourceElement);
+        JvmTypeReference _parameterType = param.getParameterType();
+        this.setColumnTypeProvider(_parameterType, constructor, resolvedTypes, session, column, resolvedTypesByContext);
       };
       _parameters.forEach(_function);
     }
@@ -92,57 +89,48 @@ public class JnarioTypeResolver extends LogicalContainerAwareReentrantTypeResolv
     CommonTypeComputationServices _services = this.getServices();
     XtypeFactory _xtypeFactory = _services.getXtypeFactory();
     final XComputedTypeReference resultRef = _xtypeFactory.createXComputedTypeReference();
-    final Function1<XComputedTypeReference, JvmTypeReference> _function = new Function1<XComputedTypeReference, JvmTypeReference>() {
-      @Override
-      public JvmTypeReference apply(final XComputedTypeReference it) {
-        EList<ExampleCell> _cells = column.getCells();
-        final Function1<ExampleCell, Boolean> _function = new Function1<ExampleCell, Boolean>() {
-          @Override
-          public Boolean apply(final ExampleCell it) {
-            XExpression _expression = it.getExpression();
-            return Boolean.valueOf((!(_expression instanceof XNullLiteral)));
-          }
-        };
-        Iterable<ExampleCell> _filter = IterableExtensions.<ExampleCell>filter(_cells, _function);
-        final Function1<ExampleCell, LightweightTypeReference> _function_1 = new Function1<ExampleCell, LightweightTypeReference>() {
-          @Override
-          public LightweightTypeReference apply(final ExampleCell it) {
-            LightweightTypeReference _xblockexpression = null;
-            {
-              Set<EObject> _jvmElements = JnarioTypeResolver.this._iJvmModelAssociations.getJvmElements(it);
-              EObject _head = IterableExtensions.<EObject>head(_jvmElements);
-              final JvmIdentifiableElement operation = ((JvmIdentifiableElement) _head);
-              final LightweightTypeReference type = resolvedTypes.getActualType(operation);
-              _xblockexpression = type;
-            }
-            return _xblockexpression;
-          }
-        };
-        final Iterable<LightweightTypeReference> types = IterableExtensions.<ExampleCell, LightweightTypeReference>map(_filter, _function_1);
-        final ITypeReferenceOwner owner = resolvedTypes.getReferenceOwner();
-        boolean _isEmpty = IterableExtensions.isEmpty(types);
-        if (_isEmpty) {
-          CommonTypeComputationServices _services = JnarioTypeResolver.this.getServices();
-          TypeReferences _typeReferences = _services.getTypeReferences();
-          CommonTypeComputationServices _services_1 = JnarioTypeResolver.this.getServices();
-          TypeReferences _typeReferences_1 = _services_1.getTypeReferences();
-          JvmType _findDeclaredType = _typeReferences_1.findDeclaredType(Object.class, member);
-          return _typeReferences.createTypeRef(_findDeclaredType);
+    final Function1<XComputedTypeReference, JvmTypeReference> _function = (XComputedTypeReference it) -> {
+      EList<ExampleCell> _cells = column.getCells();
+      final Function1<ExampleCell, Boolean> _function_1 = (ExampleCell it_1) -> {
+        XExpression _expression = it_1.getExpression();
+        return Boolean.valueOf((!(_expression instanceof XNullLiteral)));
+      };
+      Iterable<ExampleCell> _filter = IterableExtensions.<ExampleCell>filter(_cells, _function_1);
+      final Function1<ExampleCell, LightweightTypeReference> _function_2 = (ExampleCell it_1) -> {
+        LightweightTypeReference _xblockexpression = null;
+        {
+          Set<EObject> _jvmElements = this._iJvmModelAssociations.getJvmElements(it_1);
+          EObject _head = IterableExtensions.<EObject>head(_jvmElements);
+          final JvmIdentifiableElement operation = ((JvmIdentifiableElement) _head);
+          final LightweightTypeReference type = resolvedTypes.getActualType(operation);
+          _xblockexpression = type;
         }
-        CommonTypeComputationServices _services_2 = JnarioTypeResolver.this.getServices();
-        TypeConformanceComputer _typeConformanceComputer = _services_2.getTypeConformanceComputer();
-        List<LightweightTypeReference> _list = IterableExtensions.<LightweightTypeReference>toList(types);
-        LightweightTypeReference result = _typeConformanceComputer.getCommonSuperType(_list, owner);
-        EList<ExampleCell> _cells_1 = column.getCells();
-        int _size = _cells_1.size();
-        int _size_1 = IterableExtensions.size(types);
-        boolean _notEquals = (_size != _size_1);
-        if (_notEquals) {
-          LightweightTypeReference _wrapperTypeIfPrimitive = result.getWrapperTypeIfPrimitive();
-          result = _wrapperTypeIfPrimitive;
-        }
-        return result.toJavaCompliantTypeReference();
+        return _xblockexpression;
+      };
+      final Iterable<LightweightTypeReference> types = IterableExtensions.<ExampleCell, LightweightTypeReference>map(_filter, _function_2);
+      final ITypeReferenceOwner owner = resolvedTypes.getReferenceOwner();
+      boolean _isEmpty = IterableExtensions.isEmpty(types);
+      if (_isEmpty) {
+        CommonTypeComputationServices _services_1 = this.getServices();
+        TypeReferences _typeReferences = _services_1.getTypeReferences();
+        CommonTypeComputationServices _services_2 = this.getServices();
+        TypeReferences _typeReferences_1 = _services_2.getTypeReferences();
+        JvmType _findDeclaredType = _typeReferences_1.findDeclaredType(Object.class, member);
+        return _typeReferences.createTypeRef(_findDeclaredType);
       }
+      CommonTypeComputationServices _services_3 = this.getServices();
+      TypeConformanceComputer _typeConformanceComputer = _services_3.getTypeConformanceComputer();
+      List<LightweightTypeReference> _list = IterableExtensions.<LightweightTypeReference>toList(types);
+      LightweightTypeReference result = _typeConformanceComputer.getCommonSuperType(_list, owner);
+      EList<ExampleCell> _cells_1 = column.getCells();
+      int _size = _cells_1.size();
+      int _size_1 = IterableExtensions.size(types);
+      boolean _notEquals = (_size != _size_1);
+      if (_notEquals) {
+        LightweightTypeReference _wrapperTypeIfPrimitive = result.getWrapperTypeIfPrimitive();
+        result = _wrapperTypeIfPrimitive;
+      }
+      return result.toJavaCompliantTypeReference();
     };
     ColumnTypeProvider _columnTypeProvider = new ColumnTypeProvider(_function);
     resultRef.setTypeProvider(_columnTypeProvider);

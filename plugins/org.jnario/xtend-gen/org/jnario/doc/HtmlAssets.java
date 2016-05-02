@@ -33,23 +33,17 @@ public class HtmlAssets {
     "bootstrap.min.css", 
     "bootstrap-responsive.min.css", 
     "custom.css", 
-    "prettify.css"), new Function1<String, String>() {
-    @Override
-    public String apply(final String it) {
-      return ("css/" + it);
-    }
-  });
+    "prettify.css"), ((Function1<String, String>) (String it) -> {
+    return ("css/" + it);
+  }));
   
   private final List<String> _jsFiles = ListExtensions.<String, String>map(CollectionLiterals.<String>newArrayList(
     "prettify.js", 
     "lang-jnario.js", 
     "jquery.js", 
-    "bootstrap-tab.js"), new Function1<String, String>() {
-    @Override
-    public String apply(final String it) {
-      return ("js/" + it);
-    }
-  });
+    "bootstrap-tab.js"), ((Function1<String, String>) (String it) -> {
+    return ("js/" + it);
+  }));
   
   public void generate(final IFileSystemAccess fsa) {
     List<String> _cssFiles = this.getCssFiles();
@@ -59,12 +53,9 @@ public class HtmlAssets {
   }
   
   private void copy(final IFileSystemAccess fsa, final Iterable<String> files) {
-    final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
-      @Override
-      public Boolean apply(final String it) {
-        boolean _exists = HtmlAssets.this.exists(fsa, it);
-        return Boolean.valueOf((!_exists));
-      }
+    final Function1<String, Boolean> _function = (String it) -> {
+      boolean _exists = this.exists(fsa, it);
+      return Boolean.valueOf((!_exists));
     };
     Iterable<String> _filter = IterableExtensions.<String>filter(files, _function);
     for (final String file : _filter) {

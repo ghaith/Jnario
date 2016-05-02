@@ -52,10 +52,8 @@ public class SpecResultParser extends DefaultHandler {
   
   @Override
   public void startElement(final String uri, final String localName, final String qName, final Attributes attributes) throws SAXException {
-    boolean _matched = false;
-    if (!_matched) {
-      if (Objects.equal(qName, SpecResultTags.NODE_TESTCASE)) {
-        _matched=true;
+    switch (qName) {
+      case SpecResultTags.NODE_TESTCASE:
         String _convertValue = this.convertValue(attributes, SpecResultTags.ATTR_CLASSNAME);
         this.currentClassName = _convertValue;
         String _convertValue_1 = this.convertValue(attributes, SpecResultTags.ATTR_NAME);
@@ -64,27 +62,18 @@ public class SpecResultParser extends DefaultHandler {
         this.currentExecutionTime = _readTime;
         ArrayList<SpecFailure> _newArrayList = CollectionLiterals.<SpecFailure>newArrayList();
         this.failures = _newArrayList;
-      }
-    }
-    if (!_matched) {
-      if (Objects.equal(qName, SpecResultTags.NODE_ERROR)) {
-        _matched=true;
+        break;
+      case SpecResultTags.NODE_ERROR:
         this.saveFailureAttributes(attributes);
-      }
-    }
-    if (!_matched) {
-      if (Objects.equal(qName, SpecResultTags.NODE_FAILURE)) {
-        _matched=true;
+        break;
+      case SpecResultTags.NODE_FAILURE:
         this.saveFailureAttributes(attributes);
         StringBuilder _stringBuilder = new StringBuilder();
         this.currentFailureStacktrace = _stringBuilder;
-      }
-    }
-    if (!_matched) {
-      if (Objects.equal(qName, SpecResultTags.NODE_SKIPPED)) {
-        _matched=true;
+        break;
+      case SpecResultTags.NODE_SKIPPED:
         this.isPending = true;
-      }
+        break;
     }
   }
   
@@ -95,28 +84,20 @@ public class SpecResultParser extends DefaultHandler {
   
   @Override
   public void endElement(final String uri, final String localName, final String qName) throws SAXException {
-    boolean _matched = false;
-    if (!_matched) {
-      if (Objects.equal(qName, SpecResultTags.NODE_TESTCASE)) {
-        _matched=true;
+    switch (qName) {
+      case SpecResultTags.NODE_TESTCASE:
         SpecExecution _newSpecExecution = this.newSpecExecution();
         this.acceptor.accept(_newSpecExecution);
         this.currentClassName = null;
         this.currentName = null;
         this.currentExecutionTime = 0.0;
-      }
-    }
-    if (!_matched) {
-      if (Objects.equal(qName, SpecResultTags.NODE_ERROR)) {
-        _matched=true;
+        break;
+      case SpecResultTags.NODE_ERROR:
         this.addFailure();
-      }
-    }
-    if (!_matched) {
-      if (Objects.equal(qName, SpecResultTags.NODE_FAILURE)) {
-        _matched=true;
+        break;
+      case SpecResultTags.NODE_FAILURE:
         this.addFailure();
-      }
+        break;
     }
   }
   

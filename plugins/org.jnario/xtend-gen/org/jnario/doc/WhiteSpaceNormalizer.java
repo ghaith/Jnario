@@ -56,11 +56,8 @@ public class WhiteSpaceNormalizer {
       if (_endsWith) {
         ending = "\n";
       }
-      final Function1<String, String> _function = new Function1<String, String>() {
-        @Override
-        public String apply(final String it) {
-          return WhiteSpaceNormalizer.this.remove(it, whitespace);
-        }
+      final Function1<String, String> _function = (String it) -> {
+        return this.remove(it, whitespace);
       };
       Iterable<String> _map = IterableExtensions.<String, String>map(lines, _function);
       String _join = IterableExtensions.join(_map, "\n");

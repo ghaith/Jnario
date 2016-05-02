@@ -71,15 +71,12 @@ public class JnarioDocCompiler extends AbstractBatchCompiler {
       nameBasedFilter.setExtension(_primaryFileExtension);
       final PathTraverser pathTraverser = new PathTraverser();
       List<String> _sourcePathDirectories = this.getSourcePathDirectories();
-      final Predicate<URI> _function = new Predicate<URI>() {
-        @Override
-        public boolean apply(final URI input) {
-          final boolean matches = nameBasedFilter.matches(input);
-          if (matches) {
-            JnarioDocCompiler.this.resourceSet.getResource(input, true);
-          }
-          return matches;
+      final Predicate<URI> _function = (URI input) -> {
+        final boolean matches = nameBasedFilter.matches(input);
+        if (matches) {
+          this.resourceSet.getResource(input, true);
         }
+        return matches;
       };
       pathTraverser.resolvePathes(_sourcePathDirectories, _function);
       final File classDirectory = this.createTempDir("classes");
