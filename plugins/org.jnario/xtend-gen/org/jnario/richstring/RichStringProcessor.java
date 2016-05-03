@@ -5,6 +5,7 @@ import com.google.common.base.Splitter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.eclipse.emf.common.util.EList;
@@ -17,7 +18,6 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2;
 import org.jnario.RichString;
 import org.jnario.RichStringLiteral;
@@ -202,13 +202,13 @@ public class RichStringProcessor {
       this.clearEmptyFirstAndLastLines(lineInformation, toBeAppended);
       String _calculateIndentation = this.calculateIndentation(lineInformation);
       this.indentation = _calculateIndentation;
-      final Procedure1<Procedure2<ITreeAppendable, String>> _function = new Procedure1<Procedure2<ITreeAppendable, String>>() {
+      final Consumer<Procedure2<ITreeAppendable, String>> _function = new Consumer<Procedure2<ITreeAppendable, String>>() {
         @Override
-        public void apply(final Procedure2<ITreeAppendable, String> it) {
+        public void accept(final Procedure2<ITreeAppendable, String> it) {
           it.apply(appendable, variableName);
         }
       };
-      IterableExtensions.<Procedure2<ITreeAppendable, String>>forEach(toBeAppended, _function);
+      toBeAppended.forEach(_function);
     }
     
     public Procedure2<ITreeAppendable, String> clearEmptyFirstAndLastLines(final List<Pair<String, Boolean>> lineInformation, final List<Procedure2<ITreeAppendable, String>> toBeAppended) {

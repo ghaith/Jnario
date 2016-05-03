@@ -2,7 +2,7 @@ package org.jnario.feature.formatting;
 
 import com.google.inject.Inject;
 import java.util.Arrays;
-import org.eclipse.xtext.ParserRule;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmGenericArrayTypeReference;
 import org.eclipse.xtext.common.types.JvmParameterizedTypeReference;
@@ -10,15 +10,12 @@ import org.eclipse.xtext.common.types.JvmTypeConstraint;
 import org.eclipse.xtext.common.types.JvmTypeParameter;
 import org.eclipse.xtext.common.types.JvmWildcardTypeReference;
 import org.eclipse.xtext.formatting2.IFormattableDocument;
-import org.eclipse.xtext.formatting2.IHiddenRegionFormatter;
-import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.xbase.XAssignment;
 import org.eclipse.xtext.xbase.XBasicForLoopExpression;
 import org.eclipse.xtext.xbase.XBinaryOperation;
 import org.eclipse.xtext.xbase.XBlockExpression;
 import org.eclipse.xtext.xbase.XCastedExpression;
-import org.eclipse.xtext.xbase.XCatchClause;
 import org.eclipse.xtext.xbase.XClosure;
 import org.eclipse.xtext.xbase.XCollectionLiteral;
 import org.eclipse.xtext.xbase.XConstructorCall;
@@ -40,7 +37,6 @@ import org.eclipse.xtext.xbase.XVariableDeclaration;
 import org.eclipse.xtext.xbase.XWhileExpression;
 import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotation;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xtype.XFunctionTypeRef;
 import org.eclipse.xtext.xtype.XImportDeclaration;
 import org.eclipse.xtext.xtype.XImportSection;
@@ -57,27 +53,17 @@ public class FeatureFormatter2 extends JnarioFormatter {
   private FeatureGrammarAccess _featureGrammarAccess;
   
   protected void _format(final Scenario scenario, @Extension final IFormattableDocument format) {
-    ParserRule _scenarioRule = this._featureGrammarAccess.getScenarioRule();
-    ISemanticRegion _regionForRuleCallTo = this.regionAccess.regionForRuleCallTo(scenario, _scenarioRule);
-    final Procedure1<IHiddenRegionFormatter> _function = new Procedure1<IHiddenRegionFormatter>() {
-      @Override
-      public void apply(final IHiddenRegionFormatter it) {
-        it.increaseIndentation();
-      }
-    };
-    format.prepend(_regionForRuleCallTo, _function);
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method regionForRuleCallTo(ParserRule) is undefined for the type Scenario"
+      + "\nThe method or field increaseIndentation is undefined"
+      + "\nprepend cannot be resolved");
   }
   
   protected void _format(final Background background, @Extension final IFormattableDocument format) {
-    ParserRule _scenarioRule = this._featureGrammarAccess.getScenarioRule();
-    ISemanticRegion _regionForRuleCallTo = this.regionAccess.regionForRuleCallTo(background, _scenarioRule);
-    final Procedure1<IHiddenRegionFormatter> _function = new Procedure1<IHiddenRegionFormatter>() {
-      @Override
-      public void apply(final IHiddenRegionFormatter it) {
-        it.increaseIndentation();
-      }
-    };
-    format.prepend(_regionForRuleCallTo, _function);
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method regionForRuleCallTo(ParserRule) is undefined for the type Background"
+      + "\nThe method or field increaseIndentation is undefined"
+      + "\nprepend cannot be resolved");
   }
   
   public void format(final Object background, final IFormattableDocument format) {
@@ -186,9 +172,6 @@ public class FeatureFormatter2 extends JnarioFormatter {
     } else if (background instanceof JvmTypeConstraint) {
       _format((JvmTypeConstraint)background, format);
       return;
-    } else if (background instanceof XCatchClause) {
-      _format((XCatchClause)background, format);
-      return;
     } else if (background instanceof XExpression) {
       _format((XExpression)background, format);
       return;
@@ -197,6 +180,9 @@ public class FeatureFormatter2 extends JnarioFormatter {
       return;
     } else if (background instanceof XImportSection) {
       _format((XImportSection)background, format);
+      return;
+    } else if (background instanceof EObject) {
+      _format((EObject)background, format);
       return;
     } else if (background == null) {
       _format((Void)null, format);

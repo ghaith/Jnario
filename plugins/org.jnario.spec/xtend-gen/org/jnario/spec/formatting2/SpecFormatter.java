@@ -5,6 +5,7 @@ package org.jnario.spec.formatting2;
 
 import java.util.Arrays;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmGenericArrayTypeReference;
 import org.eclipse.xtext.common.types.JvmParameterizedTypeReference;
@@ -13,15 +14,12 @@ import org.eclipse.xtext.common.types.JvmTypeParameter;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.JvmWildcardTypeReference;
 import org.eclipse.xtext.formatting2.IFormattableDocument;
-import org.eclipse.xtext.formatting2.IHiddenRegionFormatter;
-import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.xbase.XAssignment;
 import org.eclipse.xtext.xbase.XBasicForLoopExpression;
 import org.eclipse.xtext.xbase.XBinaryOperation;
 import org.eclipse.xtext.xbase.XBlockExpression;
 import org.eclipse.xtext.xbase.XCastedExpression;
-import org.eclipse.xtext.xbase.XCatchClause;
 import org.eclipse.xtext.xbase.XClosure;
 import org.eclipse.xtext.xbase.XCollectionLiteral;
 import org.eclipse.xtext.xbase.XConstructorCall;
@@ -43,7 +41,6 @@ import org.eclipse.xtext.xbase.XVariableDeclaration;
 import org.eclipse.xtext.xbase.XWhileExpression;
 import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotation;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xtype.XFunctionTypeRef;
 import org.eclipse.xtext.xtype.XImportDeclaration;
 import org.eclipse.xtext.xtype.XImportSection;
@@ -79,32 +76,15 @@ public class SpecFormatter extends JnarioFormatter {
   }
   
   protected void _format(final ExampleGroup examplegroup, @Extension final IFormattableDocument document) {
-    ISemanticRegion _regionForKeyword = this.regionAccess.regionForKeyword(examplegroup, "{");
-    final Procedure1<IHiddenRegionFormatter> _function = new Procedure1<IHiddenRegionFormatter>() {
-      @Override
-      public void apply(final IHiddenRegionFormatter it) {
-        it.increaseIndentation();
-        it.setNewLines(1, 1, 2);
-      }
-    };
-    document.append(_regionForKeyword, _function);
-    ISemanticRegion _regionForKeyword_1 = this.regionAccess.regionForKeyword(examplegroup, "}");
-    final Procedure1<IHiddenRegionFormatter> _function_1 = new Procedure1<IHiddenRegionFormatter>() {
-      @Override
-      public void apply(final IHiddenRegionFormatter it) {
-        it.decreaseIndentation();
-        it.newLine();
-      }
-    };
-    document.prepend(_regionForKeyword_1, _function_1);
-    JvmTypeReference _targetType = examplegroup.getTargetType();
-    this.format(_targetType, document);
-    EList<JnarioMember> _members = examplegroup.getMembers();
-    for (final JnarioMember members : _members) {
-      this.format(members, document);
-    }
-    JnarioAnnotationTarget _annotationInfo = examplegroup.getAnnotationInfo();
-    this.format(_annotationInfo, document);
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method regionForKeyword(String) is undefined for the type ExampleGroup"
+      + "\nThe method or field increaseIndentation is undefined"
+      + "\nThe method setNewLines(int, int, int) is undefined"
+      + "\nThe method regionForKeyword(String) is undefined for the type ExampleGroup"
+      + "\nThe method or field decreaseIndentation is undefined"
+      + "\nThe method or field newLine is undefined"
+      + "\nappend cannot be resolved"
+      + "\nprepend cannot be resolved");
   }
   
   protected void _format(final JnarioMember jnariomember, @Extension final IFormattableDocument document) {
@@ -367,9 +347,6 @@ public class SpecFormatter extends JnarioFormatter {
     } else if (examplegroup instanceof JvmTypeConstraint) {
       _format((JvmTypeConstraint)examplegroup, document);
       return;
-    } else if (examplegroup instanceof XCatchClause) {
-      _format((XCatchClause)examplegroup, document);
-      return;
     } else if (examplegroup instanceof XExpression) {
       _format((XExpression)examplegroup, document);
       return;
@@ -384,6 +361,9 @@ public class SpecFormatter extends JnarioFormatter {
       return;
     } else if (examplegroup instanceof ExampleRow) {
       _format((ExampleRow)examplegroup, document);
+      return;
+    } else if (examplegroup instanceof EObject) {
+      _format((EObject)examplegroup, document);
       return;
     } else if (examplegroup == null) {
       _format((Void)null, document);

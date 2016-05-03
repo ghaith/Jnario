@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.ISetup;
 import org.eclipse.xtext.junit4.InjectWith;
@@ -25,8 +26,6 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.compiler.AbstractBatchCompiler;
 import org.jnario.compiler.JnarioBatchCompiler;
 import org.jnario.feature.FeatureStandaloneSetup;
@@ -102,15 +101,15 @@ public class SuiteBatchCompilerTest {
       FeatureStandaloneSetup _featureStandaloneSetup = new FeatureStandaloneSetup();
       SpecStandaloneSetup _specStandaloneSetup = new SpecStandaloneSetup();
       SuiteStandaloneSetup _suiteStandaloneSetup = new SuiteStandaloneSetup();
-      final Procedure1<ISetup> _function = new Procedure1<ISetup>() {
+      final Consumer<ISetup> _function = new Consumer<ISetup>() {
         @Override
-        public void apply(final ISetup it) {
+        public void accept(final ISetup it) {
           Injector _createInjectorAndDoEMFRegistration = it.createInjectorAndDoEMFRegistration();
           final JnarioBatchCompiler compiler = _createInjectorAndDoEMFRegistration.<JnarioBatchCompiler>getInstance(JnarioBatchCompiler.class);
           SuiteBatchCompilerTest.this.compile(compiler);
         }
       };
-      IterableExtensions.forEach(Collections.<ISetup>unmodifiableList(CollectionLiterals.<ISetup>newArrayList(_featureStandaloneSetup, _specStandaloneSetup, _suiteStandaloneSetup)), _function);
+      Collections.<ISetup>unmodifiableList(CollectionLiterals.<ISetup>newArrayList(_featureStandaloneSetup, _specStandaloneSetup, _suiteStandaloneSetup)).forEach(_function);
       final File outputDir = new File((SuiteBatchCompilerTest.OUTPUT_DIRECTORY + "/test"));
       final FilenameFilter _function_1 = new FilenameFilter() {
         @Override

@@ -6,6 +6,7 @@ package org.jnario.feature.formatting2;
 import com.google.inject.Inject;
 import java.util.Arrays;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmGenericArrayTypeReference;
 import org.eclipse.xtext.common.types.JvmParameterizedTypeReference;
@@ -20,7 +21,6 @@ import org.eclipse.xtext.xbase.XBasicForLoopExpression;
 import org.eclipse.xtext.xbase.XBinaryOperation;
 import org.eclipse.xtext.xbase.XBlockExpression;
 import org.eclipse.xtext.xbase.XCastedExpression;
-import org.eclipse.xtext.xbase.XCatchClause;
 import org.eclipse.xtext.xbase.XClosure;
 import org.eclipse.xtext.xbase.XCollectionLiteral;
 import org.eclipse.xtext.xbase.XConstructorCall;
@@ -365,9 +365,6 @@ public class FeatureFormatter extends XbaseWithAnnotationsFormatter {
     } else if (and instanceof JvmTypeConstraint) {
       _format((JvmTypeConstraint)and, document);
       return;
-    } else if (and instanceof XCatchClause) {
-      _format((XCatchClause)and, document);
-      return;
     } else if (and instanceof XExpression) {
       _format((XExpression)and, document);
       return;
@@ -376,6 +373,9 @@ public class FeatureFormatter extends XbaseWithAnnotationsFormatter {
       return;
     } else if (and instanceof XImportSection) {
       _format((XImportSection)and, document);
+      return;
+    } else if (and instanceof EObject) {
+      _format((EObject)and, document);
       return;
     } else if (and == null) {
       _format((Void)null, document);

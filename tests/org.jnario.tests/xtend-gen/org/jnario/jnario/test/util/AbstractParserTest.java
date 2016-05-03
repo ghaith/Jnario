@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.diagnostics.Severity;
@@ -23,7 +24,6 @@ import org.eclipse.xtext.validation.Issue;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.jnario.test.util.ClassPathUriProviderBuilder;
 import org.jnario.jnario.test.util.IUriProvider;
 import org.jnario.jnario.test.util.ModelStore;
@@ -81,13 +81,13 @@ public class AbstractParserTest {
     };
     Iterable<Resource> _filter = IterableExtensions.<Resource>filter(_resources, _function_1);
     final ArrayList<Resource> specs = Lists.<Resource>newArrayList(_filter);
-    final Procedure1<Resource> _function_2 = new Procedure1<Resource>() {
+    final Consumer<Resource> _function_2 = new Consumer<Resource>() {
       @Override
-      public void apply(final Resource resource) {
+      public void accept(final Resource resource) {
         Resources.checkForParseErrors(resource);
       }
     };
-    IterableExtensions.<Resource>forEach(specs, _function_2);
+    specs.forEach(_function_2);
   }
   
   public Class<?> context() {
