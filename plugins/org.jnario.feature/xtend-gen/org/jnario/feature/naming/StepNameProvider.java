@@ -30,16 +30,7 @@ public class StepNameProvider {
   protected String _nameOf(final Step step) {
     String _xblockexpression = null;
     {
-      boolean _or = false;
-      boolean _equals = Objects.equal(step, null);
-      if (_equals) {
-        _or = true;
-      } else {
-        String _name = step.getName();
-        boolean _equals_1 = Objects.equal(_name, null);
-        _or = _equals_1;
-      }
-      if (_or) {
+      if ((Objects.equal(step, null) || Objects.equal(step.getName(), null))) {
         return null;
       }
       EAttribute _jnarioTypeDeclaration_Name = JnarioPackage.eINSTANCE.getJnarioTypeDeclaration_Name();

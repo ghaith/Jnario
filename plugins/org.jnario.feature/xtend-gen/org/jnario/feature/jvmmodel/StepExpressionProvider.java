@@ -43,15 +43,7 @@ public class StepExpressionProvider {
       _reference=ref.getReference();
     }
     final StepImplementation step = _reference;
-    boolean _or = false;
-    boolean _equals = Objects.equal(step, null);
-    if (_equals) {
-      _or = true;
-    } else {
-      boolean _eIsProxy = step.eIsProxy();
-      _or = _eIsProxy;
-    }
-    if (_or) {
+    if ((Objects.equal(step, null) || step.eIsProxy())) {
       return null;
     }
     XExpression _expression_1 = step.getExpression();

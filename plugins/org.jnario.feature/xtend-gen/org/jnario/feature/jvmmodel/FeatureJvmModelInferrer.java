@@ -135,16 +135,7 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
     }
     final ArrayList<Runnable> doLater = CollectionLiterals.<Runnable>newArrayList();
     final Feature feature = this.resolveFeature(object);
-    boolean _or = false;
-    boolean _equals = Objects.equal(feature, null);
-    if (_equals) {
-      _or = true;
-    } else {
-      String _name = feature.getName();
-      boolean _isNullOrEmpty = Strings.isNullOrEmpty(_name);
-      _or = _isNullOrEmpty;
-    }
-    if (_or) {
+    if ((Objects.equal(feature, null) || Strings.isNullOrEmpty(feature.getName()))) {
       return;
     }
     Background _background = feature.getBackground();
@@ -302,15 +293,7 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
     EList<XAnnotation> _annotations = feature.getAnnotations();
     this.translateAnnotations(inferredJvmType, _annotations);
     final Background background = feature.getBackground();
-    boolean _and = false;
-    boolean _not = (!(scenario instanceof Background));
-    if (!_not) {
-      _and = false;
-    } else {
-      boolean _notEquals = (!Objects.equal(background, null));
-      _and = _notEquals;
-    }
-    if (_and) {
+    if (((!(scenario instanceof Background)) && (!Objects.equal(background, null)))) {
       EList<Step> _steps = background.getSteps();
       int _generateBackgroundStepCalls = this.generateBackgroundStepCalls(_steps, inferredJvmType, scenario);
       start = _generateBackgroundStepCalls;
@@ -369,15 +352,7 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
   public void generateStepValues(final Step step) {
     final List<String> arguments = this.stepArgumentsProvider.findStepArguments(step);
     final XExpression stepExpression = step.getExpression();
-    boolean _or = false;
-    boolean _isEmpty = arguments.isEmpty();
-    if (_isEmpty) {
-      _or = true;
-    } else {
-      boolean _equals = Objects.equal(stepExpression, null);
-      _or = _equals;
-    }
-    if (_or) {
+    if ((arguments.isEmpty() || Objects.equal(stepExpression, null))) {
       return;
     }
     TreeIterator<EObject> _eAllContents = stepExpression.eAllContents();
@@ -387,8 +362,8 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
       return Boolean.valueOf(Objects.equal(_name, FeatureJvmModelInferrer.STEP_VALUES));
     };
     Iterator<XVariableDeclaration> decs = IteratorExtensions.<XVariableDeclaration>filter(_filter, _function);
-    boolean _isEmpty_1 = IteratorExtensions.isEmpty(decs);
-    if (_isEmpty_1) {
+    boolean _isEmpty = IteratorExtensions.isEmpty(decs);
+    if (_isEmpty) {
       return;
     }
     final XVariableDeclaration dec = IteratorExtensions.<XVariableDeclaration>head(decs);
@@ -412,29 +387,13 @@ public class FeatureJvmModelInferrer extends JnarioJvmModelInferrer {
   
   public void setStepValueType(final XVariableDeclaration variableDec, final Step step) {
     JvmTypeReference typeRef = this._typeReferences.getTypeForName(StepArguments.class, step);
-    boolean _or = false;
-    boolean _equals = Objects.equal(typeRef, null);
-    if (_equals) {
-      _or = true;
-    } else {
-      boolean _eIsProxy = typeRef.eIsProxy();
-      _or = _eIsProxy;
-    }
-    if (_or) {
+    if ((Objects.equal(typeRef, null) || typeRef.eIsProxy())) {
       return;
     }
     variableDec.setType(typeRef);
     JvmType _type = typeRef.getType();
     final JvmGenericType type = ((JvmGenericType) _type);
-    boolean _or_1 = false;
-    boolean _equals_1 = Objects.equal(type, null);
-    if (_equals_1) {
-      _or_1 = true;
-    } else {
-      boolean _eIsProxy_1 = type.eIsProxy();
-      _or_1 = _eIsProxy_1;
-    }
-    if (_or_1) {
+    if ((Objects.equal(type, null) || type.eIsProxy())) {
       return;
     }
     XExpression _right = variableDec.getRight();

@@ -53,15 +53,7 @@ public class ImplicitSubject {
   
   public void addImplicitSubject(final JvmGenericType type, final ExampleGroup exampleGroup) {
     final JvmTypeReference targetType = this.resolveTargetType(exampleGroup);
-    boolean _or = false;
-    boolean _equals = Objects.equal(targetType, null);
-    if (_equals) {
-      _or = true;
-    } else {
-      boolean _eIsProxy = targetType.eIsProxy();
-      _or = _eIsProxy;
-    }
-    if (_or) {
+    if ((Objects.equal(targetType, null) || targetType.eIsProxy())) {
       return;
     }
     boolean _hasSubject = this.hasSubject(type);

@@ -5,15 +5,19 @@ import com.google.common.collect.Iterables;
 import gameoflife.CellLocation;
 import java.util.ArrayList;
 import java.util.Set;
+import org.eclipse.xtend.lib.annotations.Data;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2;
+import org.eclipse.xtext.xbase.lib.Pure;
+import org.eclipse.xtext.xbase.lib.util.ToStringBuilder;
 
-/* @Data */@SuppressWarnings("all")
+@Data
+@SuppressWarnings("all")
 public class World {
-  private Set<CellLocation> livingCells;
+  private final Set<CellLocation> livingCells;
   
   public static World parseWorld(final CharSequence grid) {
     World _xblockexpression = null;
@@ -40,8 +44,8 @@ public class World {
   }
   
   public static World worldWith(final Iterable<CellLocation> cells) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nInvalid number of arguments. The constructor World() is not applicable for the arguments (Set<CellLocation>)");
+    Set<CellLocation> _set = IterableExtensions.<CellLocation>toSet(cells);
+    return new World(_set);
   }
   
   public Set<CellLocation> deadCells() {
@@ -65,5 +69,50 @@ public class World {
     };
     Iterable<CellLocation> _filter = IterableExtensions.<CellLocation>filter(_neighbours, _function);
     return IterableExtensions.size(_filter);
+  }
+  
+  public World(final Set<CellLocation> livingCells) {
+    super();
+    this.livingCells = livingCells;
+  }
+  
+  @Override
+  @Pure
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((this.livingCells== null) ? 0 : this.livingCells.hashCode());
+    return result;
+  }
+  
+  @Override
+  @Pure
+  public boolean equals(final Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    World other = (World) obj;
+    if (this.livingCells == null) {
+      if (other.livingCells != null)
+        return false;
+    } else if (!this.livingCells.equals(other.livingCells))
+      return false;
+    return true;
+  }
+  
+  @Override
+  @Pure
+  public String toString() {
+    ToStringBuilder b = new ToStringBuilder(this);
+    b.add("livingCells", this.livingCells);
+    return b.toString();
+  }
+  
+  @Pure
+  public Set<CellLocation> getLivingCells() {
+    return this.livingCells;
   }
 }

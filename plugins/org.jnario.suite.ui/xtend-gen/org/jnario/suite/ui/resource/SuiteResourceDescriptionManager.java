@@ -272,15 +272,7 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
       Set<QualifiedName> _keySet_3 = after.keySet();
       Iterable<QualifiedName> _plus = Iterables.<QualifiedName>concat(_keySet_2, _keySet_3);
       final Function1<QualifiedName, Boolean> _function_4 = (QualifiedName it) -> {
-        boolean _or = false;
-        boolean _contains = deleted.contains(it);
-        if (_contains) {
-          _or = true;
-        } else {
-          boolean _contains_1 = added.contains(it);
-          _or = _contains_1;
-        }
-        return Boolean.valueOf((!_or));
+        return Boolean.valueOf((!(deleted.contains(it) || added.contains(it))));
       };
       final Iterable<QualifiedName> kept = IterableExtensions.<QualifiedName>filter(_plus, _function_4);
       final Function1<QualifiedName, Boolean> _function_5 = (QualifiedName it) -> {
@@ -303,25 +295,9 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
       {
         EObject _eObjectOrProxy = it.getEObjectOrProxy();
         final EObject object = EcoreUtil.resolve(_eObjectOrProxy, resourceSet);
-        boolean _and = false;
-        if (!(object instanceof Specification)) {
-          _and = false;
-        } else {
-          boolean _or = false;
-          EObject _eContainer = object.eContainer();
-          EClass _eClass = _eContainer.eClass();
-          boolean _equals = Objects.equal(_eClass, SpecPackage.Literals.SPEC_FILE);
-          if (_equals) {
-            _or = true;
-          } else {
-            EObject _eContainer_1 = object.eContainer();
-            EClass _eClass_1 = _eContainer_1.eClass();
-            boolean _equals_1 = Objects.equal(_eClass_1, FeaturePackage.Literals.FEATURE_FILE);
-            _or = _equals_1;
-          }
-          _and = _or;
-        }
-        _xblockexpression = _and;
+        _xblockexpression = ((object instanceof Specification) && 
+          (Objects.equal(object.eContainer().eClass(), SpecPackage.Literals.SPEC_FILE) || 
+            Objects.equal(object.eContainer().eClass(), FeaturePackage.Literals.FEATURE_FILE)));
       }
       return Boolean.valueOf(_xblockexpression);
     };
@@ -339,26 +315,14 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
     if (_notEquals) {
       return false;
     }
-    boolean _and = false;
-    QualifiedName _name = oldObj.getName();
-    boolean _notEquals_1 = (!Objects.equal(_name, null));
-    if (!_notEquals_1) {
-      _and = false;
-    } else {
-      QualifiedName _name_1 = oldObj.getName();
-      QualifiedName _name_2 = newObj.getName();
-      boolean _equals_1 = _name_1.equals(_name_2);
-      boolean _not = (!_equals_1);
-      _and = _not;
-    }
-    if (_and) {
+    if (((!Objects.equal(oldObj.getName(), null)) && (!oldObj.getName().equals(newObj.getName())))) {
       return false;
     }
     URI _eObjectURI = oldObj.getEObjectURI();
     URI _eObjectURI_1 = newObj.getEObjectURI();
-    boolean _equals_2 = _eObjectURI.equals(_eObjectURI_1);
-    boolean _not_1 = (!_equals_2);
-    if (_not_1) {
+    boolean _equals_1 = _eObjectURI.equals(_eObjectURI_1);
+    boolean _not = (!_equals_1);
+    if (_not) {
       return false;
     }
     return true;

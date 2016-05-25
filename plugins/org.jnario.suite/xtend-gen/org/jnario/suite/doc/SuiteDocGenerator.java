@@ -250,25 +250,23 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
   
   public String text(final Reference ref) {
     boolean _matched = false;
-    if (!_matched) {
-      if (ref instanceof SpecReference) {
-        String _text = ((SpecReference)ref).getText();
-        String _trim = null;
-        if (_text!=null) {
-          _trim=_text.trim();
-        }
-        boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(_trim);
-        boolean _not = (!_isNullOrEmpty);
-        if (_not) {
-          _matched=true;
-          String _text_1 = ((SpecReference)ref).getText();
-          String result = this.markdown2Html(_text_1);
-          int _length = result.length();
-          int _minus = (_length - 4);
-          String _substring = result.substring(3, _minus);
-          result = _substring;
-          return (": " + result);
-        }
+    if (ref instanceof SpecReference) {
+      String _text = ((SpecReference)ref).getText();
+      String _trim = null;
+      if (_text!=null) {
+        _trim=_text.trim();
+      }
+      boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(_trim);
+      boolean _not = (!_isNullOrEmpty);
+      if (_not) {
+        _matched=true;
+        String _text_1 = ((SpecReference)ref).getText();
+        String result = this.markdown2Html(_text_1);
+        int _length = result.length();
+        int _minus = (_length - 4);
+        String _substring = result.substring(3, _minus);
+        result = _substring;
+        return (": " + result);
       }
     }
     return "";
