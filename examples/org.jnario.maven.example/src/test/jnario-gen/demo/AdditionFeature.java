@@ -7,9 +7,15 @@
  */
 package demo;
 
+import demo.AdditionFeatureAddTwoNumbers;
+import org.jnario.runner.Contains;
+import org.jnario.runner.FeatureRunner;
+import org.jnario.runner.Named;
+import org.junit.runner.RunWith;
+
+@Contains(AdditionFeatureAddTwoNumbers.class)
+@Named("Addition")
+@RunWith(FeatureRunner.class)
 @SuppressWarnings("all")
-public class Calculator {
-  public int add(final int a, final int b) {
-    return (a + b);
-  }
+public class AdditionFeature {
 }

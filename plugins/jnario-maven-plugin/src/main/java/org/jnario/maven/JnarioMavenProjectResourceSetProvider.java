@@ -2,7 +2,6 @@ package org.jnario.maven;
 
 import org.apache.maven.project.MavenProject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.xtend.maven.MavenProjectAdapter;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
 import com.google.inject.Provider;

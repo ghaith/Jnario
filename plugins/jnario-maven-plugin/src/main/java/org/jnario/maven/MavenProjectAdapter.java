@@ -1,4 +1,4 @@
-package org.eclipse.xtend.maven;
+package org.jnario.maven;
 
 import java.util.Iterator;
 

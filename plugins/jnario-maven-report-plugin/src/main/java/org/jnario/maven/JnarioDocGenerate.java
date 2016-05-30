@@ -1,32 +1,26 @@
 package org.jnario.maven;
 
-import static com.google.common.collect.Iterables.filter;
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
+import static org.apache.maven.plugins.annotations.ResolutionScope.TEST;
 import static org.eclipse.xtext.util.Strings.concat;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.net.URI;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map.Entry;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.xtend.lib.macro.file.Path;
-import org.eclipse.xtend.maven.MavenProjectAdapter;
-import org.eclipse.xtend.maven.XtendTestCompile;
 import org.eclipse.xtext.ISetup;
-import org.eclipse.xtext.xbase.file.ProjectConfig;
-import org.eclipse.xtext.xbase.file.RuntimeWorkspaceConfigProvider;
-import org.eclipse.xtext.xbase.file.SimpleWorkspaceConfig;
-
+import org.jnario.compiler.AbstractBatchCompiler;
 import org.jnario.compiler.HtmlAssetsCompiler;
 import org.jnario.compiler.JnarioDocCompiler;
+import org.jnario.compiler.JnarioStandaloneCompiler;
 import org.jnario.feature.FeatureStandaloneSetup;
 import org.jnario.report.Executable2ResultMapping;
 import org.jnario.report.HashBasedSpec2ResultMapping;
@@ -35,9 +29,7 @@ import org.jnario.spec.SpecStandaloneSetup;
 import org.jnario.suite.SuiteStandaloneSetup;
 
 import com.google.common.base.Function;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
 
@@ -45,10 +37,9 @@ import com.google.inject.Provider;
  * Goal which generates Jnario documentation.
  *
  * @author Sebastian Benz - Initial contribution and API
- * @requiresDependencyResolution test
- * @goal generate
  */
-public class JnarioDocGenerate extends XtendTestCompile {
+@Mojo(name ="generate", requiresDependencyResolution = TEST)
+public class JnarioDocGenerate extends JnarioTestCompile {
 
 	private final class XmlFiles implements FilenameFilter {
 		public boolean accept(File dir, String name) {
@@ -58,40 +49,40 @@ public class JnarioDocGenerate extends XtendTestCompile {
 
 	/**
 	 * Location of the generated documentation.
-	 *
-	 * @parameter default-value="${basedir}/target/jnario-doc"
-	 * @required
 	 */
+	@Parameter(defaultValue = "${basedir}/target/jnario-doc", required = true)
 	private String docOutputDirectory;
 
 	/**
 	 * Location of the generated JUnit XML reports.
-	 *
-	 * @parameter default-value="${basedir}/target/surefire-reports"
-	 * @required
 	 */
+	@Parameter(defaultValue = "${basedir}/target/surefire-reports", required = true)
 	private String reportsDirectory;
 
 	/**
 	 * Location of the generated JUnit XML reports.
-	 *
-	 * @parameter
 	 */
+	@Parameter
 	private String sourceDirectory;
 
-	@Inject
-	private RuntimeWorkspaceConfigProvider workspaceConfigProvider;
+	/**
+	 * Location of the temporary compiler directory.
+	 */
+	@Parameter(defaultValue = "${project.build.directory}/jnario-report-tmp", required = true)
+	private String testTempDirectory;
 
-	private Provider<ResourceSet> resourceSetProvider;
-
+	private ResourceSet resourceSet;
+	
 	@Override
 	protected void internalExecute() throws MojoExecutionException {
 		getLog().info("Generating Jnario reports to " + docOutputDirectory);
 
+		MavenProjectResourceSetProvider resourceSetProvider = new MavenProjectResourceSetProvider(project);
+		resourceSet = resourceSetProvider.get();
+
 		// the order is important, the suite compiler must be executed last
 		List<Injector> injectors = createInjectors(new SpecStandaloneSetup(), new FeatureStandaloneSetup(), new SuiteStandaloneSetup());
 		generateCssAndJsFiles(injectors);
-		resourceSetProvider = new JnarioMavenProjectResourceSetProvider(project);
 
 		HashBasedSpec2ResultMapping resultMapping = createSpec2ResultMapping(injectors);
 		for (Injector injector : injectors) {
@@ -146,67 +137,14 @@ public class JnarioDocGenerate extends XtendTestCompile {
 		compile(xtend2BatchCompiler, testClassPath, testCompileSourceRoots, docOutputDirectory);
 	}
 
+	protected AbstractBatchCompiler getBatchCompiler() {
+		return JnarioStandaloneCompiler.create();
+	}
+
 	private void generateDoc(Injector injector, Executable2ResultMapping resultMapping) throws MojoExecutionException {
 		JnarioDocCompiler docCompiler = injector.getInstance(JnarioDocCompiler.class);
 		docCompiler.setExecutable2ResultMapping(resultMapping);
 		compileTestSources(docCompiler);
-	}
-
-	protected void compile(JnarioDocCompiler xtend2BatchCompiler, String classPath, List<String> sourceDirectories, String outputPath)
-			throws MojoExecutionException {
-		configureWorkspace(sourceDirectories, outputPath);
-		resourceSetProvider.get().eAdapters().clear();
-		xtend2BatchCompiler.setResourceSetProvider(resourceSetProvider);
-		MavenProjectAdapter.install(resourceSetProvider.get(), project);
-		Iterable<String> filtered = filter(sourceDirectories, FILE_EXISTS);
-		if (Iterables.isEmpty(filtered)) {
-			getLog().info("skip compiling sources because the configured directory '" + Iterables.toString(sourceDirectories) + "' does not exists.");
-			return;
-		}
-		getLog().debug("Set temp directory: " + getTempDirectory());
-		xtend2BatchCompiler.setTempDirectory(getTempDirectory());
-		getLog().debug("Set DeleteTempDirectory: " + false);
-		xtend2BatchCompiler.setDeleteTempDirectory(false);
-		getLog().debug("Set classpath: " + classPath);
-		xtend2BatchCompiler.setClassPath(classPath);
-		getLog().debug("Set source path: " + concat(File.pathSeparator, newArrayList(filtered)));
-		xtend2BatchCompiler.setSourcePath(concat(File.pathSeparator, newArrayList(filtered)));
-		getLog().debug("Set output path: " + outputPath);
-		xtend2BatchCompiler.setOutputPath(outputPath);
-		getLog().debug("Set encoding: " + encoding);
-		xtend2BatchCompiler.setFileEncoding(encoding);
-		getLog().debug("Set writeTraceFiles: " + writeTraceFiles);
-		xtend2BatchCompiler.setWriteTraceFiles(writeTraceFiles);
-		if (!xtend2BatchCompiler.compile()) {
-			throw new MojoExecutionException("Error compiling xtend sources in '" + concat(File.pathSeparator, newArrayList(filtered)) + "'.");
-		}
-	}
-
-	private void configureWorkspace(List<String> sourceDirectories, String outputPath) throws MojoExecutionException {
-		SimpleWorkspaceConfig workspaceConfig = new SimpleWorkspaceConfig(project.getBasedir().getParentFile().getAbsolutePath());
-		ProjectConfig projectConfig = new ProjectConfig(project.getBasedir().getName());
-		URI absoluteRootPath = project.getBasedir().getAbsoluteFile().toURI();
-		URI relativizedTarget = absoluteRootPath.relativize(new File(outputPath).toURI());
-		if (relativizedTarget.isAbsolute()) {
-			throw new MojoExecutionException("Output path '" + outputPath + "' must be a child of the project folder '" + absoluteRootPath + "'");
-		}
-		for (String source : sourceDirectories) {
-			URI relativizedSrc = absoluteRootPath.relativize(new File(source).toURI());
-			if (relativizedSrc.isAbsolute()) {
-				throw new MojoExecutionException("Source folder " + source + " must be a child of the project folder " + absoluteRootPath);
-			}
-			projectConfig.addSourceFolderMapping(relativizedSrc.getPath(), relativizedTarget.getPath());
-		}
-		workspaceConfig.addProjectConfig(projectConfig);
-		workspaceConfigProvider.setWorkspaceConfig(workspaceConfig);
-		if (getLog().isDebugEnabled()) {
-			getLog().debug("WS config root: " + workspaceConfig.getAbsoluteFileSystemPath());
-			getLog().debug("Project name: " + projectConfig.getName());
-			getLog().debug("Project root path: " + projectConfig.getRootPath());
-			for (Entry<Path, Path> entry : projectConfig.getSourceFolderMappings().entrySet()) {
-				getLog().debug("Source path: " + entry.getKey() + " -> " + entry.getValue());
-			}
-		}
 	}
 
 	private List<Injector> createInjectors(ISetup... setups) {
@@ -217,4 +155,19 @@ public class JnarioDocGenerate extends XtendTestCompile {
 		});
 	}
 
+	@Override
+	protected String getTempDirectory() {
+		return testTempDirectory;
+	}
+
+	protected Provider<ResourceSet> getResourceSet() {
+		return new Provider<ResourceSet>() {
+
+			@Override
+			public ResourceSet get() {
+				return resourceSet;
+			}
+			
+		};
+	}
 }

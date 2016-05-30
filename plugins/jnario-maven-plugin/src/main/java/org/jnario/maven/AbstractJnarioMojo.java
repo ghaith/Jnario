@@ -1,34 +1,42 @@
-package org.eclipse.xtend.maven;
+package org.jnario.maven;
+
+import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.eclipse.xtext.maven.MavenLog4JConfigurator;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
-public abstract class AbstractXtendMojo extends AbstractMojo {
+public abstract class AbstractJnarioMojo extends AbstractMojo {
 
 	@Inject
 	protected MavenLog4JConfigurator log4jConfigurator;
 
 	/**
 	 * The project itself. This parameter is set by maven.
-	 * 
-	 * @parameter expression="${project}"
-	 * @required
 	 */
+	@Parameter(property = "project", required = true)
 	protected MavenProject project;
 
 	/**
-	 * Set this to true to skip compiling Xtend sources.
-	 * 
-	 * @parameter default-value="false" expression="${skipXtend}"
+	 * Set this to true to skip compiling Jnario sources.
 	 */
-	protected boolean skipXtend;
+	@Parameter(property = "skipJnario", defaultValue = "false")
+	protected boolean skipJnario;
 
-	public AbstractXtendMojo() {
+	private List<Injector> injectors;
+
+	public AbstractJnarioMojo() {
 		injectMembers();
+	}
+	
+	public List<Injector> getInjectors() {
+		return injectors;
 	}
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
@@ -41,13 +49,14 @@ public abstract class AbstractXtendMojo extends AbstractMojo {
 	}
 
 	protected void injectMembers() {
-		new XtendMavenStandaloneSetup().createInjectorAndDoEMFRegistration().injectMembers(this);
+		injectors = new JnarioMavenStandaloneSetup().createInjectorAndDoEMFRegistration();
+		injectors.get(0).injectMembers(this);
 	}
 
 	protected abstract void internalExecute() throws MojoExecutionException, MojoFailureException;
 
 	protected boolean isSkipped() {
-		return skipXtend;
+		return skipJnario;
 	}
 
 }

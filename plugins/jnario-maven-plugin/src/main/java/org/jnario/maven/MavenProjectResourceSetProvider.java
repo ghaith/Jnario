@@ -1,4 +1,4 @@
-package org.eclipse.xtend.maven;
+package org.jnario.maven;
 
 import org.apache.maven.project.MavenProject;
 import org.eclipse.emf.ecore.resource.ResourceSet;

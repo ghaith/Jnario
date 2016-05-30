@@ -1,4 +1,4 @@
-package org.eclipse.xtend.maven;
+package org.jnario.maven;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.maven.plugins.annotations.Parameter;
 import org.eclipse.xtext.generator.trace.AbstractTraceRegion;
 import org.eclipse.xtext.generator.trace.ITraceToBytecodeInstaller;
 import org.eclipse.xtext.generator.trace.TraceAsPrimarySourceInstaller;
@@ -29,7 +30,7 @@ import com.google.inject.Provider;
 /**
  * @author Moritz Eysholdt - Initial contribution and API
  */
-public abstract class AbstractXtendInstallDebugInfoMojo extends AbstractXtendMojo {
+public abstract class AbstractJnarioInstallDebugInfoMojo extends AbstractJnarioMojo {
 
 	@Inject
 	protected ClassFileDebugSourceExtractor classFileDebugSourceExtractor;
@@ -37,12 +38,19 @@ public abstract class AbstractXtendInstallDebugInfoMojo extends AbstractXtendMoj
 	/**
 	 * Set this to false to show synthetic variables in the debugger. This only has an effect if
 	 * {@link #traceAsPrimarySourceInstallerProvider} is set to true. Synthetic variables are variables which are
-	 * created by the Xtend compiler. Therefore they only exist in the compiled Java code but not in the Xtend code.
-	 * 
-	 * @parameter default-value="true" expression="${hideSyntheticVariables}"
+	 * created by the Jnario compiler. Therefore they only exist in the compiled Java code but not in the Jnario code.
 	 */
+	@Parameter(property = "hideSyntheticVariables", defaultValue = "true")
 	protected boolean hideSyntheticVariables;
 
+	/**
+	 * Set this to true to use the Jnario sources as the primary debugging sources. This will completely hide the Java
+	 * sources in the debugger. You'll need to enable it if your JVM doesn't support JSR-045.
+	 */
+	@Parameter(property = "jnarioAsPrimaryDebugSource", defaultValue = "false")
+	protected boolean jnarioAsPrimaryDebugSource;
+
+	
 	@Inject
 	private Provider<TraceAsPrimarySourceInstaller> traceAsPrimarySourceInstallerProvider;
 
@@ -54,14 +62,6 @@ public abstract class AbstractXtendInstallDebugInfoMojo extends AbstractXtendMoj
 
 	@Inject
 	protected TraceRegionSerializer traceRegionSerializer;
-
-	/**
-	 * Set this to true to use the Xtend sources as the primary debugging sources. This will completely hide the Java
-	 * sources in the debugger. You'll need to enable it if your JVM doesn't support JSR-045.
-	 * 
-	 * @parameter default-value="false" expression="${xtendAsPrimaryDebugSource}"
-	 */
-	protected boolean xtendAsPrimaryDebugSource;
 
 	protected void collectJavaSourceFile2traceFile(String root, String subdir,
 			Map<String, File> javaSourceFile2traceFile) {
@@ -83,7 +83,7 @@ public abstract class AbstractXtendInstallDebugInfoMojo extends AbstractXtendMoj
 	}
 
 	protected ITraceToBytecodeInstaller createTraceToBytecodeInstaller() {
-		if (xtendAsPrimaryDebugSource) {
+		if (jnarioAsPrimaryDebugSource) {
 			TraceAsPrimarySourceInstaller installer = traceAsPrimarySourceInstallerProvider.get();
 			installer.setHideSyntheticVariables(hideSyntheticVariables);
 			return installer;
@@ -138,7 +138,9 @@ public abstract class AbstractXtendInstallDebugInfoMojo extends AbstractXtendMoj
 			for (File classFile : classFiles) {
 				if (getLog().isDebugEnabled())
 					getLog().debug("  " + classFile);
-				Files.write(traceToBytecodeInstaller.installTrace(Files.toByteArray(classFile)), classFile);
+				byte[] bytecodeWithTraces = traceToBytecodeInstaller.installTrace(Files.toByteArray(classFile));
+				if (bytecodeWithTraces != null)
+					Files.write(bytecodeWithTraces, classFile);
 			}
 		} finally {
 			in.close();
@@ -156,10 +158,10 @@ public abstract class AbstractXtendInstallDebugInfoMojo extends AbstractXtendMoj
 	}
 
 	protected void logStatus(String folder, Multimap<File, File> trace2class) {
-		String p = xtendAsPrimaryDebugSource ? "primary" : "secondary (via SMAP)";
+		String p = jnarioAsPrimaryDebugSource ? "primary" : "secondary (via SMAP)";
 		int n = trace2class.size();
-		getLog().info("Installing Xtend files into " + n + " class files as " + p + " debug sources in: " + folder);
-		getLog().debug("xtendAsPrimaryDebugSource=" + xtendAsPrimaryDebugSource);
+		getLog().info("Installing Jnario files into " + n + " class files as " + p + " debug sources in: " + folder);
+		getLog().debug("jnarioAsPrimaryDebugSource=" + jnarioAsPrimaryDebugSource);
 		getLog().debug("hideSyntheticVariables=" + hideSyntheticVariables);
 	}
 }

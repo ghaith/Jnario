@@ -1,7 +1,9 @@
-package org.eclipse.xtend.maven;
+package org.jnario.maven;
 
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.apache.maven.plugins.annotations.LifecyclePhase.GENERATE_SOURCES;
+import static org.apache.maven.plugins.annotations.ResolutionScope.COMPILE;
 import static org.eclipse.xtext.util.Strings.concat;
 
 import java.io.File;
@@ -10,60 +12,60 @@ import java.util.Set;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-import org.jnario.compiler.AbstractBatchCompiler;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 /**
- * Goal which compiles Xtend sources.
- *
- * @author Michael Clay - Initial contribution and API
- * @goal compile
- * @phase generate-sources
- * @requiresDependencyResolution compile
+ * Most of the code copied from the Xtext/Xtend projects.
+ * 
+ * @author Boris Brodski
  */
-public class XtendCompile extends AbstractXtendCompilerMojo {
+@Mojo(name = "compile", defaultPhase = GENERATE_SOURCES, requiresDependencyResolution = COMPILE)
+public class JnarioCompile extends AbstractJnarioCompilerMojo {
 	/**
-	 * Location of the generated source files.
-	 *
-	 * @parameter default-value="${basedir}/src/main/generated-sources/xtend"
-	 * @required
+	 * Location of the generated test files.
 	 */
+	@Parameter(defaultValue = "${basedir}/src/main/generated-sources/jnario", required = true)
 	private String outputDirectory;
+	
 	/**
 	 * Location of the temporary compiler directory.
-	 *
-	 * @parameter default-value="${project.build.directory}/xtend"
-	 * @required
 	 */
+	@Parameter(defaultValue = "${project.build.directory}/jnario", required = true)
 	private String tempDirectory;
 
+	/**
+	 * If true, the output directory will not be automatically added to the test source directories.
+	 */
+	@Parameter(defaultValue = "false", required = true)
+	private boolean doNotAddSourceDirectory;
+	
 	@Override
 	protected void internalExecute() throws MojoExecutionException {
-		final String defaultValue = project.getBasedir() + "/src/main/generated-sources/xtend";
+		final String defaultValue = project.getBasedir() + "/src/main/generated-sources/jnario";
 		getLog().debug("Output directory '" + outputDirectory + "'");
 		getLog().debug("Default directory '" + defaultValue + "'");
-		// IF output is not explicitly set try to read xtend prefs from eclipse .settings folder
 		if (defaultValue.equals(outputDirectory)) {
-			readXtendEclipseSetting(project.getBuild().getSourceDirectory(), new Procedure1<String>() {
-				public void apply(String xtendOutputDir) {
-					outputDirectory = xtendOutputDir;
-					getLog().info("Using Xtend output directory '" + outputDirectory + "'");
+			readJnarioEclipseSetting(project.getBuild().getSourceDirectory(), new Procedure1<String>() {
+				public void apply(String jnarioOutputDir) {
+					outputDirectory = jnarioOutputDir;
+					getLog().info("Using Jnario output directory '" + outputDirectory + "'");
 				}
 			});
 		}
 		outputDirectory = resolveToBaseDir(outputDirectory);
-		compileSources(xtendBatchCompilerProvider.get());
-	}
-
-	private void compileSources(AbstractBatchCompiler xtend2BatchCompiler) throws MojoExecutionException {
 		List<String> compileSourceRoots = Lists.newArrayList(project.getCompileSourceRoots());
+		compileSourceRoots.remove(outputDirectory);
 		String classPath = concat(File.pathSeparator, getClassPath());
-		project.addCompileSourceRoot(outputDirectory);
-		compile(xtend2BatchCompiler, classPath, compileSourceRoots, outputDirectory);
+		if (!doNotAddSourceDirectory) {
+			project.addCompileSourceRoot(outputDirectory);
+		}
+		compile(getBatchCompiler(), classPath, compileSourceRoots, outputDirectory);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -76,6 +78,7 @@ public class XtendCompile extends AbstractXtendCompilerMojo {
 			throw new WrappedException(e);
 		}
 		addDependencies(classPath, project.getCompileArtifacts());
+		classPath.remove(project.getBuild().getOutputDirectory());
 		return newArrayList(filter(classPath, FILE_EXISTS));
 	}
 
@@ -83,5 +86,6 @@ public class XtendCompile extends AbstractXtendCompilerMojo {
 	protected String getTempDirectory() {
 		return tempDirectory;
 	}
+
 
 }

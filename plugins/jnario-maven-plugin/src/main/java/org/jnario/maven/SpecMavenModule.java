@@ -1,13 +1,10 @@
 package org.jnario.maven;
-
-import org.eclipse.xtend.maven.MavenTraceURIConverter;
-import org.eclipse.xtext.generator.trace.ITraceURIConverter;
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.jnario.spec.SpecRuntimeModule;
 
-public class SpecMavenModule extends SpecRuntimeModule{
+public class SpecMavenModule extends SpecRuntimeModule {
 
-	public Class<? extends ITraceURIConverter> bindITraceURIConverter() {
-		return MavenTraceURIConverter.class;
+	public Class<? extends ResourceDescriptionsProvider> bindResourceDescriptionsProvider() {
+		return MavenProjectAwareResourceDescriptionsProvider.class;
 	}
-	
 }
