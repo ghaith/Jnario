@@ -5,19 +5,15 @@ import com.google.common.collect.Iterables;
 import gameoflife.CellLocation;
 import java.util.ArrayList;
 import java.util.Set;
-import org.eclipse.xtend.lib.Data;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2;
-import org.eclipse.xtext.xbase.lib.Pure;
-import org.eclipse.xtext.xbase.lib.util.ToStringHelper;
 
-@Data
-@SuppressWarnings("all")
+/* @Data */@SuppressWarnings("all")
 public class World {
-  private final Set<CellLocation> _livingCells;
+  private Set<CellLocation> livingCells;
   
   public static World parseWorld(final CharSequence grid) {
     World _xblockexpression = null;
@@ -50,25 +46,23 @@ public class World {
   }
   
   public static World worldWith(final Iterable<CellLocation> cells) {
-    Set<CellLocation> _set = IterableExtensions.<CellLocation>toSet(cells);
-    return new World(_set);
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The constructor World() is not applicable for the arguments (Set<CellLocation>)");
   }
   
   public Set<CellLocation> deadCells() {
-    Set<CellLocation> _livingCells = this.getLivingCells();
     final Function1<CellLocation, Set<CellLocation>> _function = new Function1<CellLocation, Set<CellLocation>>() {
       @Override
       public Set<CellLocation> apply(final CellLocation it) {
         return it.neighbours();
       }
     };
-    Iterable<Set<CellLocation>> _map = IterableExtensions.<CellLocation, Set<CellLocation>>map(_livingCells, _function);
+    Iterable<Set<CellLocation>> _map = IterableExtensions.<CellLocation, Set<CellLocation>>map(this.livingCells, _function);
     Iterable<CellLocation> _flatten = Iterables.<CellLocation>concat(_map);
     final Function1<CellLocation, Boolean> _function_1 = new Function1<CellLocation, Boolean>() {
       @Override
       public Boolean apply(final CellLocation it) {
-        Set<CellLocation> _livingCells = World.this.getLivingCells();
-        boolean _contains = _livingCells.contains(it);
+        boolean _contains = World.this.livingCells.contains(it);
         return Boolean.valueOf((!_contains));
       }
     };
@@ -81,55 +75,10 @@ public class World {
     final Function1<CellLocation, Boolean> _function = new Function1<CellLocation, Boolean>() {
       @Override
       public Boolean apply(final CellLocation it) {
-        Set<CellLocation> _livingCells = World.this.getLivingCells();
-        return Boolean.valueOf(_livingCells.contains(it));
+        return Boolean.valueOf(World.this.livingCells.contains(it));
       }
     };
     Iterable<CellLocation> _filter = IterableExtensions.<CellLocation>filter(_neighbours, _function);
     return IterableExtensions.size(_filter);
-  }
-  
-  public World(final Set<CellLocation> livingCells) {
-    super();
-    this._livingCells = livingCells;
-  }
-  
-  @Override
-  @Pure
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((this._livingCells== null) ? 0 : this._livingCells.hashCode());
-    return result;
-  }
-  
-  @Override
-  @Pure
-  public boolean equals(final Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    World other = (World) obj;
-    if (this._livingCells == null) {
-      if (other._livingCells != null)
-        return false;
-    } else if (!this._livingCells.equals(other._livingCells))
-      return false;
-    return true;
-  }
-  
-  @Override
-  @Pure
-  public String toString() {
-    String result = new ToStringHelper().toString(this);
-    return result;
-  }
-  
-  @Pure
-  public Set<CellLocation> getLivingCells() {
-    return this._livingCells;
   }
 }

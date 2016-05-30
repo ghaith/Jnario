@@ -94,13 +94,7 @@ public class SpecDocGenerator extends AbstractDocGenerator {
     final Function1<JnarioMember, Boolean> _function = new Function1<JnarioMember, Boolean>() {
       @Override
       public Boolean apply(final JnarioMember it) {
-        boolean _or = false;
-        if (((it instanceof Example) || (it instanceof ExampleGroup))) {
-          _or = true;
-        } else {
-          _or = (it instanceof ExampleTable);
-        }
-        return Boolean.valueOf(_or);
+        return Boolean.valueOf((((it instanceof Example) || (it instanceof ExampleGroup)) || (it instanceof ExampleTable)));
       }
     };
     final Iterable<JnarioMember> members = IterableExtensions.<JnarioMember>filter(_members, _function);
@@ -121,25 +115,13 @@ public class SpecDocGenerator extends AbstractDocGenerator {
             result.append("</li>");
             inList = true;
           } else {
-            boolean _and = false;
-            if (!inList) {
-              _and = false;
-            } else {
-              _and = isExampleGroup;
-            }
-            if (_and) {
+            if ((inList && isExampleGroup)) {
               result.append("</ul>");
               CharSequence _generate_2 = this.generate(member, level);
               result.append(_generate_2);
               inList = false;
             } else {
-              boolean _and_1 = false;
-              if (!(!inList)) {
-                _and_1 = false;
-              } else {
-                _and_1 = isExampleGroup;
-              }
-              if (_and_1) {
+              if (((!inList) && isExampleGroup)) {
                 CharSequence _generate_3 = this.generate(member, level);
                 result.append(_generate_3);
               }
@@ -212,16 +194,7 @@ public class SpecDocGenerator extends AbstractDocGenerator {
       _builder.append(docString, "");
       _builder.newLineIfNotEmpty();
       {
-        boolean _and = false;
-        boolean _isPending = example.isPending();
-        boolean _not = (!_isPending);
-        if (!_not) {
-          _and = false;
-        } else {
-          boolean _eIsSet = example.eIsSet(JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION);
-          _and = _eIsSet;
-        }
-        if (_and) {
+        if (((!example.isPending()) && example.eIsSet(JnarioPackage.Literals.JNARIO_FUNCTION__EXPRESSION))) {
           CharSequence _codeBlock = this.toCodeBlock(example, filters);
           _builder.append(_codeBlock, "");
           _builder.newLineIfNotEmpty();

@@ -1,10 +1,10 @@
 package org.jnario.jnario.tests.unit.report;
 
+import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import org.jnario.jnario.tests.unit.report.HashBasedSpec2ResultMappingSpec;
@@ -305,13 +305,13 @@ public class HashBasedSpec2ResultMappingExampleGroupSpec extends HashBasedSpec2R
   }
   
   public void passes(@Extension final String... names) {
-    final Procedure1<String> _function = new Procedure1<String>() {
+    final Consumer<String> _function = new Consumer<String>() {
       @Override
-      public void apply(final String it) {
+      public void accept(final String it) {
         Passed _passingSpec = Passed.passingSpec(HashBasedSpec2ResultMappingExampleGroupSpec.CLASSNAME, it, HashBasedSpec2ResultMappingSpec.anyExecutionTime);
         HashBasedSpec2ResultMappingExampleGroupSpec.this.subject.accept(_passingSpec);
       }
     };
-    IterableExtensions.<String>forEach(((Iterable<String>)Conversions.doWrapArray(names)), _function);
+    ((List<String>)Conversions.doWrapArray(names)).forEach(_function);
   }
 }

@@ -11,6 +11,7 @@ import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -55,16 +56,16 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
     this.initResultMapping(spec2ResultMapping);
     EList<EObject> _contents = input.getContents();
     Iterable<SuiteFile> _filter = Iterables.<SuiteFile>filter(_contents, SuiteFile.class);
-    final Procedure1<SuiteFile> _function = new Procedure1<SuiteFile>() {
+    final Consumer<SuiteFile> _function = new Consumer<SuiteFile>() {
       @Override
-      public void apply(final SuiteFile it) {
+      public void accept(final SuiteFile it) {
         final HtmlFile htmlFile = SuiteDocGenerator.this.createHtmlFile(it);
         EList<JnarioTypeDeclaration> _xtendTypes = it.getXtendTypes();
         JnarioTypeDeclaration _head = IterableExtensions.<JnarioTypeDeclaration>head(_xtendTypes);
         SuiteDocGenerator.this._htmlFileBuilder.generate(_head, fsa, htmlFile);
       }
     };
-    IterableExtensions.<SuiteFile>forEach(_filter, _function);
+    _filter.forEach(_function);
   }
   
   public HtmlFile createHtmlFile(final SuiteFile file) {
@@ -258,25 +259,23 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
   
   public String text(final Reference ref) {
     boolean _matched = false;
-    if (!_matched) {
-      if (ref instanceof SpecReference) {
-        String _text = ((SpecReference)ref).getText();
-        String _trim = null;
-        if (_text!=null) {
-          _trim=_text.trim();
-        }
-        boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(_trim);
-        boolean _not = (!_isNullOrEmpty);
-        if (_not) {
-          _matched=true;
-          String _text_1 = ((SpecReference)ref).getText();
-          String result = this.markdown2Html(_text_1);
-          int _length = result.length();
-          int _minus = (_length - 4);
-          String _substring = result.substring(3, _minus);
-          result = _substring;
-          return (": " + result);
-        }
+    if (ref instanceof SpecReference) {
+      String _text = ((SpecReference)ref).getText();
+      String _trim = null;
+      if (_text!=null) {
+        _trim=_text.trim();
+      }
+      boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(_trim);
+      boolean _not = (!_isNullOrEmpty);
+      if (_not) {
+        _matched=true;
+        String _text_1 = ((SpecReference)ref).getText();
+        String result = this.markdown2Html(_text_1);
+        int _length = result.length();
+        int _minus = (_length - 4);
+        String _substring = result.substring(3, _minus);
+        result = _substring;
+        return (": " + result);
       }
     }
     return "";

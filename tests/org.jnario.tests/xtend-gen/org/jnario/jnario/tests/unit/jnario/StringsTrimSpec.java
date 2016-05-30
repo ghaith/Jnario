@@ -8,11 +8,10 @@
 package org.jnario.jnario.tests.unit.jnario;
 
 import java.util.Arrays;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import java.util.function.Consumer;
 import org.jnario.jnario.tests.unit.jnario.StringsSpec;
 import org.jnario.jnario.tests.unit.jnario.StringsTrimSpecExamples;
 import org.jnario.lib.Assert;
-import org.jnario.lib.Each;
 import org.jnario.lib.ExampleTable;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
@@ -101,9 +100,9 @@ public class StringsTrimSpec extends StringsSpec {
   @Named("removes the specified leading and trailing character")
   @Order(1)
   public void _removesTheSpecifiedLeadingAndTrailingCharacter() throws Exception {
-    final Procedure1<StringsTrimSpecExamples> _function = new Procedure1<StringsTrimSpecExamples>() {
+    final Consumer<StringsTrimSpecExamples> _function = new Consumer<StringsTrimSpecExamples>() {
       @Override
-      public void apply(final StringsTrimSpecExamples it) {
+      public void accept(final StringsTrimSpecExamples it) {
         String _string = it.getString();
         char _charAt = "_".charAt(0);
         String _trim = Strings.trim(_string, _charAt);
@@ -116,6 +115,6 @@ public class StringsTrimSpec extends StringsSpec {
         
       }
     };
-    Each.<StringsTrimSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
 }

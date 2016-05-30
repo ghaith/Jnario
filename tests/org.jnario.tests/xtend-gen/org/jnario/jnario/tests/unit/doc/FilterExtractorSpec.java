@@ -10,18 +10,17 @@ package org.jnario.jnario.tests.unit.doc;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.doc.Filter;
 import org.jnario.doc.FilterExtractor;
 import org.jnario.doc.FilteringResult;
 import org.jnario.jnario.tests.unit.doc.FilterExtractorSpecFilterCreation;
 import org.jnario.jnario.tests.unit.doc.FilterExtractorSpecFilterExtractions;
 import org.jnario.lib.Assert;
-import org.jnario.lib.Each;
 import org.jnario.lib.ExampleTable;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
@@ -152,9 +151,9 @@ public class FilterExtractorSpec {
   @Named("should remove all filter annotations from a string")
   @Order(1)
   public void _shouldRemoveAllFilterAnnotationsFromAString() throws Exception {
-    final Procedure1<FilterExtractorSpecFilterExtractions> _function = new Procedure1<FilterExtractorSpecFilterExtractions>() {
+    final Consumer<FilterExtractorSpecFilterExtractions> _function = new Consumer<FilterExtractorSpecFilterExtractions>() {
       @Override
-      public void apply(final FilterExtractorSpecFilterExtractions it) {
+      public void accept(final FilterExtractorSpecFilterExtractions it) {
         String _input = it.getInput();
         String _stringAfterExtract = FilterExtractorSpec.this.stringAfterExtract(_input);
         String _resultString = it.getResultString();
@@ -165,16 +164,16 @@ public class FilterExtractorSpec {
         
       }
     };
-    Each.<FilterExtractorSpecFilterExtractions>forEach(this.filterExtractions, _function);
+    this.filterExtractions.forEach(_function);
   }
   
   @Test
   @Named("should extract and create filters")
   @Order(2)
   public void _shouldExtractAndCreateFilters() throws Exception {
-    final Procedure1<FilterExtractorSpecFilterCreation> _function = new Procedure1<FilterExtractorSpecFilterCreation>() {
+    final Consumer<FilterExtractorSpecFilterCreation> _function = new Consumer<FilterExtractorSpecFilterCreation>() {
       @Override
-      public void apply(final FilterExtractorSpecFilterCreation it) {
+      public void accept(final FilterExtractorSpecFilterCreation it) {
         String _input = it.getInput();
         List<String> _extractedFilters = FilterExtractorSpec.this.extractedFilters(_input);
         List<String> _resultingFilters = it.getResultingFilters();
@@ -185,7 +184,7 @@ public class FilterExtractorSpec {
         
       }
     };
-    Each.<FilterExtractorSpecFilterCreation>forEach(this.filterCreation, _function);
+    this.filterCreation.forEach(_function);
   }
   
   public String stringAfterExtract(@Extension final String input) {

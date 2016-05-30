@@ -369,15 +369,7 @@ public class UsingShouldSpec {
   }
   
   public boolean should_eat(@Extension final String animal, @Extension final String food) {
-    boolean _and = false;
-    boolean _equals = Objects.equal(animal, "Monkey");
-    if (!_equals) {
-      _and = false;
-    } else {
-      boolean _equals_1 = Objects.equal(food, "Banana");
-      _and = _equals_1;
-    }
-    return _and;
+    return (Objects.equal(animal, "Monkey") && Objects.equal(food, "Banana"));
   }
   
   /**

@@ -8,10 +8,9 @@
 package org.jnario.suite.unit;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
 import org.eclipse.xtext.util.Strings;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.lib.Assert;
-import org.jnario.lib.Each;
 import org.jnario.lib.ExampleTable;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
@@ -70,9 +69,9 @@ public class PatternValueConverterToStringStringSpec extends PatternValueConvert
   @Named("examples.forEach[subject.toString[input] => result + newLine]")
   @Order(1)
   public void _examplesForEachSubjectToStringInputResultNewLine() throws Exception {
-    final Procedure1<PatternValueConverterToStringStringSpecExamples> _function = new Procedure1<PatternValueConverterToStringStringSpecExamples>() {
+    final Consumer<PatternValueConverterToStringStringSpecExamples> _function = new Consumer<PatternValueConverterToStringStringSpecExamples>() {
       @Override
-      public void apply(final PatternValueConverterToStringStringSpecExamples it) {
+      public void accept(final PatternValueConverterToStringStringSpecExamples it) {
         String _input = it.getInput();
         String _string = PatternValueConverterToStringStringSpec.this.subject.toString(_input);
         String _result = it.getResult();
@@ -88,6 +87,6 @@ public class PatternValueConverterToStringStringSpec extends PatternValueConvert
         
       }
     };
-    Each.<PatternValueConverterToStringStringSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
 }

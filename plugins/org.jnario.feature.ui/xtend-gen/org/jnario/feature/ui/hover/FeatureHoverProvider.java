@@ -21,11 +21,9 @@ public class FeatureHoverProvider extends JnarioHoverProvider {
   protected String getDocumentation(final EObject o) {
     String _switchResult = null;
     boolean _matched = false;
-    if (!_matched) {
-      if (o instanceof Step) {
-        _matched=true;
-        _switchResult = this.getDocumentation(((Step)o));
-      }
+    if (o instanceof Step) {
+      _matched=true;
+      _switchResult = this.getDocumentation(((Step)o));
     }
     if (!_matched) {
       _switchResult = super.getDocumentation(o);

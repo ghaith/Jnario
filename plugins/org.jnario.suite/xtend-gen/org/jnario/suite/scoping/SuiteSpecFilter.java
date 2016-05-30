@@ -25,12 +25,10 @@ public class SuiteSpecFilter implements Predicate<IEObjectDescription> {
     boolean _switchResult = false;
     EClass _eClass = input.getEClass();
     boolean _matched = false;
-    if (!_matched) {
-      EClass _exampleGroup = this._specPackage.getExampleGroup();
-      if (Objects.equal(_eClass, _exampleGroup)) {
-        _matched=true;
-        _switchResult = this.isRoot(input);
-      }
+    EClass _exampleGroup = this._specPackage.getExampleGroup();
+    if (Objects.equal(_eClass, _exampleGroup)) {
+      _matched=true;
+      _switchResult = this.isRoot(input);
     }
     if (!_matched) {
       _switchResult = true;

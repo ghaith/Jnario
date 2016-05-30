@@ -152,17 +152,7 @@ public class HashBasedSpec2ResultMapping implements SpecExecutionAcceptor, Execu
   }
   
   private boolean areNotExecuted(final Iterable<SpecExecution> executions) {
-    boolean _or = false;
-    boolean _isEmpty = IterableExtensions.isEmpty(executions);
-    if (_isEmpty) {
-      _or = true;
-    } else {
-      Iterable<NotRun> _filter = Iterables.<NotRun>filter(executions, NotRun.class);
-      boolean _isEmpty_1 = IterableExtensions.isEmpty(_filter);
-      boolean _not = (!_isEmpty_1);
-      _or = _not;
-    }
-    return _or;
+    return (IterableExtensions.isEmpty(executions) || (!IterableExtensions.isEmpty(Iterables.<NotRun>filter(executions, NotRun.class))));
   }
   
   private Pair<String, String> asKey(final Executable executable) {

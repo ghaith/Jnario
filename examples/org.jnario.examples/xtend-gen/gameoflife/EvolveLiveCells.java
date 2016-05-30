@@ -6,17 +6,7 @@ import gameoflife.Rule;
 public class EvolveLiveCells implements Rule {
   @Override
   public boolean becomesAlive(final int neighbourCount) {
-    boolean _and = false;
-    boolean _underPopulated = this.underPopulated(neighbourCount);
-    boolean _not = (!_underPopulated);
-    if (!_not) {
-      _and = false;
-    } else {
-      boolean _overPopulated = this.overPopulated(neighbourCount);
-      boolean _not_1 = (!_overPopulated);
-      _and = _not_1;
-    }
-    return _and;
+    return ((!this.underPopulated(neighbourCount)) && (!this.overPopulated(neighbourCount)));
   }
   
   public boolean underPopulated(final int neighbourCount) {

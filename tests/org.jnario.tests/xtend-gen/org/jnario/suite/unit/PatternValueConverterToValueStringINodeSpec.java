@@ -8,9 +8,8 @@
 package org.jnario.suite.unit;
 
 import java.util.Arrays;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import java.util.function.Consumer;
 import org.jnario.lib.Assert;
-import org.jnario.lib.Each;
 import org.jnario.lib.ExampleTable;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
@@ -69,9 +68,9 @@ public class PatternValueConverterToValueStringINodeSpec extends PatternValueCon
   @Named("examples.forEach[subject.toValue[input, null] => result]")
   @Order(1)
   public void _examplesForEachSubjectToValueInputNullResult() throws Exception {
-    final Procedure1<PatternValueConverterToValueStringINodeSpecExamples> _function = new Procedure1<PatternValueConverterToValueStringINodeSpecExamples>() {
+    final Consumer<PatternValueConverterToValueStringINodeSpecExamples> _function = new Consumer<PatternValueConverterToValueStringINodeSpecExamples>() {
       @Override
-      public void apply(final PatternValueConverterToValueStringINodeSpecExamples it) {
+      public void accept(final PatternValueConverterToValueStringINodeSpecExamples it) {
         String _input = it.getInput();
         String _value = PatternValueConverterToValueStringINodeSpec.this.subject.toValue(_input, null);
         String _result = it.getResult();
@@ -83,6 +82,6 @@ public class PatternValueConverterToValueStringINodeSpec extends PatternValueCon
         
       }
     };
-    Each.<PatternValueConverterToValueStringINodeSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
 }

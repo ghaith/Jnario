@@ -10,12 +10,12 @@ package org.jnario.jnario.documentation;
 import com.google.common.collect.Iterables;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.jnario.documentation._20FactsAboutXtendSpec;
 import org.jnario.lib.Assert;
 import org.jnario.lib.JnarioCollectionLiterals;
@@ -143,15 +143,15 @@ public class _20FactsAboutXtendFunctionalProgrammingFTWSpec extends _20FactsAbou
   @Order(4)
   public void _betterLoops() throws Exception {
     List<Integer> _list = JnarioCollectionLiterals.<Integer>list(Integer.valueOf(11), Integer.valueOf(17), Integer.valueOf(19));
-    final Procedure1<Integer> _function = new Procedure1<Integer>() {
+    final Consumer<Integer> _function = new Consumer<Integer>() {
       @Override
-      public void apply(final Integer it) {
+      public void accept(final Integer it) {
         Assert.assertTrue("\nExpected it > 10 but"
          + "\n     it is " + new org.hamcrest.StringDescription().appendValue((it).intValue()).toString() + "\n", ((it).intValue() > 10));
         
       }
     };
-    IterableExtensions.<Integer>forEach(_list, _function);
+    _list.forEach(_function);
   }
   
   /**

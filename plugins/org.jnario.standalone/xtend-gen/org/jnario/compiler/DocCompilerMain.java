@@ -42,16 +42,7 @@ import org.jnario.suite.SuiteStandaloneSetup;
 @SuppressWarnings("all")
 public class DocCompilerMain {
   public static void main(final String[] args) {
-    boolean _or = false;
-    boolean _equals = Objects.equal(args, null);
-    if (_equals) {
-      _or = true;
-    } else {
-      int _size = ((List<String>)Conversions.doWrapArray(args)).size();
-      boolean _equals_1 = (_size == 0);
-      _or = _equals_1;
-    }
-    if (_or) {
+    if ((Objects.equal(args, null) || (((List<String>)Conversions.doWrapArray(args)).size() == 0))) {
       DocCompilerMain.printUsage();
       return;
     }
@@ -65,20 +56,10 @@ public class DocCompilerMain {
             String _next = arguments.next();
             final String argument = _next.trim();
             boolean _matched = false;
-            if (!_matched) {
-              boolean _or = false;
-              boolean _equals = Objects.equal(argument, "-cp");
-              if (_equals) {
-                _or = true;
-              } else {
-                boolean _equals_1 = Objects.equal(argument, "-classpath");
-                _or = _equals_1;
-              }
-              if (_or) {
-                _matched=true;
-                String _next_1 = arguments.next();
-                it.setClassPath(_next_1);
-              }
+            if ((Objects.equal(argument, "-cp") || Objects.equal(argument, "-classpath"))) {
+              _matched=true;
+              String _next_1 = arguments.next();
+              it.setClassPath(_next_1);
             }
             if (!_matched) {
               if (Objects.equal(argument, "-d")) {

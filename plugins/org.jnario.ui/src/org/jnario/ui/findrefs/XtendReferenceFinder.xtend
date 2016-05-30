@@ -1,54 +1,45 @@
 package org.jnario.ui.findrefs
 
 import com.google.inject.Inject
-import java.util.Set
 import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.emf.common.util.URI
-import org.eclipse.xtext.resource.IReferenceDescription
-import org.eclipse.xtext.resource.IResourceDescription
-import org.eclipse.xtext.resource.IResourceDescriptions
-import org.eclipse.xtext.resource.IResourceServiceProvider$Registry
-import org.eclipse.xtext.ui.editor.findrefs.DefaultReferenceFinder
-import org.eclipse.xtext.ui.editor.findrefs.IReferenceFinder
-import org.eclipse.xtext.util.IAcceptor
-import org.eclipse.xtext.ui.editor.findrefs.IReferenceFinder$ILocalResourceAccess
 import org.eclipse.xtext.EcoreUtil2
-import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.common.types.JvmType
+import org.eclipse.xtext.findReferences.ReferenceFinder
+import org.eclipse.xtext.findReferences.TargetURIs
+import org.eclipse.xtext.naming.IQualifiedNameConverter
+import org.eclipse.xtext.resource.IResourceDescription
+import org.eclipse.xtext.resource.IResourceServiceProvider.Registry
 
-class XtendReferenceFinder extends DefaultReferenceFinder implements IReferenceFinder {
+class XtendReferenceFinder extends ReferenceFinder  {
 	IQualifiedNameConverter nameConverter
 
-	@Inject new(IResourceDescriptions indexData, Registry serviceProviderRegistry, IQualifiedNameConverter nameConverter) {
-		super(indexData, serviceProviderRegistry)
+	@Inject new(Registry serviceProviderRegistry, IQualifiedNameConverter nameConverter) {
+		super(serviceProviderRegistry)
 		this.nameConverter = nameConverter
 	}
 	
-	override findReferences(Set<URI> targetURIs, IResourceDescription resourceDescription, IAcceptor<IReferenceDescription> acceptor, IProgressMonitor monitor, ILocalResourceAccess localResourceAccess) {
+	override protected findReferencesInDescription(TargetURIs targetURIs, IResourceDescription resourceDescription, IResourceAccess resourceAccess, Acceptor acceptor, IProgressMonitor monitor) {
 		// don't check local resources
 		if (targetURIs.map[trimFragment].exists[it == resourceDescription.getURI])
 			return;
-			
 		val names = newHashSet()
-		for (uri : targetURIs) {
-			localResourceAccess.readOnly(uri) [
+		targetURIs.forEach[uri |
+			resourceAccess.readOnly(uri) [
 				val obj = EcoreUtil2::getContainerOfType(it.getEObject(uri, true), typeof(JvmType))
 				if (obj!=null) {
 					names += nameConverter.toQualifiedName(obj.identifier.toLowerCase)
 				}
 			]
-		}
 		val importedNames = resourceDescription.importedNames.map[toLowerCase].toSet
 		if (names.exists[
 			importedNames.contains(it)
 		]) {
-			localResourceAccess.readOnly(resourceDescription.getURI) [
-				findLocalReferencesInResource(targetURIs, it.getResource(resourceDescription.getURI, true), [
-					acceptor.accept(it)
-				])
+			resourceAccess.readOnly(resourceDescription.getURI) [
+				findReferences(targetURIs, getResource(resourceDescription.URI, true), acceptor, monitor)
 				return null
 			]
 		} 
+			
+		]
 	}
-
 }

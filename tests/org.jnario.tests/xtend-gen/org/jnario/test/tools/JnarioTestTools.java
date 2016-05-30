@@ -1,11 +1,10 @@
 package org.jnario.test.tools;
 
 import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.eclipse.xtext.xbase.lib.InputOutput;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class JnarioTestTools {
@@ -18,15 +17,15 @@ public class JnarioTestTools {
       InputOutput.<String>println("Diagnostics:");
       Diagnostic _diagnostic_1 = it.getDiagnostic();
       List<Diagnostic> _children_1 = _diagnostic_1.getChildren();
-      final Procedure1<Diagnostic> _function = new Procedure1<Diagnostic>() {
+      final Consumer<Diagnostic> _function = new Consumer<Diagnostic>() {
         @Override
-        public void apply(final Diagnostic it) {
+        public void accept(final Diagnostic it) {
           String _message = it.getMessage();
           String _plus = ("- " + _message);
           InputOutput.<String>println(_plus);
         }
       };
-      IterableExtensions.<Diagnostic>forEach(_children_1, _function);
+      _children_1.forEach(_function);
       it.fail("There are expected to be no diagnostics.");
     }
   }

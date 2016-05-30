@@ -5,6 +5,7 @@ import com.google.common.base.Splitter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.eclipse.emf.common.util.EList;
@@ -17,7 +18,6 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2;
 import org.jnario.RichString;
 import org.jnario.RichStringLiteral;
@@ -134,13 +134,7 @@ public class RichStringProcessor {
       final Procedure2<String, Integer> _function = new Procedure2<String, Integer>() {
         @Override
         public void apply(final String it, final Integer index) {
-          boolean _or = false;
-          if (shouldFixIndentation) {
-            _or = true;
-          } else {
-            _or = ((index).intValue() != 0);
-          }
-          if (_or) {
+          if ((shouldFixIndentation || ((index).intValue() != 0))) {
             final String currentIndentation = RichStringProcessor.getIndentation(it);
             String _trim = it.trim();
             int _length = _trim.length();
@@ -155,13 +149,7 @@ public class RichStringProcessor {
               _builder.append(variableName, "");
               _builder.append(".append(\"");
               String _xifexpression = null;
-              boolean _or = false;
-              if (shouldFixIndentation) {
-                _or = true;
-              } else {
-                _or = ((index).intValue() != 0);
-              }
-              if (_or) {
+              if ((shouldFixIndentation || ((index).intValue() != 0))) {
                 String _correctIndentation = RichStringAcceptor.this.correctIndentation(it);
                 _xifexpression = RichStringAcceptor.this.escape(_correctIndentation);
               } else {
@@ -202,28 +190,20 @@ public class RichStringProcessor {
       this.clearEmptyFirstAndLastLines(lineInformation, toBeAppended);
       String _calculateIndentation = this.calculateIndentation(lineInformation);
       this.indentation = _calculateIndentation;
-      final Procedure1<Procedure2<ITreeAppendable, String>> _function = new Procedure1<Procedure2<ITreeAppendable, String>>() {
+      final Consumer<Procedure2<ITreeAppendable, String>> _function = new Consumer<Procedure2<ITreeAppendable, String>>() {
         @Override
-        public void apply(final Procedure2<ITreeAppendable, String> it) {
+        public void accept(final Procedure2<ITreeAppendable, String> it) {
           it.apply(appendable, variableName);
         }
       };
-      IterableExtensions.<Procedure2<ITreeAppendable, String>>forEach(toBeAppended, _function);
+      toBeAppended.forEach(_function);
     }
     
     public Procedure2<ITreeAppendable, String> clearEmptyFirstAndLastLines(final List<Pair<String, Boolean>> lineInformation, final List<Procedure2<ITreeAppendable, String>> toBeAppended) {
       Procedure2<ITreeAppendable, String> _xblockexpression = null;
       {
         final Pair<String, Boolean> first = IterableExtensions.<Pair<String, Boolean>>head(lineInformation);
-        boolean _or = false;
-        boolean _isNullOrEmpty = IterableExtensions.isNullOrEmpty(lineInformation);
-        if (_isNullOrEmpty) {
-          _or = true;
-        } else {
-          Boolean _value = first.getValue();
-          _or = (_value).booleanValue();
-        }
-        boolean _not = (!_or);
+        boolean _not = (!(IterableExtensions.isNullOrEmpty(lineInformation) || (first.getValue()).booleanValue()));
         if (_not) {
           lineInformation.remove(0);
           toBeAppended.remove(0);
@@ -234,15 +214,7 @@ public class RichStringProcessor {
         }
         final Pair<String, Boolean> last = IterableExtensions.<Pair<String, Boolean>>last(lineInformation);
         Procedure2<ITreeAppendable, String> _xifexpression = null;
-        boolean _or_1 = false;
-        boolean _isNullOrEmpty_1 = IterableExtensions.isNullOrEmpty(lineInformation);
-        if (_isNullOrEmpty_1) {
-          _or_1 = true;
-        } else {
-          Boolean _value_1 = last.getValue();
-          _or_1 = (_value_1).booleanValue();
-        }
-        boolean _not_1 = (!_or_1);
+        boolean _not_1 = (!(IterableExtensions.isNullOrEmpty(lineInformation) || (last.getValue()).booleanValue()));
         if (_not_1) {
           Procedure2<ITreeAppendable, String> _xblockexpression_1 = null;
           {

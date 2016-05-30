@@ -40,13 +40,11 @@ public class _20FactsAboutXtendTheUberSwitchExpressionSpec extends _20FactsAbout
     final String myString = "Hello";
     String _switchResult = null;
     boolean _matched = false;
-    if (!_matched) {
-      int _length = myString.length();
-      boolean _greaterThan = (_length > 5);
-      if (_greaterThan) {
-        _matched=true;
-        _switchResult = "a long string.";
-      }
+    int _length = myString.length();
+    boolean _greaterThan = (_length > 5);
+    if (_greaterThan) {
+      _matched=true;
+      _switchResult = "a long string.";
     }
     if (!_matched) {
       if (Objects.equal(myString, "some")) {
@@ -75,14 +73,12 @@ public class _20FactsAboutXtendTheUberSwitchExpressionSpec extends _20FactsAbout
     final Object x = ((Object) _list);
     int _switchResult = (int) 0;
     boolean _matched = false;
-    if (!_matched) {
-      if (x instanceof String) {
-        int _length = ((String)x).length();
-        boolean _greaterThan = (_length > 0);
-        if (_greaterThan) {
-          _matched=true;
-          _switchResult = ((String)x).length();
-        }
+    if (x instanceof String) {
+      int _length = ((String)x).length();
+      boolean _greaterThan = (_length > 0);
+      if (_greaterThan) {
+        _matched=true;
+        _switchResult = ((String)x).length();
       }
     }
     if (!_matched) {

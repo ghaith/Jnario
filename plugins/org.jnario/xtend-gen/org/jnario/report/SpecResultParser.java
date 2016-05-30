@@ -53,18 +53,16 @@ public class SpecResultParser extends DefaultHandler {
   @Override
   public void startElement(final String uri, final String localName, final String qName, final Attributes attributes) throws SAXException {
     boolean _matched = false;
-    if (!_matched) {
-      if (Objects.equal(qName, SpecResultTags.NODE_TESTCASE)) {
-        _matched=true;
-        String _convertValue = this.convertValue(attributes, SpecResultTags.ATTR_CLASSNAME);
-        this.currentClassName = _convertValue;
-        String _convertValue_1 = this.convertValue(attributes, SpecResultTags.ATTR_NAME);
-        this.currentName = _convertValue_1;
-        double _readTime = this.readTime(attributes);
-        this.currentExecutionTime = _readTime;
-        ArrayList<SpecFailure> _newArrayList = CollectionLiterals.<SpecFailure>newArrayList();
-        this.failures = _newArrayList;
-      }
+    if (Objects.equal(qName, SpecResultTags.NODE_TESTCASE)) {
+      _matched=true;
+      String _convertValue = this.convertValue(attributes, SpecResultTags.ATTR_CLASSNAME);
+      this.currentClassName = _convertValue;
+      String _convertValue_1 = this.convertValue(attributes, SpecResultTags.ATTR_NAME);
+      this.currentName = _convertValue_1;
+      double _readTime = this.readTime(attributes);
+      this.currentExecutionTime = _readTime;
+      ArrayList<SpecFailure> _newArrayList = CollectionLiterals.<SpecFailure>newArrayList();
+      this.failures = _newArrayList;
     }
     if (!_matched) {
       if (Objects.equal(qName, SpecResultTags.NODE_ERROR)) {
@@ -96,15 +94,13 @@ public class SpecResultParser extends DefaultHandler {
   @Override
   public void endElement(final String uri, final String localName, final String qName) throws SAXException {
     boolean _matched = false;
-    if (!_matched) {
-      if (Objects.equal(qName, SpecResultTags.NODE_TESTCASE)) {
-        _matched=true;
-        SpecExecution _newSpecExecution = this.newSpecExecution();
-        this.acceptor.accept(_newSpecExecution);
-        this.currentClassName = null;
-        this.currentName = null;
-        this.currentExecutionTime = 0.0;
-      }
+    if (Objects.equal(qName, SpecResultTags.NODE_TESTCASE)) {
+      _matched=true;
+      SpecExecution _newSpecExecution = this.newSpecExecution();
+      this.acceptor.accept(_newSpecExecution);
+      this.currentClassName = null;
+      this.currentName = null;
+      this.currentExecutionTime = 0.0;
     }
     if (!_matched) {
       if (Objects.equal(qName, SpecResultTags.NODE_ERROR)) {

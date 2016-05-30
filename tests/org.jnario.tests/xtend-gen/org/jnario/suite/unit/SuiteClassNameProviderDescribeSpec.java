@@ -8,10 +8,9 @@
 package org.jnario.suite.unit;
 
 import java.util.Arrays;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import java.util.function.Consumer;
 import org.jnario.jnario.test.util.Suites;
 import org.jnario.lib.Assert;
-import org.jnario.lib.Each;
 import org.jnario.lib.ExampleTable;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
@@ -80,9 +79,9 @@ public class SuiteClassNameProviderDescribeSpec extends SuiteClassNameProviderSp
   @Named("examples.forEach[subject.^describe[suite[name]] => expectedClassName]")
   @Order(1)
   public void _examplesForEachSubjectDescribeSuiteNameExpectedClassName() throws Exception {
-    final Procedure1<SuiteClassNameProviderDescribeSpecExamples> _function = new Procedure1<SuiteClassNameProviderDescribeSpecExamples>() {
+    final Consumer<SuiteClassNameProviderDescribeSpecExamples> _function = new Consumer<SuiteClassNameProviderDescribeSpecExamples>() {
       @Override
-      public void apply(final SuiteClassNameProviderDescribeSpecExamples it) {
+      public void accept(final SuiteClassNameProviderDescribeSpecExamples it) {
         String _name = it.getName();
         Suite _suite = Suites.suite(_name);
         String _describe = SuiteClassNameProviderDescribeSpec.this.subject.describe(_suite);
@@ -96,6 +95,6 @@ public class SuiteClassNameProviderDescribeSpec extends SuiteClassNameProviderSp
         
       }
     };
-    Each.<SuiteClassNameProviderDescribeSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
 }

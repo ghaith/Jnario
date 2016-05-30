@@ -7,6 +7,8 @@ import static com.google.common.collect.Iterables.toArray;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
+import static com.google.common.collect.Maps.newHashMap;
+import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.eclipse.xtext.util.Strings.concat;
@@ -18,6 +20,7 @@ import java.io.CharArrayWriter;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -26,45 +29,50 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.core.compiler.batch.BatchCompiler;
+import org.eclipse.xtext.Constants;
 import org.eclipse.xtext.common.types.access.impl.ClasspathTypeProvider;
 import org.eclipse.xtext.common.types.access.impl.IndexedJvmTypeAccess;
 import org.eclipse.xtext.common.types.descriptions.IStubGenerator;
 import org.eclipse.xtext.diagnostics.Severity;
-import org.eclipse.xtext.generator.IGenerator;
+import org.eclipse.xtext.generator.GeneratorContext;
+import org.eclipse.xtext.generator.GeneratorDelegate;
+import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
+import org.eclipse.xtext.generator.OutputConfiguration;
+import org.eclipse.xtext.generator.OutputConfigurationAdapter;
 import org.eclipse.xtext.mwe.NameBasedFilter;
 import org.eclipse.xtext.mwe.PathTraverser;
 import org.eclipse.xtext.parser.IEncodingProvider;
-import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.CompilerPhases;
 import org.eclipse.xtext.resource.FileExtensionProvider;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
-import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceSetBasedResourceDescriptions;
 import org.eclipse.xtext.resource.persistence.StorageAwareResource;
+import org.eclipse.xtext.util.CancelIndicator;
+import org.eclipse.xtext.util.Files;
 import org.eclipse.xtext.util.Strings;
+import org.eclipse.xtext.util.UriUtil;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
+import org.eclipse.xtext.workspace.FileProjectConfig;
 import org.eclipse.xtext.xbase.compiler.GeneratorConfig;
 import org.eclipse.xtext.xbase.compiler.GeneratorConfigProvider;
-import org.eclipse.xtext.xbase.compiler.JavaVersion;
-import org.eclipse.xtext.xbase.file.ProjectConfig;
-import org.eclipse.xtext.xbase.file.RuntimeWorkspaceConfigProvider;
-import org.eclipse.xtext.xbase.file.SimpleWorkspaceConfig;
+import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.xbase.resource.BatchLinkableResource;
-import org.jnario.JnarioFile;
 
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
@@ -73,6 +81,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.name.Named;
 
 /**
  * A copy of the XtendBatchCompiler.
@@ -112,7 +121,7 @@ public class AbstractBatchCompiler {
 	@Inject
 	protected Provider<ResourceSetBasedResourceDescriptions> resourceSetDescriptionsProvider;
 	@Inject
-	private IGenerator generator;
+	private GeneratorDelegate generator;
 	@Inject
 	private IndexedJvmTypeAccess indexedJvmTypeAccess;
 	@Inject
@@ -120,11 +129,16 @@ public class AbstractBatchCompiler {
 	@Inject
 	private IResourceDescription.Manager resourceDescriptionManager;
 	@Inject
-	private RuntimeWorkspaceConfigProvider workspaceConfigProvider;
-	@Inject
 	private CompilerPhases compilerPhases;
 	@Inject
 	private IStubGenerator stubGenerator;
+	@Inject 
+	private IOutputConfigurationProvider outputConfigurationProvider;
+	@Inject
+	private GeneratorConfigProvider generatorConfigProvider;
+	@Inject
+	@Named(Constants.LANGUAGE_NAME)
+	private String languageName;
 
 	protected String sourcePath;
 	protected String classPath;
@@ -152,6 +166,8 @@ public class AbstractBatchCompiler {
 	private ClassLoader jvmTypesClassLoader;
 
 	private ClassLoader annotationProcessingClassLoader;
+
+	private OutputConfiguration outputConfiguration;
 
 	public void setCurrentClassLoader(ClassLoader currentClassLoader) {
 		this.currentClassLoader = currentClassLoader;
@@ -219,7 +235,7 @@ public class AbstractBatchCompiler {
 	 * @since 2.8
 	 */
 	public void setBasePath(String basePath) {
-		this.baseURI = URI.createFileURI(new File(basePath).getAbsolutePath());
+		this.baseURI = UriUtil.createFolderURI(new File(basePath));
 	}
 
 	public void setOutputPath(String outputPath) {
@@ -320,8 +336,15 @@ public class AbstractBatchCompiler {
 	public void setFileEncoding(String encoding) {
 		this.fileEncoding = encoding;
 	}
-
-	public boolean configureWorkspace() {
+	
+	/**
+	 * @noreference Only for testing
+	 */
+	public OutputConfiguration getOutputConfiguration() {
+		return outputConfiguration;
+	}
+	
+	private boolean configureWorkspace(ResourceSet resourceSet) {
 		List<File> sourceFileList = getSourcePathFileList();
 		File outputFile = getOutputPathFile();
 		if (sourceFileList == null || outputFile == null) {
@@ -340,9 +363,7 @@ public class AbstractBatchCompiler {
 			log.error("(Output folder: '" + outputFile + "')");
 			return false;
 		}
-
-		SimpleWorkspaceConfig workspaceConfig = new SimpleWorkspaceConfig(commonRoot.getParent().toString());
-		ProjectConfig projectConfig = new ProjectConfig(commonRoot.getName());
+		FileProjectConfig projectConfig = new FileProjectConfig(commonRoot, commonRoot.getName());
 
 		java.net.URI commonURI = commonRoot.toURI();
 		java.net.URI relativizedTarget = commonURI.relativize(outputFile.toURI());
@@ -350,43 +371,37 @@ public class AbstractBatchCompiler {
 			log.error("Target folder '" + outputFile + "' must be a child of the project folder '" + commonRoot + "'");
 			return false;
 		}
-
+		CharMatcher slash = CharMatcher.is('/');
 		for (File source : sourceFileList) {
 			java.net.URI relativizedSrc = commonURI.relativize(source.toURI());
 			if (relativizedSrc.isAbsolute()) {
 				log.error("Source folder '" + source + "' must be a child of the project folder '" + commonRoot + "'");
 				return false;
 			}
-			projectConfig.addSourceFolderMapping(relativizedSrc.getPath(), relativizedTarget.getPath());
+			projectConfig.addSourceFolder(slash.trimTrailingFrom(relativizedSrc.getPath()));
 		}
-		workspaceConfig.addProjectConfig(projectConfig);
-		workspaceConfigProvider.setWorkspaceConfig(workspaceConfig);
+		Map<String, Set<OutputConfiguration>> outputConfigurations = newHashMap();
+		outputConfigurations.put(languageName, newHashSet(outputConfiguration));
+		resourceSet.eAdapters().add(new OutputConfigurationAdapter(outputConfigurations));
 		return true;
 	}
 
 	private File getOutputPathFile() {
-		try {
-			return new File(outputPath).getCanonicalFile();
-		} catch (IOException e) {
-			log.error("Invalid target folder '" + outputPath + "' (" + e.getMessage() + ")");
-			return null;
-		}
+		return new File(outputPath).getAbsoluteFile();
 	}
 
 	private List<File> getSourcePathFileList() {
 		List<File> sourceFileList = new ArrayList<File>();
 		for (String path : getSourcePathDirectories()) {
-			try {
-				sourceFileList.add(new File(path).getCanonicalFile());
-			} catch (IOException e) {
-				log.error("Invalid source folder '" + path + "' (" + e.getMessage() + ")");
-				return null;
-			}
+			sourceFileList.add(new File(path).getAbsoluteFile());
 		}
 		return sourceFileList;
 	}
 
 	private File determineCommonRoot(File outputFile, List<File> sourceFileList) {
+		if (baseURI != null && baseURI.isFile()) {
+			return new File(baseURI.toFileString());
+		}
 		List<File> pathList = new ArrayList<File>(sourceFileList);
 		pathList.add(outputFile);
 
@@ -428,13 +443,11 @@ public class AbstractBatchCompiler {
 			if (!checkConfiguration()) {
 				return false;
 			}
-			if (workspaceConfigProvider.getWorkspaceConfig() == null) {
-				if (!configureWorkspace()) {
-					return false;
-				}
-			}
 			ResourceSet resourceSet = resourceSetProvider.get();
-			GeneratorConfigProvider.install(resourceSet, generatorConfig);
+			if (!configureWorkspace(resourceSet)) {
+				return false;
+			}
+			generatorConfigProvider.install(resourceSet, generatorConfig);
 			File classDirectory = createTempDir("classes");
 			try {
 				compilerPhases.setIndexing(resourceSet, true);
@@ -494,9 +507,13 @@ public class AbstractBatchCompiler {
 		File output = getOutputPathFile();
 		for (String sourcePath : getSourcePathDirectories()) {
 			File sourceDirectory = new File(sourcePath);
-			if (isContainedIn(output, sourceDirectory)) {
-				log.error("The configured output path \""+getOutputPathFile()+"\" cannot be a child of the configured source directory \""+sourcePath+"\".");
-				return false;
+			try {
+				if (isContainedIn(output.getCanonicalFile(), sourceDirectory.getCanonicalFile())) {
+					log.error("The configured output path \""+getOutputPathFile()+"\" cannot be a child of the configured source directory \""+sourcePath+"\".");
+					return false;
+				}
+			} catch (IOException e) {
+				log.error("invalid configuration", e);
 			}
 		}
 		return true;
@@ -527,27 +544,11 @@ public class AbstractBatchCompiler {
 			}
 		});
 		for (String src : pathes.keySet()) {
-			URI srcURI = URI.createFileURI(src + "/");
-			URI relativeSrcURI = null;
-			if(baseURI != null) {
-				relativeSrcURI = srcURI.deresolve(baseURI);
-			} else {
-				relativeSrcURI = srcURI;
-			}
-			URI platformResourceURI = null;
-			if(relativeSrcURI.isRelative()) {
-				platformResourceURI = URI.createPlatformResourceURI(relativeSrcURI.toString(), true);
-			} else {
-				String identifier = Joiner.on("_").join(relativeSrcURI.segments());
-				platformResourceURI = URI.createPlatformResourceURI(identifier + "/", true);
-			}
-			resourceSet.getURIConverter().getURIMap().put(platformResourceURI, srcURI);
 			for (URI uri : pathes.get(src)) {
 				if (log.isDebugEnabled()) {
 					log.debug("load xtend file '" + uri + "'");
 				}
-				URI uriToUse = uri.replacePrefix(srcURI, platformResourceURI);
-				resourceSet.getResource(uriToUse, true);
+				resourceSet.getResource(uri, true);
 			}
 		}
 		return resourceSet;
@@ -719,6 +720,7 @@ public class AbstractBatchCompiler {
 
 		// for annotation processing we need to have the compiler's classpath as a parent.
 		annotationProcessingClassLoader = createClassLoader(classpath, currentClassLoader);
+		resourceSet.eAdapters().add(new ProcessorInstanceForJvmTypeProvider.ProcessorClassloaderAdapter(annotationProcessingClassLoader));
 	}
 	
 	private static final Function<String, File> TO_FILE = new Function<String, File>() {
@@ -729,6 +731,7 @@ public class AbstractBatchCompiler {
 	};
 	
 	private static final Function<File, URL> TO_URL= new Function<File, URL>() {
+		@SuppressWarnings("deprecation")
 		@Override
 		public URL apply(File from) {
 			try {
@@ -777,13 +780,15 @@ public class AbstractBatchCompiler {
 		javaIoFileSystemAccess.setOutputPath(outputPath);
 		javaIoFileSystemAccess.setWriteTrace(writeTraceFiles);
 
+		GeneratorContext context = new GeneratorContext();
+		context.setCancelIndicator(CancelIndicator.NullImpl);
 		for (Resource resource : newArrayList(resourceSet.getResources())) {
 			if (isSourceFile(resource)) {
 				if (isWriteStorageFiles()) {
 					StorageAwareResource storageAwareResource = (StorageAwareResource)resource;
 					storageAwareResource.getResourceStorageFacade().saveResource(storageAwareResource, javaIoFileSystemAccess);
 				}
-				generator.doGenerate(resource, javaIoFileSystemAccess);
+				generator.generate(resource, javaIoFileSystemAccess, context);
 			}
 		}
 	}
@@ -795,18 +800,18 @@ public class AbstractBatchCompiler {
 		return resourceDescriptions;
 	}
 
-	/* @Nullable */protected JnarioFile getXtendFile(Resource resource) {
-		XtextResource xtextResource = (XtextResource) resource;
-		IParseResult parseResult = xtextResource.getParseResult();
-		if (parseResult != null) {
-			EObject model = parseResult.getRootASTElement();
-			if (model instanceof JnarioFile) {
-				JnarioFile xtendFile = (JnarioFile) model;
-				return xtendFile;
-			}
-		}
-		return null;
-	}
+//	/* @Nullable */protected XtendFile getXtendFile(Resource resource) {
+//		XtextResource xtextResource = (XtextResource) resource;
+//		IParseResult parseResult = xtextResource.getParseResult();
+//		if (parseResult != null) {
+//			EObject model = parseResult.getRootASTElement();
+//			if (model instanceof XtendFile) {
+//				XtendFile xtendFile = (XtendFile) model;
+//				return xtendFile;
+//			}
+//		}
+//		return null;
+//	}
 
 	protected List<String> getClassPathEntries() {
 		return getDirectories(classPath);
@@ -852,36 +857,14 @@ public class AbstractBatchCompiler {
 		}
 	}
 
-	// FIXME: use Files#cleanFolder after the maven distro availability of version 2.2.x
 	protected static boolean cleanFolder(File parentFolder, FileFilter filter, boolean continueOnError,
 			boolean deleteParentFolder) {
-		if (!parentFolder.exists()) {
+		try {
+			log.debug("Cleaning folder " + parentFolder.toString());
+			return Files.cleanFolder(parentFolder, null, continueOnError, deleteParentFolder);
+		} catch (FileNotFoundException e) {
 			return true;
 		}
-		if (filter == null)
-			filter = ACCEPT_ALL_FILTER;
-		log.debug("Cleaning folder " + parentFolder.toString());
-		final File[] contents = parentFolder.listFiles(filter);
-		for (int j = 0; j < contents.length; j++) {
-			final File file = contents[j];
-			if (file.isDirectory()) {
-				if (!cleanFolder(file, filter, continueOnError, true) && !continueOnError)
-					return false;
-			} else {
-				if (!file.delete()) {
-					log.error("Couldn't delete " + file.getAbsolutePath());
-					if (!continueOnError)
-						return false;
-				}
-			}
-		}
-		if (deleteParentFolder) {
-			if (parentFolder.list().length == 0 && !parentFolder.delete()) {
-				log.error("Couldn't delete " + parentFolder.getAbsolutePath());
-				return false;
-			}
-		}
-		return true;
 	}
 	
 	@Deprecated

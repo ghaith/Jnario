@@ -11,11 +11,11 @@
 package org.jnario.spec;
 
 
-import org.eclipse.xtend.lib.macro.file.FileLocations;
 import org.eclipse.xtext.common.types.descriptions.JvmDeclaredTypeSignatureHashProvider.SignatureHashBuilder;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.conversion.impl.IDValueConverter;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.generator.AbstractFileSystemAccess;
 import org.eclipse.xtext.generator.IFilePostProcessor;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.generator.OutputConfigurationProvider;
@@ -33,11 +33,6 @@ import org.eclipse.xtext.validation.CompositeEValidator;
 import org.eclipse.xtext.xbase.XbaseFactory;
 import org.eclipse.xtext.xbase.compiler.XbaseCompiler;
 import org.eclipse.xtext.xbase.compiler.output.TraceAwarePostProcessor;
-import org.eclipse.xtext.xbase.file.AbstractFileSystemSupport;
-import org.eclipse.xtext.xbase.file.FileLocationsImpl;
-import org.eclipse.xtext.xbase.file.JavaIOFileSystemSupport;
-import org.eclipse.xtext.xbase.file.RuntimeWorkspaceConfigProvider;
-import org.eclipse.xtext.xbase.file.WorkspaceConfig;
 import org.eclipse.xtext.xbase.formatting.NodeModelAccess;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelInferrer;
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder;
@@ -254,22 +249,14 @@ public class SpecRuntimeModule extends org.jnario.spec.AbstractSpecRuntimeModule
 		return NonStoringBatchLinkableResourceStorageFacade.class;
 	}
 
-	public Class<? extends AbstractFileSystemSupport> bindAbstractFileSystemSupport() {
-		return JavaIOFileSystemSupport.class;
+	public Class<? extends AbstractFileSystemAccess> bindAbstractFileSystemSupport() {
+		return JavaIoFileSystemAccess.class;
 	}
 	
 //	@Override
 //	public Class<? extends IGenerator> bindIGenerator() {
 //		return XtendGenerator.class;
 //	}
-	
-	public void configureWorkspaceConfigContribution(Binder binder) {
-		binder.bind(WorkspaceConfig.class).toProvider(RuntimeWorkspaceConfigProvider.class);
-	}
-	
-	public Class<? extends FileLocations> bindFileLocations() {
-		return FileLocationsImpl.class;
-	}
 	
 	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
 		return XtendDocumentationProvider.class;

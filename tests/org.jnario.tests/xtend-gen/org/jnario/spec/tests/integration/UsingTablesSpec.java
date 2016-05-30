@@ -9,6 +9,7 @@ package org.jnario.spec.tests.integration;
 
 import com.google.inject.Inject;
 import java.util.Arrays;
+import java.util.function.Consumer;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -17,7 +18,6 @@ import org.jnario.jnario.test.util.Helpers;
 import org.jnario.jnario.test.util.SpecTestCreator;
 import org.jnario.lib.Assert;
 import org.jnario.lib.ExampleTable;
-import org.jnario.lib.ExampleTableIterators;
 import org.jnario.lib.Should;
 import org.jnario.runner.CreateWith;
 import org.jnario.runner.ExampleGroupRunner;
@@ -393,9 +393,9 @@ public class UsingTablesSpec {
     final Procedure1<Boolean> _function = new Procedure1<Boolean>() {
       @Override
       public void apply(final Boolean it) {
-        final Procedure1<UsingTablesSpecExample> _function = new Procedure1<UsingTablesSpecExample>() {
+        final Consumer<UsingTablesSpecExample> _function = new Consumer<UsingTablesSpecExample>() {
           @Override
-          public void apply(final UsingTablesSpecExample it) {
+          public void accept(final UsingTablesSpecExample it) {
             int _value1 = it.getValue1();
             int _value2 = it.getValue2();
             int _plus = (_value1 + _value2);
@@ -408,7 +408,7 @@ public class UsingTablesSpec {
             
           }
         };
-        ExampleTableIterators.<UsingTablesSpecExample>forEach(UsingTablesSpec.this.example, _function);
+        UsingTablesSpec.this.example.forEach(_function);
       }
     };
     String _errorMessage = Helpers.errorMessage(_function);

@@ -8,14 +8,13 @@
 package org.jnario.feature.tests.unit.naming;
 
 import java.util.Arrays;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import java.util.function.Consumer;
 import org.jnario.feature.feature.Feature;
 import org.jnario.feature.tests.unit.naming.FeatureClassNameProviderGetClassNameFeatureSpecExamples;
 import org.jnario.feature.tests.unit.naming.FeatureClassNameProviderSpec;
 import org.jnario.jnario.test.util.Features;
 import org.jnario.lib.Assert;
 import org.jnario.lib.ExampleTable;
-import org.jnario.lib.ExampleTableIterators;
 import org.jnario.lib.Should;
 import org.jnario.runner.ExampleGroupRunner;
 import org.jnario.runner.Named;
@@ -93,9 +92,9 @@ public class FeatureClassNameProviderGetClassNameFeatureSpec extends FeatureClas
   @Named("examples work")
   @Order(1)
   public void _examplesWork() throws Exception {
-    final Procedure1<FeatureClassNameProviderGetClassNameFeatureSpecExamples> _function = new Procedure1<FeatureClassNameProviderGetClassNameFeatureSpecExamples>() {
+    final Consumer<FeatureClassNameProviderGetClassNameFeatureSpecExamples> _function = new Consumer<FeatureClassNameProviderGetClassNameFeatureSpecExamples>() {
       @Override
-      public void apply(final FeatureClassNameProviderGetClassNameFeatureSpecExamples it) {
+      public void accept(final FeatureClassNameProviderGetClassNameFeatureSpecExamples it) {
         String _name = it.getName();
         Feature _feature = Features.feature(_name);
         String _className = FeatureClassNameProviderGetClassNameFeatureSpec.this.className(_feature);
@@ -108,6 +107,6 @@ public class FeatureClassNameProviderGetClassNameFeatureSpec extends FeatureClas
         
       }
     };
-    ExampleTableIterators.<FeatureClassNameProviderGetClassNameFeatureSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
 }

@@ -18,16 +18,7 @@ public class WhiteSpaceNormalizer {
   public String normalize(final CharSequence input) {
     String _xblockexpression = null;
     {
-      boolean _or = false;
-      boolean _equals = Objects.equal(input, null);
-      if (_equals) {
-        _or = true;
-      } else {
-        int _length = input.length();
-        boolean _equals_1 = (_length == 0);
-        _or = _equals_1;
-      }
-      if (_or) {
+      if ((Objects.equal(input, null) || (input.length() == 0))) {
         return "";
       }
       String _string = input.toString();
@@ -44,8 +35,8 @@ public class WhiteSpaceNormalizer {
           lines = _drop;
           String _head = IterableExtensions.<String>head(lines);
           firstLine = _head;
-          boolean _equals_2 = Objects.equal(firstLine, null);
-          if (_equals_2) {
+          boolean _equals = Objects.equal(firstLine, null);
+          if (_equals) {
             return "";
           }
         }

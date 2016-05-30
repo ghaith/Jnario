@@ -153,15 +153,7 @@ public class SpecResolver {
         {
           final String leftName = SpecResolver.this._suiteClassNameProvider.describe(left);
           final String rightName = SpecResolver.this._suiteClassNameProvider.describe(right);
-          boolean _or = false;
-          boolean _equals = Objects.equal(leftName, null);
-          if (_equals) {
-            _or = true;
-          } else {
-            boolean _equals_1 = Objects.equal(rightName, null);
-            _or = _equals_1;
-          }
-          if (_or) {
+          if ((Objects.equal(leftName, null) || Objects.equal(rightName, null))) {
             return 0;
           }
           _xblockexpression = leftName.compareToIgnoreCase(rightName);

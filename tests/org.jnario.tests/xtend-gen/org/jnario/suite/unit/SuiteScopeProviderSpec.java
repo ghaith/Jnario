@@ -54,7 +54,7 @@ public class SuiteScopeProviderSpec {
     _builder.newLine();
     _builder.append("- \"My Spec Reference\"	");
     _builder.newLine();
-    _builder.append("");
+    _builder.append("		");
     _builder.newLine();
     
     this._scopeTestExtension.parseSuite(

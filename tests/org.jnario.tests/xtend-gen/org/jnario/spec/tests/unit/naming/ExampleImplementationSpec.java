@@ -8,15 +8,14 @@
 package org.jnario.spec.tests.unit.naming;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.XBlockExpression;
 import org.eclipse.xtext.xbase.XExpression;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import org.jnario.Should;
 import org.jnario.lib.Assert;
 import org.jnario.lib.ExampleTable;
-import org.jnario.lib.ExampleTableIterators;
 import org.jnario.runner.ExampleGroupRunner;
 import org.jnario.runner.Named;
 import org.jnario.runner.Order;
@@ -60,9 +59,9 @@ public class ExampleImplementationSpec extends ExampleSpec {
   @Named("examples.forEach[example.parse.expression should be instanceOf[type]]")
   @Order(1)
   public void _examplesForEachExampleParseExpressionShouldBeInstanceOfType() throws Exception {
-    final Procedure1<ExampleImplementationSpecExamples> _function = new Procedure1<ExampleImplementationSpecExamples>() {
+    final Consumer<ExampleImplementationSpecExamples> _function = new Consumer<ExampleImplementationSpecExamples>() {
       @Override
-      public void apply(final ExampleImplementationSpecExamples it) {
+      public void accept(final ExampleImplementationSpecExamples it) {
         String _example = it.getExample();
         Example _parse = ExampleImplementationSpec.this.parse(_example);
         XExpression _expression = _parse.getExpression();
@@ -77,6 +76,6 @@ public class ExampleImplementationSpec extends ExampleSpec {
         
       }
     };
-    ExampleTableIterators.<ExampleImplementationSpecExamples>forEach(this.examples, _function);
+    this.examples.forEach(_function);
   }
 }

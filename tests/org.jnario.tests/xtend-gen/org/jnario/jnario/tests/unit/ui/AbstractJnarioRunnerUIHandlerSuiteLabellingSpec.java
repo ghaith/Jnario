@@ -2,6 +2,7 @@ package org.jnario.jnario.tests.unit.ui;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.jdt.internal.junit.model.TestCaseElement;
 import org.eclipse.jdt.internal.junit.model.TestElement;
 import org.eclipse.jdt.internal.junit.model.TestRoot;
@@ -21,7 +22,6 @@ import org.jnario.jnario.tests.unit.ui.AbstractJnarioRunnerUIHandlerSpec;
 import org.jnario.jnario.tests.unit.ui.AbstractJnarioRunnerUIHandlerSuiteLabellingSpecCases;
 import org.jnario.jnario.tests.unit.ui.TestUIHandler;
 import org.jnario.lib.Assert;
-import org.jnario.lib.Each;
 import org.jnario.lib.ExampleTable;
 import org.jnario.lib.JnarioCollectionLiterals;
 import org.jnario.lib.Should;
@@ -300,9 +300,9 @@ public class AbstractJnarioRunnerUIHandlerSuiteLabellingSpec extends AbstractJna
   @Named("All cases")
   @Order(1)
   public void _allCases() throws Exception {
-    final Procedure1<AbstractJnarioRunnerUIHandlerSuiteLabellingSpecCases> _function = new Procedure1<AbstractJnarioRunnerUIHandlerSuiteLabellingSpecCases>() {
+    final Consumer<AbstractJnarioRunnerUIHandlerSuiteLabellingSpecCases> _function = new Consumer<AbstractJnarioRunnerUIHandlerSuiteLabellingSpecCases>() {
       @Override
-      public void apply(final AbstractJnarioRunnerUIHandlerSuiteLabellingSpecCases it) {
+      public void accept(final AbstractJnarioRunnerUIHandlerSuiteLabellingSpecCases it) {
         Function1<TestSuiteElement, ? extends TestElement> _left = it.getLeft();
         Function1<TestSuiteElement, TestCaseElement> _right = it.getRight();
         List<Function1<TestSuiteElement, ? extends TestElement>> _list = JnarioCollectionLiterals.<Function1<TestSuiteElement, ? extends TestElement>>list(_left, _right);
@@ -320,7 +320,7 @@ public class AbstractJnarioRunnerUIHandlerSuiteLabellingSpec extends AbstractJna
         
       }
     };
-    Each.<AbstractJnarioRunnerUIHandlerSuiteLabellingSpecCases>forEach(this.cases, _function);
+    this.cases.forEach(_function);
   }
   
   public TestSuiteElement root(@Extension final Function1<? super TestSuiteElement, ? extends TestElement>... elementConstructors) {
@@ -335,13 +335,13 @@ public class AbstractJnarioRunnerUIHandlerSuiteLabellingSpec extends AbstractJna
         TestSuiteElement _xblockexpression = null;
         {
           final TestSuiteElement suite = new TestSuiteElement(parent, "id", "name", 10);
-          final Procedure1<Function1<? super TestSuiteElement, ? extends TestElement>> _function = new Procedure1<Function1<? super TestSuiteElement, ? extends TestElement>>() {
+          final Consumer<Function1<? super TestSuiteElement, ? extends TestElement>> _function = new Consumer<Function1<? super TestSuiteElement, ? extends TestElement>>() {
             @Override
-            public void apply(final Function1<? super TestSuiteElement, ? extends TestElement> it) {
+            public void accept(final Function1<? super TestSuiteElement, ? extends TestElement> it) {
               it.apply(suite);
             }
           };
-          IterableExtensions.<Function1<? super TestSuiteElement, ? extends TestElement>>forEach(((Iterable<Function1<? super TestSuiteElement, ? extends TestElement>>)Conversions.doWrapArray(elementConstructors)), _function);
+          ((List<Function1<? super TestSuiteElement, ? extends TestElement>>)Conversions.doWrapArray(elementConstructors)).forEach(_function);
           _xblockexpression = suite;
         }
         return _xblockexpression;
