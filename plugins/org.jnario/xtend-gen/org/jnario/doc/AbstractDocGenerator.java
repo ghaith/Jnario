@@ -16,7 +16,6 @@ import java.util.function.Consumer;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -42,7 +41,6 @@ import org.jnario.ExampleTable;
 import org.jnario.Executable;
 import org.jnario.JnarioClass;
 import org.jnario.JnarioFile;
-import org.jnario.JnarioTypeDeclaration;
 import org.jnario.doc.CssClassProvider;
 import org.jnario.doc.DocumentationProvider;
 import org.jnario.doc.ErrorMessageProvider;
@@ -88,24 +86,19 @@ public abstract class AbstractDocGenerator implements IGenerator {
   
   public void doGenerate(final Resource input, final IFileSystemAccess fsa, final Executable2ResultMapping spec2ResultMapping) {
     this.initResultMapping(spec2ResultMapping);
-    EList<EObject> _contents = input.getContents();
-    Iterable<JnarioFile> _filter = Iterables.<JnarioFile>filter(_contents, JnarioFile.class);
     final Consumer<JnarioFile> _function = new Consumer<JnarioFile>() {
       @Override
       public void accept(final JnarioFile it) {
-        EList<JnarioTypeDeclaration> _xtendTypes = it.getXtendTypes();
-        Iterable<JnarioClass> _filter = Iterables.<JnarioClass>filter(_xtendTypes, JnarioClass.class);
         final Consumer<JnarioClass> _function = new Consumer<JnarioClass>() {
           @Override
           public void accept(final JnarioClass it) {
-            HtmlFile _createHtmlFile = AbstractDocGenerator.this.createHtmlFile(it);
-            AbstractDocGenerator.this._htmlFileBuilder.generate(it, fsa, _createHtmlFile);
+            AbstractDocGenerator.this._htmlFileBuilder.generate(it, fsa, AbstractDocGenerator.this.createHtmlFile(it));
           }
         };
-        _filter.forEach(_function);
+        Iterables.<JnarioClass>filter(it.getXtendTypes(), JnarioClass.class).forEach(_function);
       }
     };
-    _filter.forEach(_function);
+    Iterables.<JnarioFile>filter(input.getContents(), JnarioFile.class).forEach(_function);
   }
   
   protected Executable2ResultMapping initResultMapping(final Executable2ResultMapping spec2ResultMapping) {
@@ -117,8 +110,7 @@ public abstract class AbstractDocGenerator implements IGenerator {
   }
   
   protected String toTitle(final String string) {
-    String _decode = this.decode(string);
-    return Strings.toFirstUpper(_decode);
+    return Strings.toFirstUpper(this.decode(string));
   }
   
   protected String decode(final String string) {
@@ -149,24 +141,18 @@ public abstract class AbstractDocGenerator implements IGenerator {
       }
       String _normalize = this._whiteSpaceNormalizer.normalize(string);
       final String normalized = (_normalize + "\n");
-      String _markdownToHtml = this._pegDownProcessor.markdownToHtml(normalized);
-      String _replaceAll = _markdownToHtml.replaceAll("<pre><code>", "<pre class=\"prettyprint\">");
-      _xblockexpression = _replaceAll.replaceAll("</pre></code>", "</pre>");
+      _xblockexpression = this._pegDownProcessor.markdownToHtml(normalized).replaceAll("<pre><code>", "<pre class=\"prettyprint\">").replaceAll("</pre></code>", "</pre>");
     }
     return _xblockexpression;
   }
   
   protected String _serialize(final XExpression expr, final List<Filter> filters) {
-    String _serialize = this.serialize(expr);
-    String _codeToHtml = this.codeToHtml(_serialize);
-    return _codeToHtml.trim();
+    return this.codeToHtml(this.serialize(expr)).trim();
   }
   
   protected String _serialize(final XBlockExpression expr, final List<Filter> filters) {
-    String _serialize = this.serialize(expr);
-    String code = _serialize.trim();
-    String _apply = this.apply(filters, code);
-    code = _apply;
+    String code = this.serialize(expr).trim();
+    code = this.apply(filters, code);
     int _length = code.length();
     boolean _equals = (_length == 0);
     if (_equals) {
@@ -174,17 +160,12 @@ public abstract class AbstractDocGenerator implements IGenerator {
     }
     int _length_1 = code.length();
     int _minus = (_length_1 - 1);
-    String _substring = code.substring(1, _minus);
-    code = _substring;
+    code = code.substring(1, _minus);
     return this.codeToHtml(code);
   }
   
   protected String codeToHtml(final String code) {
-    String _normalize = this._whiteSpaceNormalizer.normalize(code);
-    CharSequence _trimWhitespaceAtEnd = org.jnario.util.Strings.trimWhitespaceAtEnd(_normalize);
-    String _string = _trimWhitespaceAtEnd.toString();
-    String _html = this.toHtml(_string);
-    return _html.replace("\t", "  ");
+    return this.toHtml(org.jnario.util.Strings.trimWhitespaceAtEnd(this._whiteSpaceNormalizer.normalize(code)).toString()).replace("\t", "  ");
   }
   
   protected String toHtml(final String input) {
@@ -207,8 +188,7 @@ public abstract class AbstractDocGenerator implements IGenerator {
     }
     String _trim = null;
     if (_replaceAll!=null) {
-      char _charAt = AbstractDocGenerator.SEP.charAt(0);
-      _trim=org.jnario.util.Strings.trim(_replaceAll, _charAt);
+      _trim=org.jnario.util.Strings.trim(_replaceAll, AbstractDocGenerator.SEP.charAt(0));
     }
     String _plus = (" id=\"" + _trim);
     return (_plus + "\"");
@@ -217,8 +197,7 @@ public abstract class AbstractDocGenerator implements IGenerator {
   protected String apply(final List<Filter> filters, final String input) {
     String result = input;
     for (final Filter filter : filters) {
-      String _apply = filter.apply(result);
-      result = _apply;
+      result = filter.apply(result);
     }
     return result;
   }
@@ -283,9 +262,7 @@ public abstract class AbstractDocGenerator implements IGenerator {
             _builder.append("\t");
             _builder.append("\t");
             _builder.append("<td>");
-            XExpression _expression = cell.getExpression();
-            List<Filter> _emptyList = CollectionLiterals.<Filter>emptyList();
-            String _serialize = this.serialize(_expression, _emptyList);
+            String _serialize = this.serialize(cell.getExpression(), CollectionLiterals.<Filter>emptyList());
             _builder.append(_serialize, "\t\t");
             _builder.append("</td>");
             _builder.newLineIfNotEmpty();
@@ -313,20 +290,17 @@ public abstract class AbstractDocGenerator implements IGenerator {
   }
   
   protected String fileName(final EObject eObject) {
-    Resource _eResource = eObject.eResource();
-    URI _uRI = _eResource.getURI();
-    return _uRI.lastSegment();
+    return eObject.eResource().getURI().lastSegment();
   }
   
   protected CharSequence pre(final EObject eObject, final String lang) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("<pre class=\"prettyprint ");
-    _builder.append(lang, "");
+    _builder.append(lang);
     _builder.append(" linenums\">");
     _builder.newLineIfNotEmpty();
-    String _serialize = this.serialize(eObject);
-    String _codeToHtml = this.codeToHtml(_serialize);
-    _builder.append(_codeToHtml, "");
+    String _codeToHtml = this.codeToHtml(this.serialize(eObject));
+    _builder.append(_codeToHtml);
     _builder.newLineIfNotEmpty();
     _builder.append("</pre>");
     _builder.newLine();
@@ -337,22 +311,17 @@ public abstract class AbstractDocGenerator implements IGenerator {
     String _xblockexpression = null;
     {
       final SpecExecution result = this.spec2ResultMapping.getResult(executable);
-      IconProvider _iconProvider = new IconProvider();
-      _xblockexpression = _iconProvider.doSwitch(result);
+      _xblockexpression = new IconProvider().doSwitch(result);
     }
     return _xblockexpression;
   }
   
   protected String executionStateClass(final Executable executable) {
-    CssClassProvider _cssClassProvider = new CssClassProvider();
-    SpecExecution _result = this.spec2ResultMapping.getResult(executable);
-    return _cssClassProvider.doSwitch(_result);
+    return new CssClassProvider().doSwitch(this.spec2ResultMapping.getResult(executable));
   }
   
   protected String errorMessage(final Executable executable) {
-    ErrorMessageProvider _errorMessageProvider = new ErrorMessageProvider();
-    SpecExecution _result = this.spec2ResultMapping.getResult(executable);
-    return _errorMessageProvider.doSwitch(_result);
+    return new ErrorMessageProvider().doSwitch(this.spec2ResultMapping.getResult(executable));
   }
   
   protected String serialize(final XExpression expr, final List<Filter> filters) {

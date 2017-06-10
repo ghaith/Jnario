@@ -48,14 +48,12 @@ public class HashBasedSpec2ResultMapping implements SpecExecutionAcceptor, Execu
       if (_equals) {
         return new NotRun("", "");
       }
-      Pair<String, String> _asKey = this.asKey(executable);
-      SpecExecution result = this.results.get(_asKey);
+      SpecExecution result = this.results.get(this.asKey(executable));
       boolean _notEquals = (!Objects.equal(result, null));
       if (_notEquals) {
         return result;
       }
-      SpecExecution _calculateResult = this.calculateResult(executable);
-      result = _calculateResult;
+      result = this.calculateResult(executable);
       this.accept(result);
       _xblockexpression = result;
     }
@@ -72,8 +70,7 @@ public class HashBasedSpec2ResultMapping implements SpecExecutionAcceptor, Execu
           return HashBasedSpec2ResultMapping.this.getResult(it);
         }
       };
-      List<SpecExecution> _map = ListExtensions.map(children, _function);
-      final List<SpecExecution> results = IterableExtensions.<SpecExecution>toList(_map);
+      final List<SpecExecution> results = IterableExtensions.<SpecExecution>toList(ListExtensions.map(children, _function));
       _xblockexpression = this.createResult(specification, results);
     }
     return _xblockexpression;
@@ -94,8 +91,7 @@ public class HashBasedSpec2ResultMapping implements SpecExecutionAcceptor, Execu
           return it.getFailures();
         }
       };
-      Iterable<List<SpecFailure>> _map = IterableExtensions.<SpecExecution, List<SpecFailure>>map(children, _function);
-      final Iterable<SpecFailure> failures = Iterables.<SpecFailure>concat(_map);
+      final Iterable<SpecFailure> failures = Iterables.<SpecFailure>concat(IterableExtensions.<SpecExecution, List<SpecFailure>>map(children, _function));
       SpecExecution _xifexpression = null;
       boolean _isEmpty = IterableExtensions.isEmpty(failures);
       if (_isEmpty) {
@@ -186,8 +182,7 @@ public class HashBasedSpec2ResultMapping implements SpecExecutionAcceptor, Execu
         return CollectionLiterals.<Executable>emptyList();
       }
       final IResourceServiceProvider resourceServiceProvider = resource.getResourceServiceProvider();
-      ExecutableProvider _get = resourceServiceProvider.<ExecutableProvider>get(ExecutableProvider.class);
-      _xblockexpression = _get.getExecutables(element);
+      _xblockexpression = resourceServiceProvider.<ExecutableProvider>get(ExecutableProvider.class).getExecutables(element);
     }
     return _xblockexpression;
   }

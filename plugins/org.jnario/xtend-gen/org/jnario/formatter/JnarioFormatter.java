@@ -15,9 +15,7 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.JvmWildcardTypeReference;
 import org.eclipse.xtext.formatting2.IFormattableDocument;
 import org.eclipse.xtext.formatting2.IHiddenRegionFormatter;
-import org.eclipse.xtext.formatting2.regionaccess.IEObjectRegion;
 import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion;
-import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegionsFinder;
 import org.eclipse.xtext.formatting2.regionaccess.ITextSegment;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -90,8 +88,7 @@ public class JnarioFormatter extends XbaseWithAnnotationsFormatter {
     final Consumer<ExampleColumn> _function = new Consumer<ExampleColumn>() {
       @Override
       public void accept(final ExampleColumn it) {
-        ISemanticRegionsFinder _regionFor = JnarioFormatter.this.textRegionExtensions.regionFor(it);
-        final ISemanticRegion nameNode = _regionFor.feature(JnarioPackage.Literals.EXAMPLE_COLUMN__NAME);
+        final ISemanticRegion nameNode = JnarioFormatter.this.textRegionExtensions.regionFor(it).feature(JnarioPackage.Literals.EXAMPLE_COLUMN__NAME);
         final JvmTypeReference typeNode = it.getType();
         int _xifexpression = (int) 0;
         boolean _equals = Objects.equal(typeNode, null);
@@ -101,29 +98,24 @@ public class JnarioFormatter extends XbaseWithAnnotationsFormatter {
           int _offset = nameNode.getOffset();
           int _length = nameNode.getLength();
           int _plus = (_offset + _length);
-          IEObjectRegion _regionForEObject = JnarioFormatter.this.textRegionExtensions.regionForEObject(typeNode);
-          int _offset_1 = _regionForEObject.getOffset();
+          int _offset_1 = JnarioFormatter.this.textRegionExtensions.regionForEObject(typeNode).getOffset();
           _xifexpression = (_plus - _offset_1);
         }
         final int headerLength = _xifexpression;
         Integer _elvis = null;
-        EList<ExampleCell> _cells = it.getCells();
         final Function1<ExampleCell, Integer> _function = new Function1<ExampleCell, Integer>() {
           @Override
           public Integer apply(final ExampleCell it) {
-            XExpression _expression = it.getExpression();
-            IEObjectRegion _regionForEObject = JnarioFormatter.this.textRegionExtensions.regionForEObject(_expression);
-            return JnarioFormatter.this.getMultilineLength(format, _regionForEObject);
+            return JnarioFormatter.this.getMultilineLength(format, JnarioFormatter.this.textRegionExtensions.regionForEObject(it.getExpression()));
           }
         };
-        List<Integer> _map = ListExtensions.<ExampleCell, Integer>map(_cells, _function);
         final Function2<Integer, Integer, Integer> _function_1 = new Function2<Integer, Integer, Integer>() {
           @Override
           public Integer apply(final Integer p1, final Integer p2) {
             return Integer.valueOf(Math.max((p1).intValue(), (p2).intValue()));
           }
         };
-        Integer _reduce = IterableExtensions.<Integer>reduce(_map, _function_1);
+        Integer _reduce = IterableExtensions.<Integer>reduce(ListExtensions.<ExampleCell, Integer>map(it.getCells(), _function), _function_1);
         if (_reduce != null) {
           _elvis = _reduce;
         } else {
@@ -139,108 +131,88 @@ public class JnarioFormatter extends XbaseWithAnnotationsFormatter {
           }
         };
         format.<ExampleColumn>prepend(it, _function_2);
-        ISemanticRegionsFinder _regionFor_1 = JnarioFormatter.this.textRegionExtensions.regionFor(it);
-        ISemanticRegion _keyword = _regionFor_1.keyword("|");
         final Procedure1<IHiddenRegionFormatter> _function_3 = new Procedure1<IHiddenRegionFormatter>() {
           @Override
           public void apply(final IHiddenRegionFormatter it) {
             JnarioFormatter.this.spaces(it, columnLength);
           }
         };
-        format.prepend(_keyword, _function_3);
-        EList<ExampleCell> _cells_1 = it.getCells();
+        format.prepend(JnarioFormatter.this.textRegionExtensions.regionFor(it).keyword("|"), _function_3);
         final Consumer<ExampleCell> _function_4 = new Consumer<ExampleCell>() {
           @Override
           public void accept(final ExampleCell it) {
-            XExpression _expression = it.getExpression();
             final Procedure1<IHiddenRegionFormatter> _function = new Procedure1<IHiddenRegionFormatter>() {
               @Override
               public void apply(final IHiddenRegionFormatter it) {
                 it.oneSpace();
               }
             };
-            format.<XExpression>prepend(_expression, _function);
-            XExpression _expression_1 = it.getExpression();
-            IEObjectRegion _regionForEObject = JnarioFormatter.this.textRegionExtensions.regionForEObject(_expression_1);
-            int _multilineLastSegmentLength = JnarioFormatter.this.getMultilineLastSegmentLength(format, _regionForEObject);
+            format.<XExpression>prepend(it.getExpression(), _function);
+            int _multilineLastSegmentLength = JnarioFormatter.this.getMultilineLastSegmentLength(format, JnarioFormatter.this.textRegionExtensions.regionForEObject(it.getExpression()));
             final int length = ((1 + maxLength) - _multilineLastSegmentLength);
-            XExpression _expression_2 = it.getExpression();
             final Procedure1<IHiddenRegionFormatter> _function_1 = new Procedure1<IHiddenRegionFormatter>() {
               @Override
               public void apply(final IHiddenRegionFormatter it) {
                 JnarioFormatter.this.spaces(it, length);
               }
             };
-            format.<XExpression>append(_expression_2, _function_1);
+            format.<XExpression>append(it.getExpression(), _function_1);
           }
         };
-        _cells_1.forEach(_function_4);
+        it.getCells().forEach(_function_4);
       }
     };
     columns.forEach(_function);
-    ExampleColumn _last = IterableExtensions.<ExampleColumn>last(columns);
     final Procedure1<IHiddenRegionFormatter> _function_1 = new Procedure1<IHiddenRegionFormatter>() {
       @Override
       public void apply(final IHiddenRegionFormatter it) {
         it.newLine();
       }
     };
-    format.<ExampleColumn>append(_last, _function_1);
+    format.<ExampleColumn>append(IterableExtensions.<ExampleColumn>last(columns), _function_1);
   }
   
   public void spaces(final IHiddenRegionFormatter init, final int i) {
-    IntegerRange _upTo = new IntegerRange(1, i);
     final Function2<String, Integer, String> _function = new Function2<String, Integer, String>() {
       @Override
       public String apply(final String p1, final Integer p2) {
         return (p1 + " ");
       }
     };
-    String _fold = IterableExtensions.<Integer, String>fold(_upTo, "", _function);
-    init.setSpace(_fold);
+    init.setSpace(IterableExtensions.<Integer, String>fold(new IntegerRange(1, i), "", _function));
   }
   
   private String[] getSplittedMultilineCell(final IFormattableDocument format, final ITextSegment segment) {
-    ITextSegment _region = format.getRegion();
-    String _text = _region.getText();
+    String _text = format.getRegion().getText();
     int _offset = segment.getOffset();
-    ITextSegment _region_1 = format.getRegion();
-    int _offset_1 = _region_1.getOffset();
+    int _offset_1 = format.getRegion().getOffset();
     int _minus = (_offset - _offset_1);
     int _offset_2 = segment.getOffset();
     int _length = segment.getLength();
     int _plus = (_offset_2 + _length);
-    ITextSegment _region_2 = format.getRegion();
-    int _offset_3 = _region_2.getOffset();
+    int _offset_3 = format.getRegion().getOffset();
     int _minus_1 = (_plus - _offset_3);
-    String _substring = _text.substring(_minus, _minus_1);
-    return _substring.split("\r?\n");
+    return _text.substring(_minus, _minus_1).split("\r?\n");
   }
   
   private int getMultilineLastSegmentLength(final IFormattableDocument format, final ITextSegment segment) {
-    String[] _splittedMultilineCell = this.getSplittedMultilineCell(format, segment);
-    String _last = IterableExtensions.<String>last(((Iterable<String>)Conversions.doWrapArray(_splittedMultilineCell)));
-    String _trim = _last.trim();
-    return _trim.length();
+    return IterableExtensions.<String>last(((Iterable<String>)Conversions.doWrapArray(this.getSplittedMultilineCell(format, segment)))).trim().length();
   }
   
   private Integer getMultilineLength(final IFormattableDocument format, final ITextSegment segment) {
-    String[] _splittedMultilineCell = this.getSplittedMultilineCell(format, segment);
     final Function1<String, Integer> _function = new Function1<String, Integer>() {
       @Override
       public Integer apply(final String it) {
-        String _trim = it.trim();
-        return Integer.valueOf(_trim.length());
+        return Integer.valueOf(it.trim().length());
       }
     };
-    List<Integer> _map = ListExtensions.<String, Integer>map(((List<String>)Conversions.doWrapArray(_splittedMultilineCell)), _function);
     final Function2<Integer, Integer, Integer> _function_1 = new Function2<Integer, Integer, Integer>() {
       @Override
       public Integer apply(final Integer p1, final Integer p2) {
         return Integer.valueOf(Math.max((p1).intValue(), (p2).intValue()));
       }
     };
-    return IterableExtensions.<Integer>reduce(_map, _function_1);
+    return IterableExtensions.<Integer>reduce(ListExtensions.<String, Integer>map(((List<String>)Conversions.doWrapArray(this.getSplittedMultilineCell(format, segment))), _function), _function_1);
   }
   
   /**

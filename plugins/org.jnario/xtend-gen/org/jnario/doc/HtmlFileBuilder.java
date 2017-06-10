@@ -24,8 +24,7 @@ public class HtmlFileBuilder {
       return;
     }
     final CharSequence content = htmlFile.toText();
-    String _filePath = this.filePath(context, htmlFile);
-    fsa.generateFile(_filePath, DocOutputConfigurationProvider.DOC_OUTPUT, content);
+    fsa.generateFile(this.filePath(context, htmlFile), DocOutputConfigurationProvider.DOC_OUTPUT, content);
   }
   
   public String toHtmlFileName(final CharSequence nameWithoutExtension) {
@@ -50,8 +49,7 @@ public class HtmlFileBuilder {
     if (_equals) {
       return fileName;
     }
-    String _packageName_1 = XtendTypes.packageName(xtendClass);
-    String _replaceAll = _packageName_1.replaceAll("\\.", "/");
+    String _replaceAll = XtendTypes.packageName(xtendClass).replaceAll("\\.", "/");
     String _plus = ("/" + _replaceAll);
     return (_plus + fileName);
   }

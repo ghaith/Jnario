@@ -21,9 +21,7 @@ public class WhiteSpaceNormalizer {
       if ((Objects.equal(input, null) || (input.length() == 0))) {
         return "";
       }
-      String _string = input.toString();
-      String[] _split = _string.split("\r?\n");
-      Iterable<String> lines = Arrays.<String>asList(_split);
+      Iterable<String> lines = Arrays.<String>asList(input.toString().split("\r?\n"));
       boolean _isEmpty = IterableExtensions.isEmpty(lines);
       if (_isEmpty) {
         return "";
@@ -31,10 +29,8 @@ public class WhiteSpaceNormalizer {
       String firstLine = IterableExtensions.<String>head(lines);
       while ((firstLine.trim().length() == 0)) {
         {
-          Iterable<String> _drop = IterableExtensions.<String>drop(lines, 1);
-          lines = _drop;
-          String _head = IterableExtensions.<String>head(lines);
-          firstLine = _head;
+          lines = IterableExtensions.<String>drop(lines, 1);
+          firstLine = IterableExtensions.<String>head(lines);
           boolean _equals = Objects.equal(firstLine, null);
           if (_equals) {
             return "";
@@ -53,8 +49,7 @@ public class WhiteSpaceNormalizer {
           return WhiteSpaceNormalizer.this.remove(it, whitespace);
         }
       };
-      Iterable<String> _map = IterableExtensions.<String, String>map(lines, _function);
-      String _join = IterableExtensions.join(_map, "\n");
+      String _join = IterableExtensions.join(IterableExtensions.<String, String>map(lines, _function), "\n");
       String result = (_join + ending);
       _xblockexpression = result;
     }
@@ -99,7 +94,6 @@ public class WhiteSpaceNormalizer {
         i = (i + 1);
       }
     }
-    int _length_2 = toReplace.length();
-    return input.substring(_length_2);
+    return input.substring(toReplace.length());
   }
 }

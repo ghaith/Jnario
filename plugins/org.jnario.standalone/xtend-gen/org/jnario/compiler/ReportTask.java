@@ -41,14 +41,10 @@ public class ReportTask extends Task {
     final Procedure1<DocCompilerMain> _function = new Procedure1<DocCompilerMain>() {
       @Override
       public void apply(final DocCompilerMain it) {
-        String _outputPath = ReportTask.this.getOutputPath();
-        it.setOutputPath(_outputPath);
-        String _fileEncoding = ReportTask.this.getFileEncoding();
-        it.setFileEncoding(_fileEncoding);
-        String _string = ReportTask.this.sourcePath.toString();
-        it.setSourcePath(_string);
-        String _resultFolder = ReportTask.this.getResultFolder();
-        it.setResultFolder(_resultFolder);
+        it.setOutputPath(ReportTask.this.getOutputPath());
+        it.setFileEncoding(ReportTask.this.getFileEncoding());
+        it.setSourcePath(ReportTask.this.sourcePath.toString());
+        it.setResultFolder(ReportTask.this.getResultFolder());
       }
     };
     final DocCompilerMain compiler = ObjectExtensions.<DocCompilerMain>operator_doubleArrow(_docCompilerMain, _function);
@@ -65,8 +61,7 @@ public class ReportTask extends Task {
    * @param r a reference to an existing sourcepath.
    */
   public void setSourcepathRef(final Reference r) {
-    Path _createSourcepath = this.createSourcepath();
-    _createSourcepath.setRefid(r);
+    this.createSourcepath().setRefid(r);
   }
   
   /**
@@ -75,8 +70,7 @@ public class ReportTask extends Task {
    * @param s an Ant Path object containing the sourcepath.
    */
   public void setSourcepath(final Path s) {
-    Path _createSourcepath = this.createSourcepath();
-    _createSourcepath.append(s);
+    this.createSourcepath().append(s);
   }
   
   private Path createSourcepath() {

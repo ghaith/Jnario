@@ -30,8 +30,7 @@ public class WebDriverExtension {
   }
   
   public WebElement findElement(final String name) {
-    By _name = By.name(name);
-    return this.driver.findElement(_name);
+    return this.driver.findElement(By.name(name));
   }
   
   public WebElement findElement(final By by) {

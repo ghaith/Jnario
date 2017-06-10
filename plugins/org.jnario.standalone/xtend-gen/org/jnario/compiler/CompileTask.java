@@ -42,16 +42,11 @@ public class CompileTask extends Task {
     final Procedure1<CompilerMain> _function = new Procedure1<CompilerMain>() {
       @Override
       public void apply(final CompilerMain it) {
-        String _outputPath = CompileTask.this.getOutputPath();
-        it.setOutputPath(_outputPath);
-        String _string = CompileTask.this.classPath.toString();
-        it.setClassPath(_string);
-        String _tempDirectory = CompileTask.this.getTempDirectory();
-        it.setTempDirectory(_tempDirectory);
-        String _fileEncoding = CompileTask.this.getFileEncoding();
-        it.setFileEncoding(_fileEncoding);
-        String _string_1 = CompileTask.this.sourcePath.toString();
-        it.setSourcePath(_string_1);
+        it.setOutputPath(CompileTask.this.getOutputPath());
+        it.setClassPath(CompileTask.this.classPath.toString());
+        it.setTempDirectory(CompileTask.this.getTempDirectory());
+        it.setFileEncoding(CompileTask.this.getFileEncoding());
+        it.setSourcePath(CompileTask.this.sourcePath.toString());
       }
     };
     final CompilerMain compiler = ObjectExtensions.<CompilerMain>operator_doubleArrow(_compilerMain, _function);
@@ -68,8 +63,7 @@ public class CompileTask extends Task {
    * @param r a reference to an existing sourcepath.
    */
   public void setSourcepathRef(final Reference r) {
-    Path _createSourcepath = this.createSourcepath();
-    _createSourcepath.setRefid(r);
+    this.createSourcepath().setRefid(r);
   }
   
   /**
@@ -78,8 +72,7 @@ public class CompileTask extends Task {
    * @param s an Ant Path object containing the sourcepath.
    */
   public void setSourcepath(final Path s) {
-    Path _createSourcepath = this.createSourcepath();
-    _createSourcepath.append(s);
+    this.createSourcepath().append(s);
   }
   
   /**
@@ -88,8 +81,7 @@ public class CompileTask extends Task {
    * @param r a reference to an existing classpath.
    */
   public void setClasspathRef(final Reference r) {
-    Path _createClasspath = this.createClasspath();
-    _createClasspath.setRefid(r);
+    this.createClasspath().setRefid(r);
   }
   
   /**
@@ -98,8 +90,7 @@ public class CompileTask extends Task {
    * @param s an Ant Path object containing the classpath.
    */
   public void setClasspath(final Path s) {
-    Path _createClasspath = this.createClasspath();
-    _createClasspath.append(s);
+    this.createClasspath().append(s);
   }
   
   private Path createClasspath() {

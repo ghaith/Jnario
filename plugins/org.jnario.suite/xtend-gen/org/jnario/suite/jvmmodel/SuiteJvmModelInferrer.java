@@ -32,12 +32,9 @@ import org.eclipse.xtext.xbase.typing.IJvmTypeReferenceProvider;
 import org.eclipse.xtext.xtype.XComputedTypeReference;
 import org.eclipse.xtext.xtype.XtypeFactory;
 import org.eclipse.xtext.xtype.impl.XComputedTypeReferenceImplCustom;
-import org.jnario.JnarioFile;
-import org.jnario.JnarioTypeDeclaration;
 import org.jnario.Specification;
 import org.jnario.jvmmodel.ExtendedJvmTypesBuilder;
 import org.jnario.jvmmodel.JnarioJvmModelInferrer;
-import org.jnario.jvmmodel.TestRuntimeSupport;
 import org.jnario.runner.Named;
 import org.jnario.suite.jvmmodel.SpecResolver;
 import org.jnario.suite.jvmmodel.SuiteClassNameProvider;
@@ -80,15 +77,12 @@ public class SuiteJvmModelInferrer extends JnarioJvmModelInferrer {
       return;
     }
     final SuiteFile suiteFile = ((SuiteFile) e);
-    EList<JnarioTypeDeclaration> _xtendTypes = suiteFile.getXtendTypes();
-    Iterable<Suite> _filter = Iterables.<Suite>filter(_xtendTypes, Suite.class);
-    final List<Suite> suites = IterableExtensions.<Suite>toList(_filter);
+    final List<Suite> suites = IterableExtensions.<Suite>toList(Iterables.<Suite>filter(suiteFile.getXtendTypes(), Suite.class));
     final Consumer<Suite> _function = new Consumer<Suite>() {
       @Override
       public void accept(final Suite it) {
         final JvmGenericType javaType = SuiteJvmModelInferrer.this.typesFactory.createJvmGenericType();
-        JnarioFile _jnarioFile = SuiteJvmModelInferrer.this.jnarioFile(it);
-        SuiteJvmModelInferrer.this.setNameAndAssociate(_jnarioFile, it, javaType);
+        SuiteJvmModelInferrer.this.setNameAndAssociate(SuiteJvmModelInferrer.this.jnarioFile(it), it, javaType);
       }
     };
     suites.forEach(_function);
@@ -117,23 +111,19 @@ public class SuiteJvmModelInferrer extends JnarioJvmModelInferrer {
     JvmGenericType _xblockexpression = null;
     {
       final Suite suite = node.getSuite();
-      String _qualifiedJavaClassName = this._suiteClassNameProvider.toQualifiedJavaClassName(suite);
-      final JvmGenericType suiteClass = this._extendedJvmTypesBuilder.toClass(suite, _qualifiedJavaClassName);
+      final JvmGenericType suiteClass = this._extendedJvmTypesBuilder.toClass(suite, this._suiteClassNameProvider.toQualifiedJavaClassName(suite));
       boolean _equals = Objects.equal(suiteClass, null);
       if (_equals) {
         return null;
       }
       acceptor.<JvmGenericType>accept(suiteClass);
-      List<SuiteNode> _children = node.getChildren();
       final Function1<SuiteNode, JvmGenericType> _function = new Function1<SuiteNode, JvmGenericType>() {
         @Override
         public JvmGenericType apply(final SuiteNode it) {
           return SuiteJvmModelInferrer.this.infer(it, acceptor, doLater, preIndexingPhase);
         }
       };
-      List<JvmGenericType> _map = ListExtensions.<SuiteNode, JvmGenericType>map(_children, _function);
-      Iterable<JvmGenericType> _filterNull = IterableExtensions.<JvmGenericType>filterNull(_map);
-      final Set<JvmGenericType> subSuites = IterableExtensions.<JvmGenericType>toSet(_filterNull);
+      final Set<JvmGenericType> subSuites = IterableExtensions.<JvmGenericType>toSet(IterableExtensions.<JvmGenericType>filterNull(ListExtensions.<SuiteNode, JvmGenericType>map(node.getChildren(), _function)));
       if ((!preIndexingPhase)) {
         final Function1<JvmGenericType, JvmTypeReference> _function_1 = new Function1<JvmGenericType, JvmTypeReference>() {
           @Override
@@ -147,21 +137,17 @@ public class SuiteJvmModelInferrer extends JnarioJvmModelInferrer {
           @Override
           public void run() {
             EList<JvmAnnotationReference> _annotations = suiteClass.getAnnotations();
-            String _describe = SuiteJvmModelInferrer.this._suiteClassNameProvider.describe(suite);
-            JvmAnnotationReference _annotation = SuiteJvmModelInferrer.this._extendedJvmTypesBuilder.toAnnotation(suite, Named.class, _describe);
+            JvmAnnotationReference _annotation = SuiteJvmModelInferrer.this._extendedJvmTypesBuilder.toAnnotation(suite, Named.class, SuiteJvmModelInferrer.this._suiteClassNameProvider.describe(suite));
             SuiteJvmModelInferrer.this._extendedJvmTypesBuilder.<JvmAnnotationReference>operator_add(_annotations, _annotation);
             Iterable<JvmTypeReference> _children = SuiteJvmModelInferrer.this.children(suite);
             final Iterable<JvmTypeReference> children = Iterables.<JvmTypeReference>concat(_children, subSuiteReferences);
             boolean _isEmpty = IterableExtensions.isEmpty(children);
             boolean _not = (!_isEmpty);
             if (_not) {
-              TestRuntimeSupport _testRuntime = SuiteJvmModelInferrer.this.getTestRuntime();
-              Set<JvmTypeReference> _set = IterableExtensions.<JvmTypeReference>toSet(children);
-              _testRuntime.addChildren(suite, suiteClass, _set);
+              SuiteJvmModelInferrer.this.getTestRuntime().addChildren(suite, suiteClass, IterableExtensions.<JvmTypeReference>toSet(children));
             }
             SuiteJvmModelInferrer.this.initialize(suite, suiteClass);
-            TestRuntimeSupport _testRuntime_1 = SuiteJvmModelInferrer.this.getTestRuntime();
-            _testRuntime_1.updateSuite(suite, suiteClass);
+            SuiteJvmModelInferrer.this.getTestRuntime().updateSuite(suite, suiteClass);
           }
         };
         doLater.add(_function_2);
@@ -174,7 +160,6 @@ public class SuiteJvmModelInferrer extends JnarioJvmModelInferrer {
   public Iterable<JvmTypeReference> children(final Suite suite) {
     Iterable<JvmTypeReference> _xblockexpression = null;
     {
-      List<Specification> _resolveSpecs = this._specResolver.resolveSpecs(suite);
       final Function1<Specification, Boolean> _function = new Function1<Specification, Boolean>() {
         @Override
         public Boolean apply(final Specification it) {
@@ -182,7 +167,7 @@ public class SuiteJvmModelInferrer extends JnarioJvmModelInferrer {
           return Boolean.valueOf((!Objects.equal(_javaClassName, null)));
         }
       };
-      final Iterable<Specification> specs = IterableExtensions.<Specification>filter(_resolveSpecs, _function);
+      final Iterable<Specification> specs = IterableExtensions.<Specification>filter(this._specResolver.resolveSpecs(suite), _function);
       final Function1<Specification, String> _function_1 = new Function1<Specification, String>() {
         @Override
         public String apply(final Specification it) {

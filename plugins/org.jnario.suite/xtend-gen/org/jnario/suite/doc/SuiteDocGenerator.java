@@ -54,25 +54,20 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
   @Override
   public void doGenerate(final Resource input, final IFileSystemAccess fsa, final Executable2ResultMapping spec2ResultMapping) {
     this.initResultMapping(spec2ResultMapping);
-    EList<EObject> _contents = input.getContents();
-    Iterable<SuiteFile> _filter = Iterables.<SuiteFile>filter(_contents, SuiteFile.class);
     final Consumer<SuiteFile> _function = new Consumer<SuiteFile>() {
       @Override
       public void accept(final SuiteFile it) {
         final HtmlFile htmlFile = SuiteDocGenerator.this.createHtmlFile(it);
-        EList<JnarioTypeDeclaration> _xtendTypes = it.getXtendTypes();
-        JnarioTypeDeclaration _head = IterableExtensions.<JnarioTypeDeclaration>head(_xtendTypes);
-        SuiteDocGenerator.this._htmlFileBuilder.generate(_head, fsa, htmlFile);
+        SuiteDocGenerator.this._htmlFileBuilder.generate(IterableExtensions.<JnarioTypeDeclaration>head(it.getXtendTypes()), fsa, htmlFile);
       }
     };
-    _filter.forEach(_function);
+    Iterables.<SuiteFile>filter(input.getContents(), SuiteFile.class).forEach(_function);
   }
   
   public HtmlFile createHtmlFile(final SuiteFile file) {
     HtmlFile _xblockexpression = null;
     {
-      EList<JnarioTypeDeclaration> _xtendTypes = file.getXtendTypes();
-      final Iterable<Suite> suites = Iterables.<Suite>filter(_xtendTypes, Suite.class);
+      final Iterable<Suite> suites = Iterables.<Suite>filter(file.getXtendTypes(), Suite.class);
       boolean _isEmpty = IterableExtensions.isEmpty(suites);
       if (_isEmpty) {
         return HtmlFile.EMPTY_FILE;
@@ -81,21 +76,13 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
       final Procedure1<HtmlFile> _function = new Procedure1<HtmlFile>() {
         @Override
         public void apply(final HtmlFile it) {
-          String _javaClassName = SuiteDocGenerator.this._suiteClassNameProvider.toJavaClassName(rootSuite);
-          it.setName(_javaClassName);
-          String _describe = SuiteDocGenerator.this._suiteClassNameProvider.describe(rootSuite);
-          String _decode = SuiteDocGenerator.this.decode(_describe);
-          it.setTitle(_decode);
-          CharSequence _generateContent = SuiteDocGenerator.this.generateContent(suites);
-          it.setContent(_generateContent);
-          String _root = SuiteDocGenerator.this.root(rootSuite);
-          it.setRootFolder(_root);
-          CharSequence _pre = SuiteDocGenerator.this.pre(file, "lang-suite");
-          it.setSourceCode(_pre);
-          String _fileName = SuiteDocGenerator.this.fileName(file);
-          it.setFileName(_fileName);
-          String _executionStateClass = SuiteDocGenerator.this.executionStateClass(rootSuite);
-          it.setExecutionStatus(_executionStateClass);
+          it.setName(SuiteDocGenerator.this._suiteClassNameProvider.toJavaClassName(rootSuite));
+          it.setTitle(SuiteDocGenerator.this.decode(SuiteDocGenerator.this._suiteClassNameProvider.describe(rootSuite)));
+          it.setContent(SuiteDocGenerator.this.generateContent(suites));
+          it.setRootFolder(SuiteDocGenerator.this.root(rootSuite));
+          it.setSourceCode(SuiteDocGenerator.this.pre(file, "lang-suite"));
+          it.setFileName(SuiteDocGenerator.this.fileName(file));
+          it.setExecutionStatus(SuiteDocGenerator.this.executionStateClass(rootSuite));
         }
       };
       _xblockexpression = HtmlFile.newHtmlFile(_function);
@@ -111,21 +98,13 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
       final Procedure1<HtmlFile> _function = new Procedure1<HtmlFile>() {
         @Override
         public void apply(final HtmlFile it) {
-          String _javaClassName = SuiteDocGenerator.this._suiteClassNameProvider.toJavaClassName(suite);
-          it.setName(_javaClassName);
-          String _describe = SuiteDocGenerator.this._suiteClassNameProvider.describe(suite);
-          String _decode = SuiteDocGenerator.this.decode(_describe);
-          it.setTitle(_decode);
-          CharSequence _generateContent = SuiteDocGenerator.this.generateContent(suite);
-          it.setContent(_generateContent);
-          String _root = SuiteDocGenerator.this.root(suite);
-          it.setRootFolder(_root);
-          CharSequence _pre = SuiteDocGenerator.this.pre(file, "lang-suite");
-          it.setSourceCode(_pre);
-          String _fileName = SuiteDocGenerator.this.fileName(file);
-          it.setFileName(_fileName);
-          String _executionStateClass = SuiteDocGenerator.this.executionStateClass(suite);
-          it.setExecutionStatus(_executionStateClass);
+          it.setName(SuiteDocGenerator.this._suiteClassNameProvider.toJavaClassName(suite));
+          it.setTitle(SuiteDocGenerator.this.decode(SuiteDocGenerator.this._suiteClassNameProvider.describe(suite)));
+          it.setContent(SuiteDocGenerator.this.generateContent(suite));
+          it.setRootFolder(SuiteDocGenerator.this.root(suite));
+          it.setSourceCode(SuiteDocGenerator.this.pre(file, "lang-suite"));
+          it.setFileName(SuiteDocGenerator.this.fileName(file));
+          it.setExecutionStatus(SuiteDocGenerator.this.executionStateClass(suite));
         }
       };
       _xblockexpression = HtmlFile.newHtmlFile(_function);
@@ -143,12 +122,12 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
           boolean _not = (!_equals);
           if (_not) {
             CharSequence _title = this.title(suite);
-            _builder.append(_title, "");
+            _builder.append(_title);
             _builder.newLineIfNotEmpty();
           }
         }
         CharSequence _generateContent = this.generateContent(suite);
-        _builder.append(_generateContent, "");
+        _builder.append(_generateContent);
         _builder.newLineIfNotEmpty();
       }
     }
@@ -157,44 +136,40 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
   
   public CharSequence title(final Suite suite) {
     StringConcatenation _builder = new StringConcatenation();
-    String _name = suite.getName();
-    final String title = Strings.firstLine(_name);
+    final String title = Strings.firstLine(suite.getName());
     _builder.newLineIfNotEmpty();
     _builder.append("<span");
     String _id = this.id(title);
-    _builder.append(_id, "");
+    _builder.append(_id);
     _builder.append(" class=\"suite ");
     String _executionStateClass = this.executionStateClass(suite);
-    _builder.append(_executionStateClass, "");
+    _builder.append(_executionStateClass);
     _builder.append("\">");
     String _markdown2Html = this.markdown2Html(title);
-    _builder.append(_markdown2Html, "");
+    _builder.append(_markdown2Html);
     _builder.append("</span>");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
   
   public String desc(final Suite suite) {
-    String _name = suite.getName();
-    String _trimFirstLine = Strings.trimFirstLine(_name);
-    return this.markdown2Html(_trimFirstLine);
+    return this.markdown2Html(Strings.trimFirstLine(suite.getName()));
   }
   
   public CharSequence generateContent(final Suite suite) {
     StringConcatenation _builder = new StringConcatenation();
     String _desc = this.desc(suite);
-    _builder.append(_desc, "");
+    _builder.append(_desc);
     _builder.newLineIfNotEmpty();
     {
-      EList<Reference> _elements = suite.getElements();
-      boolean _isEmpty = _elements.isEmpty();
+      boolean _isEmpty = suite.getElements().isEmpty();
       boolean _not = (!_isEmpty);
       if (_not) {
         _builder.append("<ul>");
         _builder.newLine();
         {
-          EList<Reference> _elements_1 = suite.getElements();
-          for(final Reference spec : _elements_1) {
+          EList<Reference> _elements = suite.getElements();
+          for(final Reference spec : _elements) {
             _builder.append("\t");
             CharSequence _generate = this.generate(spec);
             _builder.append(_generate, "\t");
@@ -215,18 +190,18 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
       for(final Specification spec : _resolveSpecs) {
         _builder.append("<li><a class=\"specref ");
         String _executionStateClass = this.executionStateClass(spec);
-        _builder.append(_executionStateClass, "");
+        _builder.append(_executionStateClass);
         _builder.append("\" href=\"");
         String _linkTo = this.linkTo(ref, spec);
-        _builder.append(_linkTo, "");
+        _builder.append(_linkTo);
         _builder.append("\">");
         String _describe = this._suiteClassNameProvider.describe(spec);
-        _builder.append(_describe, "");
+        _builder.append(_describe);
         _builder.append("</a>");
         String _executionState = this.executionState(spec);
-        _builder.append(_executionState, "");
+        _builder.append(_executionState);
         String _text = this.text(ref);
-        _builder.append(_text, "");
+        _builder.append(_text);
         _builder.append("</li>");
         _builder.newLineIfNotEmpty();
       }
@@ -243,15 +218,13 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
       if (_equals) {
         _xifexpression = "";
       } else {
-        String _packageName_1 = XtendTypes.packageName(spec);
-        _xifexpression = _packageName_1.replace(".", "/");
+        _xifexpression = XtendTypes.packageName(spec).replace(".", "/");
       }
       final String path = _xifexpression;
       String _root = this.root(context);
       String _plus = (_root + path);
       String _plus_1 = (_plus + "/");
-      String _javaClassName = this._suiteClassNameProvider.toJavaClassName(spec);
-      String _htmlFileName = this.htmlFileName(_javaClassName);
+      String _htmlFileName = this.htmlFileName(this._suiteClassNameProvider.toJavaClassName(spec));
       _xblockexpression = (_plus_1 + _htmlFileName);
     }
     return _xblockexpression;
@@ -269,12 +242,10 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
       boolean _not = (!_isNullOrEmpty);
       if (_not) {
         _matched=true;
-        String _text_1 = ((SpecReference)ref).getText();
-        String result = this.markdown2Html(_text_1);
+        String result = this.markdown2Html(((SpecReference)ref).getText());
         int _length = result.length();
         int _minus = (_length - 4);
-        String _substring = result.substring(3, _minus);
-        result = _substring;
+        result = result.substring(3, _minus);
         return (": " + result);
       }
     }

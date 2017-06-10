@@ -4,7 +4,6 @@ import com.google.common.base.Objects;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.jnario.Executable;
 import org.jnario.feature.feature.Background;
@@ -35,10 +34,8 @@ public class FeatureExecutableProvider implements ExecutableProvider {
       if (_equals) {
         return feature.getScenarios();
       }
-      Background _background_1 = feature.getBackground();
-      final ArrayList<Scenario> result = CollectionLiterals.<Scenario>newArrayList(_background_1);
-      EList<Scenario> _scenarios = feature.getScenarios();
-      result.addAll(_scenarios);
+      final ArrayList<Scenario> result = CollectionLiterals.<Scenario>newArrayList(feature.getBackground());
+      result.addAll(feature.getScenarios());
       _xblockexpression = result;
     }
     return _xblockexpression;

@@ -17,8 +17,6 @@ import java.io.FileInputStream;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.BasicConfigurator;
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtend.lib.Property;
 import org.eclipse.xtext.ISetup;
@@ -53,33 +51,28 @@ public class DocCompilerMain {
         final Iterator<String> arguments = ((List<String>)Conversions.doWrapArray(args)).iterator();
         while (arguments.hasNext()) {
           {
-            String _next = arguments.next();
-            final String argument = _next.trim();
+            final String argument = arguments.next().trim();
             boolean _matched = false;
             if ((Objects.equal(argument, "-cp") || Objects.equal(argument, "-classpath"))) {
               _matched=true;
-              String _next_1 = arguments.next();
-              it.setClassPath(_next_1);
+              it.setClassPath(arguments.next());
             }
             if (!_matched) {
               if (Objects.equal(argument, "-d")) {
                 _matched=true;
-                String _next_2 = arguments.next();
-                it.setOutputPath(_next_2);
+                it.setOutputPath(arguments.next());
               }
             }
             if (!_matched) {
               if (Objects.equal(argument, "-results")) {
                 _matched=true;
-                String _next_3 = arguments.next();
-                it.setResultFolder(_next_3);
+                it.setResultFolder(arguments.next());
               }
             }
             if (!_matched) {
               if (Objects.equal(argument, "-encoding")) {
                 _matched=true;
-                String _next_4 = arguments.next();
-                it.setFileEncoding(_next_4);
+                it.setFileEncoding(arguments.next());
               }
             }
             if (!_matched) {
@@ -90,8 +83,7 @@ public class DocCompilerMain {
       }
     };
     final DocCompilerMain main = ObjectExtensions.<DocCompilerMain>operator_doubleArrow(_docCompilerMain, _function);
-    int _compile = main.compile();
-    System.exit(_compile);
+    System.exit(main.compile());
   }
   
   @Property
@@ -113,8 +105,7 @@ public class DocCompilerMain {
     int _xblockexpression = (int) 0;
     {
       BasicConfigurator.configure();
-      ISetup _get = DocCompilerMain.SETUPS.get(0);
-      final Injector anyInjector = _get.createInjectorAndDoEMFRegistration();
+      final Injector anyInjector = DocCompilerMain.SETUPS.get(0).createInjectorAndDoEMFRegistration();
       final ResourceSet resourceSet = anyInjector.<ResourceSet>getInstance(ResourceSet.class);
       this.generateCssAndJsFiles(anyInjector);
       StandaloneResourceProvider _standaloneResourceProvider = new StandaloneResourceProvider(resourceSet);
@@ -128,20 +119,13 @@ public class DocCompilerMain {
       {
         final Injector injector = setup.createInjectorAndDoEMFRegistration();
         final JnarioDocCompiler jnarioCompiler = injector.<JnarioDocCompiler>getInstance(JnarioDocCompiler.class);
-        String _outputPath = this.getOutputPath();
-        jnarioCompiler.setOutputPath(_outputPath);
-        String _classPath = this.getClassPath();
-        jnarioCompiler.setClassPath(_classPath);
-        String _fileEncoding = this.getFileEncoding();
-        jnarioCompiler.setFileEncoding(_fileEncoding);
-        String _sourcePath = this.getSourcePath();
-        jnarioCompiler.setSourcePath(_sourcePath);
-        ResourceSet _get = resourceSet.get();
-        EList<Adapter> _eAdapters = _get.eAdapters();
-        _eAdapters.clear();
+        jnarioCompiler.setOutputPath(this.getOutputPath());
+        jnarioCompiler.setClassPath(this.getClassPath());
+        jnarioCompiler.setFileEncoding(this.getFileEncoding());
+        jnarioCompiler.setSourcePath(this.getSourcePath());
+        resourceSet.get().eAdapters().clear();
         jnarioCompiler.setResourceSetProvider(resourceSet);
-        HashBasedSpec2ResultMapping _createSpec2ResultMapping = this.createSpec2ResultMapping();
-        jnarioCompiler.setExecutable2ResultMapping(_createSpec2ResultMapping);
+        jnarioCompiler.setExecutable2ResultMapping(this.createSpec2ResultMapping());
         boolean _compile = jnarioCompiler.compile();
         boolean _not = (!_compile);
         if (_not) {
@@ -161,9 +145,7 @@ public class DocCompilerMain {
   }
   
   public HashBasedSpec2ResultMapping createSpec2ResultMapping() {
-    ISetup _get = DocCompilerMain.SETUPS.get(2);
-    Injector _createInjectorAndDoEMFRegistration = _get.createInjectorAndDoEMFRegistration();
-    final HashBasedSpec2ResultMapping resultMapping = _createInjectorAndDoEMFRegistration.<HashBasedSpec2ResultMapping>getInstance(HashBasedSpec2ResultMapping.class);
+    final HashBasedSpec2ResultMapping resultMapping = DocCompilerMain.SETUPS.get(2).createInjectorAndDoEMFRegistration().<HashBasedSpec2ResultMapping>getInstance(HashBasedSpec2ResultMapping.class);
     String _resultFolder = this.getResultFolder();
     final File reportFolder = new File(_resultFolder);
     boolean _exists = reportFolder.exists();
@@ -177,8 +159,7 @@ public class DocCompilerMain {
     boolean _xblockexpression = false;
     {
       final HtmlAssetsCompiler assetsCompiler = injector.<HtmlAssetsCompiler>getInstance(HtmlAssetsCompiler.class);
-      String _outputPath = this.getOutputPath();
-      assetsCompiler.setOutputPath(_outputPath);
+      assetsCompiler.setOutputPath(this.getOutputPath());
       _xblockexpression = assetsCompiler.compile();
     }
     return _xblockexpression;
@@ -190,8 +171,7 @@ public class DocCompilerMain {
       final FileFilter _function = new FileFilter() {
         @Override
         public boolean accept(final File it) {
-          String _name = it.getName();
-          return _name.endsWith("xml");
+          return it.getName().endsWith("xml");
         }
       };
       File[] _listFiles = reportFolder.listFiles(_function);

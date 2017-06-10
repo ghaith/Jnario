@@ -31,10 +31,8 @@ public class SuiteValueConverter implements IValueConverter<String> {
       }
       final int begin = Strings.lastIndexOfPrefix(value, this.prefix);
       final String prefix = value.substring(0, begin);
-      String _substring = value.substring(begin);
-      String _replace = _substring.replace("-", "\\-");
-      String _replace_1 = _replace.replace("#", "\\#");
-      _xblockexpression = (prefix + _replace_1);
+      String _replace = value.substring(begin).replace("-", "\\-").replace("#", "\\#");
+      _xblockexpression = (prefix + _replace);
     }
     return _xblockexpression;
   }
@@ -49,10 +47,8 @@ public class SuiteValueConverter implements IValueConverter<String> {
       }
       final int begin = Strings.lastIndexOfPrefix(string, this.prefix);
       final String prefix = string.substring(0, begin);
-      String _substring = string.substring(begin);
-      String _replace = _substring.replace("\\-", "-");
-      String _replace_1 = _replace.replace("\\#", "#");
-      _xblockexpression = (prefix + _replace_1);
+      String _replace = string.substring(begin).replace("\\-", "-").replace("\\#", "#");
+      _xblockexpression = (prefix + _replace);
     }
     return _xblockexpression;
   }

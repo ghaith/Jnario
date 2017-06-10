@@ -8,10 +8,7 @@
 package org.jnario.suite.ui.highlighting;
 
 import java.util.Arrays;
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
@@ -30,39 +27,32 @@ import org.jnario.util.Strings;
 public class SuiteHighlightingCalculator extends XbaseHighlightingCalculator {
   @Override
   public void searchAndHighlightElements(final XtextResource resource, final IHighlightedPositionAcceptor acceptor) {
-    TreeIterator<EObject> _allContents = resource.getAllContents();
     final Procedure1<EObject> _function = new Procedure1<EObject>() {
       @Override
       public void apply(final EObject it) {
         SuiteHighlightingCalculator.this.highlight(it, acceptor);
       }
     };
-    IteratorExtensions.<EObject>forEach(_allContents, _function);
+    IteratorExtensions.<EObject>forEach(resource.getAllContents(), _function);
   }
   
   protected Void _highlight(final SpecReference ref, final IHighlightedPositionAcceptor acceptor) {
-    EReference _specReference_Spec = SuitePackage.eINSTANCE.getSpecReference_Spec();
-    this.highlightObjectAtFeature(acceptor, ref, _specReference_Spec, SuiteHighlightingConfiguration.LINK_ID);
+    this.highlightObjectAtFeature(acceptor, ref, SuitePackage.eINSTANCE.getSpecReference_Spec(), SuiteHighlightingConfiguration.LINK_ID);
     return null;
   }
   
   protected Void _highlight(final PatternReference ref, final IHighlightedPositionAcceptor acceptor) {
-    EAttribute _patternReference_Pattern = SuitePackage.eINSTANCE.getPatternReference_Pattern();
-    this.highlightObjectAtFeature(acceptor, ref, _patternReference_Pattern, SuiteHighlightingConfiguration.PATTERN_ID);
+    this.highlightObjectAtFeature(acceptor, ref, SuitePackage.eINSTANCE.getPatternReference_Pattern(), SuiteHighlightingConfiguration.PATTERN_ID);
     return null;
   }
   
   protected Void _highlight(final Suite suite, final IHighlightedPositionAcceptor acceptor) {
     final ICompositeNode node = NodeModelUtils.getNode(suite);
-    String _name = suite.getName();
-    int lineEnd = Strings.indexOfNewLine(_name);
+    int lineEnd = Strings.indexOfNewLine(suite.getName());
     if ((lineEnd == (-1))) {
-      String _name_1 = suite.getName();
-      int _length = _name_1.length();
-      lineEnd = _length;
+      lineEnd = suite.getName().length();
     }
-    int _offset = node.getOffset();
-    acceptor.addPosition(_offset, lineEnd, SuiteHighlightingConfiguration.SUITE_ID);
+    acceptor.addPosition(node.getOffset(), lineEnd, SuiteHighlightingConfiguration.SUITE_ID);
     return null;
   }
   

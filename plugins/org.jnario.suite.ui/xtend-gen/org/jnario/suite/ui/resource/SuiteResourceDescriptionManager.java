@@ -19,18 +19,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.function.Consumer;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.builder.clustering.CurrentDescriptions;
-import org.eclipse.xtext.builder.impl.BuildData;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager;
@@ -74,12 +71,10 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
     if (_isAffected) {
       return true;
     }
-    URI _uRI = candidate.getURI();
-    String _string = _uRI.toString();
-    boolean _endsWith = _string.endsWith(".suite");
+    boolean _endsWith = candidate.getURI().toString().endsWith(".suite");
     if (_endsWith) {
-      URI _uRI_1 = candidate.getURI();
-      String _plus = ("Considering suite: " + _uRI_1);
+      URI _uRI = candidate.getURI();
+      String _plus = ("Considering suite: " + _uRI);
       SuiteResourceDescriptionManager.logger.debug(_plus);
       boolean _isTraceEnabled = SuiteResourceDescriptionManager.logger.isTraceEnabled();
       if (_isTraceEnabled) {
@@ -94,8 +89,7 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
       }
       ResourceSet _xifexpression = null;
       if ((context instanceof CurrentDescriptions)) {
-        BuildData _buildData = ((CurrentDescriptions) context).getBuildData();
-        _xifexpression = _buildData.getResourceSet();
+        _xifexpression = ((CurrentDescriptions) context).getBuildData().getResourceSet();
       } else {
         return false;
       }
@@ -109,17 +103,13 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
             return Boolean.valueOf(SuiteResourceDescriptionManager.this.isSpecFile(it));
           }
         };
-        Iterable<IResourceDescription.Delta> _filter = IterableExtensions.<IResourceDescription.Delta>filter(deltas, _function_1);
         final Function1<IResourceDescription.Delta, Iterable<QualifiedName>> _function_2 = new Function1<IResourceDescription.Delta, Iterable<QualifiedName>>() {
           @Override
           public Iterable<QualifiedName> apply(final IResourceDescription.Delta it) {
             return SuiteResourceDescriptionManager.this.modifiedSpecs(it, resourceSet);
           }
         };
-        Iterable<Iterable<QualifiedName>> _map = IterableExtensions.<IResourceDescription.Delta, Iterable<QualifiedName>>map(_filter, _function_2);
-        Iterable<QualifiedName> _flatten = Iterables.<QualifiedName>concat(_map);
-        List<QualifiedName> _list = IterableExtensions.<QualifiedName>toList(_flatten);
-        changedSpecs = _list;
+        changedSpecs = IterableExtensions.<QualifiedName>toList(Iterables.<QualifiedName>concat(IterableExtensions.<IResourceDescription.Delta, Iterable<QualifiedName>>map(IterableExtensions.<IResourceDescription.Delta>filter(deltas, _function_1), _function_2)));
         this.cachedDeltas.put(deltas, changedSpecs);
       } else {
         SuiteResourceDescriptionManager.logger.trace(" using cached deltas");
@@ -151,7 +141,6 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
           return ((Suite) _resolve);
         }
       };
-      Iterable<Suite> _map_1 = IterableExtensions.<IEObjectDescription, Suite>map(suites, _function_4);
       final Function1<Suite, Boolean> _function_5 = new Function1<Suite, Boolean>() {
         @Override
         public Boolean apply(final Suite it) {
@@ -159,24 +148,19 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
           return Boolean.valueOf((!_eIsProxy));
         }
       };
-      Iterable<Suite> _filter_1 = IterableExtensions.<Suite>filter(_map_1, _function_5);
       final Function1<Suite, List<Pattern>> _function_6 = new Function1<Suite, List<Pattern>>() {
         @Override
         public List<Pattern> apply(final Suite it) {
-          List<PatternReference> _resolvePatternReferences = SuiteResourceDescriptionManager.this.resolvePatternReferences(it);
           final Function1<PatternReference, Pattern> _function = new Function1<PatternReference, Pattern>() {
             @Override
             public Pattern apply(final PatternReference it) {
-              String _pattern = it.getPattern();
-              return Pattern.compile(_pattern);
+              return Pattern.compile(it.getPattern());
             }
           };
-          return ListExtensions.<PatternReference, Pattern>map(_resolvePatternReferences, _function);
+          return ListExtensions.<PatternReference, Pattern>map(SuiteResourceDescriptionManager.this.resolvePatternReferences(it), _function);
         }
       };
-      Iterable<List<Pattern>> _map_2 = IterableExtensions.<Suite, List<Pattern>>map(_filter_1, _function_6);
-      Iterable<Pattern> _flatten_1 = Iterables.<Pattern>concat(_map_2);
-      final List<Pattern> matchers = IterableExtensions.<Pattern>toList(_flatten_1);
+      final List<Pattern> matchers = IterableExtensions.<Pattern>toList(Iterables.<Pattern>concat(IterableExtensions.<Suite, List<Pattern>>map(IterableExtensions.<Suite>filter(IterableExtensions.<IEObjectDescription, Suite>map(suites, _function_4), _function_5), _function_6)));
       int _size = matchers.size();
       String _plus_1 = (" " + Integer.valueOf(_size));
       String _plus_2 = (_plus_1 + " referenced matchers");
@@ -199,9 +183,7 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
           final Function1<Pattern, Boolean> _function = new Function1<Pattern, Boolean>() {
             @Override
             public Boolean apply(final Pattern it) {
-              String _string = SuiteResourceDescriptionManager.this._iQualifiedNameConverter.toString(specName);
-              Matcher _matcher = it.matcher(_string);
-              return Boolean.valueOf(_matcher.matches());
+              return Boolean.valueOf(it.matcher(SuiteResourceDescriptionManager.this._iQualifiedNameConverter.toString(specName)).matches());
             }
           };
           Pattern _findFirst = IterableExtensions.<Pattern>findFirst(matchers, _function);
@@ -213,8 +195,8 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
       if (_isDebugEnabled_1) {
         boolean _notEquals = (!Objects.equal(firstRelevant, null));
         if (_notEquals) {
-          String _string_1 = this._iQualifiedNameConverter.toString(firstRelevant);
-          String _plus_3 = (">>  relevant spec change: " + _string_1);
+          String _string = this._iQualifiedNameConverter.toString(firstRelevant);
+          String _plus_3 = (">>  relevant spec change: " + _string);
           SuiteResourceDescriptionManager.logger.debug(_plus_3);
         } else {
           SuiteResourceDescriptionManager.logger.debug("  no relevant spec changes");
@@ -226,16 +208,13 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
   }
   
   protected List<PatternReference> _resolvePatternReferences(final Suite suite) {
-    EList<Reference> _elements = suite.getElements();
     final Function1<Reference, List<PatternReference>> _function = new Function1<Reference, List<PatternReference>>() {
       @Override
       public List<PatternReference> apply(final Reference it) {
         return SuiteResourceDescriptionManager.this.resolvePatternReferences(it);
       }
     };
-    List<List<PatternReference>> _map = ListExtensions.<Reference, List<PatternReference>>map(_elements, _function);
-    Iterable<PatternReference> _flatten = Iterables.<PatternReference>concat(_map);
-    return IterableExtensions.<PatternReference>toList(_flatten);
+    return IterableExtensions.<PatternReference>toList(Iterables.<PatternReference>concat(ListExtensions.<Reference, List<PatternReference>>map(suite.getElements(), _function)));
   }
   
   protected List<PatternReference> _resolvePatternReferences(final SpecReference specRef) {
@@ -245,8 +224,7 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
   protected List<PatternReference> _resolvePatternReferences(final PatternReference specRef) {
     List<PatternReference> _xblockexpression = null;
     {
-      String _pattern = specRef.getPattern();
-      boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(_pattern);
+      boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(specRef.getPattern());
       if (_isNullOrEmpty) {
         return Collections.<PatternReference>emptyList();
       }
@@ -256,9 +234,7 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
   }
   
   public boolean isSpecFile(final IResourceDescription.Delta delta) {
-    URI _uri = delta.getUri();
-    String _fileExtension = _uri.fileExtension();
-    return SuiteResourceDescriptionManager.FILE_EXTENSIONS.contains(_fileExtension);
+    return SuiteResourceDescriptionManager.FILE_EXTENSIONS.contains(delta.getUri().fileExtension());
   }
   
   public Iterable<QualifiedName> modifiedSpecs(final IResourceDescription.Delta delta, final ResourceSet resourceSet) {
@@ -296,7 +272,6 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
         }
       };
       final Map<QualifiedName, IEObjectDescription> after = IterableExtensions.<QualifiedName, IEObjectDescription>toMap(newEObjects, _function_1);
-      Set<QualifiedName> _keySet = before.keySet();
       final Function1<QualifiedName, Boolean> _function_2 = new Function1<QualifiedName, Boolean>() {
         @Override
         public Boolean apply(final QualifiedName it) {
@@ -304,9 +279,7 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
           return Boolean.valueOf((!_containsKey));
         }
       };
-      Iterable<QualifiedName> _filter = IterableExtensions.<QualifiedName>filter(_keySet, _function_2);
-      final Set<QualifiedName> deleted = IterableExtensions.<QualifiedName>toSet(_filter);
-      Set<QualifiedName> _keySet_1 = after.keySet();
+      final Set<QualifiedName> deleted = IterableExtensions.<QualifiedName>toSet(IterableExtensions.<QualifiedName>filter(before.keySet(), _function_2));
       final Function1<QualifiedName, Boolean> _function_3 = new Function1<QualifiedName, Boolean>() {
         @Override
         public Boolean apply(final QualifiedName it) {
@@ -314,43 +287,37 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
           return Boolean.valueOf((!_containsKey));
         }
       };
-      Iterable<QualifiedName> _filter_1 = IterableExtensions.<QualifiedName>filter(_keySet_1, _function_3);
-      final Set<QualifiedName> added = IterableExtensions.<QualifiedName>toSet(_filter_1);
-      Set<QualifiedName> _keySet_2 = before.keySet();
-      Set<QualifiedName> _keySet_3 = after.keySet();
-      Iterable<QualifiedName> _plus = Iterables.<QualifiedName>concat(_keySet_2, _keySet_3);
+      final Set<QualifiedName> added = IterableExtensions.<QualifiedName>toSet(IterableExtensions.<QualifiedName>filter(after.keySet(), _function_3));
+      Set<QualifiedName> _keySet = before.keySet();
+      Set<QualifiedName> _keySet_1 = after.keySet();
       final Function1<QualifiedName, Boolean> _function_4 = new Function1<QualifiedName, Boolean>() {
         @Override
         public Boolean apply(final QualifiedName it) {
           return Boolean.valueOf((!(deleted.contains(it) || added.contains(it))));
         }
       };
-      final Iterable<QualifiedName> kept = IterableExtensions.<QualifiedName>filter(_plus, _function_4);
+      final Iterable<QualifiedName> kept = IterableExtensions.<QualifiedName>filter(Iterables.<QualifiedName>concat(_keySet, _keySet_1), _function_4);
       final Function1<QualifiedName, Boolean> _function_5 = new Function1<QualifiedName, Boolean>() {
         @Override
         public Boolean apply(final QualifiedName it) {
-          IEObjectDescription _get = before.get(it);
-          IEObjectDescription _get_1 = after.get(it);
-          boolean _equals = SuiteResourceDescriptionManager.this.equals(_get, _get_1);
+          boolean _equals = SuiteResourceDescriptionManager.this.equals(before.get(it), after.get(it));
           return Boolean.valueOf((!_equals));
         }
       };
       final Iterable<QualifiedName> changed = IterableExtensions.<QualifiedName>filter(kept, _function_5);
-      Iterable<QualifiedName> _plus_1 = Iterables.<QualifiedName>concat(deleted, added);
-      _xblockexpression = Iterables.<QualifiedName>concat(_plus_1, changed);
+      Iterable<QualifiedName> _plus = Iterables.<QualifiedName>concat(deleted, added);
+      _xblockexpression = Iterables.<QualifiedName>concat(_plus, changed);
     }
     return _xblockexpression;
   }
   
   public Iterable<IEObjectDescription> topLevelSpecs(final IResourceDescription resource, final ResourceSet resourceSet) {
-    Iterable<IEObjectDescription> _exportedObjectsByType = resource.getExportedObjectsByType(JnarioPackage.Literals.SPECIFICATION);
     final Function1<IEObjectDescription, Boolean> _function = new Function1<IEObjectDescription, Boolean>() {
       @Override
       public Boolean apply(final IEObjectDescription it) {
         boolean _xblockexpression = false;
         {
-          EObject _eObjectOrProxy = it.getEObjectOrProxy();
-          final EObject object = EcoreUtil.resolve(_eObjectOrProxy, resourceSet);
+          final EObject object = EcoreUtil.resolve(it.getEObjectOrProxy(), resourceSet);
           _xblockexpression = (((object instanceof Specification) && (!Objects.equal(object.eContainer(), null))) && 
             (Objects.equal(object.eContainer().eClass(), SpecPackage.Literals.SPEC_FILE) || 
               Objects.equal(object.eContainer().eClass(), FeaturePackage.Literals.FEATURE_FILE)));
@@ -358,7 +325,7 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
         return Boolean.valueOf(_xblockexpression);
       }
     };
-    return IterableExtensions.<IEObjectDescription>filter(_exportedObjectsByType, _function);
+    return IterableExtensions.<IEObjectDescription>filter(resource.getExportedObjectsByType(JnarioPackage.Literals.SPECIFICATION), _function);
   }
   
   public boolean equals(final IEObjectDescription oldObj, final IEObjectDescription newObj) {
@@ -375,9 +342,7 @@ public class SuiteResourceDescriptionManager extends DerivedStateAwareResourceDe
     if (((!Objects.equal(oldObj.getName(), null)) && (!oldObj.getName().equals(newObj.getName())))) {
       return false;
     }
-    URI _eObjectURI = oldObj.getEObjectURI();
-    URI _eObjectURI_1 = newObj.getEObjectURI();
-    boolean _equals_1 = _eObjectURI.equals(_eObjectURI_1);
+    boolean _equals_1 = oldObj.getEObjectURI().equals(newObj.getEObjectURI());
     boolean _not = (!_equals_1);
     if (_not) {
       return false;

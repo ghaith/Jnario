@@ -27,9 +27,8 @@ public class ErrorMessageProvider extends ExecutableStateSwitch<String> {
       for(final SpecFailure failure : _failures) {
         _builder.append("<pre class=\"errormessage\">");
         _builder.newLine();
-        String _message = failure.getMessage();
-        String _escapeHtml = StringEscapeUtils.escapeHtml(_message);
-        _builder.append(_escapeHtml, "");
+        String _escapeHtml = StringEscapeUtils.escapeHtml(failure.getMessage());
+        _builder.append(_escapeHtml);
         _builder.append("</pre>");
         _builder.newLineIfNotEmpty();
       }

@@ -2,7 +2,6 @@ package org.jnario.report;
 
 import com.google.common.base.Objects;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -55,14 +54,10 @@ public class SpecResultParser extends DefaultHandler {
     boolean _matched = false;
     if (Objects.equal(qName, SpecResultTags.NODE_TESTCASE)) {
       _matched=true;
-      String _convertValue = this.convertValue(attributes, SpecResultTags.ATTR_CLASSNAME);
-      this.currentClassName = _convertValue;
-      String _convertValue_1 = this.convertValue(attributes, SpecResultTags.ATTR_NAME);
-      this.currentName = _convertValue_1;
-      double _readTime = this.readTime(attributes);
-      this.currentExecutionTime = _readTime;
-      ArrayList<SpecFailure> _newArrayList = CollectionLiterals.<SpecFailure>newArrayList();
-      this.failures = _newArrayList;
+      this.currentClassName = this.convertValue(attributes, SpecResultTags.ATTR_CLASSNAME);
+      this.currentName = this.convertValue(attributes, SpecResultTags.ATTR_NAME);
+      this.currentExecutionTime = this.readTime(attributes);
+      this.failures = CollectionLiterals.<SpecFailure>newArrayList();
     }
     if (!_matched) {
       if (Objects.equal(qName, SpecResultTags.NODE_ERROR)) {
@@ -87,8 +82,7 @@ public class SpecResultParser extends DefaultHandler {
   }
   
   public String saveFailureAttributes(final Attributes attributes) {
-    String _convertValue = this.convertValue(attributes, SpecResultTags.ATTR_TYPE);
-    return this.currentFailureType = _convertValue;
+    return this.currentFailureType = this.convertValue(attributes, SpecResultTags.ATTR_TYPE);
   }
   
   @Override
@@ -96,8 +90,7 @@ public class SpecResultParser extends DefaultHandler {
     boolean _matched = false;
     if (Objects.equal(qName, SpecResultTags.NODE_TESTCASE)) {
       _matched=true;
-      SpecExecution _newSpecExecution = this.newSpecExecution();
-      this.acceptor.accept(_newSpecExecution);
+      this.acceptor.accept(this.newSpecExecution());
       this.currentClassName = null;
       this.currentName = null;
       this.currentExecutionTime = 0.0;
@@ -140,17 +133,12 @@ public class SpecResultParser extends DefaultHandler {
       String message = "";
       String stacktrace = "";
       if ((end > (-1))) {
-        String _substring = messageAndStacktrace.substring(0, (end - 1));
-        message = _substring;
-        int _length = messageAndStacktrace.length();
-        String _substring_1 = messageAndStacktrace.substring(end, _length);
-        stacktrace = _substring_1;
+        message = messageAndStacktrace.substring(0, (end - 1));
+        stacktrace = messageAndStacktrace.substring(end, messageAndStacktrace.length());
       }
-      String _trim = message.trim();
-      String _cleanUp = this.cleanUp(_trim);
-      message = _cleanUp;
-      String _cleanUp_1 = this.cleanUp(stacktrace);
-      _xblockexpression = Pair.<String, String>of(message, _cleanUp_1);
+      message = this.cleanUp(message.trim());
+      String _cleanUp = this.cleanUp(stacktrace);
+      _xblockexpression = Pair.<String, String>of(message, _cleanUp);
     }
     return _xblockexpression;
   }
@@ -161,8 +149,7 @@ public class SpecResultParser extends DefaultHandler {
   
   @Override
   public void characters(final char[] ch, final int start, final int length) throws SAXException {
-    String _valueOf = String.valueOf(ch, start, length);
-    this.currentFailureStacktrace.append(_valueOf);
+    this.currentFailureStacktrace.append(String.valueOf(ch, start, length));
   }
   
   public SpecExecution newSpecExecution() {
@@ -202,8 +189,7 @@ public class SpecResultParser extends DefaultHandler {
   public String convertValue(final Attributes attributes, final String key) {
     String _xblockexpression = null;
     {
-      String _value = attributes.getValue(key);
-      final String value = _value.replace("\\/", "/");
+      final String value = attributes.getValue(key).replace("\\/", "/");
       _xblockexpression = Strings.convertFromJavaString(value, true);
     }
     return _xblockexpression;

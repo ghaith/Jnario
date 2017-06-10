@@ -13,7 +13,6 @@ import com.google.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Extension;
@@ -21,7 +20,6 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IntegerRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
-import org.jnario.JnarioTypeDeclaration;
 import org.jnario.Specification;
 import org.jnario.suite.jvmmodel.SpecResolver;
 import org.jnario.suite.jvmmodel.SuiteNode;
@@ -40,9 +38,7 @@ public class SuiteNodeBuilder {
   public Iterable<SuiteNode> buildNodeModel(final SuiteFile suiteFile) {
     ArrayList<SuiteNode> _xblockexpression = null;
     {
-      EList<JnarioTypeDeclaration> _xtendTypes = suiteFile.getXtendTypes();
-      Iterable<Suite> _filter = Iterables.<Suite>filter(_xtendTypes, Suite.class);
-      final List<Suite> suites = IterableExtensions.<Suite>toList(_filter);
+      final List<Suite> suites = IterableExtensions.<Suite>toList(Iterables.<Suite>filter(suiteFile.getXtendTypes(), Suite.class));
       final ArrayList<SuiteNode> result = CollectionLiterals.<SuiteNode>newArrayList();
       boolean _isEmpty = suites.isEmpty();
       if (_isEmpty) {
@@ -55,8 +51,7 @@ public class SuiteNodeBuilder {
       for (final Integer i : _upTo) {
         {
           final Suite current = suites.get((i).intValue());
-          Suite _parent = this.parent(suites, (i).intValue());
-          final SuiteNode parentNode = mapping.get(_parent);
+          final SuiteNode parentNode = mapping.get(this.parent(suites, (i).intValue()));
           final SuiteNode currentNode = this.createNode(current, parentNode);
           mapping.put(current, currentNode);
           boolean _equals = Objects.equal(parentNode, null);
@@ -71,15 +66,13 @@ public class SuiteNodeBuilder {
   }
   
   public SuiteNode createNode(final Suite current, final SuiteNode parent) {
-    EList<Reference> _elements = current.getElements();
     final Function1<Reference, List<Specification>> _function = new Function1<Reference, List<Specification>>() {
       @Override
       public List<Specification> apply(final Reference it) {
         return SuiteNodeBuilder.this._specResolver.resolveSpecs(it);
       }
     };
-    List<List<Specification>> _map = ListExtensions.<Reference, List<Specification>>map(_elements, _function);
-    final Iterable<Specification> specs = Iterables.<Specification>concat(_map);
+    final Iterable<Specification> specs = Iterables.<Specification>concat(ListExtensions.<Reference, List<Specification>>map(current.getElements(), _function));
     final SuiteNode node = new SuiteNode(current, specs);
     node.setParent(parent);
     return node;
@@ -89,8 +82,7 @@ public class SuiteNodeBuilder {
     if ((i == 0)) {
       return null;
     }
-    Suite _get = suites.get(i);
-    final int current = this.level(_get);
+    final int current = this.level(suites.get(i));
     IntegerRange _upTo = new IntegerRange((i - 1), 0);
     for (final Integer j : _upTo) {
       {

@@ -14,9 +14,7 @@ public class IEObjectDescriptionFilter implements Predicate<IEObjectDescription>
   
   @Override
   public boolean apply(final IEObjectDescription input) {
-    EClass _type = this.getType();
-    EClass _eClass = input.getEClass();
-    return _type.isSuperTypeOf(_eClass);
+    return this.getType().isSuperTypeOf(input.getEClass());
   }
   
   public IEObjectDescriptionFilter(final EClass type) {

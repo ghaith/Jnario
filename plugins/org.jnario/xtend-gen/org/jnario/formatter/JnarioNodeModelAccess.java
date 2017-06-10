@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.Keyword;
-import org.eclipse.xtext.nodemodel.BidiTreeIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -26,14 +25,13 @@ public class JnarioNodeModelAccess extends NodeModelAccess {
       if (_equals) {
         return Collections.<ILeafNode>unmodifiableList(CollectionLiterals.<ILeafNode>newArrayList());
       }
-      BidiTreeIterable<INode> _asTreeIterable = node.getAsTreeIterable();
       final Function1<INode, Boolean> _function = new Function1<INode, Boolean>() {
         @Override
         public Boolean apply(final INode it) {
           return Boolean.valueOf(((Objects.equal(it.getSemanticElement(), obj) && (it.getGrammarElement() instanceof Keyword)) && Objects.equal(it.getText(), kw)));
         }
       };
-      INode _findFirst = IterableExtensions.<INode>findFirst(_asTreeIterable, _function);
+      INode _findFirst = IterableExtensions.<INode>findFirst(node.getAsTreeIterable(), _function);
       final ILeafNode leafNode = ((ILeafNode) _findFirst);
       List<ILeafNode> _xifexpression = null;
       if ((leafNode == null)) {

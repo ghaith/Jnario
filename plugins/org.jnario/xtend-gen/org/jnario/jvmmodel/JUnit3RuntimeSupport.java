@@ -6,7 +6,6 @@ import com.google.inject.Inject;
 import java.util.Collection;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.common.types.JvmConstructor;
 import org.eclipse.xtext.common.types.JvmField;
@@ -69,8 +68,7 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
   
   @Override
   public void addChildren(final Specification context, final JvmGenericType parent, final Collection<JvmTypeReference> children) {
-    EClass _eClass = context.eClass();
-    String _name = _eClass.getName();
+    String _name = context.eClass().getName();
     boolean _equals = Objects.equal(_name, "Suite");
     if (_equals) {
       final Function1<JvmTypeReference, String> _function = new Function1<JvmTypeReference, String>() {
@@ -79,9 +77,7 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
           return it.getSimpleName();
         }
       };
-      Iterable<String> _map = IterableExtensions.<JvmTypeReference, String>map(children, _function);
-      List<Executable> _emptyList = CollectionLiterals.<Executable>emptyList();
-      this.addSuite(parent, context, _map, _emptyList);
+      this.addSuite(parent, context, IterableExtensions.<JvmTypeReference, String>map(children, _function), CollectionLiterals.<Executable>emptyList());
     }
   }
   
@@ -89,13 +85,9 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
   public void updateExampleGroup(final JnarioClass exampleGroup, final JvmGenericType inferredType) {
     this.makeTestCase(exampleGroup, inferredType);
     this.addTestCase(inferredType, exampleGroup);
-    Iterable<String> _children = this.children(exampleGroup);
-    Iterable<Executable> _examples = this.examples(exampleGroup);
-    this.addSuite(inferredType, exampleGroup, _children, _examples);
-    Iterable<JnarioFunction> _befores = this.befores(exampleGroup);
-    this.generateSetup("setUp", exampleGroup, inferredType, _befores);
-    Iterable<JnarioFunction> _afters = this.afters(exampleGroup);
-    this.generateSetup("tearDown", exampleGroup, inferredType, _afters);
+    this.addSuite(inferredType, exampleGroup, this.children(exampleGroup), this.examples(exampleGroup));
+    this.generateSetup("setUp", exampleGroup, inferredType, this.befores(exampleGroup));
+    this.generateSetup("tearDown", exampleGroup, inferredType, this.afters(exampleGroup));
   }
   
   public boolean generateSetup(final String methodName, final JnarioClass exampleGroup, final JvmGenericType type, final Iterable<JnarioFunction> executables) {
@@ -115,13 +107,13 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
             public void apply(final ITreeAppendable it) {
               StringConcatenation _builder = new StringConcatenation();
               _builder.append("super.");
-              _builder.append(methodName, "");
+              _builder.append(methodName);
               _builder.append("();");
               _builder.newLineIfNotEmpty();
               {
                 for(final JnarioFunction executable : executables) {
                   String _methodName = JUnit3RuntimeSupport.this._jnarioNameProvider.toMethodName(executable);
-                  _builder.append(_methodName, "");
+                  _builder.append(_methodName);
                   _builder.append("();");
                   _builder.newLineIfNotEmpty();
                 }
@@ -139,31 +131,25 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
   }
   
   private Iterable<JnarioFunction> befores(final JnarioClass exampleGroup) {
-    EList<JnarioMember> _members = exampleGroup.getMembers();
-    Iterable<JnarioFunction> _filter = Iterables.<JnarioFunction>filter(_members, JnarioFunction.class);
     final Function1<JnarioFunction, Boolean> _function = new Function1<JnarioFunction, Boolean>() {
       @Override
       public Boolean apply(final JnarioFunction it) {
-        EClass _eClass = it.eClass();
-        String _name = _eClass.getName();
+        String _name = it.eClass().getName();
         return Boolean.valueOf(Objects.equal(_name, "Before"));
       }
     };
-    return IterableExtensions.<JnarioFunction>filter(_filter, _function);
+    return IterableExtensions.<JnarioFunction>filter(Iterables.<JnarioFunction>filter(exampleGroup.getMembers(), JnarioFunction.class), _function);
   }
   
   private Iterable<JnarioFunction> afters(final JnarioClass exampleGroup) {
-    EList<JnarioMember> _members = exampleGroup.getMembers();
-    Iterable<JnarioFunction> _filter = Iterables.<JnarioFunction>filter(_members, JnarioFunction.class);
     final Function1<JnarioFunction, Boolean> _function = new Function1<JnarioFunction, Boolean>() {
       @Override
       public Boolean apply(final JnarioFunction it) {
-        EClass _eClass = it.eClass();
-        String _name = _eClass.getName();
+        String _name = it.eClass().getName();
         return Boolean.valueOf(Objects.equal(_name, "After"));
       }
     };
-    return IterableExtensions.<JnarioFunction>filter(_filter, _function);
+    return IterableExtensions.<JnarioFunction>filter(Iterables.<JnarioFunction>filter(exampleGroup.getMembers(), JnarioFunction.class), _function);
   }
   
   private boolean addSuite(final JvmGenericType it, final JnarioClass context, final Iterable<String> children, final Iterable<Executable> tests) {
@@ -181,17 +167,17 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
               StringConcatenation _builder = new StringConcatenation();
               _builder.append("org.jnario.junit3.JnarioTestSuite suite = new org.jnario.junit3.JnarioTestSuite(\"");
               String _describe = JUnit3RuntimeSupport.this._jnarioNameProvider.describe(context);
-              _builder.append(_describe, "");
+              _builder.append(_describe);
               _builder.append("\");");
               _builder.newLineIfNotEmpty();
               {
                 for(final Executable test : tests) {
                   _builder.append("suite.addTest(new ");
                   String _javaClassName = JUnit3RuntimeSupport.this._jnarioNameProvider.toJavaClassName(context);
-                  _builder.append(_javaClassName, "");
+                  _builder.append(_javaClassName);
                   _builder.append("(\"");
                   String _testName = JUnit3RuntimeSupport.this.testName(test);
-                  _builder.append(_testName, "");
+                  _builder.append(_testName);
                   _builder.append("\"));");
                   _builder.newLineIfNotEmpty();
                 }
@@ -199,7 +185,7 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
               {
                 for(final String child : children) {
                   _builder.append("suite.addTest(");
-                  _builder.append(child, "");
+                  _builder.append(child);
                   _builder.append(".suite());");
                   _builder.newLineIfNotEmpty();
                 }
@@ -270,22 +256,17 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
   
   public Object addTestCase(final JvmGenericType inferredType, final JnarioClass context) {
     Object _xifexpression = null;
-    EList<JvmTypeReference> _superTypes = inferredType.getSuperTypes();
-    boolean _isEmpty = _superTypes.isEmpty();
+    boolean _isEmpty = inferredType.getSuperTypes().isEmpty();
     if (_isEmpty) {
-      EList<JvmTypeReference> _superTypes_1 = inferredType.getSuperTypes();
+      EList<JvmTypeReference> _superTypes = inferredType.getSuperTypes();
       JvmTypeReference _typeForName = this._typeReferences.getTypeForName("junit.framework.TestCase", context);
-      _xifexpression = Boolean.valueOf(this._extendedJvmTypesBuilder.<JvmTypeReference>operator_add(_superTypes_1, _typeForName));
+      _xifexpression = Boolean.valueOf(this._extendedJvmTypesBuilder.<JvmTypeReference>operator_add(_superTypes, _typeForName));
     } else {
       JvmTypeReference _xifexpression_1 = null;
-      EList<JvmTypeReference> _superTypes_2 = inferredType.getSuperTypes();
-      JvmTypeReference _get = _superTypes_2.get(0);
-      String _simpleName = _get.getSimpleName();
+      String _simpleName = inferredType.getSuperTypes().get(0).getSimpleName();
       boolean _equals = Objects.equal(_simpleName, "Object");
       if (_equals) {
-        EList<JvmTypeReference> _superTypes_3 = inferredType.getSuperTypes();
-        JvmTypeReference _typeForName_1 = this._typeReferences.getTypeForName("junit.framework.TestCase", context);
-        _xifexpression_1 = _superTypes_3.set(0, _typeForName_1);
+        _xifexpression_1 = inferredType.getSuperTypes().set(0, this._typeReferences.getTypeForName("junit.framework.TestCase", context));
       }
       _xifexpression = _xifexpression_1;
     }
@@ -293,33 +274,28 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
   }
   
   private Iterable<String> children(final JnarioClass exampleGroup) {
-    EList<JnarioMember> _members = exampleGroup.getMembers();
-    Iterable<Specification> _filter = Iterables.<Specification>filter(_members, Specification.class);
     final Function1<Specification, String> _function = new Function1<Specification, String>() {
       @Override
       public String apply(final Specification it) {
         return JUnit3RuntimeSupport.this._jnarioNameProvider.toJavaClassName(it);
       }
     };
-    return IterableExtensions.<Specification, String>map(_filter, _function);
+    return IterableExtensions.<Specification, String>map(Iterables.<Specification>filter(exampleGroup.getMembers(), Specification.class), _function);
   }
   
   private Iterable<Executable> examples(final JnarioClass exampleGroup) {
-    EList<JnarioMember> _members = exampleGroup.getMembers();
-    Iterable<Executable> _filter = Iterables.<Executable>filter(_members, Executable.class);
     final Function1<Executable, Boolean> _function = new Function1<Executable, Boolean>() {
       @Override
       public Boolean apply(final Executable it) {
         return Boolean.valueOf((!(it instanceof Specification)));
       }
     };
-    return IterableExtensions.<Executable>filter(_filter, _function);
+    return IterableExtensions.<Executable>filter(Iterables.<Executable>filter(exampleGroup.getMembers(), Executable.class), _function);
   }
   
   @Override
   public void markAsTestMethod(final Executable element, final JvmOperation operation) {
-    String _testName = this.testName(element);
-    operation.setSimpleName(_testName);
+    operation.setSimpleName(this.testName(element));
   }
   
   private String testName(final Executable e) {
@@ -336,9 +312,7 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
         return it.getSimpleName();
       }
     };
-    List<String> _map = ListExtensions.<JvmTypeReference, String>map(scenarios, _function);
-    List<Executable> _emptyList = CollectionLiterals.<Executable>emptyList();
-    this.addSuite(inferredType, feature, _map, _emptyList);
+    this.addSuite(inferredType, feature, ListExtensions.<JvmTypeReference, String>map(scenarios, _function), CollectionLiterals.<Executable>emptyList());
   }
   
   @Override
@@ -356,14 +330,14 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
             StringConcatenation _builder = new StringConcatenation();
             _builder.append("org.jnario.junit3.JnarioTestSuite suite = new org.jnario.junit3.JnarioTestSuite(\"");
             String _describe = JUnit3RuntimeSupport.this._jnarioNameProvider.describe(scenario);
-            _builder.append(_describe, "");
+            _builder.append(_describe);
             _builder.append("\");");
             _builder.newLineIfNotEmpty();
             String _javaClassName = JUnit3RuntimeSupport.this._jnarioNameProvider.toJavaClassName(scenario);
-            _builder.append(_javaClassName, "");
+            _builder.append(_javaClassName);
             _builder.append(" scenario = new ");
             String _javaClassName_1 = JUnit3RuntimeSupport.this._jnarioNameProvider.toJavaClassName(scenario);
-            _builder.append(_javaClassName_1, "");
+            _builder.append(_javaClassName_1);
             _builder.append("(");
             _builder.newLineIfNotEmpty();
             _builder.append("new org.jnario.junit3.TestQueue(");
@@ -378,7 +352,7 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
                 }
                 _builder.append("\"");
                 String _testName = JUnit3RuntimeSupport.this.testName(test);
-                _builder.append(_testName, "");
+                _builder.append(_testName);
                 _builder.append("\"");
               }
             }
@@ -388,7 +362,7 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
               for(final Executable test_1 : tests) {
                 _builder.append("suite.addTest(new org.jnario.junit3.DelegatingTestCase(\"");
                 String _describe_1 = JUnit3RuntimeSupport.this._jnarioNameProvider.describe(test_1);
-                _builder.append(_describe_1, "");
+                _builder.append(_describe_1);
                 _builder.append("\", scenario));");
                 _builder.newLineIfNotEmpty();
               }
@@ -450,7 +424,7 @@ public class JUnit3RuntimeSupport implements TestRuntimeSupport {
             _builder.append("}");
             _builder.newLine();
             _builder.append("super.");
-            _builder.append("setUp", "");
+            _builder.append("setUp");
             _builder.append("();");
             it.append(_builder);
           }

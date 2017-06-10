@@ -27,18 +27,14 @@ public class StepsProvider {
       if (_equals) {
         return CollectionLiterals.<StepImplementation>emptyList();
       }
-      Resource _eResource_1 = context.eResource();
-      EList<EObject> _contents = _eResource_1.getContents();
-      final Iterable<FeatureFile> featureFiles = Iterables.<FeatureFile>filter(_contents, FeatureFile.class);
+      final Iterable<FeatureFile> featureFiles = Iterables.<FeatureFile>filter(context.eResource().getContents(), FeatureFile.class);
       final Function1<FeatureFile, EList<JnarioTypeDeclaration>> _function = new Function1<FeatureFile, EList<JnarioTypeDeclaration>>() {
         @Override
         public EList<JnarioTypeDeclaration> apply(final FeatureFile it) {
           return it.getXtendTypes();
         }
       };
-      Iterable<EList<JnarioTypeDeclaration>> _map = IterableExtensions.<FeatureFile, EList<JnarioTypeDeclaration>>map(featureFiles, _function);
-      Iterable<JnarioTypeDeclaration> _flatten = Iterables.<JnarioTypeDeclaration>concat(_map);
-      final Iterable<Feature> features = Iterables.<Feature>filter(_flatten, Feature.class);
+      final Iterable<Feature> features = Iterables.<Feature>filter(Iterables.<JnarioTypeDeclaration>concat(IterableExtensions.<FeatureFile, EList<JnarioTypeDeclaration>>map(featureFiles, _function)), Feature.class);
       final Function1<Feature, Iterable<Scenario>> _function_1 = new Function1<Feature, Iterable<Scenario>>() {
         @Override
         public Iterable<Scenario> apply(final Feature it) {
@@ -56,18 +52,14 @@ public class StepsProvider {
           return _xblockexpression;
         }
       };
-      Iterable<Iterable<Scenario>> _map_1 = IterableExtensions.<Feature, Iterable<Scenario>>map(features, _function_1);
-      Iterable<Scenario> _flatten_1 = Iterables.<Scenario>concat(_map_1);
-      final Iterable<Scenario> scenarios = IterableExtensions.<Scenario>filterNull(_flatten_1);
+      final Iterable<Scenario> scenarios = IterableExtensions.<Scenario>filterNull(Iterables.<Scenario>concat(IterableExtensions.<Feature, Iterable<Scenario>>map(features, _function_1)));
       final Function1<Scenario, EList<Step>> _function_2 = new Function1<Scenario, EList<Step>>() {
         @Override
         public EList<Step> apply(final Scenario it) {
           return it.getSteps();
         }
       };
-      Iterable<EList<Step>> _map_2 = IterableExtensions.<Scenario, EList<Step>>map(scenarios, _function_2);
-      Iterable<Step> _flatten_2 = Iterables.<Step>concat(_map_2);
-      _xblockexpression = Iterables.<StepImplementation>filter(_flatten_2, StepImplementation.class);
+      _xblockexpression = Iterables.<StepImplementation>filter(Iterables.<Step>concat(IterableExtensions.<Scenario, EList<Step>>map(scenarios, _function_2)), StepImplementation.class);
     }
     return _xblockexpression;
   }

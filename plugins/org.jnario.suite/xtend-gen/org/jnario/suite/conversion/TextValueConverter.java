@@ -41,9 +41,7 @@ public class TextValueConverter extends SuiteValueConverter {
       int _length_1 = string.length();
       int _length_2 = this.postfix.length();
       int _minus = (_length_1 - _length_2);
-      String _substring = string.substring(_length, _minus);
-      String _trim = _substring.trim();
-      result = _trim;
+      result = string.substring(_length, _minus).trim();
     }
     return result;
   }

@@ -82,8 +82,7 @@ public class JUnit4RuntimeSupport implements TestRuntimeSupport {
   @Override
   public void updateExampleGroup(final JnarioClass exampleGroup, final JvmGenericType inferredType) {
     EList<JvmAnnotationReference> _annotations = inferredType.getAnnotations();
-    JvmTypeReference _typeForName = this.getTypeForName(ExampleGroupRunner.class, exampleGroup);
-    JvmAnnotationReference _annotation = this._jvmTypesBuilder.toAnnotation(exampleGroup, JUnit4RuntimeSupport.RUN_WITH, _typeForName);
+    JvmAnnotationReference _annotation = this._jvmTypesBuilder.toAnnotation(exampleGroup, JUnit4RuntimeSupport.RUN_WITH, this.getTypeForName(ExampleGroupRunner.class, exampleGroup));
     this._jvmTypesBuilder.<JvmAnnotationReference>operator_add(_annotations, _annotation);
   }
   
@@ -97,24 +96,21 @@ public class JUnit4RuntimeSupport implements TestRuntimeSupport {
   @Override
   public void updateFeature(final JnarioClass feature, final JvmGenericType inferredType, final List<JvmTypeReference> scenarios) {
     EList<JvmAnnotationReference> _annotations = inferredType.getAnnotations();
-    JvmTypeReference _typeForName = this.getTypeForName(FeatureRunner.class, feature);
-    JvmAnnotationReference _annotation = this._jvmTypesBuilder.toAnnotation(feature, JUnit4RuntimeSupport.RUN_WITH, _typeForName);
+    JvmAnnotationReference _annotation = this._jvmTypesBuilder.toAnnotation(feature, JUnit4RuntimeSupport.RUN_WITH, this.getTypeForName(FeatureRunner.class, feature));
     this._jvmTypesBuilder.<JvmAnnotationReference>operator_add(_annotations, _annotation);
   }
   
   @Override
   public void updateScenario(final JnarioClass scenario, final JvmGenericType inferredType) {
     EList<JvmAnnotationReference> _annotations = inferredType.getAnnotations();
-    JvmTypeReference _typeForName = this.getTypeForName(FeatureRunner.class, scenario);
-    JvmAnnotationReference _annotation = this._jvmTypesBuilder.toAnnotation(scenario, JUnit4RuntimeSupport.RUN_WITH, _typeForName);
+    JvmAnnotationReference _annotation = this._jvmTypesBuilder.toAnnotation(scenario, JUnit4RuntimeSupport.RUN_WITH, this.getTypeForName(FeatureRunner.class, scenario));
     this._jvmTypesBuilder.<JvmAnnotationReference>operator_add(_annotations, _annotation);
   }
   
   @Override
   public void updateSuite(final JnarioClass exampleGroup, final JvmGenericType inferredType) {
     EList<JvmAnnotationReference> _annotations = inferredType.getAnnotations();
-    JvmTypeReference _typeForName = this.getTypeForName(ExampleGroupRunner.class, exampleGroup);
-    JvmAnnotationReference _annotation = this._jvmTypesBuilder.toAnnotation(exampleGroup, JUnit4RuntimeSupport.RUN_WITH, _typeForName);
+    JvmAnnotationReference _annotation = this._jvmTypesBuilder.toAnnotation(exampleGroup, JUnit4RuntimeSupport.RUN_WITH, this.getTypeForName(ExampleGroupRunner.class, exampleGroup));
     this._jvmTypesBuilder.<JvmAnnotationReference>operator_add(_annotations, _annotation);
   }
   

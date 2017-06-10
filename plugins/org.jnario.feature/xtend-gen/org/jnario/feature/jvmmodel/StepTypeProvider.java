@@ -3,7 +3,6 @@ package org.jnario.feature.jvmmodel;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -52,13 +51,11 @@ public class StepTypeProvider {
   }
   
   protected Set<EClass> _getExpectedTypes(final Step step) {
-    Step _definingStep = this.getDefiningStep(step);
-    return this.getExpectedTypes(_definingStep);
+    return this.getExpectedTypes(this.getDefiningStep(step));
   }
   
   public EClass getActualType(final Step step) {
-    Step _definingStep = this.getDefiningStep(step);
-    return _definingStep.eClass();
+    return this.getDefiningStep(step).eClass();
   }
   
   private Step getDefiningStep(final Step step) {
@@ -66,15 +63,12 @@ public class StepTypeProvider {
     {
       EObject _eContainer = step.eContainer();
       final Scenario container = ((Scenario) _eContainer);
-      EList<Step> _steps = container.getSteps();
-      final int index = _steps.indexOf(step);
+      final int index = container.getSteps().indexOf(step);
       int i = index;
       while ((i >= 0)) {
         {
-          EList<Step> _steps_1 = container.getSteps();
-          final Step candidate = _steps_1.get(i);
-          EClass _eClass = candidate.eClass();
-          boolean _contains = StepTypeProvider.ANDS.contains(_eClass);
+          final Step candidate = container.getSteps().get(i);
+          boolean _contains = StepTypeProvider.ANDS.contains(candidate.eClass());
           boolean _not = (!_contains);
           if (_not) {
             return candidate;

@@ -6,7 +6,6 @@ import gameoflife.EvolveDeadCells;
 import gameoflife.EvolveLiveCells;
 import gameoflife.Rule;
 import gameoflife.World;
-import java.util.Set;
 import org.eclipse.xtend.lib.annotations.Data;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -27,31 +26,26 @@ public class Evolution {
   private final Rule becomesAlive;
   
   public World evolve(final World world) {
-    Set<CellLocation> _livingCells = world.getLivingCells();
     final Function1<CellLocation, Boolean> _function = new Function1<CellLocation, Boolean>() {
       @Override
       public Boolean apply(final CellLocation it) {
-        Rule _staysAlive = Evolution.this.getStaysAlive();
-        return Boolean.valueOf(Evolution.this.apply(_staysAlive, world, it));
+        return Boolean.valueOf(Evolution.this.apply(Evolution.this.getStaysAlive(), world, it));
       }
     };
-    Iterable<CellLocation> _filter = IterableExtensions.<CellLocation>filter(_livingCells, _function);
-    Set<CellLocation> _deadCells = world.deadCells();
+    Iterable<CellLocation> _filter = IterableExtensions.<CellLocation>filter(world.getLivingCells(), _function);
     final Function1<CellLocation, Boolean> _function_1 = new Function1<CellLocation, Boolean>() {
       @Override
       public Boolean apply(final CellLocation it) {
-        Rule _becomesAlive = Evolution.this.getBecomesAlive();
-        return Boolean.valueOf(Evolution.this.apply(_becomesAlive, world, it));
+        return Boolean.valueOf(Evolution.this.apply(Evolution.this.getBecomesAlive(), world, it));
       }
     };
-    Iterable<CellLocation> _filter_1 = IterableExtensions.<CellLocation>filter(_deadCells, _function_1);
+    Iterable<CellLocation> _filter_1 = IterableExtensions.<CellLocation>filter(world.deadCells(), _function_1);
     Iterable<CellLocation> _plus = Iterables.<CellLocation>concat(_filter, _filter_1);
     return World.worldWith(_plus);
   }
   
   private boolean apply(final Rule rule, final World world, final CellLocation cell) {
-    int _livingNeighbours = world.livingNeighbours(cell);
-    return rule.becomesAlive(_livingNeighbours);
+    return rule.becomesAlive(world.livingNeighbours(cell));
   }
   
   public Evolution(final Rule staysAlive, final Rule becomesAlive) {

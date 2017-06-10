@@ -10,7 +10,6 @@ package org.jnario.doc;
 import com.google.inject.Singleton;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.xtend.lib.Data;
@@ -52,10 +51,8 @@ public class HtmlAssets {
   });
   
   public void generate(final IFileSystemAccess fsa) {
-    List<String> _cssFiles = this.getCssFiles();
-    this.copy(fsa, _cssFiles);
-    List<String> _jsFiles = this.getJsFiles();
-    this.copy(fsa, _jsFiles);
+    this.copy(fsa, this.getCssFiles());
+    this.copy(fsa, this.getJsFiles());
   }
   
   private void copy(final IFileSystemAccess fsa, final Iterable<String> files) {
@@ -68,8 +65,7 @@ public class HtmlAssets {
     };
     Iterable<String> _filter = IterableExtensions.<String>filter(files, _function);
     for (final String file : _filter) {
-      String _load = this.load(file);
-      fsa.generateFile(file, DocOutputConfigurationProvider.ASSET_OUTPUT, _load);
+      fsa.generateFile(file, DocOutputConfigurationProvider.ASSET_OUTPUT, this.load(file));
     }
   }
   
@@ -79,13 +75,11 @@ public class HtmlAssets {
     }
     final IFileSystemAccessExtension2 fsa2 = ((IFileSystemAccessExtension2) fsa);
     final URI uri = fsa2.getURI(file, DocOutputConfigurationProvider.ASSET_OUTPUT);
-    Map<Object, Object> _emptyMap = CollectionLiterals.<Object, Object>emptyMap();
-    return URIConverter.INSTANCE.exists(uri, _emptyMap);
+    return URIConverter.INSTANCE.exists(uri, CollectionLiterals.<Object, Object>emptyMap());
   }
   
   private String load(final String file) {
-    Class<? extends HtmlAssets> _class = this.getClass();
-    final InputStream inputStream = _class.getResourceAsStream(file);
+    final InputStream inputStream = this.getClass().getResourceAsStream(file);
     return Strings.convertStreamToString(inputStream);
   }
   

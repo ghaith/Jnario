@@ -23,27 +23,23 @@ public class World {
     World _xblockexpression = null;
     {
       final ArrayList<CellLocation> cells = CollectionLiterals.<CellLocation>newArrayList();
-      String _string = grid.toString();
-      String[] _split = _string.split("\r?\n");
       final Procedure2<String, Integer> _function = new Procedure2<String, Integer>() {
         @Override
         public void apply(final String line, final Integer x) {
-          char[] _charArray = line.toCharArray();
           final Procedure2<Character, Integer> _function = new Procedure2<Character, Integer>() {
             @Override
             public void apply(final Character c, final Integer y) {
               String _string = c.toString();
               boolean _equals = Objects.equal(_string, "X");
               if (_equals) {
-                CellLocation _cell = CellLocation.cell((x).intValue(), (y).intValue());
-                cells.add(_cell);
+                cells.add(CellLocation.cell((x).intValue(), (y).intValue()));
               }
             }
           };
-          IterableExtensions.<Character>forEach(((Iterable<Character>)Conversions.doWrapArray(_charArray)), _function);
+          IterableExtensions.<Character>forEach(((Iterable<Character>)Conversions.doWrapArray(line.toCharArray())), _function);
         }
       };
-      IterableExtensions.<String>forEach(((Iterable<String>)Conversions.doWrapArray(_split)), _function);
+      IterableExtensions.<String>forEach(((Iterable<String>)Conversions.doWrapArray(grid.toString().split("\r?\n"))), _function);
       _xblockexpression = World.worldWith(cells);
     }
     return _xblockexpression;
@@ -61,8 +57,6 @@ public class World {
         return it.neighbours();
       }
     };
-    Iterable<Set<CellLocation>> _map = IterableExtensions.<CellLocation, Set<CellLocation>>map(this.livingCells, _function);
-    Iterable<CellLocation> _flatten = Iterables.<CellLocation>concat(_map);
     final Function1<CellLocation, Boolean> _function_1 = new Function1<CellLocation, Boolean>() {
       @Override
       public Boolean apply(final CellLocation it) {
@@ -70,20 +64,17 @@ public class World {
         return Boolean.valueOf((!_contains));
       }
     };
-    Iterable<CellLocation> _filter = IterableExtensions.<CellLocation>filter(_flatten, _function_1);
-    return IterableExtensions.<CellLocation>toSet(_filter);
+    return IterableExtensions.<CellLocation>toSet(IterableExtensions.<CellLocation>filter(Iterables.<CellLocation>concat(IterableExtensions.<CellLocation, Set<CellLocation>>map(this.livingCells, _function)), _function_1));
   }
   
   public int livingNeighbours(final CellLocation cell) {
-    Set<CellLocation> _neighbours = cell.neighbours();
     final Function1<CellLocation, Boolean> _function = new Function1<CellLocation, Boolean>() {
       @Override
       public Boolean apply(final CellLocation it) {
         return Boolean.valueOf(World.this.livingCells.contains(it));
       }
     };
-    Iterable<CellLocation> _filter = IterableExtensions.<CellLocation>filter(_neighbours, _function);
-    return IterableExtensions.size(_filter);
+    return IterableExtensions.size(IterableExtensions.<CellLocation>filter(cell.neighbours(), _function));
   }
   
   public World(final Set<CellLocation> livingCells) {

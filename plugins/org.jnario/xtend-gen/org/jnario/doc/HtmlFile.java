@@ -60,7 +60,7 @@ public class HtmlFile {
     _builder.newLine();
     _builder.append("<title>");
     CharSequence _title = this.getTitle();
-    _builder.append(_title, "");
+    _builder.append(_title);
     _builder.append("</title>");
     _builder.newLineIfNotEmpty();
     _builder.append("<meta name=\"description\" content=\"\">");
@@ -78,25 +78,23 @@ public class HtmlFile {
     _builder.newLine();
     _builder.newLine();
     {
-      HtmlAssets _assets = this.getAssets();
-      List<String> _cssFiles = _assets.getCssFiles();
+      List<String> _cssFiles = this.getAssets().getCssFiles();
       for(final String cssFile : _cssFiles) {
         _builder.append("<link rel=\"stylesheet\" href=\"");
         String _rootFolder = this.getRootFolder();
-        _builder.append(_rootFolder, "");
-        _builder.append(cssFile, "");
+        _builder.append(_rootFolder);
+        _builder.append(cssFile);
         _builder.append("\">");
         _builder.newLineIfNotEmpty();
       }
     }
     {
-      HtmlAssets _assets_1 = this.getAssets();
-      List<String> _jsFiles = _assets_1.getJsFiles();
+      List<String> _jsFiles = this.getAssets().getJsFiles();
       for(final String jsFile : _jsFiles) {
         _builder.append("<script type=\"text/javascript\" src=\"");
         String _rootFolder_1 = this.getRootFolder();
-        _builder.append(_rootFolder_1, "");
-        _builder.append(jsFile, "");
+        _builder.append(_rootFolder_1);
+        _builder.append(jsFile);
         _builder.append("\"></script>");
         _builder.newLineIfNotEmpty();
       }
@@ -155,7 +153,7 @@ public class HtmlFile {
     _builder.append("<div class=\"tab-pane active\" id=\"spec\">");
     _builder.newLine();
     CharSequence _content = this.getContent();
-    _builder.append(_content, "");
+    _builder.append(_content);
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t\t\t\t\t\t");
     _builder.append("</div>");
@@ -173,7 +171,7 @@ public class HtmlFile {
     _builder.append("<p>");
     _builder.newLine();
     CharSequence _sourceCode = this.getSourceCode();
-    _builder.append(_sourceCode, "");
+    _builder.append(_sourceCode);
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t\t\t\t\t    ");
     _builder.append("</p></div>");

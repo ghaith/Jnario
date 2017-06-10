@@ -10,9 +10,7 @@ package calculator;
 @SuppressWarnings("all")
 public class Calculator {
   public int add(final String a, final String b) {
-    Integer _valueOf = Integer.valueOf(a);
-    Integer _valueOf_1 = Integer.valueOf(b);
-    return this.add((_valueOf).intValue(), (_valueOf_1).intValue());
+    return this.add((Integer.valueOf(a)).intValue(), (Integer.valueOf(b)).intValue());
   }
   
   public int add(final int a, final int b) {
