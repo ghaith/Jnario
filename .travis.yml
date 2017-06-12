@@ -13,8 +13,9 @@ after_failure:
   - cat tests/org.jnario.tests/target/work/data/.metadata/.log
 deploy:
   provider: pages
+  local_dir: releng/org.jnario.updatesite/target/
   skip_cleanup: true
   github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
   on:
-    branch: master
+    branch: travis_deploy
   target_branch: p2-deploy
