@@ -15,6 +15,7 @@ import org.eclipse.xtext.xbase.lib.Functions;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.omg.CosNaming.IstringHelper;
 
 import com.google.common.base.Objects;
 
@@ -37,75 +38,60 @@ import com.google.common.base.Objects;
  */
 public class Should{
 	
-	public static boolean operator_doubleArrow(Class<?> actual, Class<?> expected){
-		return should_be(actual, expected);
+	private static boolean haveSameType(Object actual, Object expected) {
+		return actual != null && expected != null && actual.getClass().equals(expected.getClass());
 	}
 	
-	public static <T> boolean operator_doubleArrow(T actual, T expected){
-		return should_be(actual, expected);
+	public static boolean should_be(Object actual, Object expected) {
+		return operator_doubleArrow(actual, expected);
 	}
 	
-	public static boolean operator_doubleArrow(Object actual, Class<?> expectedType){
-		return should_be(actual, expectedType);
+	public static boolean operator_doubleArrow(Object actual, Object expected) {
+		if(actual == expected) {
+			return true;
+		}
+		if (expected instanceof Class<?>) {
+			if (actual instanceof Class<?>) {
+				return actual.equals(expected);
+			}
+			return ((Class<?>) expected).isInstance(actual);
+		}
+		if(expected instanceof Matcher<?>) {
+			return ((Matcher<?>) expected).matches(actual);
+		}
+		if(isArray(actual) && isArray(expected)){
+			return Arrays.equals((Object[])actual, (Object[])expected);
+		}
+		// TODO: extract
+//		if(expected instanceof Functions.Function1<?, Boolean>) {
+//			return ((Functions.Function1<?, Boolean>) expected).apply(actual);
+//		}
+			
+		return haveSameType(actual, expected) && Objects.equal(actual, expected);
 	}
 	
-	public static <T> boolean operator_doubleArrow(T actual, Matcher<? super T> matcher){
-		return should_be(actual, matcher);
-	}
+//	public static <T> boolean should_be(T obj, Functions.Function1<T, Boolean> func){
+//	return func.apply(obj);
+//}		
 	
-	public static <T> boolean operator_doubleArrow(T actual, boolean result){
-		return should_be(actual, result);
-	}
+	// FIXME: What's the Usecase if actual is not instance of Boolean?
+//	public static <T> boolean should_be(T actual, boolean result){
+//	if (actual instanceof Boolean) {
+//		return ((Boolean)actual).equals(result);
+//	}
+//	return result;
+//}
+	
+	
+	
+	
 	
 	private static boolean isArray(Object obj) {
 		if(obj == null){
 			return false;
 		}
 		return obj.getClass().isArray();
-	}
-
-//	public static boolean operator_doubleArrow(Object actual, Class<?> expected) {
-//		return should_be(actual, expected);
-//	}
-
-//	public static <T> boolean operator_doubleArrow(T actual, Matcher<? super T> expected) {
-//		return should_be(actual, expected);
-//	}
-//	
-//	public static <T> boolean operator_doubleArrow(T actual, T expected) {
-//		return should_be(actual, expected);
-//	}
-	
-	public static <T> boolean should_be(T obj, Functions.Function1<T, Boolean> func){
-		return func.apply(obj);
-	}
-	
-	public static <T> boolean should_be(T actual, T expected){
-		if(isArray(actual) && isArray(expected)){
-			return Arrays.equals((Object[])actual, (Object[])expected);
-		}
-		return Objects.equal(actual, expected);
-	}
-
-//	private static boolean haveSameTypeAndAreStrings(Object actual,
-//			Object expected) {
-//		return actual != null && expected != null && actual.getClass().equals(expected.getClass()) && actual instanceof CharSequence;
-//	}
-	
-	public static boolean should_be(Class<?> actual, Class<?> expectedType){
-		return actual.equals(expectedType);
-	}
-	
-	public static boolean should_be(Object actual, Class<?> expectedType){
-		return expectedType.isInstance(actual);
-	}
-	
-	public static <T> boolean should_be(T actual, Matcher<? super T> matcher){
-		if(matcher == null){
-			return actual == null;
-		}
-		return matcher.matches(actual);
-	}
+	}	
 	
 	public static <T> boolean should_contain(Iterable<T> actual, T element){
 		return contains(actual, element);
@@ -124,12 +110,6 @@ public class Should{
 		return actual.toString().contains(substring);
 	}
 	
-	public static <T> boolean should_be(T actual, boolean result){
-		if (actual instanceof Boolean) {
-			return ((Boolean)actual).equals(result);
-		}
-		return result;
-	}
 	
 	public static boolean should_startWith(CharSequence s, String substring){
 		return s.toString().startsWith(substring);
