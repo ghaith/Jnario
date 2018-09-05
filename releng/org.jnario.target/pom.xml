@@ -33,7 +33,7 @@ xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLS
 							<artifact>
 								<file>oxygen-xtext2.13.target</file>
 								<type>target</type>
-								<classifier>oxygen-xtext2.13</classifier>
+								<classifier>photon-xtext2.14</classifier>
 							</artifact>
 						</artifacts>
 					</configuration>

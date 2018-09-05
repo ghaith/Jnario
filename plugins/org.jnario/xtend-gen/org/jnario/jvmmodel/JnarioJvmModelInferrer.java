@@ -123,7 +123,6 @@ public abstract class JnarioJvmModelInferrer extends AbstractModelInferrer {
       this.testRuntime = this.runtime.get(obj);
     } catch (final Throwable _t) {
       if (_t instanceof NoSuchElementException) {
-        final NoSuchElementException ex = (NoSuchElementException)_t;
         return;
       } else {
         throw Exceptions.sneakyThrow(_t);

@@ -49,8 +49,7 @@ public class CellLocation {
     final int prime = 31;
     int result = 1;
     result = prime * result + this.x;
-    result = prime * result + this.y;
-    return result;
+    return prime * result + this.y;
   }
   
   @Override

@@ -60,8 +60,7 @@ public class Evolution {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((this.staysAlive== null) ? 0 : this.staysAlive.hashCode());
-    result = prime * result + ((this.becomesAlive== null) ? 0 : this.becomesAlive.hashCode());
-    return result;
+    return prime * result + ((this.becomesAlive== null) ? 0 : this.becomesAlive.hashCode());
   }
   
   @Override

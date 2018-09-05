@@ -47,8 +47,7 @@ public class SuiteNode {
     int result = 1;
     result = prime * result + ((this._suite== null) ? 0 : this._suite.hashCode());
     result = prime * result + ((this._children== null) ? 0 : this._children.hashCode());
-    result = prime * result + ((this._specs== null) ? 0 : this._specs.hashCode());
-    return result;
+    return prime * result + ((this._specs== null) ? 0 : this._specs.hashCode());
   }
   
   @Override

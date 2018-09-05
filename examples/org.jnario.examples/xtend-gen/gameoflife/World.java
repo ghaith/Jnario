@@ -85,10 +85,7 @@ public class World {
   @Override
   @Pure
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((this.livingCells== null) ? 0 : this.livingCells.hashCode());
-    return result;
+    return 31 * 1 + ((this.livingCells== null) ? 0 : this.livingCells.hashCode());
   }
   
   @Override

@@ -177,7 +177,6 @@ public class SpecResultParser extends DefaultHandler {
         return Double.parseDouble(timeString);
       } catch (final Throwable _t) {
         if (_t instanceof NumberFormatException) {
-          final NumberFormatException e = (NumberFormatException)_t;
         } else {
           throw Exceptions.sneakyThrow(_t);
         }

@@ -25,10 +25,7 @@ public class IEObjectDescriptionFilter implements Predicate<IEObjectDescription>
   @Override
   @Pure
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((this._type== null) ? 0 : this._type.hashCode());
-    return result;
+    return 31 * 1 + ((this._type== null) ? 0 : this._type.hashCode());
   }
   
   @Override

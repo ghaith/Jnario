@@ -31,8 +31,7 @@ public class Person {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((this._name== null) ? 0 : this._name.hashCode());
-    result = prime * result + this._age;
-    return result;
+    return prime * result + this._age;
   }
   
   @Override

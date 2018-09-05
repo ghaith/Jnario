@@ -10,6 +10,7 @@ package demo;
 import demo.Calculator;
 import demo.CalculatorSpecExamples;
 import java.util.Arrays;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.jnario.lib.Assert;
 import org.jnario.lib.Each;
@@ -85,6 +86,32 @@ public class CalculatorSpec {
          + "\n     a is " + new org.hamcrest.StringDescription().appendValue(_a).toString()
          + "\n     b is " + new org.hamcrest.StringDescription().appendValue(_b).toString()
          + "\n     sum is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_sum)).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_plus), Integer.valueOf(_sum)));
+        
+      }
+    };
+    Each.<CalculatorSpecExamples>forEach(this.examples, _function);
+  }
+  
+  @Test
+  @Named("load a richstring")
+  @Order(3)
+  public void _loadARichstring() throws Exception {
+    final Procedure1<CalculatorSpecExamples> _function = new Procedure1<CalculatorSpecExamples>() {
+      public void apply(final CalculatorSpecExamples it) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("pre ");
+        int _b = it.getB();
+        _builder.append(_b, "");
+        _builder.append(" post");
+        final String x = _builder.toString();
+        int _b_1 = it.getB();
+        String _plus = ("pre " + Integer.valueOf(_b_1));
+        String _plus_1 = (_plus + " post");
+        Assert.assertTrue("\nExpected x => \"pre \" + b + \" post\" but"
+         + "\n     x is " + new org.hamcrest.StringDescription().appendValue(x).toString()
+         + "\n     \"pre \" + b + \" post\" is " + new org.hamcrest.StringDescription().appendValue(_plus_1).toString()
+         + "\n     \"pre \" + b is " + new org.hamcrest.StringDescription().appendValue(_plus).toString()
+         + "\n     b is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_b_1)).toString() + "\n", Should.<String>operator_doubleArrow(x, _plus_1));
         
       }
     };

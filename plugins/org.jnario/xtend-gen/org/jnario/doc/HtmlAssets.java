@@ -89,8 +89,7 @@ public class HtmlAssets {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((this._cssFiles== null) ? 0 : this._cssFiles.hashCode());
-    result = prime * result + ((this._jsFiles== null) ? 0 : this._jsFiles.hashCode());
-    return result;
+    return prime * result + ((this._jsFiles== null) ? 0 : this._jsFiles.hashCode());
   }
   
   @Override
