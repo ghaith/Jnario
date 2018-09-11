@@ -13,7 +13,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
     <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-    <platform-version-name>oxygen</platform-version-name>
+    <platform-version-name>photon</platform-version-name>
   </properties>
 
   <prerequisites>
@@ -130,7 +130,7 @@
               <groupId>org.jnario</groupId>
               <artifactId>org.jnario.target</artifactId>
               <version>${project.version}</version>
-              <classifier>oxygen-xtext2.12</classifier>
+              <classifier>photon-xtext2.14</classifier>
             </artifact>
           </target>
           <ignoreTychoRepositories>true</ignoreTychoRepositories>
