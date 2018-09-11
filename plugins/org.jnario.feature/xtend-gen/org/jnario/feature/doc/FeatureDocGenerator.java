@@ -33,7 +33,7 @@ public class FeatureDocGenerator extends AbstractDocGenerator {
   
   @Inject
   @Extension
-  private StepNameProvider _stepNameProvider;
+  private StepNameProvider stepNameProvider;
   
   @Override
   public HtmlFile createHtmlFile(final JnarioClass xtendClass) {
@@ -103,7 +103,7 @@ public class FeatureDocGenerator extends AbstractDocGenerator {
     {
       for(final Step step : steps) {
         _builder.append("<li>");
-        Object _generate = this.generate(step);
+        CharSequence _generate = this.generate(step);
         _builder.append(_generate);
         _builder.append("</li>");
         _builder.newLineIfNotEmpty();
@@ -131,7 +131,7 @@ public class FeatureDocGenerator extends AbstractDocGenerator {
   }
   
   private String format(final Step step) {
-    String result = Strings.convertFromJavaString(this._stepNameProvider.describe(step), true);
+    String result = Strings.convertFromJavaString(this.stepNameProvider.describe(step), true);
     result = this.highlighFirstWord(result);
     result = this.highlightArguments(result);
     result = this.markdown2Html(result);
@@ -150,7 +150,7 @@ public class FeatureDocGenerator extends AbstractDocGenerator {
   }
   
   private String addCodeBlock(final Step step) {
-    final String text = this._stepNameProvider.nameOf(step);
+    final String text = this.stepNameProvider.nameOf(step);
     final int multiLineStart = text.indexOf("\n");
     if ((multiLineStart == (-1))) {
       return "";

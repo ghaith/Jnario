@@ -120,7 +120,10 @@ describe 'My Context'{
 ''') =&gt; &quot;MyContextSpecMyExample&quot;</pre>
 </li></ul>
 <h3 class="exampleGroup notrun"  id="toMethodName_Example">ToMethodName[Example]</h3>
-<ul><li><p id="converts_method_description_to_camel_case_starting_in_lowercase" class="example notrun"><strong>converts method description to camel case starting in lowercase</strong></p>
+<ul><li><p id="Don_t_use_single_underline_as_a_java_identifiert" class="example notrun"><strong>Don't use single underline as a java identifiert</strong></p>
+<pre class="prettyprint lang-spec linenums">
+firstMethodName(&quot;[]&quot;) =&gt; &quot;__&quot;</pre>
+</li><li><p id="converts_method_description_to_camel_case_starting_in_lowercase" class="example notrun"><strong>converts method description to camel case starting in lowercase</strong></p>
 <pre class="prettyprint lang-spec linenums">
 newArrayList(
   &quot;'my example'&quot;,
@@ -429,6 +432,10 @@ describe ExampleNameProvider {
   
     context &quot;toMethodName(Example)&quot;{
       
+      fact &quot;Don't use single underline as a java identifiert&quot;{
+        firstMethodName(&quot;[]&quot;) =&gt; &quot;__&quot;
+      }
+
       fact &quot;converts method description to camel case starting in lowercase&quot;{
         newArrayList(
           &quot;'my example'&quot;,

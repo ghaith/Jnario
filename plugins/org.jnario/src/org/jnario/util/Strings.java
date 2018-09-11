@@ -298,15 +298,18 @@ public class Strings extends org.eclipse.xtext.util.Strings{
 		return true;
 	}
 
-	public static String toMethodName(String name) {
-		StringBuilder result = new StringBuilder();
-		result.append("_");
-		result.append(toFirstLower(convertToCamelCase(name)));
-		if(result.length() > 249){
-			return result.substring(0, 250);
-		}else{
-			return result.toString();
-		}
-	}
+    public static String toMethodName(String name) {
+        String convertedName = toFirstLower(convertToCamelCase(name));
+
+        if (convertedName.length() == 0) {
+            return "__"; // Shouldn't use single underscore '_' as a java identifier (Java 8 and above).
+        }
+
+        if(convertedName.length() > 248){
+            convertedName = convertedName.substring(0, 249);
+        }
+
+        return "_" + convertedName;
+    }
 
 }

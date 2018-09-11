@@ -31,8 +31,18 @@ public class ExampleNameProviderToMethodNameExampleSpec extends ExampleNameProvi
   public ExampleNameProvider subject;
   
   @Test
-  @Named("converts method description to camel case starting in lowercase")
+  @Named("Don\\\'t use single underline as a java identifiert")
   @Order(1)
+  public void _donTUseSingleUnderlineAsAJavaIdentifiert() throws Exception {
+    String _firstMethodName = this.firstMethodName("[]");
+    Assert.assertTrue("\nExpected firstMethodName(\"[]\") => \"__\" but"
+     + "\n     firstMethodName(\"[]\") is " + new org.hamcrest.StringDescription().appendValue(_firstMethodName).toString() + "\n", Should.<String>operator_doubleArrow(_firstMethodName, "__"));
+    
+  }
+  
+  @Test
+  @Named("converts method description to camel case starting in lowercase")
+  @Order(2)
   public void _convertsMethodDescriptionToCamelCaseStartingInLowercase() throws Exception {
     final Consumer<String> _function = new Consumer<String>() {
       @Override
@@ -53,7 +63,7 @@ public class ExampleNameProviderToMethodNameExampleSpec extends ExampleNameProvi
   
   @Test
   @Named("shortens method name to 250 chars")
-  @Order(2)
+  @Order(3)
   public void _shortensMethodNameTo250Chars() throws Exception {
     int _length = this.firstMethodName(this.nameOfLength(251)).length();
     Assert.assertTrue("\nExpected firstMethodName(nameOfLength(251)).length => 250 but"

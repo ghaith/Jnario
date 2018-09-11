@@ -135,6 +135,10 @@ describe ExampleNameProvider {
   
     context "toMethodName(Example)"{
       
+      fact "Don't use single underline as a java identifiert"{
+      	firstMethodName("[]") => "__"
+      }
+
       fact "converts method description to camel case starting in lowercase"{
         newArrayList(
           "'my example'",

@@ -1,3 +1,4 @@
+Automatic-Module-Name: org.jnario.m2e
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName

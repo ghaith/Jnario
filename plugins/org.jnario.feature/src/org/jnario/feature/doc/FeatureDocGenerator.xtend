@@ -24,7 +24,7 @@ import static extension org.eclipse.xtext.util.Strings.*
 class FeatureDocGenerator extends AbstractDocGenerator {
 	
 	@Inject extension FeatureClassNameProvider 
-	@Inject extension StepNameProvider
+	@Inject extension StepNameProvider stepNameProvider
 	
 	override createHtmlFile(JnarioClass xtendClass) {
 		if(!(xtendClass instanceof Feature)){
@@ -54,7 +54,7 @@ class FeatureDocGenerator extends AbstractDocGenerator {
 		«generate(scenario.steps)»</div>
 	'''
 
-	def dispatch generate(Iterable<Step> steps)'''
+	def dispatch CharSequence generate(Iterable<Step> steps)'''
 		<ul>
 		«FOR step : steps»
 		<li>«generate(step)»</li>
@@ -62,13 +62,13 @@ class FeatureDocGenerator extends AbstractDocGenerator {
 		</ul>
 	'''
 	
-	def dispatch generate(Step step)'''
+	def dispatch CharSequence generate(Step step)'''
 		<span class="step «step.executionStateClass»">«step.format»</span>
 		«step.errorMessage»
 	'''
 
 	def private format(Step step){
-		var result = step.describe.convertFromJavaString(true)
+		var result = stepNameProvider.describe(step).convertFromJavaString(true)
 		result = result.highlighFirstWord
 		result = result.highlightArguments
 		result = result.markdown2Html
