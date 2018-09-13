@@ -243,28 +243,10 @@ public class ExampleNameProvider extends JnarioNameProvider{
 	}
 
 	private String getTargetTypeName(ExampleGroup exampleGroup) {
-		String targetName;
-		if(isProxy(exampleGroup.getTargetType())){
-			targetName = SpecResourceDescriptionStrategy.getTypeName(index, exampleGroup);
-		}else{
-			targetName = exampleGroup.getTargetType().getSimpleName();
-		}
-		return targetName;
+        return SpecResourceDescriptionStrategy.getTypeName(index, exampleGroup);
 	}
 
 	private boolean hasTargetOperation(ExampleGroup exampleGroup) {
 		return exampleGroup.eIsSet(SpecPackage.Literals.EXAMPLE_GROUP__TARGET_OPERATION);
 	}
-
-
-	private boolean isProxy(JvmTypeReference jvmTypeReference) {
-		if (jvmTypeReference instanceof JvmParameterizedTypeReference) {
-			JvmParameterizedTypeReference parameterizedTypeReference = (JvmParameterizedTypeReference) jvmTypeReference;
-			EObject value = (EObject) parameterizedTypeReference.eGet(TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE, false);
-			return value.eIsProxy();
-		}else{
-			return true;
-		}
-	}
-
 }

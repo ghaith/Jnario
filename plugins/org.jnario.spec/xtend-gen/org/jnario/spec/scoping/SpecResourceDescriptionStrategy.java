@@ -11,9 +11,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmOperation;
-import org.eclipse.xtext.common.types.JvmType;
-import org.eclipse.xtext.common.types.JvmTypeReference;
-import org.eclipse.xtext.common.types.JvmVoid;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
@@ -53,15 +50,6 @@ public class SpecResourceDescriptionStrategy extends JnarioResourceDescriptionSt
   }
   
   protected String getTargetName(final ExampleGroup exampleGroup) {
-    Object _eGet = exampleGroup.eGet(SpecPackage.Literals.EXAMPLE_GROUP__TARGET_TYPE, false);
-    final JvmTypeReference targetType = ((JvmTypeReference) _eGet);
-    if (((targetType != null) && (!targetType.eIsProxy()))) {
-      JvmType _type = targetType.getType();
-      boolean _not = (!(_type instanceof JvmVoid));
-      if (_not) {
-        return exampleGroup.getTargetType().getSimpleName();
-      }
-    }
     return SpecResourceDescriptionStrategy.retrieveNameFromNodeModel(exampleGroup);
   }
   

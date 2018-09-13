@@ -11,8 +11,6 @@ import com.google.common.collect.ImmutableMap
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.common.types.JvmOperation
-import org.eclipse.xtext.common.types.JvmTypeReference
-import org.eclipse.xtext.common.types.JvmVoid
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.resource.IResourceDescriptions
@@ -34,7 +32,7 @@ class SpecResourceDescriptionStrategy extends JnarioResourceDescriptionStrategy 
 	public static val EXAMPLE_OPERATION = "operation"
 	
 	@Inject 
-	private OperationNameProvider operationNameProvider;
+	OperationNameProvider operationNameProvider;
 
 	override createUserData(EObject eObject, ImmutableMap.Builder<String, String> userData) {
 		super.createUserData(eObject, userData);
@@ -47,12 +45,6 @@ class SpecResourceDescriptionStrategy extends JnarioResourceDescriptionStrategy 
 	}
 	
 	protected def String getTargetName(ExampleGroup exampleGroup) {
-		val targetType = exampleGroup.eGet(SpecPackage.Literals.EXAMPLE_GROUP__TARGET_TYPE,false) as JvmTypeReference
-		if (targetType !== null && !targetType.eIsProxy) {
-			if (!(targetType.type instanceof JvmVoid)) {
-				return exampleGroup.targetType.simpleName
-			}
-		}
 		return exampleGroup.retrieveNameFromNodeModel
 	}
 	
@@ -80,7 +72,7 @@ class SpecResourceDescriptionStrategy extends JnarioResourceDescriptionStrategy 
 		specDescription.getUserData(EXAMPLE_TYPE)
 	}
 	
-		static def String getTargetOperation(IEObjectDescription specDescription) {
+    static def String getTargetOperation(IEObjectDescription specDescription) {
 		specDescription.getUserData(EXAMPLE_OPERATION)
 	}
 
