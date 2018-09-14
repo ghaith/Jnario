@@ -66,6 +66,10 @@ public class ExampleGroupRunner extends ParentRunner<Runner> {
 			return input.getMethod().getDeclaringClass() == getTestClass()
 					.getJavaClass();
 		}
+        // TODO Workaround til Jnario moved to Java8
+        public boolean test(FrameworkMethod input) {
+            return apply(input);
+        }
 	}
 
 	private final NameProvider nameProvider;
@@ -288,6 +292,10 @@ public class ExampleGroupRunner extends ParentRunner<Runner> {
 			public boolean apply(ExtensionClass extension){
 				return extension.isStatic();
 			}
+            // TODO Workaround til Jnario moved to Java8
+            public boolean test(ExtensionClass input) {
+                return apply(input);
+            }
 		});
 		return staticExtensions;
 	}

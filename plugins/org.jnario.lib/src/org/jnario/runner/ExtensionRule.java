@@ -110,6 +110,12 @@ public class ExtensionRule implements TestRule {
 				}
 				return result;
 			}
+
+			// TODO Workaround til Jnario moved to Java8
+			public boolean test(FrameworkMethod input) {
+				return apply(input);
+			}
+
 		}));
 	}
 
