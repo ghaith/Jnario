@@ -572,29 +572,27 @@
          </command>  
          </menuContribution>
     </extension>
-<!-- TODO NO_XTEND
     <extension point="org.eclipse.ui.menus">
        <menuContribution locationURI="popup:#TextEditorContext?after=xtext.ui.openDeclaration">
            <command
                commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand"
-               id="org.eclipse.xtext.example.domainmodel.Domainmodel.OpenGeneratedCode"
+               id="org.jnario.spec.ui.Spec.OpenGeneratedCode"
                style="push">
                    <visibleWhen checkEnabled="false">
-                       <reference definitionId="org.eclipse.xtext.example.domainmodel.Domainmodel.Editor.opened" />
+                        <reference definitionId="org.jnario.suite.Suite.Editor.opened"/>
                    </visibleWhen>
            </command>
        </menuContribution>
    </extension>
    <extension point="org.eclipse.ui.handlers">
        <handler
-           class="org.eclipse.xtext.example.domainmodel.ui.DomainmodelExecutableExtensionFactory:org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler"
+           class="org.jnario.suite.ui.SuiteExecutableExtensionFactory:org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler"
            commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand">
                <activeWhen>
-                   <reference definitionId="org.eclipse.xtext.example.domainmodel.Domainmodel.Editor.opened" />
+                    <reference definitionId="org.jnario.suite.Suite.Editor.opened"/>
                </activeWhen>
        </handler>
    </extension>
--->
 	<extension
          point="org.eclipse.ui.commands">
       <command

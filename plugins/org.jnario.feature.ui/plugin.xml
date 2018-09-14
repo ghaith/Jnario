@@ -47,7 +47,7 @@
             commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName">
             <activeWhen>
             	<and>
-            		<reference definitionId="org.jnario.feature.Feature.XtextEditor.opened" />
+            		<reference definitionId="org.jnario.feature.Feature.Editor.opened" />
 	                <iterate>
 						<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
 					</iterate>
@@ -155,7 +155,7 @@
 				style="push" tooltip="Copy Qualified Name">
          		<visibleWhen checkEnabled="false">
 	            	<and>
-	            		<reference definitionId="org.jnario.feature.Feature.XtextEditor.opened" />
+	            		<reference definitionId="org.jnario.feature.Feature.Editor.opened" />
 						<iterate>
 							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
 						</iterate>
@@ -609,11 +609,6 @@
       </shortcut>
     </extension>  
    
-    <extension point="org.eclipse.jdt.core.classpathContainerInitializer">            
-   		<classpathContainerInitializer                                          
-			id="org.eclipse.xtend.XTEND_CONTAINER"                                                        
-			class="org.eclipse.xtend.ide.buildpath.XtendContainerInitializer"/>                           
-	</extension>
 <!--	<extension
          point="org.eclipse.jdt.ui.classpathContainerPage">
       <classpathContainerPage
@@ -634,7 +629,7 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="org.eclipse.xtend.ide.edit.InsertStringHandler$LeftGuillemet"
+            class="org.jnario.ui.handler.InsertStringHandler$LeftGuillemet"
             commandId="org.eclipse.xtend.ide.insertLeftGuillemet">
             <activeWhen>
 				<reference
@@ -643,7 +638,7 @@
 			</activeWhen>
       </handler>
       <handler
-            class="org.eclipse.xtend.ide.edit.InsertStringHandler$RightGuillemet"
+            class="org.jnario.ui.handler.InsertStringHandler$RightGuillemet"
             commandId="org.eclipse.xtend.ide.insertRightGuillemet">
            	<activeWhen>
 				<reference
@@ -651,7 +646,7 @@
 				</reference>
 			</activeWhen>
       </handler>
-   </extension>   
+   </extension>
    
    <extension point="org.eclipse.ui.commands">
    	  <command
@@ -1077,29 +1072,27 @@
             runnerClass="org.jnario.runner.FeatureRunner">
       </junitRunnerUIHandler>
    </extension>
-<!-- TODO NO_XTEND
     <extension point="org.eclipse.ui.menus">
        <menuContribution locationURI="popup:#TextEditorContext?after=xtext.ui.openDeclaration">
            <command
                commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand"
-               id="org.eclipse.xtext.example.domainmodel.Domainmodel.OpenGeneratedCode"
+               id="org.jnario.ui.OpenGeneratedCode"
                style="push">
                    <visibleWhen checkEnabled="false">
-                       <reference definitionId="org.eclipse.xtext.example.domainmodel.Domainmodel.Editor.opened" />
+                        <reference definitionId="org.jnario.feature.Feature.Editor.opened"/>
                    </visibleWhen>
            </command>
        </menuContribution>
    </extension>
    <extension point="org.eclipse.ui.handlers">
        <handler
-           class="org.eclipse.xtext.example.domainmodel.ui.DomainmodelExecutableExtensionFactory:org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler"
+           class="org.jnario.feature.ui.FeatureExecutableExtensionFactory:org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler"
            commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand">
                <activeWhen>
-                   <reference definitionId="org.eclipse.xtext.example.domainmodel.Domainmodel.Editor.opened" />
+                    <reference definitionId="org.jnario.feature.Feature.Editor.opened"/>
                </activeWhen>
        </handler>
    </extension>
--->
 	<extension
          point="org.eclipse.ui.commands">
       <command

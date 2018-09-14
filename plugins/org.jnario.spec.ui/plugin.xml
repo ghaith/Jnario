@@ -617,8 +617,6 @@
    </extension>
 
 <extension point="org.eclipse.ui.commands">
-   <!-- TODO NO_XTEND
-
    	  <command
             description="Inserts an opening french quote"
             id="org.eclipse.xtend.ide.insertLeftGuillemet"
@@ -627,7 +625,6 @@
             description="Inserts an closing french quote"
             id="org.eclipse.xtend.ide.insertRightGuillemet"
             name="Insert right guillemet"/>
-   -->
    	  <command
             description="Organize Imports"
             id="org.eclipse.xtext.xbase.ui.organizeImports"
@@ -680,7 +677,6 @@
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
-      <!-- TODO NO_XTEND
       <key
             contextId="org.jnario.spec.ui.SpecEditorScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
@@ -693,7 +689,6 @@
             sequence="M1+&gt;"
             commandId="org.eclipse.xtend.ide.insertRightGuillemet">
       </key>
-      -->
       <key
             contextId="org.jnario.spec.ui.SpecEditorScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
@@ -834,11 +829,10 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M3+X P"/>
    </extension>
-    <!-- TODO NO_XTEND
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="org.eclipse.xtend.ide.edit.InsertStringHandler$LeftGuillemet"
+            class="org.jnario.ui.handler.InsertStringHandler$LeftGuillemet"
             commandId="org.eclipse.xtend.ide.insertLeftGuillemet">
             <activeWhen>
 				<reference
@@ -847,7 +841,7 @@
 			</activeWhen>
       </handler>
       <handler
-            class="org.eclipse.xtend.ide.edit.InsertStringHandler$RightGuillemet"
+            class="org.jnario.ui.handler.InsertStringHandler$RightGuillemet"
             commandId="org.eclipse.xtend.ide.insertRightGuillemet">
            	<activeWhen>
 				<reference
@@ -856,7 +850,6 @@
 			</activeWhen>
       </handler>
    </extension>
-   -->
        <extension
          id="org.jnario.spec.ui.wizard"
          name="newSpecClass"
@@ -1076,45 +1069,29 @@
             runnerClass="org.jnario.runner.ExampleGroupRunner">
       </junitRunnerUIHandler>
    </extension>
-<!-- TODO NO_XTEND
     <extension point="org.eclipse.ui.menus">
        <menuContribution locationURI="popup:#TextEditorContext?after=xtext.ui.openDeclaration">
            <command
                commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand"
-               id="org.eclipse.xtext.example.domainmodel.Domainmodel.OpenGeneratedCode"
+               id="org.jnario.spec.ui.Spec.OpenGeneratedCode"
                style="push">
                    <visibleWhen checkEnabled="false">
-                       <reference definitionId="org.eclipse.xtext.example.domainmodel.Domainmodel.Editor.opened" />
+                       <reference definitionId="org.jnario.spec.Spec.Editor.opened" />
                    </visibleWhen>
            </command>
        </menuContribution>
    </extension>
    <extension point="org.eclipse.ui.handlers">
        <handler
-           class="org.eclipse.xtext.example.domainmodel.ui.DomainmodelExecutableExtensionFactory:org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler"
+           class="org.jnario.spec.ui.SpecExecutableExtensionFactory:org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler"
            commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand">
                <activeWhen>
-                   <reference definitionId="org.eclipse.xtext.example.domainmodel.Domainmodel.Editor.opened" />
+                        <reference definitionId="org.jnario.spec.Spec.Editor.opened"/>
                </activeWhen>
        </handler>
    </extension>
 -->
 <!-- organize multiple imports -->
-	<!--extension point="org.eclipse.ui.menus">
-		<menuContribution
-            allPopups="true"
-            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?before=org.eclipse.jdt.ui.refactoring.menu">
-         <menu
-               id="org.eclipse.jdt.ui.source.menu"
-               label="Source">
-            <command
-                  commandId="org.jnario.spec.ui.multiOrganizeImports"
-                  label="Organize Imports including Jnario"
-                  style="push">
-            </command>
-         </menu>
-      </menuContribution>
-	</extension-->
     <extension
          point="org.eclipse.ui.commands">
       <command

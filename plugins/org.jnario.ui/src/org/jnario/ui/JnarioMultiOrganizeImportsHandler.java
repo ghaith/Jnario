@@ -18,7 +18,7 @@ public class JnarioMultiOrganizeImportsHandler extends AbstractHandler {
 			"org.eclipse.xtext.xbase.ui.multiOrganizeImports", // Xtend
 			"org.jnario.feature.ui.multiOrganizeImports", //
 			"org.jnario.spec.ui.multiOrganizeImports", //
-			// TODO "org.jnario.suite.ui.multiOrganizeImports", //
+			"org.jnario.suite.ui.multiOrganizeImports", //
 			};
 
 	@Override
