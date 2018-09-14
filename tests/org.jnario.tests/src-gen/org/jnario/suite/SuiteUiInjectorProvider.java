@@ -8,10 +8,10 @@ import org.eclipse.xtext.junit4.IInjectorProvider;
 import com.google.inject.Injector;
 
 public class SuiteUiInjectorProvider implements IInjectorProvider {
-	
+
 	@Override
 	public Injector getInjector() {
 		return org.jnario.suite.ui.internal.SuiteActivator.getInstance().getInjector("org.jnario.suite.Suite");
 	}
-	
+
 }

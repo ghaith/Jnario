@@ -18,6 +18,10 @@ import org.eclipse.xtext.common.types.TypesPackage;
 
 import org.eclipse.xtext.xbase.XbasePackage;
 
+import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotationsPackage;
+
+import org.eclipse.xtext.xtype.XtypePackage;
+
 import org.jnario.JnarioPackage;
 
 import org.jnario.spec.spec.After;
@@ -108,7 +112,7 @@ public class SpecPackageImpl extends EPackageImpl implements SpecPackage
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link SpecPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -123,12 +127,17 @@ public class SpecPackageImpl extends EPackageImpl implements SpecPackage
 		if (isInited) return (SpecPackage)EPackage.Registry.INSTANCE.getEPackage(SpecPackage.eNS_URI);
 
 		// Obtain or create and register package
-		SpecPackageImpl theSpecPackage = (SpecPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof SpecPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new SpecPackageImpl());
+		Object registeredSpecPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		SpecPackageImpl theSpecPackage = registeredSpecPackage instanceof SpecPackageImpl ? (SpecPackageImpl)registeredSpecPackage : new SpecPackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
 		JnarioPackage.eINSTANCE.eClass();
+		TypesPackage.eINSTANCE.eClass();
+		XAnnotationsPackage.eINSTANCE.eClass();
+		XtypePackage.eINSTANCE.eClass();
+		XbasePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theSpecPackage.createPackageContents();
@@ -139,7 +148,6 @@ public class SpecPackageImpl extends EPackageImpl implements SpecPackage
 		// Mark meta-data to indicate it can't be changed
 		theSpecPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(SpecPackage.eNS_URI, theSpecPackage);
 		return theSpecPackage;

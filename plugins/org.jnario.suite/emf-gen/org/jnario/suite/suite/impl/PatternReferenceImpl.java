@@ -172,7 +172,7 @@ public class PatternReferenceImpl extends MinimalEObjectImpl.Container implement
 	{
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (pattern: ");
 		result.append(pattern);
 		result.append(')');

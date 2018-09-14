@@ -260,7 +260,7 @@ public class ExampleImpl extends TestFunctionImplCustom implements Example
 	{
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (pending: ");
 		result.append(pending);
 		result.append(')');

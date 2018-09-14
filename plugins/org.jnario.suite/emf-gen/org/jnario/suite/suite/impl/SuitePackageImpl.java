@@ -14,6 +14,14 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.eclipse.xtext.common.types.TypesPackage;
+
+import org.eclipse.xtext.xbase.XbasePackage;
+
+import org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotationsPackage;
+
+import org.eclipse.xtext.xtype.XtypePackage;
+
 import org.jnario.JnarioPackage;
 
 import org.jnario.suite.suite.PatternReference;
@@ -96,7 +104,7 @@ public class SuitePackageImpl extends EPackageImpl implements SuitePackage
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link SuitePackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -111,12 +119,17 @@ public class SuitePackageImpl extends EPackageImpl implements SuitePackage
 		if (isInited) return (SuitePackage)EPackage.Registry.INSTANCE.getEPackage(SuitePackage.eNS_URI);
 
 		// Obtain or create and register package
-		SuitePackageImpl theSuitePackage = (SuitePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof SuitePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new SuitePackageImpl());
+		Object registeredSuitePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		SuitePackageImpl theSuitePackage = registeredSuitePackage instanceof SuitePackageImpl ? (SuitePackageImpl)registeredSuitePackage : new SuitePackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
 		JnarioPackage.eINSTANCE.eClass();
+		TypesPackage.eINSTANCE.eClass();
+		XAnnotationsPackage.eINSTANCE.eClass();
+		XtypePackage.eINSTANCE.eClass();
+		XbasePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theSuitePackage.createPackageContents();
@@ -127,7 +140,6 @@ public class SuitePackageImpl extends EPackageImpl implements SuitePackage
 		// Mark meta-data to indicate it can't be changed
 		theSuitePackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(SuitePackage.eNS_URI, theSuitePackage);
 		return theSuitePackage;

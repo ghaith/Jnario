@@ -12,6 +12,7 @@ import static com.google.common.collect.Iterables.filter;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.jnario.feature.feature.Background;
 import org.jnario.feature.feature.Feature;
@@ -27,7 +28,7 @@ public class ScenarioImplCustom extends ScenarioImpl {
 	@Override
 	public EList<Step> getSteps() {
 		if(steps == null){
-			steps = new BasicEList<Step>();
+			steps = new BasicInternalEList<Step>(Step.class);
 			addAll(steps, filter(getMembers(), Step.class));
 		}
 		return steps;

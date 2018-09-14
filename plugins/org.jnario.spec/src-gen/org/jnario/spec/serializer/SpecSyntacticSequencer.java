@@ -376,7 +376,7 @@ public class SpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     'throws' | ('should' 'throw')
+	 *     ('should' 'throw') | 'throws'
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     {ShouldThrow.expression=} (ambiguity) type=JvmTypeReference

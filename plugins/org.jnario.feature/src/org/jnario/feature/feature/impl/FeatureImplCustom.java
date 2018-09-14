@@ -7,8 +7,8 @@
  *******************************************************************************/
 package org.jnario.feature.feature.impl;
 
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.jnario.JnarioMember;
 import org.jnario.feature.feature.Background;
 import org.jnario.feature.feature.Scenario;
@@ -16,13 +16,13 @@ import org.jnario.feature.feature.Scenario;
 public class FeatureImplCustom extends FeatureImpl {
 
 	private boolean backgroundInit = false;
-	private BasicEList<Scenario> scenarios;
+	private BasicInternalEList<Scenario> scenarios;
 	private Background background;  
 
 	@Override
 	public EList<Scenario> getScenarios() {
 		if (scenarios == null) {
-			scenarios = new BasicEList<Scenario>();
+			scenarios = new BasicInternalEList<Scenario>(Scenario.class);
 			for (JnarioMember member : getMembers()) {
 				if (member instanceof Background) {
 					setBackground((Background) member);

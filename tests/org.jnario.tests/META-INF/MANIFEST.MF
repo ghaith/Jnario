@@ -1,5 +1,5 @@
-Automatic-Module-Name: org.jnario.tests
 Manifest-Version: 1.0
+Automatic-Module-Name: org.jnario.tests
 Bundle-ManifestVersion: 2
 Bundle-Name: org.jnario.tests
 Bundle-Vendor: BMW Car IT
@@ -27,7 +27,8 @@ Require-Bundle: org.eclipse.xtext.junit4;visibility:=reexport,
  org.jnario.spec,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.core.runtime,
- org.eclipse.ui.workbench;resolution:=optional
+ org.eclipse.ui.workbench;resolution:=optional,
+ org.jnario.suite
 Import-Package: org.hamcrest.core,
  org.junit.runner;version="4.5.0",
  org.junit.runner.notification;version="4.5.0",
