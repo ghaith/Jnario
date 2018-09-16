@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Should</title>
+<meta name="description" content="">
+<meta name="author" content="Jnario">
+
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+<link rel="stylesheet" href="../../../../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../../../../css/bootstrap-responsive.min.css">
+<link rel="stylesheet" href="../../../../../css/custom.css">
+<link rel="stylesheet" href="../../../../../css/prettify.css">
+<script type="text/javascript" src="../../../../../js/prettify.js"></script>
+<script type="text/javascript" src="../../../../../js/lang-jnario.js"></script>
+<script type="text/javascript" src="../../../../../js/jquery.js"></script>
+<script type="text/javascript" src="../../../../../js/bootstrap-tab.js"></script>
+</head>
+
+<body onload="prettyPrint()">
+	<div class="container">
+		<div class="tabbable">
+			<div class="content">
+				<div class="page-header notrun">
+					<h1>Should</h1>
+					  <ul class="nav nav-tabs pull-right">
+					    <li class="active"><a href="#spec" data-toggle="tab">Spec</a></li>
+						<li><a href="#source" data-toggle="tab">Source</a></li>
+					  </ul>
+				</div>
+				<div class="row">
+					<div class="span12">
+						  <div class="tab-content">
+							  	<div class="tab-pane active" id="spec">
+<ul><li><p id="assertTrue_Should_operator_doubleArrow_true_true" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow[true, true]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_false_true" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[false, true]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_not_a_boolean_true" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow["not a boolean", true]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_null_true" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[null, true]]</strong></p>
+</li><li><p id="assertTrue_Should_operator_doubleArrow_null_null" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow[null, null]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_a_String_null" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow["a String", null]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_null_a_String" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[null, "a String"]]</strong></p>
+</li><li><p id="assertTrue_Should_operator_doubleArrow_a_String_a_String" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow["a String", "a String"]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_a_String_b_String" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow["a String", "b String"]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_1_null" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[1, null]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_null_1" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[null, 1]]</strong></p>
+</li><li><p id="assertTrue_Should_operator_doubleArrow_1_1" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow[1, 1]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_1_2" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[1, 2]]</strong></p>
+</li><li><p id="assertTrue_Should_operator_doubleArrow_a_String_String" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow["a String", String]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_1_String" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[1, String]]</strong></p>
+</li><li><p id="assertTrue_Should_operator_doubleArrow_1_Integer" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow[1, Integer]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_true_String" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[true, String]]</strong></p>
+</li><li><p id="assertTrue_Should_operator_doubleArrow_true_Boolean" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow[true, Boolean]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_null_String" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[null, String]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_Boolean_String" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[Boolean, String]]</strong></p>
+</li><li><p id="assertTrue_Should_operator_doubleArrow_Boolean_Boolean" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow[Boolean, Boolean]]</strong></p>
+</li><li><p id="assertTrue_Should_operator_doubleArrow" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow[-[], -[]]]</strong></p>
+</li><li><p id="assertTrue_Should_operator_doubleArrow_as_String_as_Boolean" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow[-[] as String[], -[] as Boolean[]]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_as_String_null" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[-[] as String[], null]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_null_as_String" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[null, -[] as String[]]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_a_String_as_String_false_as_Boolean" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[-["a String"] as String[], -[false] as Boolean[]]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_a_String_as_String_another_String_as_String" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[-["a String"] as String[], -["another String"] as String[]]]</strong></p>
+</li><li><p id="assertTrue_Should_operator_doubleArrow_a_String_as_String_a_String_as_String" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow[-["a String"] as String[], -["a String"] as String[]]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_a_String_b_String_as_String_a_String_as_String" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[-["a String", "b String"] as String[], -["a String"] as String[]]]</strong></p>
+</li><li><p id="assertFalse_Should_operator_doubleArrow_a_String_as_String_a_String_b_String_as_String" class="example notrun"><strong>assertFalse[Should.operator_doubleArrow[-["a String"] as String[], -["a String", "b String"] as String[]]]</strong></p>
+</li><li><p id="assertTrue_Should_operator_doubleArrow_a_String_b_String_as_String_a_String_b_String_as_String" class="example notrun"><strong>assertTrue[Should.operator_doubleArrow[-["a String", "b String"] as String[], -["a String", "b String"] as String[]]]</strong></p>
+</li></ul>
+							</div>
+						    <div class="tab-pane" id="source">
+						    	<h3>ShouldOperators.spec</h3>
+						    	<p>
+<pre class="prettyprint lang-spec linenums">
+package org.jnario.jnario.tests.unit
+
+import org.jnario.lib.Should
+import static org.junit.Assert.*
+
+describe Should {
+
+  fact assertTrue(Should.operator_doubleArrow(true, true))
+  
+  fact assertFalse(Should.operator_doubleArrow(false, true))
+
+  fact assertFalse(Should.operator_doubleArrow(&quot;not a boolean&quot;, true))
+  
+  fact assertFalse(Should.operator_doubleArrow(null, true))
+  
+  fact assertTrue(Should.operator_doubleArrow(null, null))
+  
+  fact assertFalse(Should.operator_doubleArrow(&quot;a String&quot;, null))
+  
+  fact assertFalse(Should.operator_doubleArrow(null, &quot;a String&quot;))
+  
+  fact assertTrue(Should.operator_doubleArrow(&quot;a String&quot;, &quot;a String&quot;))
+  
+  fact assertFalse(Should.operator_doubleArrow(&quot;a String&quot;, &quot;b String&quot;))
+  
+  fact assertFalse(Should.operator_doubleArrow(1, null))
+  
+  fact assertFalse(Should.operator_doubleArrow(null, 1))
+  
+  fact assertTrue(Should.operator_doubleArrow(1, 1))
+
+  fact assertFalse(Should.operator_doubleArrow(1, 2))
+  
+  fact assertTrue(Should.operator_doubleArrow(&quot;a String&quot;, String))
+  
+  fact assertFalse(Should.operator_doubleArrow(1, String))
+  
+  fact assertTrue(Should.operator_doubleArrow(1, Integer))
+  
+  fact assertFalse(Should.operator_doubleArrow(true, String))
+  
+  fact assertTrue(Should.operator_doubleArrow(true, Boolean))
+  
+  fact assertFalse(Should.operator_doubleArrow(null, String))
+  
+  fact assertFalse(Should.operator_doubleArrow(Boolean, String))
+  
+  fact assertTrue(Should.operator_doubleArrow(Boolean, Boolean))
+  
+  fact assertTrue(Should.operator_doubleArrow(#[], #[]))
+  
+  fact assertTrue(Should.operator_doubleArrow(#[] as String[], #[] as Boolean[]))
+  
+  fact assertFalse(Should.operator_doubleArrow(#[] as String[], null))
+
+  fact assertFalse(Should.operator_doubleArrow(null, #[] as String[]))
+  
+  fact assertFalse(Should.operator_doubleArrow(#[&quot;a String&quot;] as String[], #[false] as Boolean[]))
+  
+  fact assertFalse(Should.operator_doubleArrow(#[&quot;a String&quot;] as String[], #[&quot;another String&quot;] as String[]))
+  
+  fact assertTrue(Should.operator_doubleArrow(#[&quot;a String&quot;] as String[], #[&quot;a String&quot;] as String[]))
+  
+  fact assertFalse(Should.operator_doubleArrow(#[&quot;a String&quot;, &quot;b String&quot;] as String[], #[&quot;a String&quot;] as String[]))
+  
+  fact assertFalse(Should.operator_doubleArrow(#[&quot;a String&quot;] as String[], #[&quot;a String&quot;, &quot;b String&quot;] as String[]))
+  
+  fact assertTrue(Should.operator_doubleArrow(#[&quot;a String&quot;, &quot;b String&quot;] as String[], #[&quot;a String&quot;, &quot;b String&quot;] as String[]))
+  
+}
+</pre>
+						    </p></div>
+						  </div>
+					</div> 
+				</div> <!-- /row -->
+			</div> <!-- /content -->
+		</div> <!-- /tabbable -->
+		<footer>
+			<p><small>Generated by <a href="http://www.jnario.org">Jnario</a>.</small></p>
+		</footer>
+	</div> <!-- /container -->
+
+</body>
+</html>

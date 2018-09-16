@@ -35,11 +35,16 @@
 					<div class="span12">
 						  <div class="tab-content">
 							  	<div class="tab-pane active" id="spec">
-<p>Feature extensions can be used to share common setup and teardown operations between different features and/or specs. Whenever you are missing helper methods in feature definitions, you should use extensions instead. You can declare extension fields in scenarios to perform setup and teardown operations before/after the scenario is executed.</p>
+<p>Feature extensions can be used to share common setup and teardown
+operations between different features and/or specs. Whenever you are
+missing helper methods in feature definitions, you should use extensions
+instead. You can declare extension fields in scenarios to perform setup and
+teardown operations before/after the scenario is executed.</p>
 <div><h3 class="scenario notrun"  id="Scenario_Using_an_Extension">Scenario: Using an Extension
 </h3>
 <ul>
-<li><span class="step notrun"><p>When I declare an extension field of type <strong>ExampleExtension</strong> in the background</p><pre>import org.jnario.feature.tests.integration.ExampleExtension
+<li><span class="step notrun"><p>When I declare an extension field of type <strong>ExampleExtension</strong> in the background</p>
+<pre>import org.jnario.feature.tests.integration.ExampleExtension
 
 Feature: Feature with extensions
   
@@ -57,9 +62,11 @@ Feature: Feature with extensions
     Then we have two steps
       println(&quot;step 4&quot;)</pre></span>
 </li>
-<li><span class="step notrun"><p>And execute the feature</p></span>
+<li><span class="step notrun"><p>And execute the feature</p>
+</span>
 </li>
-<li><span class="step notrun"><p>Then the execution order is</p><pre>before
+<li><span class="step notrun"><p>Then the execution order is</p>
+<pre>before
 step 1
 step 2
 after

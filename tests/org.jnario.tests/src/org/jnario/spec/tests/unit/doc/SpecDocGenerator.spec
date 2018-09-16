@@ -67,7 +67,19 @@ describe SpecDocGenerator {
 		var x = 0
 		x = x + 1</pre>'''.convertNL)
 	}
-	fact "supports markdown for documentation"{
+	fact "supports simple markdown for documentation"{
+		generateDoc('''
+			/*
+			 * Example **bold**, _italic_, ...
+			 */
+			describe 'Example'{
+				
+			} 
+		''')
+		val scenarioDoc = generatedFile("ExampleSpec.html")
+		assert scenarioDoc.contains("<p>Example <strong>bold</strong>, <em>italic</em>, ...</p>")
+	}
+	fact "supports heading markdown for documentation"{
 		generateDoc('''
 			/*
 			 * #Example Heading

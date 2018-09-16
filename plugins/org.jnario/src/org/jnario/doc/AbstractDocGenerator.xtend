@@ -9,6 +9,9 @@
 package org.jnario.doc
 
 import com.google.inject.Inject
+import com.vladsch.flexmark.html.HtmlRenderer
+import com.vladsch.flexmark.parser.Parser
+import com.vladsch.flexmark.util.options.MutableDataSet
 import java.util.List
 import org.apache.commons.lang.StringEscapeUtils
 import org.apache.log4j.Logger
@@ -30,7 +33,6 @@ import org.jnario.report.Failed
 import org.jnario.report.NotRun
 import org.jnario.report.Passed
 import org.jnario.report.Pending
-import org.pegdown.PegDownProcessor
 
 import static extension org.apache.commons.lang.StringEscapeUtils.*
 import static extension org.eclipse.xtext.util.Strings.*
@@ -43,7 +45,6 @@ abstract class AbstractDocGenerator implements IGenerator {
 	static val SEP = "_"
 
 	@Inject extension WhiteSpaceNormalizer
-	@Inject extension PegDownProcessor
 	@Inject extension HtmlFileBuilder
 	@Inject extension DocumentationProvider documentationProvider
 	@Inject extension Executable2ResultMapping spec2ResultMapping
@@ -91,9 +92,20 @@ abstract class AbstractDocGenerator implements IGenerator {
 			return ""
 		}
 		val normalized = string.normalize + "\n" // line break is necessary to recognize single markdown headlines
-		normalized.markdownToHtml
+		val headingsCorrected = normalized.replaceAll("((^|\n)#+)([^# \\t])", "$1 $3")
+		headingsCorrected.markdownToHtml
 				.replaceAll("<pre><code>", '<pre class="prettyprint">')
 				.replaceAll("</pre></code>", '</pre>')
+	}
+	
+	def markdownToHtml(String markdown) {
+	    // TODO: Save and reuse parse
+	    val options = new MutableDataSet();
+	    val parser = Parser.builder(options).build();
+        val renderer = HtmlRenderer.builder(options).build();
+        val document = parser.parse(markdown);
+        val html = renderer.render(document);
+        html
 	}
 	
 	def protected dispatch String serialize(XExpression expr, List<Filter> filters){

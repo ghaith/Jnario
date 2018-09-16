@@ -117,7 +117,8 @@ class SuiteDocGenerator extends AbstractDocGenerator {
 		switch ref{
 			SpecReference case !ref.text?.trim.nullOrEmpty : {
 				var result = ref.text.markdown2Html
-				result = result.substring(3, result.length-4) // remove <p>..</p>
+                // remove <p>..</p>
+				result = result.replaceFirst("^\\s*<p>(.*)</p>\\s*$", "$1")
 				return ': ' + result
 			}
 		}

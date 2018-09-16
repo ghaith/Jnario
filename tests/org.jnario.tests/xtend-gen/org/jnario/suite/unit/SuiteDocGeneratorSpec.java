@@ -104,7 +104,9 @@ public class SuiteDocGeneratorSpec {
     _builder_1.newLine();
     _builder_1.append("</ul>");
     _builder_1.newLine();
-    _builder_1.append("<span id=\"Subheading\" class=\"suite pending\"><h2>Subheading</h2></span>");
+    _builder_1.append("<span id=\"Subheading\" class=\"suite pending\"><h2>Subheading</h2>");
+    _builder_1.newLine();
+    _builder_1.append("</span>");
     _builder_1.newLine();
     _builder_1.append("<p>Subheading description with <strong>markdown</strong>.</p>");
     _builder_1.newLine();

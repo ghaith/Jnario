@@ -35,7 +35,11 @@
 					<div class="span12">
 						  <div class="tab-content">
 							  	<div class="tab-pane active" id="spec">
-<p>It is possible to customize the instantiation of features, specs and subjects. This can be useful when a dependency injection container or a mocking framework should be used for creating specs. To do so, create a custom <code>SpecCreator</code> and annotate your spec with <code>CreateWith</code> and pass as a value the type of the custom <code>SpecCreator</code>. Here is an example for a custom <code>SpecCreator</code> that uses Google Guice to create the specification:</p>
+<p>It is possible to customize the instantiation of features, specs and subjects.
+This can be useful when a dependency injection container or a mocking
+framework should be used for creating specs. To do so, create a custom <code>SpecCreator</code> and
+annotate your spec with <code>CreateWith</code> and pass as a value the type of the custom <code>SpecCreator</code>.
+Here is an example for a custom <code>SpecCreator</code> that uses Google Guice to create the specification:</p>
 <pre class="prettyprint">
 package org.jnario.lib;
 
@@ -47,7 +51,9 @@ public class GuiceSpecCreator extends AbstractSpecCreator {
     return Guice.createInjector(Modules.EMPTY_MODULE).getInstance(klass);
   }
 }
-</pre><p><a href="https://gist.github.com/2869959">Here</a> is another example that demonstrates how to create a custom <strong>SpecCreator</strong> for <a href="http://code.google.com/p/mockito/">Mockito</a>.</p>
+</pre>
+<p><a href="https://gist.github.com/2869959">Here</a> is another example that demonstrates
+how to create a custom <strong>SpecCreator</strong> for <a href="http://code.google.com/p/mockito/">Mockito</a>.</p>
 <ul><li><p id="Example" class="example notrun"><strong>Example</strong></p>
 <p>This example uses the Google Guice to instantiate the specification.</p>
 <pre class="prettyprint lang-spec linenums">

@@ -37,7 +37,11 @@
 							  	<div class="tab-pane active" id="spec">
 <p>Example tables are a great way to structure input and expected output data.</p>
 <ul><li><p id="accessing_values" class="example notrun"><strong>accessing values</strong></p>
-<p>Examples are stored within a table. Assertions for the table's values are best implemented by iterating over each table row using <code>forEach</code>. Inside the procedure that is passed to <code>forEach</code>, each value in a row can be directly accessed by it's column's name making use of Xtend's <a href="http://www.eclipse.org/xtend/documentation/index.html#closures">implicit 'it'</a>.</p>
+<p>Examples are stored within a table. Assertions for the table's values are
+best implemented by iterating over each table row using <code>forEach</code>.
+Inside the procedure that is passed to <code>forEach</code>, each value in a row can be
+directly accessed by it's column's name making use of
+Xtend's <a href="http://www.eclipse.org/xtend/documentation/index.html#closures">implicit 'it'</a>.</p>
 <pre class="prettyprint lang-spec linenums">
 package bootstrap
 
@@ -134,7 +138,8 @@ describe &quot;Example Tables&quot;{
   }   
 }</pre>
 </li><li><p id="Column_type_inference" class="example notrun"><strong>Column type inference</strong></p>
-<p>Jnario automatically infers the type of a column. It will use the common supertype of all expressions in a column.</p>
+<p>Jnario automatically infers the type of a column. It will use the
+common supertype of all expressions in a column.</p>
 <pre class="prettyprint lang-spec linenums">
 package bootstrap
 
@@ -176,7 +181,8 @@ describe &quot;Example Tables&quot;{
   }
 }</pre>
 </li><li><p id="example"><strong>Example</strong></p>
-<p>Jnario will include example tables in the generated documentation. (The errors in the table are intentional, we need it in the next example).</p>
+<p>Jnario will include example tables in the generated documentation.
+(The errors in the table are intentional, we need it in the next example).</p>
 <table class="table table-striped table-bordered table-condensed">
 	<thead>
 		<tr>
@@ -204,7 +210,8 @@ describe &quot;Example Tables&quot;{
 	</tbody>
 </table>
 </li><li><p id="Error_message" class="example notrun"><strong>Error message</strong></p>
-<p><code>ExampleTable#forEach</code> executes the passed in procedure for all table rows. It will generate an error message for all procedures that have failed with the reason why they failed.</p>
+<p><code>ExampleTable#forEach</code> executes the passed in procedure for all table rows.
+It will generate an error message for all procedures that have failed with the reason why they failed.</p>
 <pre class="prettyprint lang-spec linenums">
 errorMessage[
   example.forEach[

@@ -153,9 +153,36 @@ public class SpecDocGeneratorSpec {
   }
   
   @Test
-  @Named("supports markdown for documentation")
+  @Named("supports simple markdown for documentation")
   @Order(4)
-  public void _supportsMarkdownForDocumentation() throws Exception {
+  public void _supportsSimpleMarkdownForDocumentation() throws Exception {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("/*");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("* Example **bold**, _italic_, ...");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("*/");
+    _builder.newLine();
+    _builder.append("describe \'Example\'{");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("} ");
+    _builder.newLine();
+    this.generateDoc(_builder);
+    final String scenarioDoc = this.generatedFile("ExampleSpec.html");
+    boolean _contains = scenarioDoc.contains("<p>Example <strong>bold</strong>, <em>italic</em>, ...</p>");
+    Assert.assertTrue("\nExpected scenarioDoc.contains(\"<p>Example <strong>bold</strong>, <em>italic</em>, ...</p>\") but"
+     + "\n     scenarioDoc is " + new org.hamcrest.StringDescription().appendValue(scenarioDoc).toString() + "\n", _contains);
+    
+  }
+  
+  @Test
+  @Named("supports heading markdown for documentation")
+  @Order(5)
+  public void _supportsHeadingMarkdownForDocumentation() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/*");
     _builder.newLine();
@@ -181,7 +208,7 @@ public class SpecDocGeneratorSpec {
   
   @Test
   @Named("generates table for example tables")
-  @Order(5)
+  @Order(6)
   public void _generatesTableForExampleTables() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \'Example\'{");
@@ -226,7 +253,7 @@ public class SpecDocGeneratorSpec {
   
   @Test
   @Named("No code block for examples without description")
-  @Order(6)
+  @Order(7)
   public void _noCodeBlockForExamplesWithoutDescription() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \'Example\'{");
@@ -254,7 +281,7 @@ public class SpecDocGeneratorSpec {
   
   @Test
   @Named("filters code based on regex in filter annotation")
-  @Order(7)
+  @Order(8)
   public void _filtersCodeBasedOnRegexInFilterAnnotation() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \'Example\'{");
@@ -289,7 +316,7 @@ public class SpecDocGeneratorSpec {
   
   @Test
   @Named("includes failing state for examples")
-  @Order(8)
+  @Order(9)
   public void _includesFailingStateForExamples() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \'Example\'{");
@@ -310,7 +337,7 @@ public class SpecDocGeneratorSpec {
   
   @Test
   @Named("supports @lang annotation")
-  @Order(9)
+  @Order(10)
   public void _supportsLangAnnotation() throws Exception {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("describe \'Example\'{");

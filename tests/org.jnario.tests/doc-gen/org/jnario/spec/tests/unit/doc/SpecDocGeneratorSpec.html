@@ -80,7 +80,19 @@ assert scenarioDoc.convertNL.contains('''
 &lt;pre class=&quot;prettyprint lang-spec linenums&quot;&gt;
 var x = 0
 x = x + 1&lt;/pre&gt;'''.convertNL)</pre>
-</li><li><p id="supports_markdown_for_documentation" class="example notrun"><strong>supports markdown for documentation</strong></p>
+</li><li><p id="supports_simple_markdown_for_documentation" class="example notrun"><strong>supports simple markdown for documentation</strong></p>
+<pre class="prettyprint lang-spec linenums">
+generateDoc('''
+  /*
+   * Example **bold**, _italic_, ...
+   */
+  describe 'Example'{
+    
+  } 
+''')
+val scenarioDoc = generatedFile(&quot;ExampleSpec.html&quot;)
+assert scenarioDoc.contains(&quot;&lt;p&gt;Example &lt;strong&gt;bold&lt;/strong&gt;, &lt;em&gt;italic&lt;/em&gt;, ...&lt;/p&gt;&quot;)</pre>
+</li><li><p id="supports_heading_markdown_for_documentation" class="example notrun"><strong>supports heading markdown for documentation</strong></p>
 <pre class="prettyprint lang-spec linenums">
 generateDoc('''
   /*
@@ -231,7 +243,19 @@ describe SpecDocGenerator {
     var x = 0
     x = x + 1&lt;/pre&gt;'''.convertNL)
   }
-  fact &quot;supports markdown for documentation&quot;{
+  fact &quot;supports simple markdown for documentation&quot;{
+    generateDoc('''
+      /*
+       * Example **bold**, _italic_, ...
+       */
+      describe 'Example'{
+        
+      } 
+    ''')
+    val scenarioDoc = generatedFile(&quot;ExampleSpec.html&quot;)
+    assert scenarioDoc.contains(&quot;&lt;p&gt;Example &lt;strong&gt;bold&lt;/strong&gt;, &lt;em&gt;italic&lt;/em&gt;, ...&lt;/p&gt;&quot;)
+  }
+  fact &quot;supports heading markdown for documentation&quot;{
     generateDoc('''
       /*
        * #Example Heading

@@ -37,7 +37,10 @@
 							  	<div class="tab-pane active" id="spec">
 <p>You can use the <code>should</code> statement to express the expected behavior of objects.</p>
 <ul><li><p id="To_pass" class="example notrun"><strong>To pass..</strong></p>
-<p><code>should</code> passes if the result of the left expression is equal to the result of the right expression. You can use <code>not</code> to assert that the expressions have different results. There is also a short cut available: <code>=&gt;</code> which has the same effect as <code>should be</code>.</p>
+<p><code>should</code> passes if the result of the left expression is
+equal to the result of the right expression. You can use <code>not</code> to
+assert that the expressions have different results. There is also
+a short cut available: <code>=&gt;</code> which has the same effect as <code>should be</code>.</p>
 <pre class="prettyprint lang-spec linenums">
 // equality
 true should be true
@@ -69,12 +72,15 @@ greeting =&gt; typeof(String)
 new Stack&lt;String&gt;().pop should throw EmptyStackException
 new Stack&lt;String&gt;().pop throws EmptyStackException</pre>
 </li><li><p id="or_not_to_pass" class="example notrun"><strong>...or not to pass</strong></p>
-<p><code>should</code> throws an AssertionError if the result of the left expression does not equal the result of the right expression. Here is a helper method we are going to use:</p>
+<p><code>should</code> throws an AssertionError if the result of the left
+expression does not equal the result of the right expression.
+Here is a helper method we are going to use:</p>
 <pre class="prettyprint lang-spec">
 def void method(){
   throw new IllegalArgumentException
 }
-</pre><p>...and here are the examples:</p>
+</pre>
+<p>...and here are the examples:</p>
 <pre class="prettyprint lang-spec linenums">
 1 + 1 should be 1 throws AssertionError
 1 + 1 should not be 2 throws AssertionError
@@ -83,7 +89,8 @@ new Object =&gt; null throws AssertionError
 new Object should be null throws AssertionError
 method() throws IllegalArgumentException</pre>
 </li><li><p id="Why_did_it_fail" class="example notrun"><strong>Why did it fail?</strong></p>
-<p>When failing, <code>should</code> and <code>=&gt;</code> try to give you as much context information as possible. The error message will print the values of all expressions and their subexpressions.</p>
+<p>When failing, <code>should</code> and <code>=&gt;</code> try to give you as much context information as possible.
+The error message will print the values of all expressions and their subexpressions.</p>
 <pre class="prettyprint lang-spec linenums">
 errorMessage[1 + 1 =&gt; 1].is('''
  Expected 1 + 1 =&gt; 1 but
@@ -101,7 +108,9 @@ errorMessage[x =&gt; y].is('''
        x is &quot;hello&quot;
        y is &quot;world&quot;''')</pre>
 </li><li><p id="Wait_for_something" class="example notrun"><strong>Wait for something</strong></p>
-<p>This useful helper automatically waits until a condition turns true. Expects a lambda expression returning a boolean value. The error message, polling interval and duration are configurable.</p>
+<p>This useful helper automatically waits until a condition turns true.
+Expects a lambda expression returning a boolean value. The error message,
+polling interval and duration are configurable.</p>
 <pre class="prettyprint lang-spec linenums">
 waitUntil[1 &gt; 0]
 waitUntil[
@@ -111,24 +120,33 @@ waitUntil[
   1 &gt; 0
 ]</pre>
 </li><li><p id="Define_your_own_matchers" class="example notrun"><strong>Define your own matchers</strong></p>
-<p>You can also define your own <em>should</em> matchers by defining a method with the prefix <em>should_XXXX</em> in the current scope. The method needs to return a boolean value. For example, when we define a method <em>should_eat</em>:</p>
+<p>You can also define your own <em>should</em> matchers by
+defining a method with the prefix <em>should_XXXX</em> in
+the current scope. The method needs to return a boolean
+value. For example, when we define
+a method <em>should_eat</em>:</p>
 <pre class="prettyprint">def should_eat(String animal, String food){
   animal == &quot;Monkey&quot; &amp;&amp; food == &quot;Banana&quot;
 }
-</code></pre><p>We can use "eat" in our should expressions:</p>
+</code></pre>
+<p>We can use &quot;eat&quot; in our should expressions:</p>
 <pre class="prettyprint lang-spec linenums">
 &quot;Monkey&quot; should eat &quot;Banana&quot;
 &quot;Monkey&quot; should eat &quot;Rocks&quot; throws AssertionError</pre>
 </li><li><p id="Combining_hamcrest_and_should" class="example notrun"><strong>Combining hamcrest and should</strong></p>
-<p>You can also the <code>should</code> and <code>=&gt;</code> together with <a href="http://code.google.com/p/hamcrest/">hamcrest</a> matchers. The following static import statements are needed to run the examples:</p>
+<p>You can also the <code>should</code> and <code>=&gt;</code> together with <a href="http://code.google.com/p/hamcrest/">hamcrest</a>
+matchers. The following static import statements are needed to run the examples:</p>
 <pre class="prettyprint">import static org.hamcrest.CoreMatchers.startsWith
 import static org.hamcrest.CoreMatchers.equalTo
-</code></pre><p>If the right-hand side of a should expression is a matcher, the matcher will be evaluated instead of testing for equality:</p>
+</code></pre>
+<p>If the right-hand side of a should expression is a matcher, the matcher will be evaluated instead
+of testing for equality:</p>
 <pre class="prettyprint lang-spec linenums">
 &quot;hello&quot; =&gt; startsWith(&quot;h&quot;)
 9 should be greaterThan(5)</pre>
 </li><li><p id="Short_Circuit_Invocation" class="example notrun"><strong>Short Circuit Invocation</strong></p>
-<p>In order to be able to print the value of all subexpressions when an assertion failed, we disabled the short circuit semantics of '&amp;&amp;' and '||' within assertions.</p>
+<p>In order to be able to print the value of all subexpressions when an assertion failed,
+we disabled the short circuit semantics of '&amp;&amp;' and '||' within assertions.</p>
 <pre class="prettyprint lang-spec linenums">
 val String aString = null
 (assert aString != null &amp;&amp; aString.length == 0) throws NullPointerException</pre>

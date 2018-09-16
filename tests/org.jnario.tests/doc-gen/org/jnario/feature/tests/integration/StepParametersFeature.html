@@ -38,7 +38,8 @@
 <div><h3 class="scenario notrun"  id="Scenario_Parameters_are_defined_in_quotes">Scenario: Parameters are defined in quotes
 </h3>
 <ul>
-<li><span class="step notrun"><p>When I have a feature with parameters</p><pre>package bootstrap
+<li><span class="step notrun"><p>When I have a feature with parameters</p>
+<pre>package bootstrap
 Feature: Test feature
   Scenario: using fields in step definitions
     String x
@@ -47,14 +48,16 @@ Feature: Test feature
     Then it should be possible to get the value
       x =&gt; &quot;3&quot;</pre></span>
 </li>
-<li><span class="step notrun"><p>Then it should execute successfully</p></span>
+<li><span class="step notrun"><p>Then it should execute successfully</p>
+</span>
 </li>
 </ul>
 </div>
 <div><h3 class="scenario notrun"  id="Scenario_Access_of_parameters_with_first_second">Scenario: Access of parameters with first, second, ...
 </h3>
 <ul>
-<li><span class="step notrun"><p>When I access those parameters</p><pre>package bootstrap
+<li><span class="step notrun"><p>When I access those parameters</p>
+<pre>package bootstrap
 Feature: Test feature
   Scenario: using fields in step definitions
     String x
@@ -63,14 +66,16 @@ Feature: Test feature
     Then it should be possible to get the value
       x =&gt; &quot;3&quot;</pre></span>
 </li>
-<li><span class="step notrun"><p>Then it should execute successfully</p></span>
+<li><span class="step notrun"><p>Then it should execute successfully</p>
+</span>
 </li>
 </ul>
 </div>
 <div><h3 class="scenario notrun"  id="Scenario_Parameter_definition_in_steps_and_Background">Scenario: Parameter definition in steps and Background
 </h3>
 <ul>
-<li><span class="step notrun"><p>When I define parameters in a background</p><pre>package bootstrap 
+<li><span class="step notrun"><p>When I define parameters in a background</p>
+<pre>package bootstrap 
 Feature: Test feature
   Background:
     String x
@@ -80,14 +85,16 @@ Feature: Test feature
     Then those values should be accessible
       x =&gt; &quot;4&quot;</pre></span>
 </li>
-<li><span class="step notrun"><p>Then it should execute successfully</p></span>
+<li><span class="step notrun"><p>Then it should execute successfully</p>
+</span>
 </li>
 </ul>
 </div>
 <div><h3 class="scenario notrun"  id="Scenario_Parameter_definition_in_and_steps">Scenario: Parameter definition in and steps
 </h3>
 <ul>
-<li><span class="step notrun"><p>When I define parameters in a an and step</p><pre>Feature: Test feature
+<li><span class="step notrun"><p>When I define parameters in a an and step</p>
+<pre>Feature: Test feature
 Scenario: &quot;And&quot; args in step definition
   var strings = &lt;String&gt;list()
   Given a string &quot;hello&quot;
@@ -105,14 +112,16 @@ Scenario: &quot;And&quot; args in step reference
   Then the string is
     strings =&gt; list(&quot;hello&quot;, &quot;world&quot;)</pre></span>
 </li>
-<li><span class="step notrun"><p>Then it should execute successfully</p></span>
+<li><span class="step notrun"><p>Then it should execute successfully</p>
+</span>
 </li>
 </ul>
 </div>
 <div><h3 class="scenario notrun"  id="Scenario_Referencing_variables_that_contain_a_value_from_args">Scenario: Referencing variables that contain a value from args
 </h3>
 <ul>
-<li><span class="step notrun"><p>When I have a scenario that references a step with arguments</p><pre>package bootstrap 
+<li><span class="step notrun"><p>When I have a scenario that references a step with arguments</p>
+<pre>package bootstrap 
 Feature: Test feature
   Scenario: using fields in step definitions
     String x
@@ -124,23 +133,27 @@ Feature: Test feature
     Then it should be &quot;hello world&quot;
       y should be args.first</pre></span>
 </li>
-<li><span class="step notrun"><p>Then it should execute successfully</p></span>
+<li><span class="step notrun"><p>Then it should execute successfully</p>
+</span>
 </li>
 </ul>
 </div>
 <div><h3 class="scenario notrun"  id="Scenario_Using_multiline_Strings">Scenario: Using multiline Strings
 </h3>
 <ul>
-<li><span class="step notrun"><p>When I have a scenario with multiline strings</p></span>
+<li><span class="step notrun"><p>When I have a scenario with multiline strings</p>
+</span>
 </li>
-<li><span class="step notrun"><p>Then it should execute successfully</p></span>
+<li><span class="step notrun"><p>Then it should execute successfully</p>
+</span>
 </li>
 </ul>
 </div>
 <div><h3 class="scenario notrun"  id="Scenario_Using_args_in_And_Steps">Scenario: Using args in And Steps
 </h3>
 <ul>
-<li><span class="step notrun"><p>When I have a scenario with 'and' step arguments</p><pre>Feature: And Arguments
+<li><span class="step notrun"><p>When I have a scenario with 'and' step arguments</p>
+<pre>Feature: And Arguments
 
 Scenario: Using And Arguments
 
@@ -148,14 +161,16 @@ When we have some args &quot;2&quot;
 And other args &quot;10&quot;
   args.first =&gt; &quot;10&quot;</pre></span>
 </li>
-<li><span class="step notrun"><p>Then it should execute successfully</p></span>
+<li><span class="step notrun"><p>Then it should execute successfully</p>
+</span>
 </li>
 </ul>
 </div>
 <div><h3 class="scenario notrun"  id="Scenario_Field_initializers_in_Backgrounds">Scenario: Field initializers in Backgrounds
 </h3>
 <ul>
-<li><span class="step notrun"><p>When I have a scenario with a background and a field initializer</p><pre>Feature: Field initializers in Backgrounds
+<li><span class="step notrun"><p>When I have a scenario with a background and a field initializer</p>
+<pre>Feature: Field initializers in Backgrounds
 Background:
   String greeting = &quot;Hello &quot;
   Given a name &quot;Sebastian&quot;
@@ -164,16 +179,19 @@ Scenario: Greeting someone
   Then the greeting should be &quot;Hello Sebastian&quot; 
   greeting =&gt; args.first</pre></span>
 </li>
-<li><span class="step notrun"><p>Then it should execute successfully</p></span>
+<li><span class="step notrun"><p>Then it should execute successfully</p>
+</span>
 </li>
 </ul>
 </div>
 <div><h3 class="scenario notrun"  id="Scenario_White_space_normalizing">Scenario: White space normalizing
 </h3>
 <ul>
-<li><span class="step notrun"><p>When I have a scenario with a multiline string</p></span>
+<li><span class="step notrun"><p>When I have a scenario with a multiline string</p>
+</span>
 </li>
-<li><span class="step notrun"><p>Then it should execute successfully</p></span>
+<li><span class="step notrun"><p>Then it should execute successfully</p>
+</span>
 </li>
 </ul>
 </div>

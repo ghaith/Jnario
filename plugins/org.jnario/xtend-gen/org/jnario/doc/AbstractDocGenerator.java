@@ -10,6 +10,10 @@ package org.jnario.doc;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+import com.vladsch.flexmark.ast.Document;
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.options.MutableDataSet;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -51,7 +55,6 @@ import org.jnario.doc.IconProvider;
 import org.jnario.doc.WhiteSpaceNormalizer;
 import org.jnario.report.Executable2ResultMapping;
 import org.jnario.report.SpecExecution;
-import org.pegdown.PegDownProcessor;
 
 @SuppressWarnings("all")
 public abstract class AbstractDocGenerator implements IGenerator {
@@ -62,10 +65,6 @@ public abstract class AbstractDocGenerator implements IGenerator {
   @Inject
   @Extension
   private WhiteSpaceNormalizer _whiteSpaceNormalizer;
-  
-  @Inject
-  @Extension
-  private PegDownProcessor _pegDownProcessor;
   
   @Inject
   @Extension
@@ -141,7 +140,21 @@ public abstract class AbstractDocGenerator implements IGenerator {
       }
       String _normalize = this._whiteSpaceNormalizer.normalize(string);
       final String normalized = (_normalize + "\n");
-      _xblockexpression = this._pegDownProcessor.markdownToHtml(normalized).replaceAll("<pre><code>", "<pre class=\"prettyprint\">").replaceAll("</pre></code>", "</pre>");
+      final String headingsCorrected = normalized.replaceAll("((^|\n)#+)([^# \\t])", "$1 $3");
+      _xblockexpression = this.markdownToHtml(headingsCorrected).replaceAll("<pre><code>", "<pre class=\"prettyprint\">").replaceAll("</pre></code>", "</pre>");
+    }
+    return _xblockexpression;
+  }
+  
+  public String markdownToHtml(final String markdown) {
+    String _xblockexpression = null;
+    {
+      final MutableDataSet options = new MutableDataSet();
+      final Parser parser = Parser.builder(options).build();
+      final HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+      final Document document = parser.parse(markdown);
+      final String html = renderer.render(document);
+      _xblockexpression = html;
     }
     return _xblockexpression;
   }

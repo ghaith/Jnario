@@ -243,9 +243,7 @@ public class SuiteDocGenerator extends AbstractDocGenerator {
       if (_not) {
         _matched=true;
         String result = this.markdown2Html(((SpecReference)ref).getText());
-        int _length = result.length();
-        int _minus = (_length - 4);
-        result = result.substring(3, _minus);
+        result = result.replaceFirst("^\\s*<p>(.*)</p>\\s*$", "$1");
         return (": " + result);
       }
     }

@@ -35,7 +35,8 @@
 					<div class="span12">
 						  <div class="tab-content">
 							  	<div class="tab-pane active" id="spec">
-<p>Extensions can be used to share common setup and tear down behavior across different specifications. For example, given a normal java class with some JUnit setup and tear down methods:</p>
+<p>Extensions can be used to share common setup and tear down behavior across different specifications.
+For example, given a normal java class with some JUnit setup and tear down methods:</p>
 <pre class="prettify">
 public class ExtensionExample {
   @BeforeClass
@@ -58,7 +59,11 @@ public class ExtensionExample {
     System.out.println("after");
   }
 }
-</pre><p>When you declare an instance of this class as an extension field in your spec, all the setup and tear down methods will be executed before/after each fact/spec, respectively:</p>
+</pre>
+<p>When you declare an instance of this class
+as an extension field in your spec, all the setup
+and tear down methods will be executed before/after
+each fact/spec, respectively:</p>
 <ul><li><p id="Example" class="example notrun"><strong>Example:</strong></p>
 <pre class="prettyprint lang-spec linenums">
 '''

@@ -56,7 +56,8 @@ describe SuiteDocGenerator {
 			<li><a class="specref pending" href="../test/RedSpec.html">Red</a> <strong class="icon pending">~</strong></li>
 			<li><a class="specref pending" href="../test/BlueSpec.html">Blue</a> <strong class="icon pending">~</strong>: with a description</li>
 		</ul>
-		<span id="Subheading" class="suite pending"><h2>Subheading</h2></span>
+		<span id="Subheading" class="suite pending"><h2>Subheading</h2>
+		</span>
 		<p>Subheading description with <strong>markdown</strong>.</p>
 		<ul>
 			<li><a class="specref pending" href="../test/GreenSpec.html">Green</a> <strong class="icon pending">~</strong></li>

@@ -69,7 +69,8 @@ describe FeatureDocGenerator {
 <div><h3 class="scenario pending"  id="Scenario_Example_Scenario">Scenario: Example Scenario
 </h3>
 <ul>
-<li><span class="step notrun"><p>Given a step with an argument <code>"something"</code>, another <code>"argument"</code> and a multiline string:</p><pre>import java.util.Collections.*;
+<li><span class="step notrun"><p>Given a step with an argument <code>&quot;something&quot;</code>, another <code>&quot;argument&quot;</code> and a multiline string:</p>
+<pre>import java.util.Collections.*;
 
 public class Greeter{
   public static void main(String args[]){
@@ -78,13 +79,17 @@ public class Greeter{
   }
 }</pre></span>
 </li>
-<li><span class="step pending"><p>When I do something that is pending. [PENDING]</p></span>
+<li><span class="step pending"><p>When I do something that is pending. [PENDING]</p>
+</span>
 </li>
-<li><span class="step pending"><p>And something else that is pending [PENDING]</p></span>
+<li><span class="step pending"><p>And something else that is pending [PENDING]</p>
+</span>
 </li>
-<li><span class="step notrun"><p>But this is implemented</p></span>
+<li><span class="step notrun"><p>But this is implemented</p>
+</span>
 </li>
-<li><span class="step notrun"><p>Then it results in <code>"something else"</code></p></span>
+<li><span class="step notrun"><p>Then it results in <code>&quot;something else&quot;</code></p>
+</span>
 </li>
 </ul>
 </div>
