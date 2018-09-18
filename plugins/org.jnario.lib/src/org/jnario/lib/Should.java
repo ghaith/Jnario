@@ -15,7 +15,6 @@ import org.eclipse.xtext.xbase.lib.Functions;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.omg.CosNaming.IstringHelper;
 
 import com.google.common.base.Objects;
 
@@ -38,10 +37,6 @@ import com.google.common.base.Objects;
  */
 public class Should{
 	
-	private static boolean haveSameType(Object actual, Object expected) {
-		return actual != null && expected != null && actual.getClass().equals(expected.getClass());
-	}
-	
 	public static boolean should_be(Object actual, Object expected) {
 		return operator_doubleArrow(actual, expected);
 	}
@@ -62,29 +57,9 @@ public class Should{
 		if(isArray(actual) && isArray(expected)){
 			return Arrays.equals((Object[])actual, (Object[])expected);
 		}
-		// TODO: extract
-//		if(expected instanceof Functions.Function1<?, Boolean>) {
-//			return ((Functions.Function1<?, Boolean>) expected).apply(actual);
-//		}
 			
-		return haveSameType(actual, expected) && Objects.equal(actual, expected);
+		return Objects.equal(actual, expected);
 	}
-	
-//	public static <T> boolean should_be(T obj, Functions.Function1<T, Boolean> func){
-//	return func.apply(obj);
-//}		
-	
-	// FIXME: What's the Usecase if actual is not instance of Boolean?
-//	public static <T> boolean should_be(T actual, boolean result){
-//	if (actual instanceof Boolean) {
-//		return ((Boolean)actual).equals(result);
-//	}
-//	return result;
-//}
-	
-	
-	
-	
 	
 	private static boolean isArray(Object obj) {
 		if(obj == null){
