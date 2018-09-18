@@ -180,7 +180,7 @@ public class StepArgumentsProviderSpec {
         List<?> _expectedArgs = it.getExpectedArgs();
         Assert.assertTrue("\nExpected foundArgs => expectedArgs but"
          + "\n     foundArgs is " + new org.hamcrest.StringDescription().appendValue(foundArgs).toString()
-         + "\n     expectedArgs is " + new org.hamcrest.StringDescription().appendValue(_expectedArgs).toString() + "\n", Should.<List<?>>operator_doubleArrow(foundArgs, _expectedArgs));
+         + "\n     expectedArgs is " + new org.hamcrest.StringDescription().appendValue(_expectedArgs).toString() + "\n", Should.operator_doubleArrow(foundArgs, _expectedArgs));
         
       }
     };
@@ -192,12 +192,12 @@ public class StepArgumentsProviderSpec {
   @Order(2)
   public void _returnsEmptyListIfStepHasNoName() throws Exception {
     List<String> _findStepArguments = this.subject.findStepArguments(Features.step(null));
-    List<String> _list = JnarioCollectionLiterals.<String>list();
+    List<Object> _list = JnarioCollectionLiterals.<Object>list();
     Assert.assertTrue("\nExpected subject.findStepArguments(step(null)) => list() but"
      + "\n     subject.findStepArguments(step(null)) is " + new org.hamcrest.StringDescription().appendValue(_findStepArguments).toString()
      + "\n     subject is " + new org.hamcrest.StringDescription().appendValue(this.subject).toString()
      + "\n     step(null) is " + new org.hamcrest.StringDescription().appendValue(Features.step(null)).toString()
-     + "\n     list() is " + new org.hamcrest.StringDescription().appendValue(_list).toString() + "\n", Should.<List<String>>operator_doubleArrow(_findStepArguments, _list));
+     + "\n     list() is " + new org.hamcrest.StringDescription().appendValue(_list).toString() + "\n", Should.operator_doubleArrow(_findStepArguments, _list));
     
   }
   

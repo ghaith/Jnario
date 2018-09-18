@@ -21,20 +21,20 @@ public class RichStringsTabNewlineEtcSpec extends RichStringsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("\t");
     _builder.append("leading Tab");
-    boolean _should_be = Should.<String>should_be(_builder.toString(), "\tleading Tab");
+    boolean _should_be = Should.should_be(_builder.toString(), "\tleading Tab");
     Assert.assertTrue("\nExpected //Table does not format correctly yet\r\n\t\t\t\'\'\'\tleading Tab\'\'\' should be \"\\tleading Tab\" but"
      + "\n     //Table does not format correctly yet\r\n\t\t\t\'\'\'\tleading Tab\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString() + "\n", _should_be);
     
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("trailing Tab\t");
-    boolean _should_be_1 = Should.<String>should_be(_builder_1.toString(), "trailing Tab\t");
+    boolean _should_be_1 = Should.should_be(_builder_1.toString(), "trailing Tab\t");
     Assert.assertTrue("\nExpected \'\'\'trailing Tab\t\'\'\' should be \"trailing Tab\\t\" but"
      + "\n     \'\'\'trailing Tab\t\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1.toString()).toString() + "\n", _should_be_1);
     
     StringConcatenation _builder_2 = new StringConcatenation();
     _builder_2.append("inner\ttab");
     Assert.assertTrue("\nExpected \'\'\'inner\ttab\'\'\' should be \"inner\\ttab\" but"
-     + "\n     \'\'\'inner\ttab\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_2.toString()).toString() + "\n", Should.<String>should_be(_builder_2.toString(), "inner\ttab"));
+     + "\n     \'\'\'inner\ttab\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_2.toString()).toString() + "\n", Should.should_be(_builder_2.toString(), "inner\ttab"));
     
   }
   
@@ -45,20 +45,20 @@ public class RichStringsTabNewlineEtcSpec extends RichStringsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append(" ");
     _builder.append("leading ws");
-    boolean _should_be = Should.<String>should_be(_builder.toString(), " leading ws");
+    boolean _should_be = Should.should_be(_builder.toString(), " leading ws");
     Assert.assertTrue("\nExpected //Table does not format correctly yet\r\n\t\t\t\'\'\' leading ws\'\'\' should be \" leading ws\" but"
      + "\n     //Table does not format correctly yet\r\n\t\t\t\'\'\' leading ws\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString() + "\n", _should_be);
     
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("trailing ws ");
-    boolean _should_be_1 = Should.<String>should_be(_builder_1.toString(), "trailing ws ");
+    boolean _should_be_1 = Should.should_be(_builder_1.toString(), "trailing ws ");
     Assert.assertTrue("\nExpected \'\'\'trailing ws \'\'\' should be \"trailing ws \" but"
      + "\n     \'\'\'trailing ws \'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1.toString()).toString() + "\n", _should_be_1);
     
     StringConcatenation _builder_2 = new StringConcatenation();
     _builder_2.append("inner ws");
     Assert.assertTrue("\nExpected \'\'\'inner ws\'\'\' should be \"inner ws\" but"
-     + "\n     \'\'\'inner ws\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_2.toString()).toString() + "\n", Should.<String>should_be(_builder_2.toString(), "inner ws"));
+     + "\n     \'\'\'inner ws\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_2.toString()).toString() + "\n", Should.should_be(_builder_2.toString(), "inner ws"));
     
   }
   
@@ -78,7 +78,7 @@ public class RichStringsTabNewlineEtcSpec extends RichStringsSpec {
      + "\n     \"line1\"+System.lineSeparator()+\"line2\" is " + new org.hamcrest.StringDescription().appendValue(_plus_1).toString()
      + "\n     \"line1\"+System.lineSeparator() is " + new org.hamcrest.StringDescription().appendValue(_plus).toString()
      + "\n     System.lineSeparator() is " + new org.hamcrest.StringDescription().appendValue(_lineSeparator).toString()
-     + "\n     System is " + new org.hamcrest.StringDescription().appendValue(System.class).toString() + "\n", Should.<String>should_be(_builder.toString(), _plus_1));
+     + "\n     System is " + new org.hamcrest.StringDescription().appendValue(System.class).toString() + "\n", Should.should_be(_builder.toString(), _plus_1));
     
   }
   
@@ -102,7 +102,7 @@ public class RichStringsTabNewlineEtcSpec extends RichStringsSpec {
      + "\n     \"line1\"+System.lineSeparator()+System.lineSeparator() is " + new org.hamcrest.StringDescription().appendValue(_plus_1).toString()
      + "\n     \"line1\"+System.lineSeparator() is " + new org.hamcrest.StringDescription().appendValue(_plus).toString()
      + "\n     System.lineSeparator() is " + new org.hamcrest.StringDescription().appendValue(_lineSeparator).toString()
-     + "\n     System is " + new org.hamcrest.StringDescription().appendValue(System.class).toString() + "\n", Should.<String>should_be(_builder.toString(), _plus_2));
+     + "\n     System is " + new org.hamcrest.StringDescription().appendValue(System.class).toString() + "\n", Should.should_be(_builder.toString(), _plus_2));
     
   }
 }

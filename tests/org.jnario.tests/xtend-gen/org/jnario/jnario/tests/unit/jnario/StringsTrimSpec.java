@@ -110,7 +110,7 @@ public class StringsTrimSpec extends StringsSpec {
          + "\n     string.trim(\'_\'.charAt(0)) is " + new org.hamcrest.StringDescription().appendValue(_trim).toString()
          + "\n     string is " + new org.hamcrest.StringDescription().appendValue(it.getString()).toString()
          + "\n     \'_\'.charAt(0) is " + new org.hamcrest.StringDescription().appendValue("_".charAt(0)).toString()
-         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.<String>operator_doubleArrow(_trim, _result));
+         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.operator_doubleArrow(_trim, _result));
         
       }
     };

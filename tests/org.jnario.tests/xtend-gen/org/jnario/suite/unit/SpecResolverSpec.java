@@ -123,7 +123,7 @@ public class SpecResolverSpec {
      + "\n     resolvedSpecs(firstSuite).toSet is " + new org.hamcrest.StringDescription().appendValue(_set).toString()
      + "\n     resolvedSpecs(firstSuite) is " + new org.hamcrest.StringDescription().appendValue(this.resolvedSpecs(this.m.firstSuite())).toString()
      + "\n     firstSuite is " + new org.hamcrest.StringDescription().appendValue(this.m.firstSuite()).toString()
-     + "\n     set(\"MySpecSpec\", \"MyFeatureFeature\") is " + new org.hamcrest.StringDescription().appendValue(_set_1).toString() + "\n", Should.<Set<String>>operator_doubleArrow(_set, _set_1));
+     + "\n     set(\"MySpecSpec\", \"MyFeatureFeature\") is " + new org.hamcrest.StringDescription().appendValue(_set_1).toString() + "\n", Should.operator_doubleArrow(_set, _set_1));
     
   }
   
@@ -140,7 +140,7 @@ public class SpecResolverSpec {
      + "\n     subject is " + new org.hamcrest.StringDescription().appendValue(this.subject).toString()
      + "\n     suite is " + new org.hamcrest.StringDescription().appendValue(suite).toString()
      + "\n     list(specWithoutName) is " + new org.hamcrest.StringDescription().appendValue(_list).toString()
-     + "\n     specWithoutName is " + new org.hamcrest.StringDescription().appendValue(specWithoutName).toString() + "\n", Should.<List<? extends Specification>>operator_doubleArrow(_resolveSpecs, _list));
+     + "\n     specWithoutName is " + new org.hamcrest.StringDescription().appendValue(specWithoutName).toString() + "\n", Should.operator_doubleArrow(_resolveSpecs, _list));
     
   }
   

@@ -21,7 +21,7 @@ public class RichStringsAsExpressionSpec extends RichStringsSpec {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("abc");
     Assert.assertTrue("\nExpected //dont assign to variable, use directly\r\n\t\t\t\'\'\'abc\'\'\' should be \"abc\" but"
-     + "\n     //dont assign to variable, use directly\r\n\t\t\t\'\'\'abc\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString() + "\n", Should.<String>should_be(_builder.toString(), "abc"));
+     + "\n     //dont assign to variable, use directly\r\n\t\t\t\'\'\'abc\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString() + "\n", Should.should_be(_builder.toString(), "abc"));
     
   }
   
@@ -37,7 +37,7 @@ public class RichStringsAsExpressionSpec extends RichStringsSpec {
       }
     }
     Assert.assertTrue("\nExpected \'\'\'a \u00ABIF true\u00BBb\u00ABENDIF\u00BB\'\'\' should be \"a b\" but"
-     + "\n     \'\'\'a \u00ABIF true\u00BBb\u00ABENDIF\u00BB\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString() + "\n", Should.<String>should_be(_builder.toString(), "a b"));
+     + "\n     \'\'\'a \u00ABIF true\u00BBb\u00ABENDIF\u00BB\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString() + "\n", Should.should_be(_builder.toString(), "a b"));
     
   }
 }

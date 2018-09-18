@@ -47,7 +47,7 @@ public class FeatureExecutableProviderSpec {
      + "\n     list(scenario(\"Background: My Background\"), scenario(\"Scenario: My first Scenario\"), scenario(\"Scenario: My second Scenario\")) is " + new org.hamcrest.StringDescription().appendValue(_list).toString()
      + "\n     scenario(\"Background: My Background\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.scenario("Background: My Background")).toString()
      + "\n     scenario(\"Scenario: My first Scenario\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.scenario("Scenario: My first Scenario")).toString()
-     + "\n     scenario(\"Scenario: My second Scenario\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.scenario("Scenario: My second Scenario")).toString() + "\n", Should.<List<? extends Executable>>operator_doubleArrow(_executables, _list));
+     + "\n     scenario(\"Scenario: My second Scenario\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.scenario("Scenario: My second Scenario")).toString() + "\n", Should.operator_doubleArrow(_executables, _list));
     
   }
   
@@ -70,7 +70,7 @@ public class FeatureExecutableProviderSpec {
      + "\n     scenario(\"Scenario: My first Scenario\").executables is " + new org.hamcrest.StringDescription().appendValue(_executables).toString()
      + "\n     scenario(\"Scenario: My first Scenario\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.scenario("Scenario: My first Scenario")).toString()
      + "\n     list(step(\"Given something\")) is " + new org.hamcrest.StringDescription().appendValue(_list).toString()
-     + "\n     step(\"Given something\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.step("Given something")).toString() + "\n", Should.<List<? extends Executable>>operator_doubleArrow(_executables, _list));
+     + "\n     step(\"Given something\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.step("Given something")).toString() + "\n", Should.operator_doubleArrow(_executables, _list));
     
   }
   
@@ -97,7 +97,7 @@ public class FeatureExecutableProviderSpec {
      + "\n     scenario(\"Scenario: My first Scenario\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.scenario("Scenario: My first Scenario")).toString()
      + "\n     list(step(\"Given something\"), step(\"And something else\")) is " + new org.hamcrest.StringDescription().appendValue(_list).toString()
      + "\n     step(\"Given something\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.step("Given something")).toString()
-     + "\n     step(\"And something else\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.step("And something else")).toString() + "\n", Should.<List<? extends Executable>>operator_doubleArrow(_executables, _list));
+     + "\n     step(\"And something else\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.step("And something else")).toString() + "\n", Should.operator_doubleArrow(_executables, _list));
     
   }
   

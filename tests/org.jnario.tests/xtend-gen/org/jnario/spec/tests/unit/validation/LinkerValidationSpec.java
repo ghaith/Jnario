@@ -218,9 +218,9 @@ public class LinkerValidationSpec {
     int _size = issues.size();
     Assert.assertTrue("\nExpected issues.size => 0 but"
      + "\n     issues.size is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_size)).toString()
-     + "\n     issues is " + new org.hamcrest.StringDescription().appendValue(issues).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_size), Integer.valueOf(0)));
+     + "\n     issues is " + new org.hamcrest.StringDescription().appendValue(issues).toString() + "\n", Should.operator_doubleArrow(Integer.valueOf(_size), Integer.valueOf(0)));
     
-    return Should.<Integer>operator_doubleArrow(Integer.valueOf(_size), Integer.valueOf(0));
+    return Should.operator_doubleArrow(Integer.valueOf(_size), Integer.valueOf(0));
   }
   
   public void assertIssues(@Extension final List<Issue> issues, @Extension final String... parts) {

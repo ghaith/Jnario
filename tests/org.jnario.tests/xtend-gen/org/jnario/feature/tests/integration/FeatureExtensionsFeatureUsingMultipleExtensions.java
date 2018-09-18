@@ -54,7 +54,7 @@ public class FeatureExtensionsFeatureUsingMultipleExtensions extends FeatureExte
      + "\n     list is " + new org.hamcrest.StringDescription().appendValue(this.list).toString()
      + "\n     args.first.toList is " + new org.hamcrest.StringDescription().appendValue(_list).toString()
      + "\n     args.first is " + new org.hamcrest.StringDescription().appendValue(JnarioIterableExtensions.<String>first(args)).toString()
-     + "\n     args is " + new org.hamcrest.StringDescription().appendValue(args).toString() + "\n", Should.<List<String>>operator_doubleArrow(this.list, _list));
+     + "\n     args is " + new org.hamcrest.StringDescription().appendValue(args).toString() + "\n", Should.operator_doubleArrow(this.list, _list));
     
   }
 }

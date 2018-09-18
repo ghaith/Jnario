@@ -59,7 +59,7 @@ public class SpecExecutableProviderSpec {
      + "\n     exampleGroup(\"Something\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.exampleGroup("Something")).toString()
      + "\n     list(example(\"fact 1\"), example(\"fact 2\")) is " + new org.hamcrest.StringDescription().appendValue(_list).toString()
      + "\n     example(\"fact 1\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.example("fact 1")).toString()
-     + "\n     example(\"fact 2\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.example("fact 2")).toString() + "\n", Should.<List<? extends Executable>>operator_doubleArrow(_executables, _list));
+     + "\n     example(\"fact 2\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.example("fact 2")).toString() + "\n", Should.operator_doubleArrow(_executables, _list));
     
   }
   
@@ -86,7 +86,7 @@ public class SpecExecutableProviderSpec {
      + "\n     exampleGroup(\"Something\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.exampleGroup("Something")).toString()
      + "\n     list(exampleGroup(\"exampleGroup 1\"), exampleGroup(\"exampleGroup 2\")) is " + new org.hamcrest.StringDescription().appendValue(_list).toString()
      + "\n     exampleGroup(\"exampleGroup 1\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.exampleGroup("exampleGroup 1")).toString()
-     + "\n     exampleGroup(\"exampleGroup 2\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.exampleGroup("exampleGroup 2")).toString() + "\n", Should.<List<? extends Executable>>operator_doubleArrow(_executables, _list));
+     + "\n     exampleGroup(\"exampleGroup 2\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.exampleGroup("exampleGroup 2")).toString() + "\n", Should.operator_doubleArrow(_executables, _list));
     
   }
   
@@ -128,7 +128,7 @@ public class SpecExecutableProviderSpec {
      + "\n     exampleGroup(\"exampleGroup 1\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.exampleGroup("exampleGroup 1")).toString()
      + "\n     example(\"fact 1\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.example("fact 1")).toString()
      + "\n     exampleGroup(\"exampleGroup 2\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.exampleGroup("exampleGroup 2")).toString()
-     + "\n     example(\"fact 2\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.example("fact 2")).toString() + "\n", Should.<Set<Executable>>operator_doubleArrow(_set, _set_1));
+     + "\n     example(\"fact 2\") is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.example("fact 2")).toString() + "\n", Should.operator_doubleArrow(_set, _set_1));
     
   }
   

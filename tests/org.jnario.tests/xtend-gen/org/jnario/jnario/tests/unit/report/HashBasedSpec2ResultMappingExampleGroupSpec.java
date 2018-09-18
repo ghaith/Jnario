@@ -151,7 +151,7 @@ public class HashBasedSpec2ResultMappingExampleGroupSpec extends HashBasedSpec2R
      + "\n     m.exampleGroup(\"Root\").result.executionTimeInSeconds is " + new org.hamcrest.StringDescription().appendValue(Double.valueOf(_executionTimeInSeconds)).toString()
      + "\n     m.exampleGroup(\"Root\").result is " + new org.hamcrest.StringDescription().appendValue(this.result(this.m.exampleGroup("Root"))).toString()
      + "\n     m.exampleGroup(\"Root\") is " + new org.hamcrest.StringDescription().appendValue(this.m.exampleGroup("Root")).toString()
-     + "\n     m is " + new org.hamcrest.StringDescription().appendValue(this.m).toString() + "\n", Should.<Double>operator_doubleArrow(Double.valueOf(_executionTimeInSeconds), Double.valueOf(3.0)));
+     + "\n     m is " + new org.hamcrest.StringDescription().appendValue(this.m).toString() + "\n", Should.operator_doubleArrow(Double.valueOf(_executionTimeInSeconds), Double.valueOf(3.0)));
     
   }
   
@@ -177,7 +177,7 @@ public class HashBasedSpec2ResultMappingExampleGroupSpec extends HashBasedSpec2R
      + "\n     m.exampleGroup(\"Root\").result.className is " + new org.hamcrest.StringDescription().appendValue(_className).toString()
      + "\n     m.exampleGroup(\"Root\").result is " + new org.hamcrest.StringDescription().appendValue(this.result(this.m.exampleGroup("Root"))).toString()
      + "\n     m.exampleGroup(\"Root\") is " + new org.hamcrest.StringDescription().appendValue(this.m.exampleGroup("Root")).toString()
-     + "\n     m is " + new org.hamcrest.StringDescription().appendValue(this.m).toString() + "\n", Should.<String>operator_doubleArrow(_className, "RootSpec"));
+     + "\n     m is " + new org.hamcrest.StringDescription().appendValue(this.m).toString() + "\n", Should.operator_doubleArrow(_className, "RootSpec"));
     
   }
   
@@ -203,7 +203,7 @@ public class HashBasedSpec2ResultMappingExampleGroupSpec extends HashBasedSpec2R
      + "\n     m.exampleGroup(\"Root\").result.name is " + new org.hamcrest.StringDescription().appendValue(_name).toString()
      + "\n     m.exampleGroup(\"Root\").result is " + new org.hamcrest.StringDescription().appendValue(this.result(this.m.exampleGroup("Root"))).toString()
      + "\n     m.exampleGroup(\"Root\") is " + new org.hamcrest.StringDescription().appendValue(this.m.exampleGroup("Root")).toString()
-     + "\n     m is " + new org.hamcrest.StringDescription().appendValue(this.m).toString() + "\n", Should.<String>operator_doubleArrow(_name, "Root"));
+     + "\n     m is " + new org.hamcrest.StringDescription().appendValue(this.m).toString() + "\n", Should.operator_doubleArrow(_name, "Root"));
     
   }
   
@@ -231,7 +231,7 @@ public class HashBasedSpec2ResultMappingExampleGroupSpec extends HashBasedSpec2R
     Assert.assertTrue("\nExpected first => sameInstance(second) but"
      + "\n     first is " + new org.hamcrest.StringDescription().appendValue(first).toString()
      + "\n     sameInstance(second) is " + new org.hamcrest.StringDescription().appendValue(_sameInstance).toString()
-     + "\n     second is " + new org.hamcrest.StringDescription().appendValue(second).toString() + "\n", Should.<SpecExecution>operator_doubleArrow(first, _sameInstance));
+     + "\n     second is " + new org.hamcrest.StringDescription().appendValue(second).toString() + "\n", Should.operator_doubleArrow(first, _sameInstance));
     
   }
   

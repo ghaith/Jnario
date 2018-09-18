@@ -26,7 +26,7 @@ public class ExecutableIsPendingExampleSpec extends ExecutableIsPendingSpec {
   @Order(1)
   public void _pendingExampleIsPendingShouldBeTrue() throws Exception {
     boolean _isPending = Specs.pendingExample().isPending();
-    boolean _should_be = Should.<Boolean>should_be(Boolean.valueOf(_isPending), true);
+    boolean _should_be = Should.should_be(Boolean.valueOf(_isPending), Boolean.valueOf(true));
     Assert.assertTrue("\nExpected pendingExample.isPending() should be true but"
      + "\n     pendingExample.isPending() is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_isPending)).toString()
      + "\n     pendingExample is " + new org.hamcrest.StringDescription().appendValue(Specs.pendingExample()).toString() + "\n", _should_be);
@@ -38,7 +38,7 @@ public class ExecutableIsPendingExampleSpec extends ExecutableIsPendingSpec {
   @Order(2)
   public void _implementedExampleIsPendingShouldBeFalse() throws Exception {
     boolean _isPending = Specs.implementedExample().isPending();
-    boolean _should_be = Should.<Boolean>should_be(Boolean.valueOf(_isPending), false);
+    boolean _should_be = Should.should_be(Boolean.valueOf(_isPending), Boolean.valueOf(false));
     Assert.assertTrue("\nExpected implementedExample.isPending() should be false but"
      + "\n     implementedExample.isPending() is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_isPending)).toString()
      + "\n     implementedExample is " + new org.hamcrest.StringDescription().appendValue(Specs.implementedExample()).toString() + "\n", _should_be);

@@ -49,6 +49,6 @@ public class FeatureExtensionsFeatureReferencingMultipleExtensions extends Featu
   public void _thenTheyShouldBeOrderedRedYellow() {
     final StepArguments args = new StepArguments("red, yellow");
     List<String> _list = StringConversions.toList(JnarioIterableExtensions.<String>first(args));
-    Should.<List<String>>operator_doubleArrow(this.list, _list);
+    Should.operator_doubleArrow(this.list, _list);
   }
 }

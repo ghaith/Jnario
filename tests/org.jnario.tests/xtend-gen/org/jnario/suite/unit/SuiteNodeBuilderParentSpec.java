@@ -117,7 +117,7 @@ public class SuiteNodeBuilderParentSpec extends SuiteNodeBuilderSpec {
          + "\n     parent(suites, position) is " + new org.hamcrest.StringDescription().appendValue(_parent).toString()
          + "\n     suites is " + new org.hamcrest.StringDescription().appendValue(it.getSuites()).toString()
          + "\n     position is " + new org.hamcrest.StringDescription().appendValue(it.getPosition()).toString()
-         + "\n     parent is " + new org.hamcrest.StringDescription().appendValue(_parent_1).toString() + "\n", Should.<String>should_be(_name, _parent_1));
+         + "\n     parent is " + new org.hamcrest.StringDescription().appendValue(_parent_1).toString() + "\n", Should.should_be(_name, _parent_1));
         
       }
     };

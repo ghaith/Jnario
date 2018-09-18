@@ -82,7 +82,7 @@ public class IntroducingJnarioSuitesGettingStartedSpec extends IntroducingJnario
     Assert.assertTrue("\nExpected \'\'\'\r\n\t\t\tpackage demo\r\n\t\t\t\r\n\t\t\t#My Suite\r\n\t\t\t\r\n\t\t\t- \"My Feature\"\r\n\t\t\t- \"My Spec\"\r\n\t\t\t\'\'\'.parseSuite.nrOfParseAndLinkingErrors => 2 but"
      + "\n     \'\'\'\r\n\t\t\tpackage demo\r\n\t\t\t\r\n\t\t\t#My Suite\r\n\t\t\t\r\n\t\t\t- \"My Feature\"\r\n\t\t\t- \"My Spec\"\r\n\t\t\t\'\'\'.parseSuite.nrOfParseAndLinkingErrors is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_nrOfParseAndLinkingErrors)).toString()
      + "\n     \'\'\'\r\n\t\t\tpackage demo\r\n\t\t\t\r\n\t\t\t#My Suite\r\n\t\t\t\r\n\t\t\t- \"My Feature\"\r\n\t\t\t- \"My Spec\"\r\n\t\t\t\'\'\'.parseSuite is " + new org.hamcrest.StringDescription().appendValue(this._modelStore.parseSuite(_builder)).toString()
-     + "\n     \'\'\'\r\n\t\t\tpackage demo\r\n\t\t\t\r\n\t\t\t#My Suite\r\n\t\t\t\r\n\t\t\t- \"My Feature\"\r\n\t\t\t- \"My Spec\"\r\n\t\t\t\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_nrOfParseAndLinkingErrors), Integer.valueOf(2)));
+     + "\n     \'\'\'\r\n\t\t\tpackage demo\r\n\t\t\t\r\n\t\t\t#My Suite\r\n\t\t\t\r\n\t\t\t- \"My Feature\"\r\n\t\t\t- \"My Spec\"\r\n\t\t\t\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder).toString() + "\n", Should.operator_doubleArrow(Integer.valueOf(_nrOfParseAndLinkingErrors), Integer.valueOf(2)));
     
   }
   

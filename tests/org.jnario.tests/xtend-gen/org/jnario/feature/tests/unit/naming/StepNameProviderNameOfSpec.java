@@ -51,7 +51,7 @@ public class StepNameProviderNameOfSpec extends StepNameProviderSpec {
     this.parseScenario(_builder);
     String _stepName = this.stepName();
     Assert.assertTrue("\nExpected stepName => \"Given a step with an implementation\" but"
-     + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.<String>operator_doubleArrow(_stepName, "Given a step with an implementation"));
+     + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.operator_doubleArrow(_stepName, "Given a step with an implementation"));
     
   }
   
@@ -76,7 +76,7 @@ public class StepNameProviderNameOfSpec extends StepNameProviderSpec {
     this.parseScenario(_builder);
     String _stepName = this.stepName();
     Assert.assertTrue("\nExpected stepName => \"Given a step with a resolved reference\" but"
-     + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.<String>operator_doubleArrow(_stepName, "Given a step with a resolved reference"));
+     + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.operator_doubleArrow(_stepName, "Given a step with a resolved reference"));
     
   }
   
@@ -93,7 +93,7 @@ public class StepNameProviderNameOfSpec extends StepNameProviderSpec {
     this.parseScenario(_builder);
     String _stepName = this.stepName();
     Assert.assertTrue("\nExpected stepName => \"Given a step with an unresolved reference\" but"
-     + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.<String>operator_doubleArrow(_stepName, "Given a step with an unresolved reference"));
+     + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.operator_doubleArrow(_stepName, "Given a step with an unresolved reference"));
     
   }
   
@@ -113,7 +113,7 @@ public class StepNameProviderNameOfSpec extends StepNameProviderSpec {
     this.parseScenario(_builder);
     String _stepName = this.stepName();
     Assert.assertTrue("\nExpected stepName => \'Given a step with two values \"a\" and \"b\"\' but"
-     + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.<String>operator_doubleArrow(_stepName, "Given a step with two values \"a\" and \"b\""));
+     + "\n     stepName is " + new org.hamcrest.StringDescription().appendValue(_stepName).toString() + "\n", Should.operator_doubleArrow(_stepName, "Given a step with two values \"a\" and \"b\""));
     
   }
 }

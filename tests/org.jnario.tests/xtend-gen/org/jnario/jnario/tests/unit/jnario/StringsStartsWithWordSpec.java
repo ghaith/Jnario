@@ -125,7 +125,7 @@ public class StringsStartsWithWordSpec extends StringsSpec {
          + "\n     string.startsWithWord(word) is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_startsWithWord)).toString()
          + "\n     string is " + new org.hamcrest.StringDescription().appendValue(it.getString()).toString()
          + "\n     word is " + new org.hamcrest.StringDescription().appendValue(it.getWord()).toString()
-         + "\n     index is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_index)).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_startsWithWord), Integer.valueOf(_index)));
+         + "\n     index is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_index)).toString() + "\n", Should.operator_doubleArrow(Integer.valueOf(_startsWithWord), Integer.valueOf(_index)));
         
       }
     };

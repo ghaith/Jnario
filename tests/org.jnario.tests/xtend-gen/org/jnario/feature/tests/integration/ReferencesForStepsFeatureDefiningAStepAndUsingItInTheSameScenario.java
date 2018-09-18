@@ -50,7 +50,7 @@ public class ReferencesForStepsFeatureDefiningAStepAndUsingItInTheSameScenario e
      + "\n     jnarioFile is " + new org.hamcrest.StringDescription().appendValue(this.jnarioFile).toString()
      + "\n     args.first.toInt is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_int)).toString()
      + "\n     args.first is " + new org.hamcrest.StringDescription().appendValue(JnarioIterableExtensions.<String>first(args)).toString()
-     + "\n     args is " + new org.hamcrest.StringDescription().appendValue(args).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_failureCount), Integer.valueOf(_int)));
+     + "\n     args is " + new org.hamcrest.StringDescription().appendValue(args).toString() + "\n", Should.operator_doubleArrow(Integer.valueOf(_failureCount), Integer.valueOf(_int)));
     
   }
 }

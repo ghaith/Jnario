@@ -144,7 +144,7 @@ public class ExampleColumnSpec {
          + "\n     cell.serialize.trim is " + new org.hamcrest.StringDescription().appendValue(_trim).toString()
          + "\n     cell.serialize is " + new org.hamcrest.StringDescription().appendValue(ExampleColumnSpec.this._iSerializer.serialize(cell)).toString()
          + "\n     cell is " + new org.hamcrest.StringDescription().appendValue(cell).toString()
-         + "\n     value is " + new org.hamcrest.StringDescription().appendValue(_value).toString() + "\n", Should.<String>operator_doubleArrow(_trim, _value));
+         + "\n     value is " + new org.hamcrest.StringDescription().appendValue(_value).toString() + "\n", Should.operator_doubleArrow(_trim, _value));
         
       }
     };

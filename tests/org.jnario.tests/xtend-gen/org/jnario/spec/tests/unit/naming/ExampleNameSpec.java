@@ -75,7 +75,7 @@ public class ExampleNameSpec extends ExampleSpec {
          + "\n     example.parse.name is " + new org.hamcrest.StringDescription().appendValue(ExampleNameSpec.this.parse(it.getExample()).getName()).toString()
          + "\n     example.parse is " + new org.hamcrest.StringDescription().appendValue(ExampleNameSpec.this.parse(it.getExample())).toString()
          + "\n     example is " + new org.hamcrest.StringDescription().appendValue(it.getExample()).toString()
-         + "\n     name is " + new org.hamcrest.StringDescription().appendValue(_name).toString() + "\n", Should.<String>should_be(_println, _name));
+         + "\n     name is " + new org.hamcrest.StringDescription().appendValue(_name).toString() + "\n", Should.should_be(_println, _name));
         
       }
     };

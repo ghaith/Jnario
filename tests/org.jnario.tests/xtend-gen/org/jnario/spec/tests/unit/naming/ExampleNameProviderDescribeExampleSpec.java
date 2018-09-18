@@ -33,7 +33,7 @@ public class ExampleNameProviderDescribeExampleSpec extends ExampleNameProviderS
   public void _shouldUseTheDescription() throws Exception {
     String _describeFirst = this.describeFirst("\'should do stuff\' {true}");
     Assert.assertTrue("\nExpected describeFirst(\"\'should do stuff\' {true}\") => \"should do stuff\" but"
-     + "\n     describeFirst(\"\'should do stuff\' {true}\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString() + "\n", Should.<String>operator_doubleArrow(_describeFirst, "should do stuff"));
+     + "\n     describeFirst(\"\'should do stuff\' {true}\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString() + "\n", Should.operator_doubleArrow(_describeFirst, "should do stuff"));
     
   }
   
@@ -42,13 +42,13 @@ public class ExampleNameProviderDescribeExampleSpec extends ExampleNameProviderS
   @Order(2)
   public void _appendsPENDINGToPendingExampleDescriptions() throws Exception {
     String _describeFirst = this.describeFirst("\'should do stuff\'");
-    boolean _doubleArrow = Should.<String>operator_doubleArrow(_describeFirst, "should do stuff [PENDING]");
+    boolean _doubleArrow = Should.operator_doubleArrow(_describeFirst, "should do stuff [PENDING]");
     Assert.assertTrue("\nExpected describeFirst(\"\'should do stuff\'\") => \"should do stuff [PENDING]\" but"
      + "\n     describeFirst(\"\'should do stuff\'\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString() + "\n", _doubleArrow);
     
     String _describeFirst_1 = this.describeFirst("\'should do stuff\'{}");
     Assert.assertTrue("\nExpected describeFirst(\"\'should do stuff\'{}\") => \"should do stuff [PENDING]\" but"
-     + "\n     describeFirst(\"\'should do stuff\'{}\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst_1).toString() + "\n", Should.<String>operator_doubleArrow(_describeFirst_1, "should do stuff [PENDING]"));
+     + "\n     describeFirst(\"\'should do stuff\'{}\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst_1).toString() + "\n", Should.operator_doubleArrow(_describeFirst_1, "should do stuff [PENDING]"));
     
   }
   

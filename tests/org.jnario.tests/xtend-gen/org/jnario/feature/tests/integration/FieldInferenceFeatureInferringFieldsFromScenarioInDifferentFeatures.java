@@ -59,7 +59,7 @@ public class FieldInferenceFeatureInferringFieldsFromScenarioInDifferentFeatures
   public void _thenBothShouldExecuteSuccessfully() {
     Result _execute = this.runner.execute(this.feature1);
     Matcher<Result> _isSuccessful = ResultMatchers.isSuccessful();
-    boolean _doubleArrow = Should.<Result>operator_doubleArrow(_execute, _isSuccessful);
+    boolean _doubleArrow = Should.operator_doubleArrow(_execute, _isSuccessful);
     Assert.assertTrue("\nExpected runner.execute(feature1) => isSuccessful but"
      + "\n     runner.execute(feature1) is " + new org.hamcrest.StringDescription().appendValue(_execute).toString()
      + "\n     runner is " + new org.hamcrest.StringDescription().appendValue(this.runner).toString()
@@ -72,7 +72,7 @@ public class FieldInferenceFeatureInferringFieldsFromScenarioInDifferentFeatures
      + "\n     runner.execute(feature2) is " + new org.hamcrest.StringDescription().appendValue(_execute_1).toString()
      + "\n     runner is " + new org.hamcrest.StringDescription().appendValue(this.runner).toString()
      + "\n     feature2 is " + new org.hamcrest.StringDescription().appendValue(this.feature2).toString()
-     + "\n     isSuccessful is " + new org.hamcrest.StringDescription().appendValue(_isSuccessful_1).toString() + "\n", Should.<Result>operator_doubleArrow(_execute_1, _isSuccessful_1));
+     + "\n     isSuccessful is " + new org.hamcrest.StringDescription().appendValue(_isSuccessful_1).toString() + "\n", Should.operator_doubleArrow(_execute_1, _isSuccessful_1));
     
   }
 }

@@ -100,7 +100,7 @@ public class StringsMakeJunitConformSpec extends StringsSpec {
         Assert.assertTrue("\nExpected string.makeJunitConform => result but"
          + "\n     string.makeJunitConform is " + new org.hamcrest.StringDescription().appendValue(_makeJunitConform).toString()
          + "\n     string is " + new org.hamcrest.StringDescription().appendValue(it.getString()).toString()
-         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.<String>operator_doubleArrow(_makeJunitConform, _result));
+         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.operator_doubleArrow(_makeJunitConform, _result));
         
       }
     };

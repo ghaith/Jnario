@@ -99,7 +99,7 @@ public class FeatureClassNameProviderGetClassNameBackgroundSpec extends FeatureC
          + "\n     background(name, feature) is " + new org.hamcrest.StringDescription().appendValue(FeatureClassNameProviderGetClassNameBackgroundSpec.this.background(it.getName(), it.getFeature())).toString()
          + "\n     name is " + new org.hamcrest.StringDescription().appendValue(it.getName()).toString()
          + "\n     feature is " + new org.hamcrest.StringDescription().appendValue(it.getFeature()).toString()
-         + "\n     expectedClassName is " + new org.hamcrest.StringDescription().appendValue(_expectedClassName).toString() + "\n", Should.<String>operator_doubleArrow(_className, _expectedClassName));
+         + "\n     expectedClassName is " + new org.hamcrest.StringDescription().appendValue(_expectedClassName).toString() + "\n", Should.operator_doubleArrow(_className, _expectedClassName));
         
       }
     };

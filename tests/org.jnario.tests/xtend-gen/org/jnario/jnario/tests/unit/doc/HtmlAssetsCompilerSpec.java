@@ -65,7 +65,7 @@ public class HtmlAssetsCompilerSpec {
     String _readFileIntoString = Files.readFileIntoString(file);
     Assert.assertTrue("\nExpected readFileIntoString(file) => \"Hello World\" but"
      + "\n     readFileIntoString(file) is " + new org.hamcrest.StringDescription().appendValue(_readFileIntoString).toString()
-     + "\n     file is " + new org.hamcrest.StringDescription().appendValue(file).toString() + "\n", Should.<String>operator_doubleArrow(_readFileIntoString, "Hello World"));
+     + "\n     file is " + new org.hamcrest.StringDescription().appendValue(file).toString() + "\n", Should.operator_doubleArrow(_readFileIntoString, "Hello World"));
     
   }
   

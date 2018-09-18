@@ -26,7 +26,7 @@ public class ExecutableIsPendingExampleGroupSpec extends ExecutableIsPendingSpec
   @Order(1)
   public void _exampleGroupWithPendingExampleIsPendingShouldBeTrue() throws Exception {
     boolean _isPending = Specs.exampleGroupWith(Specs.pendingExample()).isPending();
-    boolean _should_be = Should.<Boolean>should_be(Boolean.valueOf(_isPending), true);
+    boolean _should_be = Should.should_be(Boolean.valueOf(_isPending), Boolean.valueOf(true));
     Assert.assertTrue("\nExpected exampleGroupWith(pendingExample).isPending should be true but"
      + "\n     exampleGroupWith(pendingExample).isPending is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_isPending)).toString()
      + "\n     exampleGroupWith(pendingExample) is " + new org.hamcrest.StringDescription().appendValue(Specs.exampleGroupWith(Specs.pendingExample())).toString()
@@ -39,7 +39,7 @@ public class ExecutableIsPendingExampleGroupSpec extends ExecutableIsPendingSpec
   @Order(2)
   public void _exampleGroupWithImplementedExampleIsPendingShouldBeFalse() throws Exception {
     boolean _isPending = Specs.exampleGroupWith(Specs.implementedExample()).isPending();
-    boolean _should_be = Should.<Boolean>should_be(Boolean.valueOf(_isPending), false);
+    boolean _should_be = Should.should_be(Boolean.valueOf(_isPending), Boolean.valueOf(false));
     Assert.assertTrue("\nExpected exampleGroupWith(implementedExample).isPending should be false but"
      + "\n     exampleGroupWith(implementedExample).isPending is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_isPending)).toString()
      + "\n     exampleGroupWith(implementedExample) is " + new org.hamcrest.StringDescription().appendValue(Specs.exampleGroupWith(Specs.implementedExample())).toString()
@@ -52,7 +52,7 @@ public class ExecutableIsPendingExampleGroupSpec extends ExecutableIsPendingSpec
   @Order(3)
   public void _exampleGroupWithPendingExampleImplementedExampleIsPendingShouldBeTrue() throws Exception {
     boolean _isPending = Specs.exampleGroupWith(Specs.pendingExample(), Specs.implementedExample()).isPending();
-    boolean _should_be = Should.<Boolean>should_be(Boolean.valueOf(_isPending), true);
+    boolean _should_be = Should.should_be(Boolean.valueOf(_isPending), Boolean.valueOf(true));
     Assert.assertTrue("\nExpected exampleGroupWith(pendingExample, implementedExample).isPending should be true but"
      + "\n     exampleGroupWith(pendingExample, implementedExample).isPending is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_isPending)).toString()
      + "\n     exampleGroupWith(pendingExample, implementedExample) is " + new org.hamcrest.StringDescription().appendValue(Specs.exampleGroupWith(Specs.pendingExample(), Specs.implementedExample())).toString()
@@ -66,7 +66,7 @@ public class ExecutableIsPendingExampleGroupSpec extends ExecutableIsPendingSpec
   @Order(4)
   public void _exampleGroupWithPendingExampleGroupIsPendingShouldBeTrue() throws Exception {
     boolean _isPending = Specs.exampleGroupWith(Specs.pendingExampleGroup()).isPending();
-    boolean _should_be = Should.<Boolean>should_be(Boolean.valueOf(_isPending), true);
+    boolean _should_be = Should.should_be(Boolean.valueOf(_isPending), Boolean.valueOf(true));
     Assert.assertTrue("\nExpected exampleGroupWith(pendingExampleGroup).isPending should be true but"
      + "\n     exampleGroupWith(pendingExampleGroup).isPending is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_isPending)).toString()
      + "\n     exampleGroupWith(pendingExampleGroup) is " + new org.hamcrest.StringDescription().appendValue(Specs.exampleGroupWith(Specs.pendingExampleGroup())).toString()

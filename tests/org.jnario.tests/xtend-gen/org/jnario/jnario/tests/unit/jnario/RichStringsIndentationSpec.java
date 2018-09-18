@@ -30,7 +30,7 @@ public class RichStringsIndentationSpec extends RichStringsSpec {
      + "\n     \"a\"+System.lineSeparator()+\"b\" is " + new org.hamcrest.StringDescription().appendValue(_plus_1).toString()
      + "\n     \"a\"+System.lineSeparator() is " + new org.hamcrest.StringDescription().appendValue(_plus).toString()
      + "\n     System.lineSeparator() is " + new org.hamcrest.StringDescription().appendValue(_lineSeparator).toString()
-     + "\n     System is " + new org.hamcrest.StringDescription().appendValue(System.class).toString() + "\n", Should.<String>should_be(_builder.toString(), _plus_1));
+     + "\n     System is " + new org.hamcrest.StringDescription().appendValue(System.class).toString() + "\n", Should.should_be(_builder.toString(), _plus_1));
     
   }
   
@@ -46,7 +46,7 @@ public class RichStringsIndentationSpec extends RichStringsSpec {
     String _lineSeparator = System.lineSeparator();
     String _plus = ("a" + _lineSeparator);
     String _plus_1 = (_plus + "\tb");
-    boolean _should_be = Should.<String>should_be(_builder.toString(), _plus_1);
+    boolean _should_be = Should.should_be(_builder.toString(), _plus_1);
     Assert.assertTrue("\nExpected \'\'\'\r\n\t\t\ta\r\n\t\t\t\tb\'\'\' should be \"a\"+System.lineSeparator()+\"\\tb\" but"
      + "\n     \'\'\'\r\n\t\t\ta\r\n\t\t\t\tb\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString()
      + "\n     \"a\"+System.lineSeparator()+\"\\tb\" is " + new org.hamcrest.StringDescription().appendValue(_plus_1).toString()
@@ -67,7 +67,7 @@ public class RichStringsIndentationSpec extends RichStringsSpec {
      + "\n     \"\\ta\"+System.lineSeparator()+\"b\" is " + new org.hamcrest.StringDescription().appendValue(_plus_3).toString()
      + "\n     \"\\ta\"+System.lineSeparator() is " + new org.hamcrest.StringDescription().appendValue(_plus_2).toString()
      + "\n     System.lineSeparator() is " + new org.hamcrest.StringDescription().appendValue(_lineSeparator_1).toString()
-     + "\n     System is " + new org.hamcrest.StringDescription().appendValue(System.class).toString() + "\n", Should.<String>should_be(_builder_1.toString(), _plus_3));
+     + "\n     System is " + new org.hamcrest.StringDescription().appendValue(System.class).toString() + "\n", Should.should_be(_builder_1.toString(), _plus_3));
     
   }
 }

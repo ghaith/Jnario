@@ -58,7 +58,7 @@ public class SuiteSpecFilterSpec {
      + "\n     subject.apply(desc(suite)) is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_apply)).toString()
      + "\n     subject is " + new org.hamcrest.StringDescription().appendValue(this.subject).toString()
      + "\n     desc(suite) is " + new org.hamcrest.StringDescription().appendValue(this.desc(this._suitePackage.getSuite())).toString()
-     + "\n     suite is " + new org.hamcrest.StringDescription().appendValue(this._suitePackage.getSuite()).toString() + "\n", Should.<Boolean>operator_doubleArrow(Boolean.valueOf(_apply), true));
+     + "\n     suite is " + new org.hamcrest.StringDescription().appendValue(this._suitePackage.getSuite()).toString() + "\n", Should.operator_doubleArrow(Boolean.valueOf(_apply), Boolean.valueOf(true)));
     
   }
   
@@ -71,7 +71,7 @@ public class SuiteSpecFilterSpec {
      + "\n     subject.apply(desc(feature)) is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_apply)).toString()
      + "\n     subject is " + new org.hamcrest.StringDescription().appendValue(this.subject).toString()
      + "\n     desc(feature) is " + new org.hamcrest.StringDescription().appendValue(this.desc(this._featurePackage.getFeature())).toString()
-     + "\n     feature is " + new org.hamcrest.StringDescription().appendValue(this._featurePackage.getFeature()).toString() + "\n", Should.<Boolean>operator_doubleArrow(Boolean.valueOf(_apply), true));
+     + "\n     feature is " + new org.hamcrest.StringDescription().appendValue(this._featurePackage.getFeature()).toString() + "\n", Should.operator_doubleArrow(Boolean.valueOf(_apply), Boolean.valueOf(true)));
     
   }
   
@@ -83,7 +83,7 @@ public class SuiteSpecFilterSpec {
     Assert.assertTrue("\nExpected subject.apply(rootSpec) => true but"
      + "\n     subject.apply(rootSpec) is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_apply)).toString()
      + "\n     subject is " + new org.hamcrest.StringDescription().appendValue(this.subject).toString()
-     + "\n     rootSpec is " + new org.hamcrest.StringDescription().appendValue(this.rootSpec()).toString() + "\n", Should.<Boolean>operator_doubleArrow(Boolean.valueOf(_apply), true));
+     + "\n     rootSpec is " + new org.hamcrest.StringDescription().appendValue(this.rootSpec()).toString() + "\n", Should.operator_doubleArrow(Boolean.valueOf(_apply), Boolean.valueOf(true)));
     
   }
   
@@ -95,7 +95,7 @@ public class SuiteSpecFilterSpec {
     Assert.assertTrue("\nExpected subject.apply(childSpec) => false but"
      + "\n     subject.apply(childSpec) is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_apply)).toString()
      + "\n     subject is " + new org.hamcrest.StringDescription().appendValue(this.subject).toString()
-     + "\n     childSpec is " + new org.hamcrest.StringDescription().appendValue(this.childSpec()).toString() + "\n", Should.<Boolean>operator_doubleArrow(Boolean.valueOf(_apply), false));
+     + "\n     childSpec is " + new org.hamcrest.StringDescription().appendValue(this.childSpec()).toString() + "\n", Should.operator_doubleArrow(Boolean.valueOf(_apply), Boolean.valueOf(false)));
     
   }
   

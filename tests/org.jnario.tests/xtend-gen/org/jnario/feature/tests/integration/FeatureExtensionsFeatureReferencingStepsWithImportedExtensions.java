@@ -47,6 +47,6 @@ public class FeatureExtensionsFeatureReferencingStepsWithImportedExtensions exte
   public void _thenTheValueShouldBe130() {
     final StepArguments args = new StepArguments("13.0");
     double _double = StringConversions.toDouble(JnarioIterableExtensions.<String>first(args));
-    Should.<Double>operator_doubleArrow(Double.valueOf(this.flooredValue), Double.valueOf(_double));
+    Should.operator_doubleArrow(Double.valueOf(this.flooredValue), Double.valueOf(_double));
   }
 }

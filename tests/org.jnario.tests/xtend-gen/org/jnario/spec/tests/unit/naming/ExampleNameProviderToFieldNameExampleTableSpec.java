@@ -47,7 +47,7 @@ public class ExampleNameProviderToFieldNameExampleTableSpec extends ExampleNameP
     Assert.assertTrue("\nExpected subject.toFieldName(exampleTable) => \"myExample\" but"
      + "\n     subject.toFieldName(exampleTable) is " + new org.hamcrest.StringDescription().appendValue(_fieldName).toString()
      + "\n     subject is " + new org.hamcrest.StringDescription().appendValue(this.subject).toString()
-     + "\n     exampleTable is " + new org.hamcrest.StringDescription().appendValue(exampleTable).toString() + "\n", Should.<String>operator_doubleArrow(_fieldName, "myExample"));
+     + "\n     exampleTable is " + new org.hamcrest.StringDescription().appendValue(exampleTable).toString() + "\n", Should.operator_doubleArrow(_fieldName, "myExample"));
     
   }
   
@@ -71,7 +71,7 @@ public class ExampleNameProviderToFieldNameExampleTableSpec extends ExampleNameP
     Assert.assertTrue("\nExpected subject.toFieldName(exampleTable) => \"examples\" but"
      + "\n     subject.toFieldName(exampleTable) is " + new org.hamcrest.StringDescription().appendValue(_fieldName).toString()
      + "\n     subject is " + new org.hamcrest.StringDescription().appendValue(this.subject).toString()
-     + "\n     exampleTable is " + new org.hamcrest.StringDescription().appendValue(exampleTable).toString() + "\n", Should.<String>operator_doubleArrow(_fieldName, "examples"));
+     + "\n     exampleTable is " + new org.hamcrest.StringDescription().appendValue(exampleTable).toString() + "\n", Should.operator_doubleArrow(_fieldName, "examples"));
     
   }
 }

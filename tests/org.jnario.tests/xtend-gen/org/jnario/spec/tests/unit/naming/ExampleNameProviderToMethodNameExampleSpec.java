@@ -36,7 +36,7 @@ public class ExampleNameProviderToMethodNameExampleSpec extends ExampleNameProvi
   public void _donTUseSingleUnderlineAsAJavaIdentifiert() throws Exception {
     String _firstMethodName = this.firstMethodName("[]");
     Assert.assertTrue("\nExpected firstMethodName(\"[]\") => \"__\" but"
-     + "\n     firstMethodName(\"[]\") is " + new org.hamcrest.StringDescription().appendValue(_firstMethodName).toString() + "\n", Should.<String>operator_doubleArrow(_firstMethodName, "__"));
+     + "\n     firstMethodName(\"[]\") is " + new org.hamcrest.StringDescription().appendValue(_firstMethodName).toString() + "\n", Should.operator_doubleArrow(_firstMethodName, "__"));
     
   }
   
@@ -50,7 +50,7 @@ public class ExampleNameProviderToMethodNameExampleSpec extends ExampleNameProvi
         String _firstMethodName = ExampleNameProviderToMethodNameExampleSpec.this.firstMethodName(it);
         Assert.assertTrue("\nExpected firstMethodName(it) => \'_myExample\' but"
          + "\n     firstMethodName(it) is " + new org.hamcrest.StringDescription().appendValue(_firstMethodName).toString()
-         + "\n     it is " + new org.hamcrest.StringDescription().appendValue(it).toString() + "\n", Should.<String>operator_doubleArrow(_firstMethodName, "_myExample"));
+         + "\n     it is " + new org.hamcrest.StringDescription().appendValue(it).toString() + "\n", Should.operator_doubleArrow(_firstMethodName, "_myExample"));
         
       }
     };
@@ -69,7 +69,7 @@ public class ExampleNameProviderToMethodNameExampleSpec extends ExampleNameProvi
     Assert.assertTrue("\nExpected firstMethodName(nameOfLength(251)).length => 250 but"
      + "\n     firstMethodName(nameOfLength(251)).length is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_length)).toString()
      + "\n     firstMethodName(nameOfLength(251)) is " + new org.hamcrest.StringDescription().appendValue(this.firstMethodName(this.nameOfLength(251))).toString()
-     + "\n     nameOfLength(251) is " + new org.hamcrest.StringDescription().appendValue(this.nameOfLength(251)).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_length), Integer.valueOf(250)));
+     + "\n     nameOfLength(251) is " + new org.hamcrest.StringDescription().appendValue(this.nameOfLength(251)).toString() + "\n", Should.operator_doubleArrow(Integer.valueOf(_length), Integer.valueOf(250)));
     
   }
   

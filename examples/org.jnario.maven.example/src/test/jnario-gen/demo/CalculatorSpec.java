@@ -33,7 +33,7 @@ public class CalculatorSpec {
     int _add = new Calculator().add(1, 2);
     Assert.assertTrue("\nExpected new Calculator().add(1, 2) should be 3 but"
      + "\n     new Calculator().add(1, 2) is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_add)).toString()
-     + "\n     new Calculator() is " + new org.hamcrest.StringDescription().appendValue(new Calculator()).toString() + "\n", Should.<Integer>should_be(Integer.valueOf(_add), Integer.valueOf(3)));
+     + "\n     new Calculator() is " + new org.hamcrest.StringDescription().appendValue(new Calculator()).toString() + "\n", Should.should_be(Integer.valueOf(_add), Integer.valueOf(3)));
     
   }
   
@@ -85,7 +85,7 @@ public class CalculatorSpec {
          + "\n     a + b is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_plus)).toString()
          + "\n     a is " + new org.hamcrest.StringDescription().appendValue(_a).toString()
          + "\n     b is " + new org.hamcrest.StringDescription().appendValue(_b).toString()
-         + "\n     sum is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_sum)).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_plus), Integer.valueOf(_sum)));
+         + "\n     sum is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_sum)).toString() + "\n", Should.operator_doubleArrow(Integer.valueOf(_plus), Integer.valueOf(_sum)));
         
       }
     };
@@ -111,7 +111,7 @@ public class CalculatorSpec {
          + "\n     x is " + new org.hamcrest.StringDescription().appendValue(x).toString()
          + "\n     \"pre \" + b + \" post\" is " + new org.hamcrest.StringDescription().appendValue(_plus_1).toString()
          + "\n     \"pre \" + b is " + new org.hamcrest.StringDescription().appendValue(_plus).toString()
-         + "\n     b is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_b_1)).toString() + "\n", Should.<String>operator_doubleArrow(x, _plus_1));
+         + "\n     b is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_b_1)).toString() + "\n", Should.operator_doubleArrow(x, _plus_1));
         
       }
     };

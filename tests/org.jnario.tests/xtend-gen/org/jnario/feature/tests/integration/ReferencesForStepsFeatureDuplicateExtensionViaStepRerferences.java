@@ -58,9 +58,9 @@ public class ReferencesForStepsFeatureDuplicateExtensionViaStepRerferences exten
   public void _thenBothShouldExecuteSuccessfully() {
     Result _execute = this.runner.execute(this.feature1);
     Matcher<Result> _isSuccessful = ResultMatchers.isSuccessful();
-    Should.<Result>operator_doubleArrow(_execute, _isSuccessful);
+    Should.operator_doubleArrow(_execute, _isSuccessful);
     Result _execute_1 = this.runner.execute(this.feature2);
     Matcher<Result> _isSuccessful_1 = ResultMatchers.isSuccessful();
-    Should.<Result>operator_doubleArrow(_execute_1, _isSuccessful_1);
+    Should.operator_doubleArrow(_execute_1, _isSuccessful_1);
   }
 }

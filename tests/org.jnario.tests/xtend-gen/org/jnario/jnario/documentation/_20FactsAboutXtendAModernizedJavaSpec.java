@@ -89,7 +89,7 @@ public class _20FactsAboutXtendAModernizedJavaSpec extends _20FactsAboutXtendSpe
   public void _syntacticSugarPairs() throws Exception {
     final Pair<String, String> pair = Pair.<String, String>of("spain", "italy");
     String _key = pair.getKey();
-    boolean _doubleArrow = Should.<String>operator_doubleArrow(_key, "spain");
+    boolean _doubleArrow = Should.operator_doubleArrow(_key, "spain");
     Assert.assertTrue("\nExpected pair.key   => \"spain\" but"
      + "\n     pair.key is " + new org.hamcrest.StringDescription().appendValue(_key).toString()
      + "\n     pair is " + new org.hamcrest.StringDescription().appendValue(pair).toString() + "\n", _doubleArrow);
@@ -97,7 +97,7 @@ public class _20FactsAboutXtendAModernizedJavaSpec extends _20FactsAboutXtendSpe
     String _value = pair.getValue();
     Assert.assertTrue("\nExpected pair.value => \"italy\" but"
      + "\n     pair.value is " + new org.hamcrest.StringDescription().appendValue(_value).toString()
-     + "\n     pair is " + new org.hamcrest.StringDescription().appendValue(pair).toString() + "\n", Should.<String>operator_doubleArrow(_value, "italy"));
+     + "\n     pair is " + new org.hamcrest.StringDescription().appendValue(pair).toString() + "\n", Should.operator_doubleArrow(_value, "italy"));
     
   }
   
@@ -139,7 +139,7 @@ public class _20FactsAboutXtendAModernizedJavaSpec extends _20FactsAboutXtendSpe
   @Order(5)
   public void _fieldsMethodsWorkAlmostLikeInJava() throws Exception {
     String _sayHello = this.sayHello("Sebastian");
-    boolean _doubleArrow = Should.<String>operator_doubleArrow(_sayHello, (this.greeting + "Sebastian"));
+    boolean _doubleArrow = Should.operator_doubleArrow(_sayHello, (this.greeting + "Sebastian"));
     Assert.assertTrue("\nExpected sayHello(\"Sebastian\") => greeting + \"Sebastian\" but"
      + "\n     sayHello(\"Sebastian\") is " + new org.hamcrest.StringDescription().appendValue(_sayHello).toString()
      + "\n     greeting + \"Sebastian\" is " + new org.hamcrest.StringDescription().appendValue((this.greeting + "Sebastian")).toString()
@@ -147,7 +147,7 @@ public class _20FactsAboutXtendAModernizedJavaSpec extends _20FactsAboutXtendSpe
     
     String _string = Integer.valueOf(42).toString();
     Assert.assertTrue("\nExpected 42.toString => \"42\" but"
-     + "\n     42.toString is " + new org.hamcrest.StringDescription().appendValue(_string).toString() + "\n", Should.<String>operator_doubleArrow(_string, "42"));
+     + "\n     42.toString is " + new org.hamcrest.StringDescription().appendValue(_string).toString() + "\n", Should.operator_doubleArrow(_string, "42"));
     
   }
 }

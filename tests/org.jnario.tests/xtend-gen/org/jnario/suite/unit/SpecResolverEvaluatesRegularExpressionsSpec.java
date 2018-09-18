@@ -48,7 +48,7 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
      + "\n     resolvedSpecs(m.firstSuite) is " + new org.hamcrest.StringDescription().appendValue(this.resolvedSpecs(this.m.firstSuite())).toString()
      + "\n     m.firstSuite is " + new org.hamcrest.StringDescription().appendValue(this.m.firstSuite()).toString()
      + "\n     m is " + new org.hamcrest.StringDescription().appendValue(this.m).toString()
-     + "\n     set(\"MySpecSpec\", \"MyFeatureFeature\") is " + new org.hamcrest.StringDescription().appendValue(_set_1).toString() + "\n", Should.<Set<String>>operator_doubleArrow(_set, _set_1));
+     + "\n     set(\"MySpecSpec\", \"MyFeatureFeature\") is " + new org.hamcrest.StringDescription().appendValue(_set_1).toString() + "\n", Should.operator_doubleArrow(_set, _set_1));
     
   }
   
@@ -73,7 +73,7 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
      + "\n     resolvedSpecs(m.firstSuite) is " + new org.hamcrest.StringDescription().appendValue(_resolvedSpecs).toString()
      + "\n     m.firstSuite is " + new org.hamcrest.StringDescription().appendValue(this.m.firstSuite()).toString()
      + "\n     m is " + new org.hamcrest.StringDescription().appendValue(this.m).toString()
-     + "\n     list(\"MySpecSpec\") is " + new org.hamcrest.StringDescription().appendValue(_list).toString() + "\n", Should.<List<String>>operator_doubleArrow(_resolvedSpecs, _list));
+     + "\n     list(\"MySpecSpec\") is " + new org.hamcrest.StringDescription().appendValue(_list).toString() + "\n", Should.operator_doubleArrow(_resolvedSpecs, _list));
     
   }
   
@@ -123,7 +123,7 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
      + "\n     resolvedSpecs(m.firstSuite) is " + new org.hamcrest.StringDescription().appendValue(this.resolvedSpecs(this.m.firstSuite())).toString()
      + "\n     m.firstSuite is " + new org.hamcrest.StringDescription().appendValue(this.m.firstSuite()).toString()
      + "\n     m is " + new org.hamcrest.StringDescription().appendValue(this.m).toString()
-     + "\n     set(\"MySpecSpec\", \"MyFeatureFeature\", \"StringSpec\") is " + new org.hamcrest.StringDescription().appendValue(_set_1).toString() + "\n", Should.<Set<String>>operator_doubleArrow(_set, _set_1));
+     + "\n     set(\"MySpecSpec\", \"MyFeatureFeature\", \"StringSpec\") is " + new org.hamcrest.StringDescription().appendValue(_set_1).toString() + "\n", Should.operator_doubleArrow(_set, _set_1));
     
   }
   
@@ -148,7 +148,7 @@ public class SpecResolverEvaluatesRegularExpressionsSpec extends SpecResolverSpe
      + "\n     resolvedSpecs(m.firstSuite) is " + new org.hamcrest.StringDescription().appendValue(_resolvedSpecs).toString()
      + "\n     m.firstSuite is " + new org.hamcrest.StringDescription().appendValue(this.m.firstSuite()).toString()
      + "\n     m is " + new org.hamcrest.StringDescription().appendValue(this.m).toString()
-     + "\n     list(\"MyFeatureFeature\", \"MySpecSpec\", \"StringSpec\") is " + new org.hamcrest.StringDescription().appendValue(_list).toString() + "\n", Should.<List<String>>operator_doubleArrow(_resolvedSpecs, _list));
+     + "\n     list(\"MyFeatureFeature\", \"MySpecSpec\", \"StringSpec\") is " + new org.hamcrest.StringDescription().appendValue(_list).toString() + "\n", Should.operator_doubleArrow(_resolvedSpecs, _list));
     
   }
 }

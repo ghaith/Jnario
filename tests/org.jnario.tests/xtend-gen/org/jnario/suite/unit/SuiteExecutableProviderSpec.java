@@ -107,7 +107,7 @@ public class SuiteExecutableProviderSpec {
      + "\n     suite(\"My Suite\") is " + new org.hamcrest.StringDescription().appendValue(this.m.suite("My Suite")).toString()
      + "\n     list(suite(\"Child 1\"), suite(\"Child 2\")) is " + new org.hamcrest.StringDescription().appendValue(_list).toString()
      + "\n     suite(\"Child 1\") is " + new org.hamcrest.StringDescription().appendValue(this.m.suite("Child 1")).toString()
-     + "\n     suite(\"Child 2\") is " + new org.hamcrest.StringDescription().appendValue(this.m.suite("Child 2")).toString() + "\n", Should.<List<? extends Executable>>operator_doubleArrow(_executables, _list));
+     + "\n     suite(\"Child 2\") is " + new org.hamcrest.StringDescription().appendValue(this.m.suite("Child 2")).toString() + "\n", Should.operator_doubleArrow(_executables, _list));
     
   }
   
@@ -137,7 +137,7 @@ public class SuiteExecutableProviderSpec {
      + "\n     suite(\"My Suite\") is " + new org.hamcrest.StringDescription().appendValue(this.m.suite("My Suite")).toString()
      + "\n     set(exampleGroup(\"My Spec\"), feature()) is " + new org.hamcrest.StringDescription().appendValue(_set_1).toString()
      + "\n     exampleGroup(\"My Spec\") is " + new org.hamcrest.StringDescription().appendValue(this.m.exampleGroup("My Spec")).toString()
-     + "\n     feature() is " + new org.hamcrest.StringDescription().appendValue(this.m.feature()).toString() + "\n", Should.<Set<? extends Executable>>operator_doubleArrow(_set, _set_1));
+     + "\n     feature() is " + new org.hamcrest.StringDescription().appendValue(this.m.feature()).toString() + "\n", Should.operator_doubleArrow(_set, _set_1));
     
   }
   
@@ -167,7 +167,7 @@ public class SuiteExecutableProviderSpec {
      + "\n     set(exampleGroup(\"My Spec\"), exampleGroup(\"String\"), feature()) is " + new org.hamcrest.StringDescription().appendValue(_set_1).toString()
      + "\n     exampleGroup(\"My Spec\") is " + new org.hamcrest.StringDescription().appendValue(this.m.exampleGroup("My Spec")).toString()
      + "\n     exampleGroup(\"String\") is " + new org.hamcrest.StringDescription().appendValue(this.m.exampleGroup("String")).toString()
-     + "\n     feature() is " + new org.hamcrest.StringDescription().appendValue(this.m.feature()).toString() + "\n", Should.<Set<? extends Executable>>operator_doubleArrow(_set, _set_1));
+     + "\n     feature() is " + new org.hamcrest.StringDescription().appendValue(this.m.feature()).toString() + "\n", Should.operator_doubleArrow(_set, _set_1));
     
   }
 }

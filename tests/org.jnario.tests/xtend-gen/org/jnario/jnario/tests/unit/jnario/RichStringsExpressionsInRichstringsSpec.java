@@ -25,7 +25,7 @@ public class RichStringsExpressionsInRichstringsSpec extends RichStringsSpec {
     _builder.append(" post");
     Assert.assertTrue("\nExpected \'\'\'pre \u00ABx\u00BB post\'\'\' should be \"pre value post\" but"
      + "\n     \'\'\'pre \u00ABx\u00BB post\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString()
-     + "\n     x is " + new org.hamcrest.StringDescription().appendValue(x).toString() + "\n", Should.<String>should_be(_builder.toString(), "pre value post"));
+     + "\n     x is " + new org.hamcrest.StringDescription().appendValue(x).toString() + "\n", Should.should_be(_builder.toString(), "pre value post"));
     
   }
   
@@ -44,7 +44,7 @@ public class RichStringsExpressionsInRichstringsSpec extends RichStringsSpec {
     Assert.assertTrue("\nExpected \'\'\'pre \u00ABx\u00BB \u00ABy\u00BB post\'\'\' should be \"pre value value2 post\" but"
      + "\n     \'\'\'pre \u00ABx\u00BB \u00ABy\u00BB post\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString()
      + "\n     x is " + new org.hamcrest.StringDescription().appendValue(x).toString()
-     + "\n     y is " + new org.hamcrest.StringDescription().appendValue(y).toString() + "\n", Should.<String>should_be(_builder.toString(), "pre value value2 post"));
+     + "\n     y is " + new org.hamcrest.StringDescription().appendValue(y).toString() + "\n", Should.should_be(_builder.toString(), "pre value value2 post"));
     
   }
   
@@ -82,7 +82,7 @@ public class RichStringsExpressionsInRichstringsSpec extends RichStringsSpec {
      + "\n     \"pre\"+System.lineSeparator()+\"value\" is " + new org.hamcrest.StringDescription().appendValue(_plus_1).toString()
      + "\n     \"pre\"+System.lineSeparator() is " + new org.hamcrest.StringDescription().appendValue(_plus).toString()
      + "\n     System.lineSeparator() is " + new org.hamcrest.StringDescription().appendValue(_lineSeparator).toString()
-     + "\n     System is " + new org.hamcrest.StringDescription().appendValue(System.class).toString() + "\n", Should.<String>should_be(_builder.toString(), _plus_5));
+     + "\n     System is " + new org.hamcrest.StringDescription().appendValue(System.class).toString() + "\n", Should.should_be(_builder.toString(), _plus_5));
     
   }
   
@@ -95,7 +95,7 @@ public class RichStringsExpressionsInRichstringsSpec extends RichStringsSpec {
     _builder.append((1 + 2), "");
     Assert.assertTrue("\nExpected \'\'\'1 + 2 = \u00AB1+2\u00BB\'\'\' should be \"1 + 2 = 3\" but"
      + "\n     \'\'\'1 + 2 = \u00AB1+2\u00BB\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString()
-     + "\n     1+2 is " + new org.hamcrest.StringDescription().appendValue((1 + 2)).toString() + "\n", Should.<String>should_be(_builder.toString(), "1 + 2 = 3"));
+     + "\n     1+2 is " + new org.hamcrest.StringDescription().appendValue((1 + 2)).toString() + "\n", Should.should_be(_builder.toString(), "1 + 2 = 3"));
     
   }
   
@@ -115,7 +115,7 @@ public class RichStringsExpressionsInRichstringsSpec extends RichStringsSpec {
      + "\n     \'\'\'\u00ABa\u00BB + \u00ABb\u00BB = \u00ABa + b\u00BB\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder.toString()).toString()
      + "\n     a is " + new org.hamcrest.StringDescription().appendValue(a).toString()
      + "\n     b is " + new org.hamcrest.StringDescription().appendValue(b).toString()
-     + "\n     a + b is " + new org.hamcrest.StringDescription().appendValue((a + b)).toString() + "\n", Should.<String>should_be(_builder.toString(), "1 + 2 = 3"));
+     + "\n     a + b is " + new org.hamcrest.StringDescription().appendValue((a + b)).toString() + "\n", Should.should_be(_builder.toString(), "1 + 2 = 3"));
     
   }
 }

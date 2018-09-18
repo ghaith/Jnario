@@ -40,7 +40,7 @@ public class ExecutableIsPendingSuiteSpec extends ExecutableIsPendingSpec {
   @Order(1)
   public void _suiteWithASuiteSpecReferencePendingExampleGroupIsPendingShouldBeTrue() throws Exception {
     boolean _isPending = this.suiteWith("A suite", Suites.specReference(Specs.pendingExampleGroup())).isPending();
-    boolean _should_be = Should.<Boolean>should_be(Boolean.valueOf(_isPending), true);
+    boolean _should_be = Should.should_be(Boolean.valueOf(_isPending), Boolean.valueOf(true));
     Assert.assertTrue("\nExpected suiteWith(\"A suite\", specReference(pendingExampleGroup)).isPending should be true but"
      + "\n     suiteWith(\"A suite\", specReference(pendingExampleGroup)).isPending is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_isPending)).toString()
      + "\n     suiteWith(\"A suite\", specReference(pendingExampleGroup)) is " + new org.hamcrest.StringDescription().appendValue(this.suiteWith("A suite", Suites.specReference(Specs.pendingExampleGroup()))).toString()
@@ -54,7 +54,7 @@ public class ExecutableIsPendingSuiteSpec extends ExecutableIsPendingSpec {
   @Order(2)
   public void _suiteWithASuiteSpecReferenceExampleGroupWithExamplePassingIsPendingShouldBeFalse() throws Exception {
     boolean _isPending = this.suiteWith("A suite", Suites.specReference(Specs.exampleGroupWith(Specs.example("passing")))).isPending();
-    boolean _should_be = Should.<Boolean>should_be(Boolean.valueOf(_isPending), false);
+    boolean _should_be = Should.should_be(Boolean.valueOf(_isPending), Boolean.valueOf(false));
     Assert.assertTrue("\nExpected suiteWith(\"A suite\", specReference(exampleGroupWith(example(\"passing\")))).isPending should be false but"
      + "\n     suiteWith(\"A suite\", specReference(exampleGroupWith(example(\"passing\")))).isPending is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_isPending)).toString()
      + "\n     suiteWith(\"A suite\", specReference(exampleGroupWith(example(\"passing\")))) is " + new org.hamcrest.StringDescription().appendValue(this.suiteWith("A suite", Suites.specReference(Specs.exampleGroupWith(Specs.example("passing"))))).toString()

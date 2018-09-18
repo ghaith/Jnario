@@ -90,7 +90,7 @@ public class ExamplePendingSpec extends ExampleSpec {
         Assert.assertTrue("\nExpected pendingStateOf(example) should be expected but"
          + "\n     pendingStateOf(example) is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_pendingStateOf)).toString()
          + "\n     example is " + new org.hamcrest.StringDescription().appendValue(it.getExample()).toString()
-         + "\n     expected is " + new org.hamcrest.StringDescription().appendValue(_expected).toString() + "\n", Should.<Boolean>should_be(Boolean.valueOf(_pendingStateOf), _expected));
+         + "\n     expected is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_expected)).toString() + "\n", Should.should_be(Boolean.valueOf(_pendingStateOf), Boolean.valueOf(_expected)));
         
       }
     };

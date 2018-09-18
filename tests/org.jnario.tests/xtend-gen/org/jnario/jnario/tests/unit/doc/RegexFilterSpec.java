@@ -113,7 +113,7 @@ public class RegexFilterSpec {
          + "\n     filter.apply(string) is " + new org.hamcrest.StringDescription().appendValue(_apply).toString()
          + "\n     filter is " + new org.hamcrest.StringDescription().appendValue(filter).toString()
          + "\n     string is " + new org.hamcrest.StringDescription().appendValue(it.getString()).toString()
-         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.<String>operator_doubleArrow(_apply, _result));
+         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.operator_doubleArrow(_apply, _result));
         
       }
     };

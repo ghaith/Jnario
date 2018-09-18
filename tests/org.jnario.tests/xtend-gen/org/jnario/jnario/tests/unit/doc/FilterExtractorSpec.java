@@ -159,7 +159,7 @@ public class FilterExtractorSpec {
         Assert.assertTrue("\nExpected stringAfterExtract(input) => resultString but"
          + "\n     stringAfterExtract(input) is " + new org.hamcrest.StringDescription().appendValue(_stringAfterExtract).toString()
          + "\n     input is " + new org.hamcrest.StringDescription().appendValue(it.getInput()).toString()
-         + "\n     resultString is " + new org.hamcrest.StringDescription().appendValue(_resultString).toString() + "\n", Should.<String>operator_doubleArrow(_stringAfterExtract, _resultString));
+         + "\n     resultString is " + new org.hamcrest.StringDescription().appendValue(_resultString).toString() + "\n", Should.operator_doubleArrow(_stringAfterExtract, _resultString));
         
       }
     };
@@ -178,7 +178,7 @@ public class FilterExtractorSpec {
         Assert.assertTrue("\nExpected extractedFilters(input) => resultingFilters but"
          + "\n     extractedFilters(input) is " + new org.hamcrest.StringDescription().appendValue(_extractedFilters).toString()
          + "\n     input is " + new org.hamcrest.StringDescription().appendValue(it.getInput()).toString()
-         + "\n     resultingFilters is " + new org.hamcrest.StringDescription().appendValue(_resultingFilters).toString() + "\n", Should.<List<String>>operator_doubleArrow(_extractedFilters, _resultingFilters));
+         + "\n     resultingFilters is " + new org.hamcrest.StringDescription().appendValue(_resultingFilters).toString() + "\n", Should.operator_doubleArrow(_extractedFilters, _resultingFilters));
         
       }
     };

@@ -73,7 +73,7 @@ public class StepNameProviderRemoveArgumentsSpec extends StepNameProviderSpec {
          + "\n     subject.removeArguments(step) is " + new org.hamcrest.StringDescription().appendValue(_removeArguments).toString()
          + "\n     subject is " + new org.hamcrest.StringDescription().appendValue(StepNameProviderRemoveArgumentsSpec.this.subject).toString()
          + "\n     step is " + new org.hamcrest.StringDescription().appendValue(it.getStep()).toString()
-         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.<String>operator_doubleArrow(_removeArguments, _result));
+         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.operator_doubleArrow(_removeArguments, _result));
         
       }
     };

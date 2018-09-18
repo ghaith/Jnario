@@ -47,6 +47,6 @@ public class FeatureExtensionsFeatureReferencingStepsWithExtensions extends Feat
   public void _thenItShouldBe12() {
     final StepArguments args = new StepArguments("12");
     int _int = StringConversions.toInt(JnarioIterableExtensions.<String>first(args));
-    Should.<Integer>operator_doubleArrow(Integer.valueOf(this.number), Integer.valueOf(_int));
+    Should.operator_doubleArrow(Integer.valueOf(this.number), Integer.valueOf(_int));
   }
 }

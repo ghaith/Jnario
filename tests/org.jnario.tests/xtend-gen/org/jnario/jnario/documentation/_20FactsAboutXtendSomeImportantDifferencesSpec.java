@@ -55,7 +55,7 @@ public class _20FactsAboutXtendSomeImportantDifferencesSpec extends _20FactsAbou
   public void _asWellAsAccessingTypes() throws Exception {
     String _name = String.class.getName();
     Assert.assertTrue("\nExpected typeof(String).name => \"java.lang.String\" but"
-     + "\n     typeof(String).name is " + new org.hamcrest.StringDescription().appendValue(_name).toString() + "\n", Should.<String>operator_doubleArrow(_name, "java.lang.String"));
+     + "\n     typeof(String).name is " + new org.hamcrest.StringDescription().appendValue(_name).toString() + "\n", Should.operator_doubleArrow(_name, "java.lang.String"));
     
   }
   

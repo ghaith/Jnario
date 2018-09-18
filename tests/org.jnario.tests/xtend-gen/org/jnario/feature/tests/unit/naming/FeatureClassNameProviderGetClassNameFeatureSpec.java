@@ -101,7 +101,7 @@ public class FeatureClassNameProviderGetClassNameFeatureSpec extends FeatureClas
          + "\n     className(feature(name)) is " + new org.hamcrest.StringDescription().appendValue(_className).toString()
          + "\n     feature(name) is " + new org.hamcrest.StringDescription().appendValue(Features.feature(it.getName())).toString()
          + "\n     name is " + new org.hamcrest.StringDescription().appendValue(it.getName()).toString()
-         + "\n     expectedClassName is " + new org.hamcrest.StringDescription().appendValue(_expectedClassName).toString() + "\n", Should.<String>operator_doubleArrow(_className, _expectedClassName));
+         + "\n     expectedClassName is " + new org.hamcrest.StringDescription().appendValue(_expectedClassName).toString() + "\n", Should.operator_doubleArrow(_className, _expectedClassName));
         
       }
     };

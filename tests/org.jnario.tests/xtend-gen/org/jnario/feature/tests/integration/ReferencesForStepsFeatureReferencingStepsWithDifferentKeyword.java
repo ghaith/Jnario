@@ -43,6 +43,6 @@ public class ReferencesForStepsFeatureReferencingStepsWithDifferentKeyword exten
     final StepArguments args = new StepArguments("2");
     int _failureCount = FeatureExecutor.run(this.jnarioFile).getFailureCount();
     int _int = StringConversions.toInt(JnarioIterableExtensions.<String>first(args));
-    Should.<Integer>operator_doubleArrow(Integer.valueOf(_failureCount), Integer.valueOf(_int));
+    Should.operator_doubleArrow(Integer.valueOf(_failureCount), Integer.valueOf(_int));
   }
 }

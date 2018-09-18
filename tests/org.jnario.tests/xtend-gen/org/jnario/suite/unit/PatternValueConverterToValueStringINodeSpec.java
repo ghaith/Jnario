@@ -78,7 +78,7 @@ public class PatternValueConverterToValueStringINodeSpec extends PatternValueCon
          + "\n     subject.toValue(input, null) is " + new org.hamcrest.StringDescription().appendValue(_value).toString()
          + "\n     subject is " + new org.hamcrest.StringDescription().appendValue(PatternValueConverterToValueStringINodeSpec.this.subject).toString()
          + "\n     input is " + new org.hamcrest.StringDescription().appendValue(it.getInput()).toString()
-         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.<String>operator_doubleArrow(_value, _result));
+         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.operator_doubleArrow(_value, _result));
         
       }
     };

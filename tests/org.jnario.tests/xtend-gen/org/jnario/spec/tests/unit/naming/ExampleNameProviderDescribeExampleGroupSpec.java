@@ -34,7 +34,7 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   public void _shouldUseTheDescription() throws Exception {
     String _describeFirst = this.describeFirst("describe \'My Description\'");
     Assert.assertTrue("\nExpected describeFirst(\"describe \'My Description\'\") => \"My Description\" but"
-     + "\n     describeFirst(\"describe \'My Description\'\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString() + "\n", Should.<String>operator_doubleArrow(_describeFirst, "My Description"));
+     + "\n     describeFirst(\"describe \'My Description\'\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString() + "\n", Should.operator_doubleArrow(_describeFirst, "My Description"));
     
   }
   
@@ -44,7 +44,7 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   public void _shouldUseTheTargetType() throws Exception {
     String _describeFirst = this.describeFirst("describe org.junit.Assert");
     Assert.assertTrue("\nExpected describeFirst(\"describe org.junit.Assert\") => \"Assert\" but"
-     + "\n     describeFirst(\"describe org.junit.Assert\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString() + "\n", Should.<String>operator_doubleArrow(_describeFirst, "Assert"));
+     + "\n     describeFirst(\"describe org.junit.Assert\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString() + "\n", Should.operator_doubleArrow(_describeFirst, "Assert"));
     
   }
   
@@ -53,13 +53,13 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   @Order(3)
   public void _shouldUseTheUnresolvedTargetType() throws Exception {
     String _describeFirst = this.describeFirst("describe Unresolved");
-    boolean _doubleArrow = Should.<String>operator_doubleArrow(_describeFirst, "Unresolved");
+    boolean _doubleArrow = Should.operator_doubleArrow(_describeFirst, "Unresolved");
     Assert.assertTrue("\nExpected describeFirst(\"describe Unresolved\") => \"Unresolved\" but"
      + "\n     describeFirst(\"describe Unresolved\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString() + "\n", _doubleArrow);
     
     String _describeFirst_1 = this.describeFirst("describe org.Unresolved");
     Assert.assertTrue("\nExpected describeFirst(\"describe org.Unresolved\") => \"Unresolved\" but"
-     + "\n     describeFirst(\"describe org.Unresolved\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst_1).toString() + "\n", Should.<String>operator_doubleArrow(_describeFirst_1, "Unresolved"));
+     + "\n     describeFirst(\"describe org.Unresolved\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst_1).toString() + "\n", Should.operator_doubleArrow(_describeFirst_1, "Unresolved"));
     
   }
   
@@ -69,7 +69,7 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   public void _shouldCombineTargetTypeAndDescription() throws Exception {
     String _describeFirst = this.describeFirst("describe org.junit.Assert \'and more\'");
     Assert.assertTrue("\nExpected describeFirst(\"describe org.junit.Assert \'and more\'\") => \"Assert and more\" but"
-     + "\n     describeFirst(\"describe org.junit.Assert \'and more\'\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString() + "\n", Should.<String>operator_doubleArrow(_describeFirst, "Assert and more"));
+     + "\n     describeFirst(\"describe org.junit.Assert \'and more\'\") is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString() + "\n", Should.operator_doubleArrow(_describeFirst, "Assert and more"));
     
   }
   
@@ -79,7 +79,7 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   public void _shouldUseTheTargetOperation() throws Exception {
     String _describeSecond = this.describeSecond("describe org.junit.Assert{\r\n                    context assertTrue(boolean) {}\r\n                 }");
     Assert.assertTrue("\nExpected describeSecond(\"describe org.junit.Assert{\r\n                    context assertTrue(boolean) {}\r\n                 }\") => \"assertTrue[boolean]\" but"
-     + "\n     describeSecond(\"describe org.junit.Assert{\r\n                    context assertTrue(boolean) {}\r\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_describeSecond).toString() + "\n", Should.<String>operator_doubleArrow(_describeSecond, "assertTrue[boolean]"));
+     + "\n     describeSecond(\"describe org.junit.Assert{\r\n                    context assertTrue(boolean) {}\r\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_describeSecond).toString() + "\n", Should.operator_doubleArrow(_describeSecond, "assertTrue[boolean]"));
     
   }
   
@@ -89,7 +89,7 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   public void _shouldCombineTargetOperationAndDescription() throws Exception {
     String _describeSecond = this.describeSecond("describe org.junit.Assert{\r\n                    context assertTrue(boolean) \'and more\'{}\r\n                 }");
     Assert.assertTrue("\nExpected describeSecond(\"describe org.junit.Assert{\r\n                    context assertTrue(boolean) \'and more\'{}\r\n                 }\") => \"assertTrue[boolean] and more\" but"
-     + "\n     describeSecond(\"describe org.junit.Assert{\r\n                    context assertTrue(boolean) \'and more\'{}\r\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_describeSecond).toString() + "\n", Should.<String>operator_doubleArrow(_describeSecond, "assertTrue[boolean] and more"));
+     + "\n     describeSecond(\"describe org.junit.Assert{\r\n                    context assertTrue(boolean) \'and more\'{}\r\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_describeSecond).toString() + "\n", Should.operator_doubleArrow(_describeSecond, "assertTrue[boolean] and more"));
     
   }
   
@@ -109,7 +109,7 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
     String _describeSecond = this.describeSecond(text);
     Assert.assertTrue("\nExpected describeSecond(text) => \'and \\\\\"more\\\\\"\' but"
      + "\n     describeSecond(text) is " + new org.hamcrest.StringDescription().appendValue(_describeSecond).toString()
-     + "\n     text is " + new org.hamcrest.StringDescription().appendValue(text).toString() + "\n", Should.<String>operator_doubleArrow(_describeSecond, "and \\\"more\\\""));
+     + "\n     text is " + new org.hamcrest.StringDescription().appendValue(text).toString() + "\n", Should.operator_doubleArrow(_describeSecond, "and \\\"more\\\""));
     
   }
   
@@ -123,7 +123,7 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
     String _describeFirst = this.describeFirst(text);
     Assert.assertTrue("\nExpected describeFirst(text) => \'Example 2\' but"
      + "\n     describeFirst(text) is " + new org.hamcrest.StringDescription().appendValue(_describeFirst).toString()
-     + "\n     text is " + new org.hamcrest.StringDescription().appendValue(text).toString() + "\n", Should.<String>operator_doubleArrow(_describeFirst, "Example 2"));
+     + "\n     text is " + new org.hamcrest.StringDescription().appendValue(text).toString() + "\n", Should.operator_doubleArrow(_describeFirst, "Example 2"));
     
   }
   

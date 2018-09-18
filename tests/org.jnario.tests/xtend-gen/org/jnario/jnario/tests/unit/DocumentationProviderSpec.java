@@ -47,7 +47,7 @@ public class DocumentationProviderSpec {
   public void _returnsComment() throws Exception {
     String _documentation = this.documentation("Hello World");
     Assert.assertTrue("\nExpected documentation(\"Hello World\") => \"Hello World\" but"
-     + "\n     documentation(\"Hello World\") is " + new org.hamcrest.StringDescription().appendValue(_documentation).toString() + "\n", Should.<String>operator_doubleArrow(_documentation, "Hello World"));
+     + "\n     documentation(\"Hello World\") is " + new org.hamcrest.StringDescription().appendValue(_documentation).toString() + "\n", Should.operator_doubleArrow(_documentation, "Hello World"));
     
   }
   
@@ -57,7 +57,7 @@ public class DocumentationProviderSpec {
   public void _canBeEscapedWith() throws Exception {
     String _documentation = this.documentation("Hello \\/*World");
     Assert.assertTrue("\nExpected documentation(\"Hello \\\\/*World\") => \"Hello /*World\" but"
-     + "\n     documentation(\"Hello \\\\/*World\") is " + new org.hamcrest.StringDescription().appendValue(_documentation).toString() + "\n", Should.<String>operator_doubleArrow(_documentation, "Hello /*World"));
+     + "\n     documentation(\"Hello \\\\/*World\") is " + new org.hamcrest.StringDescription().appendValue(_documentation).toString() + "\n", Should.operator_doubleArrow(_documentation, "Hello /*World"));
     
   }
   
@@ -67,7 +67,7 @@ public class DocumentationProviderSpec {
   public void _canBeUnescapedWith() throws Exception {
     String _documentation = this.documentation("Hello \\\\/*World");
     Assert.assertTrue("\nExpected documentation(\"Hello \\\\\\\\/*World\") => \"Hello \\\\/*World\" but"
-     + "\n     documentation(\"Hello \\\\\\\\/*World\") is " + new org.hamcrest.StringDescription().appendValue(_documentation).toString() + "\n", Should.<String>operator_doubleArrow(_documentation, "Hello \\/*World"));
+     + "\n     documentation(\"Hello \\\\\\\\/*World\") is " + new org.hamcrest.StringDescription().appendValue(_documentation).toString() + "\n", Should.operator_doubleArrow(_documentation, "Hello \\/*World"));
     
   }
   
@@ -77,7 +77,7 @@ public class DocumentationProviderSpec {
   public void _canAlsoBeEscapedWith() throws Exception {
     String _documentation = this.documentation("Hello \\*/World");
     Assert.assertTrue("\nExpected documentation(\"Hello \\\\*/World\") => \"Hello */World\" but"
-     + "\n     documentation(\"Hello \\\\*/World\") is " + new org.hamcrest.StringDescription().appendValue(_documentation).toString() + "\n", Should.<String>operator_doubleArrow(_documentation, "Hello */World"));
+     + "\n     documentation(\"Hello \\\\*/World\") is " + new org.hamcrest.StringDescription().appendValue(_documentation).toString() + "\n", Should.operator_doubleArrow(_documentation, "Hello */World"));
     
   }
   
@@ -87,7 +87,7 @@ public class DocumentationProviderSpec {
   public void _canAlsoBeUnescapedWith() throws Exception {
     String _documentation = this.documentation("Hello \\\\*/World");
     Assert.assertTrue("\nExpected documentation(\"Hello \\\\\\\\*/World\") => \"Hello \\\\*/World\" but"
-     + "\n     documentation(\"Hello \\\\\\\\*/World\") is " + new org.hamcrest.StringDescription().appendValue(_documentation).toString() + "\n", Should.<String>operator_doubleArrow(_documentation, "Hello \\*/World"));
+     + "\n     documentation(\"Hello \\\\\\\\*/World\") is " + new org.hamcrest.StringDescription().appendValue(_documentation).toString() + "\n", Should.operator_doubleArrow(_documentation, "Hello \\*/World"));
     
   }
   

@@ -45,7 +45,7 @@ public class UsingXtendSWithOperatorSpec {
     int _size = stackWithTwoElements.size();
     Assert.assertTrue("\nExpected stackWithTwoElements.size => 2 but"
      + "\n     stackWithTwoElements.size is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_size)).toString()
-     + "\n     stackWithTwoElements is " + new org.hamcrest.StringDescription().appendValue(stackWithTwoElements).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_size), Integer.valueOf(2)));
+     + "\n     stackWithTwoElements is " + new org.hamcrest.StringDescription().appendValue(stackWithTwoElements).toString() + "\n", Should.operator_doubleArrow(Integer.valueOf(_size), Integer.valueOf(2)));
     
   }
   
@@ -57,7 +57,7 @@ public class UsingXtendSWithOperatorSpec {
       @Override
       public void apply(final String it) {
         int _length = it.length();
-        boolean _doubleArrow = Should.<Integer>operator_doubleArrow(Integer.valueOf(_length), Integer.valueOf(11));
+        boolean _doubleArrow = Should.operator_doubleArrow(Integer.valueOf(_length), Integer.valueOf(11));
         Assert.assertTrue("\nExpected length => 11 but"
          + "\n     length is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_length)).toString() + "\n", _doubleArrow);
         

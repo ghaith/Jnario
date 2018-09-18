@@ -89,7 +89,7 @@ public class SuiteClassNameProviderDescribeSpec extends SuiteClassNameProviderSp
          + "\n     subject is " + new org.hamcrest.StringDescription().appendValue(SuiteClassNameProviderDescribeSpec.this.subject).toString()
          + "\n     suite(name) is " + new org.hamcrest.StringDescription().appendValue(Suites.suite(it.getName())).toString()
          + "\n     name is " + new org.hamcrest.StringDescription().appendValue(it.getName()).toString()
-         + "\n     expectedClassName is " + new org.hamcrest.StringDescription().appendValue(_expectedClassName).toString() + "\n", Should.<String>operator_doubleArrow(_describe, _expectedClassName));
+         + "\n     expectedClassName is " + new org.hamcrest.StringDescription().appendValue(_expectedClassName).toString() + "\n", Should.operator_doubleArrow(_describe, _expectedClassName));
         
       }
     };

@@ -46,19 +46,19 @@ public class UsingShouldSpec {
   @Named("To pass..")
   @Order(1)
   public void _toPass() throws Exception {
-    boolean _should_be = Should.<Boolean>should_be(
-      Boolean.valueOf(true), true);
+    boolean _should_be = Should.should_be(
+      Boolean.valueOf(true), Boolean.valueOf(true));
     Assert.assertTrue("\nExpected // equality\r\n    true should be true but"
      + "\n     // equality\r\n    true should be true is " + new org.hamcrest.StringDescription().appendValue(true).toString() + "\n", _should_be);
     
-    boolean _should_be_1 = Should.<Integer>should_be(
+    boolean _should_be_1 = Should.should_be(
       Integer.valueOf((1 + 1)), Integer.valueOf(1));
     Assert.assertFalse("\nExpected 1 + 1 should not be 1 but"
      + "\n     1 + 1 is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf((1 + 1))).toString() + "\n", _should_be_1);
     
     Assert.assertNotNull("\nExpected \"something\" should not be null\n     but is " + new org.hamcrest.StringDescription().appendValue("something").toString() + "\n", "something");
     
-    boolean _doubleArrow = Should.<Integer>operator_doubleArrow(
+    boolean _doubleArrow = Should.operator_doubleArrow(
       Integer.valueOf((1 + 1)), Integer.valueOf(2));
     Assert.assertTrue("\nExpected 1 + 1 => 2 but"
      + "\n     1 + 1 is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf((1 + 1))).toString() + "\n", _doubleArrow);
@@ -97,7 +97,7 @@ public class UsingShouldSpec {
       @Override
       public void apply(final String it) {
         int _length = it.length();
-        boolean _doubleArrow = Should.<Integer>operator_doubleArrow(Integer.valueOf(_length), Integer.valueOf(11));
+        boolean _doubleArrow = Should.operator_doubleArrow(Integer.valueOf(_length), Integer.valueOf(11));
         Assert.assertTrue("\nExpected length => 11 but"
          + "\n     length is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_length)).toString() + "\n", _doubleArrow);
         
@@ -157,7 +157,7 @@ public class UsingShouldSpec {
     boolean expectedException = false;
     String message = "";
     try{
-      boolean _should_be = Should.<Integer>should_be(
+      boolean _should_be = Should.should_be(
         Integer.valueOf((1 + 1)), Integer.valueOf(1));
       Assert.assertTrue("\nExpected 1 + 1 should be 1 but"
        + "\n     1 + 1 is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf((1 + 1))).toString() + "\n", _should_be);
@@ -171,7 +171,7 @@ public class UsingShouldSpec {
     boolean expectedException_1 = false;
     String message_1 = "";
     try{
-      boolean _should_be_1 = Should.<Integer>should_be(
+      boolean _should_be_1 = Should.should_be(
         Integer.valueOf((1 + 1)), Integer.valueOf(2));
       Assert.assertFalse("\nExpected 1 + 1 should not be 2 but"
        + "\n     1 + 1 is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf((1 + 1))).toString() + "\n", _should_be_1);
@@ -185,7 +185,7 @@ public class UsingShouldSpec {
     boolean expectedException_2 = false;
     String message_2 = "";
     try{
-      boolean _doubleArrow = Should.<Integer>operator_doubleArrow(
+      boolean _doubleArrow = Should.operator_doubleArrow(
         Integer.valueOf((1 + 1)), Integer.valueOf(1));
       Assert.assertTrue("\nExpected 1 + 1 => 1 but"
        + "\n     1 + 1 is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf((1 + 1))).toString() + "\n", _doubleArrow);
@@ -247,7 +247,7 @@ public class UsingShouldSpec {
       @Override
       public void apply(final Boolean it) {
         Assert.assertTrue("\nExpected 1 + 1 => 1 but"
-         + "\n     1 + 1 is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf((1 + 1))).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf((1 + 1)), Integer.valueOf(1)));
+         + "\n     1 + 1 is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf((1 + 1))).toString() + "\n", Should.operator_doubleArrow(Integer.valueOf((1 + 1)), Integer.valueOf(1)));
         
       }
     };
@@ -265,7 +265,7 @@ public class UsingShouldSpec {
         String _upperCase = x.toUpperCase();
         Assert.assertFalse("\nExpected x.toUpperCase should not be \"HELLO\" but"
          + "\n     x.toUpperCase is " + new org.hamcrest.StringDescription().appendValue(_upperCase).toString()
-         + "\n     x is " + new org.hamcrest.StringDescription().appendValue(x).toString() + "\n", Should.<String>should_be(_upperCase, "HELLO"));
+         + "\n     x is " + new org.hamcrest.StringDescription().appendValue(x).toString() + "\n", Should.should_be(_upperCase, "HELLO"));
         
       }
     };
@@ -285,7 +285,7 @@ public class UsingShouldSpec {
       public void apply(final Boolean it) {
         Assert.assertTrue("\nExpected x => y but"
          + "\n     x is " + new org.hamcrest.StringDescription().appendValue(x).toString()
-         + "\n     y is " + new org.hamcrest.StringDescription().appendValue(y).toString() + "\n", Should.<String>operator_doubleArrow(x, y));
+         + "\n     y is " + new org.hamcrest.StringDescription().appendValue(y).toString() + "\n", Should.operator_doubleArrow(x, y));
         
       }
     };
@@ -387,14 +387,14 @@ public class UsingShouldSpec {
   @Order(6)
   public void _combiningHamcrestAndShould() throws Exception {
     Matcher<String> _startsWith = Matchers.startsWith("h");
-    boolean _doubleArrow = Should.<String>operator_doubleArrow(
+    boolean _doubleArrow = Should.operator_doubleArrow(
       "hello", _startsWith);
     Assert.assertTrue("\nExpected \"hello\" => startsWith(\"h\") but"
      + "\n     startsWith(\"h\") is " + new org.hamcrest.StringDescription().appendValue(_startsWith).toString() + "\n", _doubleArrow);
     
     Matcher<Integer> _greaterThan = Matchers.<Integer>greaterThan(Integer.valueOf(5));
     Assert.assertTrue("\nExpected 9 should be greaterThan(5) but"
-     + "\n     greaterThan(5) is " + new org.hamcrest.StringDescription().appendValue(_greaterThan).toString() + "\n", Should.<Integer>should_be(
+     + "\n     greaterThan(5) is " + new org.hamcrest.StringDescription().appendValue(_greaterThan).toString() + "\n", Should.should_be(
       Integer.valueOf(9), _greaterThan));
     
   }

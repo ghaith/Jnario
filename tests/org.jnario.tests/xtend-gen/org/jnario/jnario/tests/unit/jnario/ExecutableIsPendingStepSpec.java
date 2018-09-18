@@ -26,7 +26,7 @@ public class ExecutableIsPendingStepSpec extends ExecutableIsPendingSpec {
   @Order(1)
   public void _stepWithoutImplementationIsPendingShouldBeTrue() throws Exception {
     boolean _isPending = Features.stepWithoutImplementation().isPending();
-    boolean _should_be = Should.<Boolean>should_be(Boolean.valueOf(_isPending), true);
+    boolean _should_be = Should.should_be(Boolean.valueOf(_isPending), Boolean.valueOf(true));
     Assert.assertTrue("\nExpected stepWithoutImplementation.isPending() should be true but"
      + "\n     stepWithoutImplementation.isPending() is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_isPending)).toString()
      + "\n     stepWithoutImplementation is " + new org.hamcrest.StringDescription().appendValue(Features.stepWithoutImplementation()).toString() + "\n", _should_be);
@@ -38,7 +38,7 @@ public class ExecutableIsPendingStepSpec extends ExecutableIsPendingSpec {
   @Order(2)
   public void _implementedStepIsPendingShouldBeFalse() throws Exception {
     boolean _isPending = Features.implementedStep().isPending();
-    boolean _should_be = Should.<Boolean>should_be(Boolean.valueOf(_isPending), false);
+    boolean _should_be = Should.should_be(Boolean.valueOf(_isPending), Boolean.valueOf(false));
     Assert.assertTrue("\nExpected implementedStep.isPending() should be false but"
      + "\n     implementedStep.isPending() is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_isPending)).toString()
      + "\n     implementedStep is " + new org.hamcrest.StringDescription().appendValue(Features.implementedStep()).toString() + "\n", _should_be);

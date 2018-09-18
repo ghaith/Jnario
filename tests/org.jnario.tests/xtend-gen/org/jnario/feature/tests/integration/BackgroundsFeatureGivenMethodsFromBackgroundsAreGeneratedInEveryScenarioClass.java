@@ -41,7 +41,7 @@ public class BackgroundsFeatureGivenMethodsFromBackgroundsAreGeneratedInEverySce
     Assert.assertTrue("\nExpected jnarioFile.run.failureCount => 2 but"
      + "\n     jnarioFile.run.failureCount is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_failureCount)).toString()
      + "\n     jnarioFile.run is " + new org.hamcrest.StringDescription().appendValue(FeatureExecutor.run(this.jnarioFile)).toString()
-     + "\n     jnarioFile is " + new org.hamcrest.StringDescription().appendValue(this.jnarioFile).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_failureCount), Integer.valueOf(2)));
+     + "\n     jnarioFile is " + new org.hamcrest.StringDescription().appendValue(this.jnarioFile).toString() + "\n", Should.operator_doubleArrow(Integer.valueOf(_failureCount), Integer.valueOf(2)));
     
   }
 }

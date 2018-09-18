@@ -52,7 +52,7 @@ public class FeatureExtensionsFeatureDefiningOwnExtensions extends FeatureExtens
      + "\n     flooredValue is " + new org.hamcrest.StringDescription().appendValue(Double.valueOf(this.flooredValue)).toString()
      + "\n     args.first.toDouble is " + new org.hamcrest.StringDescription().appendValue(Double.valueOf(_double)).toString()
      + "\n     args.first is " + new org.hamcrest.StringDescription().appendValue(JnarioIterableExtensions.<String>first(args)).toString()
-     + "\n     args is " + new org.hamcrest.StringDescription().appendValue(args).toString() + "\n", Should.<Double>operator_doubleArrow(Double.valueOf(this.flooredValue), Double.valueOf(_double)));
+     + "\n     args is " + new org.hamcrest.StringDescription().appendValue(args).toString() + "\n", Should.operator_doubleArrow(Double.valueOf(this.flooredValue), Double.valueOf(_double)));
     
   }
 }

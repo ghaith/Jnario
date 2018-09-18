@@ -303,7 +303,7 @@ public class AbstractJnarioRunnerUIHandlerSuiteLabellingSpec extends AbstractJna
          + "\n     result is " + new org.hamcrest.StringDescription().appendValue(it.getResult()).toString()
          + "\n     label(root(elements)) is " + new org.hamcrest.StringDescription().appendValue(AbstractJnarioRunnerUIHandlerSuiteLabellingSpec.this.label(AbstractJnarioRunnerUIHandlerSuiteLabellingSpec.this.root(((Function1<? super TestSuiteElement, ? extends TestElement>[])Conversions.unwrapArray(elements, Function1.class))))).toString()
          + "\n     root(elements) is " + new org.hamcrest.StringDescription().appendValue(AbstractJnarioRunnerUIHandlerSuiteLabellingSpec.this.root(((Function1<? super TestSuiteElement, ? extends TestElement>[])Conversions.unwrapArray(elements, Function1.class)))).toString()
-         + "\n     elements is " + new org.hamcrest.StringDescription().appendValue(((Function1<? super TestSuiteElement, ? extends TestElement>[])Conversions.unwrapArray(elements, Function1.class))).toString() + "\n", Should.<Boolean>should_be(Boolean.valueOf(_matches), true));
+         + "\n     elements is " + new org.hamcrest.StringDescription().appendValue(((Function1<? super TestSuiteElement, ? extends TestElement>[])Conversions.unwrapArray(elements, Function1.class))).toString() + "\n", Should.should_be(Boolean.valueOf(_matches), Boolean.valueOf(true)));
         
       }
     };

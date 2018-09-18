@@ -365,7 +365,7 @@ public class SpecResultParserSpec {
       @Override
       public void accept(final SpecExecution it) {
         boolean _hasNext = i.hasNext();
-        boolean _doubleArrow = Should.<Boolean>operator_doubleArrow(Boolean.valueOf(_hasNext), true);
+        boolean _doubleArrow = Should.operator_doubleArrow(Boolean.valueOf(_hasNext), Boolean.valueOf(true));
         Assert.assertTrue("\nExpected i.hasNext => true but"
          + "\n     i.hasNext is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_hasNext)).toString()
          + "\n     i is " + new org.hamcrest.StringDescription().appendValue(i).toString() + "\n", _doubleArrow);

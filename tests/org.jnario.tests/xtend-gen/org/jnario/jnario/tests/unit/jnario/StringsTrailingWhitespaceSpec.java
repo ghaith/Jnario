@@ -127,7 +127,7 @@ public class StringsTrailingWhitespaceSpec extends StringsSpec {
         Assert.assertTrue("\nExpected string.trailingWhitespace => result but"
          + "\n     string.trailingWhitespace is " + new org.hamcrest.StringDescription().appendValue(_trailingWhitespace).toString()
          + "\n     string is " + new org.hamcrest.StringDescription().appendValue(it.getString()).toString()
-         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.<String>operator_doubleArrow(_trailingWhitespace, _result));
+         + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString() + "\n", Should.operator_doubleArrow(_trailingWhitespace, _result));
         
       }
     };

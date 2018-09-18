@@ -493,7 +493,7 @@ public class UsingTablesSpec {
              + "\n     value1 + value2 is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_plus)).toString()
              + "\n     value1 is " + new org.hamcrest.StringDescription().appendValue(_value1).toString()
              + "\n     value2 is " + new org.hamcrest.StringDescription().appendValue(_value2).toString()
-             + "\n     sum is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_sum)).toString() + "\n", Should.<Integer>operator_doubleArrow(Integer.valueOf(_plus), Integer.valueOf(_sum)));
+             + "\n     sum is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_sum)).toString() + "\n", Should.operator_doubleArrow(Integer.valueOf(_plus), Integer.valueOf(_sum)));
             
           }
         };

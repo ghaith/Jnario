@@ -63,13 +63,13 @@ public class ExampleImplementationSpec extends ExampleSpec {
       @Override
       public void apply(final ExampleImplementationSpecExamples it) {
         XExpression _expression = ExampleImplementationSpec.this.parse(it.getExample()).getExpression();
-        Matcher<XExpression> _instanceOf = CoreMatchers.<XExpression>instanceOf(it.getType());
+        Matcher<Object> _instanceOf = CoreMatchers.<Object>instanceOf(it.getType());
         Assert.assertTrue("\nExpected example.parse.expression should be instanceOf(type) but"
          + "\n     example.parse.expression is " + new org.hamcrest.StringDescription().appendValue(_expression).toString()
          + "\n     example.parse is " + new org.hamcrest.StringDescription().appendValue(ExampleImplementationSpec.this.parse(it.getExample())).toString()
          + "\n     example is " + new org.hamcrest.StringDescription().appendValue(it.getExample()).toString()
          + "\n     instanceOf(type) is " + new org.hamcrest.StringDescription().appendValue(_instanceOf).toString()
-         + "\n     type is " + new org.hamcrest.StringDescription().appendValue(it.getType()).toString() + "\n", org.jnario.lib.Should.<XExpression>should_be(_expression, _instanceOf));
+         + "\n     type is " + new org.hamcrest.StringDescription().appendValue(it.getType()).toString() + "\n", org.jnario.lib.Should.should_be(_expression, _instanceOf));
         
       }
     };

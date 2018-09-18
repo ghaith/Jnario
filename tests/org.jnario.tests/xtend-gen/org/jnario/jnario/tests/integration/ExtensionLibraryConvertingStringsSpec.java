@@ -38,23 +38,23 @@ public class ExtensionLibraryConvertingStringsSpec extends ExtensionLibrarySpec 
   @Order(1)
   public void _convertingStringsToPrimitives() throws Exception {
     boolean _bool = StringConversions.toBool("true");
-    boolean _doubleArrow = Should.<Boolean>operator_doubleArrow(Boolean.valueOf(_bool), true);
+    boolean _doubleArrow = Should.operator_doubleArrow(Boolean.valueOf(_bool), Boolean.valueOf(true));
     Assert.assertTrue("\nExpected \"true\".toBool  => true but"
      + "\n     \"true\".toBool is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_bool)).toString() + "\n", _doubleArrow);
     
     int _int = StringConversions.toInt("5");
-    boolean _doubleArrow_1 = Should.<Integer>operator_doubleArrow(Integer.valueOf(_int), Integer.valueOf(5));
+    boolean _doubleArrow_1 = Should.operator_doubleArrow(Integer.valueOf(_int), Integer.valueOf(5));
     Assert.assertTrue("\nExpected \"5\".toInt      => 5 but"
      + "\n     \"5\".toInt is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf(_int)).toString() + "\n", _doubleArrow_1);
     
     double _double = StringConversions.toDouble("5.5");
-    boolean _doubleArrow_2 = Should.<Double>operator_doubleArrow(Double.valueOf(_double), Double.valueOf(5.5));
+    boolean _doubleArrow_2 = Should.operator_doubleArrow(Double.valueOf(_double), Double.valueOf(5.5));
     Assert.assertTrue("\nExpected \"5.5\".toDouble => 5.5 but"
      + "\n     \"5.5\".toDouble is " + new org.hamcrest.StringDescription().appendValue(Double.valueOf(_double)).toString() + "\n", _doubleArrow_2);
     
     long _long = StringConversions.toLong("5");
     Assert.assertTrue("\nExpected \"5\".toLong     => 5l but"
-     + "\n     \"5\".toLong is " + new org.hamcrest.StringDescription().appendValue(Long.valueOf(_long)).toString() + "\n", Should.<Long>operator_doubleArrow(Long.valueOf(_long), Long.valueOf(5l)));
+     + "\n     \"5\".toLong is " + new org.hamcrest.StringDescription().appendValue(Long.valueOf(_long)).toString() + "\n", Should.operator_doubleArrow(Long.valueOf(_long), Long.valueOf(5l)));
     
   }
   
@@ -67,14 +67,14 @@ public class ExtensionLibraryConvertingStringsSpec extends ExtensionLibrarySpec 
   public void _convertingStringsToLists() throws Exception {
     List<String> _list = StringConversions.toList("1,2,3");
     List<String> _list_1 = JnarioCollectionLiterals.<String>list("1", "2", "3");
-    boolean _doubleArrow = Should.<List<String>>operator_doubleArrow(_list, _list_1);
+    boolean _doubleArrow = Should.operator_doubleArrow(_list, _list_1);
     Assert.assertTrue("\nExpected \"1,2,3\".toList              => list(\"1\", \"2\", \"3\") but"
      + "\n     \"1,2,3\".toList is " + new org.hamcrest.StringDescription().appendValue(_list).toString()
      + "\n     list(\"1\", \"2\", \"3\") is " + new org.hamcrest.StringDescription().appendValue(_list_1).toString() + "\n", _doubleArrow);
     
     List<String> _list_2 = StringConversions.toList("1, 2, 3");
     List<String> _list_3 = JnarioCollectionLiterals.<String>list("1", "2", "3");
-    boolean _doubleArrow_1 = Should.<List<String>>operator_doubleArrow(_list_2, _list_3);
+    boolean _doubleArrow_1 = Should.operator_doubleArrow(_list_2, _list_3);
     Assert.assertTrue("\nExpected \"1, 2, 3\".toList            => list(\"1\", \"2\", \"3\") but"
      + "\n     \"1, 2, 3\".toList is " + new org.hamcrest.StringDescription().appendValue(_list_2).toString()
      + "\n     list(\"1\", \"2\", \"3\") is " + new org.hamcrest.StringDescription().appendValue(_list_3).toString() + "\n", _doubleArrow_1);
@@ -90,7 +90,7 @@ public class ExtensionLibraryConvertingStringsSpec extends ExtensionLibrarySpec 
     Assert.assertTrue("\nExpected \"1, 2, 3\".toList.map[toInt] => list(1, 2, 3) but"
      + "\n     \"1, 2, 3\".toList.map[toInt] is " + new org.hamcrest.StringDescription().appendValue(_map).toString()
      + "\n     \"1, 2, 3\".toList is " + new org.hamcrest.StringDescription().appendValue(StringConversions.toList("1, 2, 3")).toString()
-     + "\n     list(1, 2, 3) is " + new org.hamcrest.StringDescription().appendValue(_list_4).toString() + "\n", Should.<List<Integer>>operator_doubleArrow(_map, _list_4));
+     + "\n     list(1, 2, 3) is " + new org.hamcrest.StringDescription().appendValue(_list_4).toString() + "\n", Should.operator_doubleArrow(_map, _list_4));
     
   }
 }

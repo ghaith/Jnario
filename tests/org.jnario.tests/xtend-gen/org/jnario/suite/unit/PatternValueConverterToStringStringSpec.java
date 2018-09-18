@@ -83,7 +83,7 @@ public class PatternValueConverterToStringStringSpec extends PatternValueConvert
          + "\n     input is " + new org.hamcrest.StringDescription().appendValue(it.getInput()).toString()
          + "\n     result + newLine is " + new org.hamcrest.StringDescription().appendValue(_plus).toString()
          + "\n     result is " + new org.hamcrest.StringDescription().appendValue(_result).toString()
-         + "\n     newLine is " + new org.hamcrest.StringDescription().appendValue(_newLine).toString() + "\n", Should.<String>operator_doubleArrow(_string, _plus));
+         + "\n     newLine is " + new org.hamcrest.StringDescription().appendValue(_newLine).toString() + "\n", Should.operator_doubleArrow(_string, _plus));
         
       }
     };

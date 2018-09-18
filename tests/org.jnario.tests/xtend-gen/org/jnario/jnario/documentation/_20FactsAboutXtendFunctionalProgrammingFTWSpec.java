@@ -45,7 +45,7 @@ public class _20FactsAboutXtendFunctionalProgrammingFTWSpec extends _20FactsAbou
   public void _simpleAccessToListElements() throws Exception {
     final List<String> colors = JnarioCollectionLiterals.<String>list("red", "blue", "green");
     String _head = IterableExtensions.<String>head(colors);
-    boolean _doubleArrow = Should.<String>operator_doubleArrow(_head, "red");
+    boolean _doubleArrow = Should.operator_doubleArrow(_head, "red");
     Assert.assertTrue("\nExpected colors.head => \"red\" but"
      + "\n     colors.head is " + new org.hamcrest.StringDescription().appendValue(_head).toString()
      + "\n     colors is " + new org.hamcrest.StringDescription().appendValue(colors).toString() + "\n", _doubleArrow);
@@ -58,7 +58,7 @@ public class _20FactsAboutXtendFunctionalProgrammingFTWSpec extends _20FactsAbou
      + "\n     #[\"blue\", \"green\"] is " + new org.hamcrest.StringDescription().appendValue(Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("blue", "green"))).toString() + "\n", _doubleArrow_1);
     
     String _last = IterableExtensions.<String>last(colors);
-    boolean _doubleArrow_2 = Should.<String>operator_doubleArrow(_last, "green");
+    boolean _doubleArrow_2 = Should.operator_doubleArrow(_last, "green");
     Assert.assertTrue("\nExpected colors.last => \"green\" but"
      + "\n     colors.last is " + new org.hamcrest.StringDescription().appendValue(_last).toString()
      + "\n     colors is " + new org.hamcrest.StringDescription().appendValue(colors).toString() + "\n", _doubleArrow_2);
@@ -66,7 +66,7 @@ public class _20FactsAboutXtendFunctionalProgrammingFTWSpec extends _20FactsAbou
     boolean _isEmpty = colors.isEmpty();
     Assert.assertTrue("\nExpected colors.empty => false but"
      + "\n     colors.empty is " + new org.hamcrest.StringDescription().appendValue(Boolean.valueOf(_isEmpty)).toString()
-     + "\n     colors is " + new org.hamcrest.StringDescription().appendValue(colors).toString() + "\n", Should.<Boolean>operator_doubleArrow(Boolean.valueOf(_isEmpty), false));
+     + "\n     colors is " + new org.hamcrest.StringDescription().appendValue(colors).toString() + "\n", Should.operator_doubleArrow(Boolean.valueOf(_isEmpty), Boolean.valueOf(false)));
     
   }
   
@@ -128,7 +128,7 @@ public class _20FactsAboutXtendFunctionalProgrammingFTWSpec extends _20FactsAbou
     Integer _apply = lambda.apply("hello");
     Assert.assertTrue("\nExpected lambda.apply(\"hello\") => 5 but"
      + "\n     lambda.apply(\"hello\") is " + new org.hamcrest.StringDescription().appendValue(_apply).toString()
-     + "\n     lambda is " + new org.hamcrest.StringDescription().appendValue(lambda).toString() + "\n", Should.<Integer>operator_doubleArrow(_apply, Integer.valueOf(5)));
+     + "\n     lambda is " + new org.hamcrest.StringDescription().appendValue(lambda).toString() + "\n", Should.operator_doubleArrow(_apply, Integer.valueOf(5)));
     
   }
   
@@ -216,7 +216,7 @@ public class _20FactsAboutXtendFunctionalProgrammingFTWSpec extends _20FactsAbou
     };
     final Integer charCount = IterableExtensions.<Integer>reduce(ListExtensions.<String, Integer>map(strings, _function), _function_1);
     Assert.assertTrue("\nExpected charCount => 12 but"
-     + "\n     charCount is " + new org.hamcrest.StringDescription().appendValue(charCount).toString() + "\n", Should.<Integer>operator_doubleArrow(charCount, Integer.valueOf(12)));
+     + "\n     charCount is " + new org.hamcrest.StringDescription().appendValue(charCount).toString() + "\n", Should.operator_doubleArrow(charCount, Integer.valueOf(12)));
     
   }
 }

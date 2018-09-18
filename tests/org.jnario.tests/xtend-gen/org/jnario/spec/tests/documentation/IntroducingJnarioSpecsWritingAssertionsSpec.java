@@ -58,23 +58,23 @@ public class IntroducingJnarioSpecsWritingAssertionsSpec extends IntroducingJnar
   @Named("\\\'should\\\' and `=>`")
   @Order(2)
   public void _shouldAnd() throws Exception {
-    boolean _should_be = Should.<Boolean>should_be(
-      Boolean.valueOf(true), true);
+    boolean _should_be = Should.should_be(
+      Boolean.valueOf(true), Boolean.valueOf(true));
     Assert.assertTrue("\nExpected true should be true but"
      + "\n     true should be true is " + new org.hamcrest.StringDescription().appendValue(true).toString() + "\n", _should_be);
     
-    boolean _doubleArrow = Should.<Boolean>operator_doubleArrow(
-      Boolean.valueOf(false), false);
+    boolean _doubleArrow = Should.operator_doubleArrow(
+      Boolean.valueOf(false), Boolean.valueOf(false));
     Assert.assertTrue("\nExpected false => false but"
      + "\n     false => false is " + new org.hamcrest.StringDescription().appendValue(_doubleArrow).toString() + "\n", _doubleArrow);
     
-    boolean _should_be_1 = Should.<Integer>should_be(
+    boolean _should_be_1 = Should.should_be(
       Integer.valueOf((1 + 1)), Integer.valueOf(1));
     Assert.assertFalse("\nExpected 1 + 1 should not be 1 but"
      + "\n     1 + 1 is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf((1 + 1))).toString() + "\n", _should_be_1);
     
     Assert.assertTrue("\nExpected 1 + 1 => 2 but"
-     + "\n     1 + 1 is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf((1 + 1))).toString() + "\n", Should.<Integer>operator_doubleArrow(
+     + "\n     1 + 1 is " + new org.hamcrest.StringDescription().appendValue(Integer.valueOf((1 + 1))).toString() + "\n", Should.operator_doubleArrow(
       Integer.valueOf((1 + 1)), Integer.valueOf(2)));
     
   }
@@ -126,7 +126,7 @@ public class IntroducingJnarioSpecsWritingAssertionsSpec extends IntroducingJnar
         String _upperCase = greeting.toUpperCase();
         Assert.assertFalse("\nExpected greeting.toUpperCase should not be \"HELLO\" but"
          + "\n     greeting.toUpperCase is " + new org.hamcrest.StringDescription().appendValue(_upperCase).toString()
-         + "\n     greeting is " + new org.hamcrest.StringDescription().appendValue(greeting).toString() + "\n", Should.<String>should_be(_upperCase, "HELLO"));
+         + "\n     greeting is " + new org.hamcrest.StringDescription().appendValue(greeting).toString() + "\n", Should.should_be(_upperCase, "HELLO"));
         
       }
     };
