@@ -130,7 +130,7 @@ public class JnarioTypeComputer extends XbaseWithRichstringTypeComputer {
 		int callArguments = -1;
 		XExpression argument = Iterables.getFirst(featureCall.getMemberCallArguments(), null);
 		if (argument instanceof XClosure){
-			EList<JvmFormalParameter> parameters = ((XClosure) argument).getFormalParameters();
+			EList<JvmFormalParameter> parameters = ((XClosure) argument).getDeclaredFormalParameters();
 			callArguments = parameters != null ? parameters.size() : 0; 
 		}
 		@SuppressWarnings("unchecked")
