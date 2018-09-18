@@ -4,7 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="xtend-gen"/>
-	<classpathentry kind="lib" path="lib/flexmark-0.34.30.jar"/>
-	<classpathentry kind="lib" path="lib/flexmark-util-0.34.30.jar"/>
+	<classpathentry kind="lib" path="lib/flexmark-0.34.30.jar" sourcepath="lib/flexmark-0.34.30-sources.jar"/>
+	<classpathentry kind="lib" path="lib/flexmark-util-0.34.30.jar" sourcepath="lib/flexmark-util-0.34.30-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
