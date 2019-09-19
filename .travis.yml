@@ -1,5 +1,5 @@
 language: java
-#jdk:
+jdk:
 #   - oraclejdk7	#xtext 2.11 requires jdk8
 #   - oraclejdk8
    - openjdk8
