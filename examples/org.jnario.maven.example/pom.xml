@@ -6,12 +6,12 @@
 		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 		<xtend.version>2.14.0</xtend.version>
-		<jnario.version>1.1.1-SNAPSHOT</jnario.version> <!--Jnario Version-->
+		<jnario.version>1.1.2-SNAPSHOT</jnario.version> <!--Jnario Version-->
 	</properties>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>org.jnario.maven.example</artifactId>
 	<name>Jnario Maven Example</name>
-	<version>1.1.1-SNAPSHOT</version> <!--Jnario Version-->
+	<version>${jnario.version}</version> <!--Jnario Version-->
 	<groupId>org.jnario</groupId>
 	
 	<repositories>
@@ -141,7 +141,7 @@
 											jnario-maven-plugin
 										</artifactId>
 										<versionRange>
-											[1.1.1-SNAPSHOT,)
+											[1.1.2-SNAPSHOT,)
 										</versionRange>
 										<goals>
 											<goal>testCompile</goal>

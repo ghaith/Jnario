@@ -4,7 +4,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Version: 1.1.1.qualifier
+Bundle-Version: 1.1.2.qualifier
 Bundle-ClassPath: .
 Bundle-SymbolicName: org.jnario.xbase.richstring;singleton:=true
 Bundle-ActivationPolicy: lazy
