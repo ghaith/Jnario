@@ -31,11 +31,8 @@ public class Wait {
    */
   public static void waitUntil(final Function1<Wait, Boolean> initializer) {
     final Wait wait = new Wait(Sleeper.SYSTEM_SLEEPER, Clock.SYSTEM_CLOCK);
-    final Function0<Boolean> _function = new Function0<Boolean>() {
-      @Override
-      public Boolean apply() {
-        return initializer.apply(wait);
-      }
+    final Function0<Boolean> _function = () -> {
+      return initializer.apply(wait);
     };
     final Function0<Boolean> condition = _function;
     wait.until(condition);

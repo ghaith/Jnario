@@ -73,9 +73,9 @@ public class ExampleNameProviderToMethodNameBeforeSpec extends ExampleNameProvid
   @Named("should enumerate before without description")
   @Order(4)
   public void _shouldEnumerateBeforeWithoutDescription() throws Exception {
-    String _secondMethodName = this.secondMethodName("before{}\r\n                 before{}");
-    Assert.assertTrue("\nExpected secondMethodName(\"before{}\r\n                 before{}\") => \"before2\" but"
-     + "\n     secondMethodName(\"before{}\r\n                 before{}\") is " + new org.hamcrest.StringDescription().appendValue(_secondMethodName).toString() + "\n", Should.operator_doubleArrow(_secondMethodName, "before2"));
+    String _secondMethodName = this.secondMethodName("before{}\n                 before{}");
+    Assert.assertTrue("\nExpected secondMethodName(\"before{}\n                 before{}\") => \"before2\" but"
+     + "\n     secondMethodName(\"before{}\n                 before{}\") is " + new org.hamcrest.StringDescription().appendValue(_secondMethodName).toString() + "\n", Should.operator_doubleArrow(_secondMethodName, "before2"));
     
   }
   
@@ -84,9 +84,9 @@ public class ExampleNameProviderToMethodNameBeforeSpec extends ExampleNameProvid
   @Order(5)
   public void _shouldEnumerateNestedBeforeWithoutDescription() throws Exception {
     String _secondMethodName = this.secondMethodName(
-      "before{}\r\n                 context{\r\n                   before{}\r\n                 }");
-    Assert.assertTrue("\nExpected secondMethodName(\r\n                \"before{}\r\n                 context{\r\n                   before{}\r\n                 }\") => \"before2\" but"
-     + "\n     secondMethodName(\r\n                \"before{}\r\n                 context{\r\n                   before{}\r\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_secondMethodName).toString() + "\n", Should.operator_doubleArrow(_secondMethodName, "before2"));
+      "before{}\n                 context{\n                   before{}\n                 }");
+    Assert.assertTrue("\nExpected secondMethodName(\n                \"before{}\n                 context{\n                   before{}\n                 }\") => \"before2\" but"
+     + "\n     secondMethodName(\n                \"before{}\n                 context{\n                   before{}\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_secondMethodName).toString() + "\n", Should.operator_doubleArrow(_secondMethodName, "before2"));
     
   }
   
@@ -95,9 +95,9 @@ public class ExampleNameProviderToMethodNameBeforeSpec extends ExampleNameProvid
   @Order(6)
   public void _shouldEnumerateNestedBeforeAllWithoutDescription() throws Exception {
     String _secondMethodName = this.secondMethodName(
-      "before all{}\r\n                 context{\r\n                   before all{}\r\n                 }");
-    Assert.assertTrue("\nExpected secondMethodName(\r\n                \"before all{}\r\n                 context{\r\n                   before all{}\r\n                 }\") => \"beforeAll2\" but"
-     + "\n     secondMethodName(\r\n                \"before all{}\r\n                 context{\r\n                   before all{}\r\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_secondMethodName).toString() + "\n", Should.operator_doubleArrow(_secondMethodName, "beforeAll2"));
+      "before all{}\n                 context{\n                   before all{}\n                 }");
+    Assert.assertTrue("\nExpected secondMethodName(\n                \"before all{}\n                 context{\n                   before all{}\n                 }\") => \"beforeAll2\" but"
+     + "\n     secondMethodName(\n                \"before all{}\n                 context{\n                   before all{}\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_secondMethodName).toString() + "\n", Should.operator_doubleArrow(_secondMethodName, "beforeAll2"));
     
   }
   
@@ -106,9 +106,9 @@ public class ExampleNameProviderToMethodNameBeforeSpec extends ExampleNameProvid
   @Order(7)
   public void _shouldKeepDefaultNameOfNestedBeforeAndBeforeAll() throws Exception {
     String _secondMethodName = this.secondMethodName(
-      "before{}\r\n                 context{\r\n                   before all{}\r\n                 }");
-    Assert.assertTrue("\nExpected secondMethodName(\r\n                \"before{}\r\n                 context{\r\n                   before all{}\r\n                 }\") => \"beforeAll\" but"
-     + "\n     secondMethodName(\r\n                \"before{}\r\n                 context{\r\n                   before all{}\r\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_secondMethodName).toString() + "\n", Should.operator_doubleArrow(_secondMethodName, "beforeAll"));
+      "before{}\n                 context{\n                   before all{}\n                 }");
+    Assert.assertTrue("\nExpected secondMethodName(\n                \"before{}\n                 context{\n                   before all{}\n                 }\") => \"beforeAll\" but"
+     + "\n     secondMethodName(\n                \"before{}\n                 context{\n                   before all{}\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_secondMethodName).toString() + "\n", Should.operator_doubleArrow(_secondMethodName, "beforeAll"));
     
   }
   

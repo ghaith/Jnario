@@ -77,9 +77,9 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   @Named("should use the target operation")
   @Order(5)
   public void _shouldUseTheTargetOperation() throws Exception {
-    String _describeSecond = this.describeSecond("describe org.junit.Assert{\r\n                    context assertTrue(boolean) {}\r\n                 }");
-    Assert.assertTrue("\nExpected describeSecond(\"describe org.junit.Assert{\r\n                    context assertTrue(boolean) {}\r\n                 }\") => \"assertTrue[boolean]\" but"
-     + "\n     describeSecond(\"describe org.junit.Assert{\r\n                    context assertTrue(boolean) {}\r\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_describeSecond).toString() + "\n", Should.operator_doubleArrow(_describeSecond, "assertTrue[boolean]"));
+    String _describeSecond = this.describeSecond("describe org.junit.Assert{\n                    context assertTrue(boolean) {}\n                 }");
+    Assert.assertTrue("\nExpected describeSecond(\"describe org.junit.Assert{\n                    context assertTrue(boolean) {}\n                 }\") => \"assertTrue[boolean]\" but"
+     + "\n     describeSecond(\"describe org.junit.Assert{\n                    context assertTrue(boolean) {}\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_describeSecond).toString() + "\n", Should.operator_doubleArrow(_describeSecond, "assertTrue[boolean]"));
     
   }
   
@@ -87,9 +87,9 @@ public class ExampleNameProviderDescribeExampleGroupSpec extends ExampleNameProv
   @Named("should combine target operation and description")
   @Order(6)
   public void _shouldCombineTargetOperationAndDescription() throws Exception {
-    String _describeSecond = this.describeSecond("describe org.junit.Assert{\r\n                    context assertTrue(boolean) \'and more\'{}\r\n                 }");
-    Assert.assertTrue("\nExpected describeSecond(\"describe org.junit.Assert{\r\n                    context assertTrue(boolean) \'and more\'{}\r\n                 }\") => \"assertTrue[boolean] and more\" but"
-     + "\n     describeSecond(\"describe org.junit.Assert{\r\n                    context assertTrue(boolean) \'and more\'{}\r\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_describeSecond).toString() + "\n", Should.operator_doubleArrow(_describeSecond, "assertTrue[boolean] and more"));
+    String _describeSecond = this.describeSecond("describe org.junit.Assert{\n                    context assertTrue(boolean) \'and more\'{}\n                 }");
+    Assert.assertTrue("\nExpected describeSecond(\"describe org.junit.Assert{\n                    context assertTrue(boolean) \'and more\'{}\n                 }\") => \"assertTrue[boolean] and more\" but"
+     + "\n     describeSecond(\"describe org.junit.Assert{\n                    context assertTrue(boolean) \'and more\'{}\n                 }\") is " + new org.hamcrest.StringDescription().appendValue(_describeSecond).toString() + "\n", Should.operator_doubleArrow(_describeSecond, "assertTrue[boolean] and more"));
     
   }
   

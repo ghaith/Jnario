@@ -51,7 +51,7 @@ public class SpecDocGeneratorSpec {
     boolean _notEquals = (!Objects.equal(scenarioDoc, null));
     boolean _contains = scenarioDoc.contains("<title>Example</title>");
     boolean _and = (_notEquals && _contains);
-    Assert.assertTrue("\nExpected scenarioDoc != null && \r\n\t\t\t\tscenarioDoc.contains(\"<title>Example</title>\") but"
+    Assert.assertTrue("\nExpected scenarioDoc != null && \n\t\t\t\tscenarioDoc.contains(\"<title>Example</title>\") but"
      + "\n     scenarioDoc != null is " + new org.hamcrest.StringDescription().appendValue(_notEquals).toString()
      + "\n     scenarioDoc is " + new org.hamcrest.StringDescription().appendValue(scenarioDoc).toString()
      + "\n     scenarioDoc.contains(\"<title>Example</title>\") is " + new org.hamcrest.StringDescription().appendValue(_contains).toString() + "\n", _and);
@@ -144,11 +144,11 @@ public class SpecDocGeneratorSpec {
     _builder_1.newLine();
     _builder_1.append("x = x + 1</pre>");
     boolean _contains = this.convertNL(scenarioDoc).contains(this.convertNL(_builder_1));
-    Assert.assertTrue("\nExpected scenarioDoc.convertNL.contains(\'\'\'\r\n\t\t<p id=\"should_do_stuff\" class=\"example notrun\"><strong>should do stuff</strong></p>\r\n\t\t<p>Example documentation</p>\r\n\t\t<pre class=\"prettyprint lang-spec linenums\">\r\n\t\tvar x = 0\r\n\t\tx = x + 1</pre>\'\'\'.convertNL) but"
+    Assert.assertTrue("\nExpected scenarioDoc.convertNL.contains(\'\'\'\n\t\t<p id=\"should_do_stuff\" class=\"example notrun\"><strong>should do stuff</strong></p>\n\t\t<p>Example documentation</p>\n\t\t<pre class=\"prettyprint lang-spec linenums\">\n\t\tvar x = 0\n\t\tx = x + 1</pre>\'\'\'.convertNL) but"
      + "\n     scenarioDoc.convertNL is " + new org.hamcrest.StringDescription().appendValue(this.convertNL(scenarioDoc)).toString()
      + "\n     scenarioDoc is " + new org.hamcrest.StringDescription().appendValue(scenarioDoc).toString()
-     + "\n     \'\'\'\r\n\t\t<p id=\"should_do_stuff\" class=\"example notrun\"><strong>should do stuff</strong></p>\r\n\t\t<p>Example documentation</p>\r\n\t\t<pre class=\"prettyprint lang-spec linenums\">\r\n\t\tvar x = 0\r\n\t\tx = x + 1</pre>\'\'\'.convertNL is " + new org.hamcrest.StringDescription().appendValue(this.convertNL(_builder_1)).toString()
-     + "\n     \'\'\'\r\n\t\t<p id=\"should_do_stuff\" class=\"example notrun\"><strong>should do stuff</strong></p>\r\n\t\t<p>Example documentation</p>\r\n\t\t<pre class=\"prettyprint lang-spec linenums\">\r\n\t\tvar x = 0\r\n\t\tx = x + 1</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1).toString() + "\n", _contains);
+     + "\n     \'\'\'\n\t\t<p id=\"should_do_stuff\" class=\"example notrun\"><strong>should do stuff</strong></p>\n\t\t<p>Example documentation</p>\n\t\t<pre class=\"prettyprint lang-spec linenums\">\n\t\tvar x = 0\n\t\tx = x + 1</pre>\'\'\'.convertNL is " + new org.hamcrest.StringDescription().appendValue(this.convertNL(_builder_1)).toString()
+     + "\n     \'\'\'\n\t\t<p id=\"should_do_stuff\" class=\"example notrun\"><strong>should do stuff</strong></p>\n\t\t<p>Example documentation</p>\n\t\t<pre class=\"prettyprint lang-spec linenums\">\n\t\tvar x = 0\n\t\tx = x + 1</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1).toString() + "\n", _contains);
     
   }
   
@@ -271,11 +271,11 @@ public class SpecDocGeneratorSpec {
     _builder_1.newLine();
     _builder_1.append("1 + 1 =&gt; 2</pre>");
     String _convertNL_1 = this.convertNL(_builder_1);
-    Assert.assertFalse("\nExpected scenarioDoc.convertNL should not contain \'\'\'<pre class=\"prettyprint lang-spec linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\'.convertNL but"
+    Assert.assertFalse("\nExpected scenarioDoc.convertNL should not contain \'\'\'<pre class=\"prettyprint lang-spec linenums\">\n1 + 1 =&gt; 2</pre>\'\'\'.convertNL but"
      + "\n     scenarioDoc.convertNL is " + new org.hamcrest.StringDescription().appendValue(_convertNL).toString()
      + "\n     scenarioDoc is " + new org.hamcrest.StringDescription().appendValue(scenarioDoc).toString()
-     + "\n     \'\'\'<pre class=\"prettyprint lang-spec linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\'.convertNL is " + new org.hamcrest.StringDescription().appendValue(_convertNL_1).toString()
-     + "\n     \'\'\'<pre class=\"prettyprint lang-spec linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1).toString() + "\n", Should.<Object>should_contain(_convertNL, _convertNL_1));
+     + "\n     \'\'\'<pre class=\"prettyprint lang-spec linenums\">\n1 + 1 =&gt; 2</pre>\'\'\'.convertNL is " + new org.hamcrest.StringDescription().appendValue(_convertNL_1).toString()
+     + "\n     \'\'\'<pre class=\"prettyprint lang-spec linenums\">\n1 + 1 =&gt; 2</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1).toString() + "\n", Should.<Object>should_contain(_convertNL, _convertNL_1));
     
   }
   
@@ -370,11 +370,11 @@ public class SpecDocGeneratorSpec {
     _builder_1.newLine();
     _builder_1.append("1 + 1 =&gt; 2</pre>");
     String _convertNL_1 = this.convertNL(_builder_1);
-    Assert.assertTrue("\nExpected scenarioDoc.convertNL should contain \'\'\'<pre class=\"prettyprint lang-ruby linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\'.convertNL but"
+    Assert.assertTrue("\nExpected scenarioDoc.convertNL should contain \'\'\'<pre class=\"prettyprint lang-ruby linenums\">\n1 + 1 =&gt; 2</pre>\'\'\'.convertNL but"
      + "\n     scenarioDoc.convertNL is " + new org.hamcrest.StringDescription().appendValue(_convertNL).toString()
      + "\n     scenarioDoc is " + new org.hamcrest.StringDescription().appendValue(scenarioDoc).toString()
-     + "\n     \'\'\'<pre class=\"prettyprint lang-ruby linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\'.convertNL is " + new org.hamcrest.StringDescription().appendValue(_convertNL_1).toString()
-     + "\n     \'\'\'<pre class=\"prettyprint lang-ruby linenums\">\r\n1 + 1 =&gt; 2</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1).toString() + "\n", Should.<Object>should_contain(_convertNL, _convertNL_1));
+     + "\n     \'\'\'<pre class=\"prettyprint lang-ruby linenums\">\n1 + 1 =&gt; 2</pre>\'\'\'.convertNL is " + new org.hamcrest.StringDescription().appendValue(_convertNL_1).toString()
+     + "\n     \'\'\'<pre class=\"prettyprint lang-ruby linenums\">\n1 + 1 =&gt; 2</pre>\'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder_1).toString() + "\n", Should.<Object>should_contain(_convertNL, _convertNL_1));
     
   }
   

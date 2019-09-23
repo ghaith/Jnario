@@ -44,9 +44,9 @@ public class ExampleNameProviderToJavaClassNameExampleTableSpec extends ExampleN
     _builder.append("}");
     _builder.newLine();
     String _exampleTableClassName = this.exampleTableClassName(_builder);
-    Assert.assertTrue("\nExpected exampleTableClassName(\'\'\'\r\n        describe \'My Context\'{\r\n          def MyExample{\r\n          }\r\n        }\r\n        \'\'\') => \"MyContextSpecMyExample\" but"
-     + "\n     exampleTableClassName(\'\'\'\r\n        describe \'My Context\'{\r\n          def MyExample{\r\n          }\r\n        }\r\n        \'\'\') is " + new org.hamcrest.StringDescription().appendValue(_exampleTableClassName).toString()
-     + "\n     \'\'\'\r\n        describe \'My Context\'{\r\n          def MyExample{\r\n          }\r\n        }\r\n        \'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder).toString() + "\n", Should.operator_doubleArrow(_exampleTableClassName, "MyContextSpecMyExample"));
+    Assert.assertTrue("\nExpected exampleTableClassName(\'\'\'\n        describe \'My Context\'{\n          def MyExample{\n          }\n        }\n        \'\'\') => \"MyContextSpecMyExample\" but"
+     + "\n     exampleTableClassName(\'\'\'\n        describe \'My Context\'{\n          def MyExample{\n          }\n        }\n        \'\'\') is " + new org.hamcrest.StringDescription().appendValue(_exampleTableClassName).toString()
+     + "\n     \'\'\'\n        describe \'My Context\'{\n          def MyExample{\n          }\n        }\n        \'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder).toString() + "\n", Should.operator_doubleArrow(_exampleTableClassName, "MyContextSpecMyExample"));
     
   }
   
@@ -66,9 +66,9 @@ public class ExampleNameProviderToJavaClassNameExampleTableSpec extends ExampleN
     _builder.append("}");
     _builder.newLine();
     String _exampleTableClassName = this.exampleTableClassName(_builder);
-    Assert.assertTrue("\nExpected exampleTableClassName(\'\'\'\r\n        describe \'My Context\'{\r\n          def myExample{\r\n          } \r\n        }\r\n        \'\'\') => \"MyContextSpecMyExample\" but"
-     + "\n     exampleTableClassName(\'\'\'\r\n        describe \'My Context\'{\r\n          def myExample{\r\n          } \r\n        }\r\n        \'\'\') is " + new org.hamcrest.StringDescription().appendValue(_exampleTableClassName).toString()
-     + "\n     \'\'\'\r\n        describe \'My Context\'{\r\n          def myExample{\r\n          } \r\n        }\r\n        \'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder).toString() + "\n", Should.operator_doubleArrow(_exampleTableClassName, "MyContextSpecMyExample"));
+    Assert.assertTrue("\nExpected exampleTableClassName(\'\'\'\n        describe \'My Context\'{\n          def myExample{\n          } \n        }\n        \'\'\') => \"MyContextSpecMyExample\" but"
+     + "\n     exampleTableClassName(\'\'\'\n        describe \'My Context\'{\n          def myExample{\n          } \n        }\n        \'\'\') is " + new org.hamcrest.StringDescription().appendValue(_exampleTableClassName).toString()
+     + "\n     \'\'\'\n        describe \'My Context\'{\n          def myExample{\n          } \n        }\n        \'\'\' is " + new org.hamcrest.StringDescription().appendValue(_builder).toString() + "\n", Should.operator_doubleArrow(_exampleTableClassName, "MyContextSpecMyExample"));
     
   }
   
