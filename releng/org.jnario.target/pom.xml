@@ -31,9 +31,9 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>photon-xtext2.14.target</file>
+									<file>2019-12.target</file>
 									<type>target</type>
-									<classifier>photon-xtext2.14</classifier>
+									<classifier>2019-12</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>

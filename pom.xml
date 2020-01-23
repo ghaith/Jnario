@@ -15,7 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
     <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-    <platform-version-name>photon</platform-version-name>
+    <platform-version-name>2019-12</platform-version-name>
     <xtend.version>2.20.0</xtend.version>
     <xtext.version>${xtend.version}</xtext.version>
   </properties>
@@ -134,7 +134,7 @@
               <groupId>org.jnario</groupId>
               <artifactId>org.jnario.target</artifactId>
               <version>${project.version}</version>
-              <classifier>photon-xtext2.14</classifier>
+              <classifier>2019-12</classifier>
             </artifact>
           </target>
           <ignoreTychoRepositories>true</ignoreTychoRepositories>

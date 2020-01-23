@@ -24,7 +24,7 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.eclipse.xtext.xbase.lib,
  org.jnario;bundle-version="1.0.0",
  org.jnario.lib;bundle-version="1.0.0",
- org.objectweb.asm;bundle-version="[5.0.1,7.0.0)";resolution:=optional
+ org.objectweb.asm;resolution:=optional
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.jnario.suite,
