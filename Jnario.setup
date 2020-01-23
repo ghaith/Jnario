@@ -3,15 +3,13 @@
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:git="http://www.eclipse.org/oomph/setup/git/1.0"
     xmlns:jdt="http://www.eclipse.org/oomph/setup/jdt/1.0"
     xmlns:predicates="http://www.eclipse.org/oomph/predicates/1.0"
-    xmlns:projects="http://www.eclipse.org/oomph/setup/projects/1.0"
     xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
     xmlns:setup.p2="http://www.eclipse.org/oomph/setup/p2/1.0"
     xmlns:setup.targlets="http://www.eclipse.org/oomph/setup/targlets/1.0"
     xmlns:setup.workingsets="http://www.eclipse.org/oomph/setup/workingsets/1.0"
-    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/projects/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Projects.ecore http://www.eclipse.org/oomph/setup/targlets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupTarglets.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
+    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/targlets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupTarglets.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
     name="jnario"
     label="Jnario">
   <setupTask
@@ -19,13 +17,6 @@
       version="JavaSE-1.8"
       location="${jre.location-1.8}">
     <description>Define the JRE needed to compile and run the Java projects of ${scope.project.label}</description>
-  </setupTask>
-  <setupTask
-      xsi:type="setup:EclipseIniTask"
-      option="-Xmx"
-      value="2g"
-      vm="true">
-    <description>Set the heap space needed to work with the projects of ${scope.project.label}</description>
   </setupTask>
   <setupTask
       xsi:type="setup:ResourceCreationTask"
@@ -38,7 +29,7 @@
   <setupTask
       xsi:type="setup:VariableTask"
       name="eclipse.target.platform"
-      defaultValue="Neon"
+      defaultValue="2019-12"
       storageURI="scope://Workspace"/>
   <setupTask
       xsi:type="setup.p2:P2Task">
@@ -47,48 +38,20 @@
     <requirement
         name="org.eclipse.xtext.sdk.feature.group"/>
     <repository
-        url="http://download.eclipse.org/releases/neon"/>
+        url="http://download.eclipse.org/releases/2019-12"/>
     <repository
-        url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones/"/>
+        url="http://download.eclipse.org/cbi/updates/license"/>
     <repository
-        url="http://download.eclipse.org/releases/oxygen"/>
+        url="http://www.xpect-tests.org/updatesite/nightly/"/>
+    <repository
+        url="https://download.eclipse.org/tools/orbit/downloads/2019-12"/>
     <description>Install the tools needed in the IDE to work with the source code for ${scope.project.label}</description>
-  </setupTask>
-  <setupTask
-      xsi:type="git:GitCloneTask"
-      id="jnario.git.clone"
-      location="${jnario.git.location}"
-      remoteURI="https://github.com/riederm/Jnario.git"
-      pushURI="https://github.com/riederm/Jnario.git">
-    <description>${scope.project.label}</description>
   </setupTask>
   <setupTask
       xsi:type="setup.targlets:TargletTask">
     <targlet
         name="${scope.project.label}"
-        activeRepositoryList="${eclipse.target.platform}">
-      <requirement
-          name="org.eclipse.sdk.feature.group"/>
-      <requirement
-          name="org.eclipse.xtext.sdk.feature.group"
-          versionRange="[2.12.0,2.14.0)"/>
-      <requirement
-          name="org.eclipse.xtend.sdk.feature.group"
-          versionRange="[2.12.0,2.14.0)"/>
-      <requirement
-          name="org.objectweb.asm"/>
-      <requirement
-          name="org.hamcrest.core"/>
-      <requirement
-          name="org.hamcrest.text"/>
-      <requirement
-          name="org.hamcrest"/>
-      <requirement
-          name="org.objectweb.asm.analysis"/>
-      <requirement
-          name="org.mockito"/>
-      <requirement
-          name="org.objenesis"/>
+        activeRepositoryList="Repo">
       <requirement
           name="org.eclipse.jdt.junit.runners.feature.feature.group"/>
       <requirement
@@ -97,34 +60,36 @@
           name="org.xpect.xtext.lib.feature.feature.group"/>
       <requirement
           name="org.xpect.xtext.xbase.lib.feature.feature.group"/>
-      <sourceLocator
-          rootFolder="${git.clone.location}"
-          locateNestedProjects="true"/>
+      <requirement
+          name="org.eclipse.xtend.sdk.feature.group"/>
+      <requirement
+          name="org.objectweb.asm"/>
+      <requirement
+          name="org.eclipse.xtext.sdk.feature.group"/>
+      <requirement
+          name="org.mockito"/>
+      <requirement
+          name="org.objenesis"/>
+      <requirement
+          name="org.hamcrest"/>
+      <requirement
+          name="org.hamcrest.core"/>
+      <requirement
+          name="org.hamcrest.text"/>
+      <requirement
+          name="org.eclipse.m2e.core"/>
+      <requirement
+          name="org.eclipse.sdk.feature.group"/>
       <repositoryList
-          name="Neon">
+          name="Repo">
         <repository
-            url="http://download.eclipse.org/releases/neon"/>
+            url="http://download.eclipse.org/releases/2019-12"/>
         <repository
             url="http://download.eclipse.org/cbi/updates/license"/>
         <repository
-            url="http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/"/>
-        <repository
-            url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones/"/>
-        <repository
             url="http://www.xpect-tests.org/updatesite/nightly/"/>
-      </repositoryList>
-      <repositoryList
-          name="Oxygen">
         <repository
-            url="http://download.eclipse.org/releases/oxygen"/>
-        <repository
-            url="http://download.eclipse.org/cbi/updates/license"/>
-        <repository
-            url="http://download.eclipse.org/tools/orbit/downloads/drops/R20170919201930/repository/"/>
-        <repository
-            url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones/"/>
-        <repository
-            url="http://www.xpect-tests.org/updatesite/nightly/"/>
+            url="https://download.eclipse.org/tools/orbit/downloads/2019-12"/>
       </repositoryList>
     </targlet>
   </setupTask>
@@ -140,28 +105,6 @@
       </predicate>
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>
-  </setupTask>
-  <setupTask
-      xsi:type="projects:ProjectsImportTask"
-      id="jnario.import">
-    <sourceLocator
-        rootFolder="${jnario.git.clone.location}"
-        locateNestedProjects="true"/>
-  </setupTask>
-  <setupTask
-      xsi:type="setup:VariableTask"
-      id="jnario.git.location"
-      name="jnario.git.location"
-      defaultValue="${installation.location/git/}${@id.remoteURI|gitRepository}">
-    <description>the git checkout location</description>
-  </setupTask>
-  <setupTask
-      xsi:type="setup:VariableTask"
-      id="git.clone.location"
-      name="git.clone.location"
-      value=""
-      defaultValue="${jnario.git.location}">
-    <description>the git checkout location</description>
   </setupTask>
   <stream name="master"
       label="master"/>
