@@ -13,6 +13,4 @@
 	<artifactId>org.jnario.standalone</artifactId>
 	<groupId>org.jnario.plugin</groupId>
 	<packaging>eclipse-plugin</packaging>
-
-
 </project>
