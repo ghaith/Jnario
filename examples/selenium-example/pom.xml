@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jnario</groupId>
@@ -6,15 +7,19 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<name>Jnario Selenium Example</name>
 
+	<parent>
+		<relativePath>../..</relativePath>
+		<groupId>org.jnario</groupId>
+		<artifactId>jnario</artifactId>
+		<version>${revision}</version>
+	</parent>
+
 	<properties>
 		<sourceEncoding>UTF-8</sourceEncoding>
 		<project.build.sourceEncoding>${sourceEncoding}</project.build.sourceEncoding>
 		<project.build.resourceEncoding>${sourceEncoding}</project.build.resourceEncoding>
 		<maven.compiler.encoding>${sourceEncoding}</maven.compiler.encoding>
-		<xtend.version>2.14.0</xtend.version>
-
-		<!--Jnario Version-->
-		<jnario.version>1.1.2-SNAPSHOT</jnario.version>
+		<jnario.version>${revision}</jnario.version>
 	</properties>
 
 	<dependencies>
@@ -59,38 +64,36 @@
 
 	<build>
 		<plugins>
-            <plugin>
-                <groupId>org.eclipse.xtend</groupId>
-                <artifactId>xtend-maven-plugin</artifactId>
-                <version>${xtend.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>xtend-install-debug-info</goal>
-                            <goal>testCompile</goal>
-                            <goal>xtend-test-install-debug-info</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <outputDirectory>src/main/xtend-gen</outputDirectory>
-                    <testOutputDirectory>src/test/xtend-gen/</testOutputDirectory>
-                </configuration>
-                <dependencies>
-                    <!--
-                        See https://github.com/eclipse/xtext/issues/1231
-
-                        Prevents mvn build exception:
-                            - SecurityException: class "org.eclipse.core.runtime.OperationCanceledException"'s signer information does not match signer information of other classes in the same package
-                    -->
-                    <dependency>
-                        <groupId>org.eclipse.platform</groupId>
-                        <artifactId>org.eclipse.equinox.common</artifactId>
-                        <version>3.10.0</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+				<version>${xtend.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>xtend-install-debug-info</goal>
+							<goal>testCompile</goal>
+							<goal>xtend-test-install-debug-info</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<outputDirectory>src/main/xtend-gen</outputDirectory>
+					<testOutputDirectory>src/test/xtend-gen/</testOutputDirectory>
+				</configuration>
+				<dependencies>
+					<!-- See https://github.com/eclipse/xtext/issues/1231 Prevents mvn build 
+						exception: - SecurityException: class "org.eclipse.core.runtime.OperationCanceledException"'s 
+						signer information does not match signer information of other classes in 
+						the same package -->
+					<dependency>
+						<groupId>org.eclipse.platform</groupId>
+						<artifactId>org.eclipse.equinox.common</artifactId>
+						<version>3.10.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 			<plugin>
 				<groupId>org.jnario</groupId>
 				<artifactId>jnario-maven-plugin</artifactId>
@@ -104,7 +107,7 @@
 					</execution>
 				</executions>
 				<configuration>
-				    <testOutputDirectory>${basedir}/src/test/jnario-gen</testOutputDirectory>
+					<testOutputDirectory>${basedir}/src/test/jnario-gen</testOutputDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -119,7 +122,7 @@
 					</execution>
 				</executions>
 				<configuration>
-				    <docOutputDirectory>${basedir}/src/test/html</docOutputDirectory>
+					<docOutputDirectory>${basedir}/src/test/html</docOutputDirectory>
 				</configuration>
 			</plugin>
 			<plugin>

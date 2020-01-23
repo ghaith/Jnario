@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>jnario</artifactId>
-    <groupId>org.jnario</groupId><relativePath>../../pom.xml</relativePath>
-    <version>1.1.2-SNAPSHOT</version> <!--Jnario Version-->
-  </parent>
-  <artifactId>org.jnario.lib.tests</artifactId>
-  <packaging>eclipse-test-plugin</packaging>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<relativePath>../..</relativePath>
+		<groupId>org.jnario</groupId>
+		<artifactId>jnario</artifactId>
+		<version>${revision}</version>
+	</parent>
+	<artifactId>org.jnario.lib.tests</artifactId>
+	<packaging>eclipse-test-plugin</packaging>
 
-  <build>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -19,9 +22,9 @@
 				<configuration>
 					<forkMode>none</forkMode>
 					<useUIHarness>false</useUIHarness>
-					<argLine>-Xmx768m -ea -Dfile.encoding=UTF-8</argLine> 
-<!--					<argLine>-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y</argLine> -->
-					<explodedBundles> 
+					<argLine>-Xmx768m -ea -Dfile.encoding=UTF-8</argLine>
+					<!-- <argLine>-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y</argLine> -->
+					<explodedBundles>
 						<!-- Make sure that nested junit.jar can be accessed by PDE/JDT. -->
 						<bundle>org.junit</bundle>
 					</explodedBundles>

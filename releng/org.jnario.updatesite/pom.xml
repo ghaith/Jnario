@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>jnario</artifactId>
+		<relativePath>../..</relativePath>
 		<groupId>org.jnario</groupId>
-		<relativePath>../../pom.xml</relativePath>
-		<version>1.1.2-SNAPSHOT</version> <!--Jnario Version-->
+		<artifactId>jnario</artifactId>
+		<version>${revision}</version>
 	</parent>
 	<artifactId>org.jnario.updatesite</artifactId>
-	<version>1.1.2-SNAPSHOT</version> <!--Jnario Version-->
 	<packaging>eclipse-repository</packaging>
 
 	<build>
@@ -40,34 +40,6 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>xml-maven-plugin</artifactId>
-				<version>1.0</version>
-				<executions>
-					<execution>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>transform</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<transformationSets>
-						<transformationSet>
-							<dir>target/repository</dir>
-							<excludes>
-								<exclude>artifacts.xml</exclude>
-								<exclude>binary/*</exclude>
-								<exclude>plugins/*</exclude>
-								<exclude>features/*</exclude>
-							</excludes>
-							<stylesheet>dist-tools/content.xsl</stylesheet>
-							<outputDir>target/repository</outputDir>
-						</transformationSet>
-					</transformationSets>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho.extras</groupId>
 				<artifactId>tycho-p2-extras-plugin</artifactId>
